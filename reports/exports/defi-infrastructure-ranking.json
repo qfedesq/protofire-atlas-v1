@@ -1,0 +1,872 @@
+[
+  {
+    "chain": "Ethereum",
+    "slug": "ethereum",
+    "sourceRank": 1,
+    "readinessRank": 1,
+    "totalScore": 10,
+    "modules": {
+      "lending": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "indexing": {
+        "status": "available",
+        "weightedContribution": 1
+      },
+      "liquid-staking": {
+        "status": "available",
+        "weightedContribution": 2.5
+      }
+    }
+  },
+  {
+    "chain": "Arbitrum",
+    "slug": "arbitrum",
+    "sourceRank": 5,
+    "readinessRank": 2,
+    "totalScore": 8.8,
+    "modules": {
+      "lending": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "indexing": {
+        "status": "available",
+        "weightedContribution": 1
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Optimism",
+    "slug": "optimism",
+    "sourceRank": 15,
+    "readinessRank": 3,
+    "totalScore": 7.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "indexing": {
+        "status": "available",
+        "weightedContribution": 1
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Avalanche",
+    "slug": "avalanche",
+    "sourceRank": 6,
+    "readinessRank": 4,
+    "totalScore": 7.3,
+    "modules": {
+      "lending": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Base",
+    "slug": "base",
+    "sourceRank": 3,
+    "readinessRank": 5,
+    "totalScore": 7.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "BNB Chain",
+    "slug": "bnb-chain",
+    "sourceRank": 2,
+    "readinessRank": 6,
+    "totalScore": 7.3,
+    "modules": {
+      "lending": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Polygon",
+    "slug": "polygon",
+    "sourceRank": 8,
+    "readinessRank": 7,
+    "totalScore": 7.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Berachain",
+    "slug": "berachain",
+    "sourceRank": 14,
+    "readinessRank": 8,
+    "totalScore": 6.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Katana",
+    "slug": "katana",
+    "sourceRank": 7,
+    "readinessRank": 9,
+    "totalScore": 6.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Mantle",
+    "slug": "mantle",
+    "sourceRank": 9,
+    "readinessRank": 10,
+    "totalScore": 6.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Cronos",
+    "slug": "cronos",
+    "sourceRank": 13,
+    "readinessRank": 11,
+    "totalScore": 5,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      }
+    }
+  },
+  {
+    "chain": "Plasma",
+    "slug": "plasma",
+    "sourceRank": 4,
+    "readinessRank": 12,
+    "totalScore": 4,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
+      "oracles": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "BOB",
+    "slug": "bob",
+    "sourceRank": 23,
+    "readinessRank": 13,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Fraxtal",
+    "slug": "fraxtal",
+    "sourceRank": 30,
+    "readinessRank": 14,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Gnosis",
+    "slug": "gnosis",
+    "sourceRank": 16,
+    "readinessRank": 15,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Ink",
+    "slug": "ink",
+    "sourceRank": 10,
+    "readinessRank": 16,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Linea",
+    "slug": "linea",
+    "sourceRank": 17,
+    "readinessRank": 17,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Mode",
+    "slug": "mode",
+    "sourceRank": 26,
+    "readinessRank": 18,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Monad",
+    "slug": "monad",
+    "sourceRank": 11,
+    "readinessRank": 19,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Sonic",
+    "slug": "sonic",
+    "sourceRank": 29,
+    "readinessRank": 20,
+    "totalScore": 3.8,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Hemi",
+    "slug": "hemi",
+    "sourceRank": 28,
+    "readinessRank": 21,
+    "totalScore": 3.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Rootstock",
+    "slug": "rootstock",
+    "sourceRank": 20,
+    "readinessRank": 22,
+    "totalScore": 3.3,
+    "modules": {
+      "lending": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Bitlayer",
+    "slug": "bitlayer",
+    "sourceRank": 22,
+    "readinessRank": 23,
+    "totalScore": 2.8,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Hedera",
+    "slug": "hedera",
+    "sourceRank": 18,
+    "readinessRank": 24,
+    "totalScore": 2.8,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Plume",
+    "slug": "plume",
+    "sourceRank": 19,
+    "readinessRank": 25,
+    "totalScore": 2.8,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Scroll",
+    "slug": "scroll",
+    "sourceRank": 12,
+    "readinessRank": 26,
+    "totalScore": 2.8,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Unichain",
+    "slug": "unichain",
+    "sourceRank": 24,
+    "readinessRank": 27,
+    "totalScore": 2.3,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "indexing": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "MegaETH",
+    "slug": "megaeth",
+    "sourceRank": 21,
+    "readinessRank": 28,
+    "totalScore": 1.8,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "indexing": {
+        "status": "partial",
+        "weightedContribution": 0.5
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "AILayer",
+    "slug": "ai-layer",
+    "sourceRank": 25,
+    "readinessRank": 29,
+    "totalScore": 1.3,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "indexing": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  },
+  {
+    "chain": "Ethereal",
+    "slug": "ethereal",
+    "sourceRank": 27,
+    "readinessRank": 30,
+    "totalScore": 1.3,
+    "modules": {
+      "lending": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquidity": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
+      "oracles": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "indexing": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      }
+    }
+  }
+]

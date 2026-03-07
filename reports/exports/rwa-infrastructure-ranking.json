@@ -1,0 +1,752 @@
+[
+  {
+    "chain": "Ethereum",
+    "slug": "ethereum",
+    "sourceRank": 1,
+    "readinessRank": 1,
+    "totalScore": 8.5,
+    "modules": {
+      "asset-registry": {
+        "status": "available",
+        "weightedContribution": 3
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Avalanche",
+    "slug": "avalanche",
+    "sourceRank": 6,
+    "readinessRank": 2,
+    "totalScore": 7.5,
+    "modules": {
+      "asset-registry": {
+        "status": "available",
+        "weightedContribution": 3
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Plume",
+    "slug": "plume",
+    "sourceRank": 19,
+    "readinessRank": 3,
+    "totalScore": 7.5,
+    "modules": {
+      "asset-registry": {
+        "status": "available",
+        "weightedContribution": 3
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Arbitrum",
+    "slug": "arbitrum",
+    "sourceRank": 5,
+    "readinessRank": 4,
+    "totalScore": 7,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Base",
+    "slug": "base",
+    "sourceRank": 3,
+    "readinessRank": 5,
+    "totalScore": 7,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Polygon",
+    "slug": "polygon",
+    "sourceRank": 8,
+    "readinessRank": 6,
+    "totalScore": 7,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "available",
+        "weightedContribution": 2
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Hedera",
+    "slug": "hedera",
+    "sourceRank": 18,
+    "readinessRank": 7,
+    "totalScore": 6.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "available",
+        "weightedContribution": 3
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Optimism",
+    "slug": "optimism",
+    "sourceRank": 15,
+    "readinessRank": 8,
+    "totalScore": 6,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Gnosis",
+    "slug": "gnosis",
+    "sourceRank": 16,
+    "readinessRank": 9,
+    "totalScore": 5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "BNB Chain",
+    "slug": "bnb-chain",
+    "sourceRank": 2,
+    "readinessRank": 10,
+    "totalScore": 4.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "available",
+        "weightedContribution": 2
+      }
+    }
+  },
+  {
+    "chain": "Cronos",
+    "slug": "cronos",
+    "sourceRank": 13,
+    "readinessRank": 11,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Ink",
+    "slug": "ink",
+    "sourceRank": 10,
+    "readinessRank": 12,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Linea",
+    "slug": "linea",
+    "sourceRank": 17,
+    "readinessRank": 13,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Mantle",
+    "slug": "mantle",
+    "sourceRank": 9,
+    "readinessRank": 14,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Monad",
+    "slug": "monad",
+    "sourceRank": 11,
+    "readinessRank": 15,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Sonic",
+    "slug": "sonic",
+    "sourceRank": 29,
+    "readinessRank": 16,
+    "totalScore": 3.5,
+    "modules": {
+      "asset-registry": {
+        "status": "partial",
+        "weightedContribution": 1.5
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "AILayer",
+    "slug": "ai-layer",
+    "sourceRank": 25,
+    "readinessRank": 17,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Berachain",
+    "slug": "berachain",
+    "sourceRank": 14,
+    "readinessRank": 18,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Bitlayer",
+    "slug": "bitlayer",
+    "sourceRank": 22,
+    "readinessRank": 19,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "BOB",
+    "slug": "bob",
+    "sourceRank": 23,
+    "readinessRank": 20,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Ethereal",
+    "slug": "ethereal",
+    "sourceRank": 27,
+    "readinessRank": 21,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Fraxtal",
+    "slug": "fraxtal",
+    "sourceRank": 30,
+    "readinessRank": 22,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Hemi",
+    "slug": "hemi",
+    "sourceRank": 28,
+    "readinessRank": 23,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Katana",
+    "slug": "katana",
+    "sourceRank": 7,
+    "readinessRank": 24,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "MegaETH",
+    "slug": "megaeth",
+    "sourceRank": 21,
+    "readinessRank": 25,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Mode",
+    "slug": "mode",
+    "sourceRank": 26,
+    "readinessRank": 26,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Plasma",
+    "slug": "plasma",
+    "sourceRank": 4,
+    "readinessRank": 27,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Rootstock",
+    "slug": "rootstock",
+    "sourceRank": 20,
+    "readinessRank": 28,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Scroll",
+    "slug": "scroll",
+    "sourceRank": 12,
+    "readinessRank": 29,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  },
+  {
+    "chain": "Unichain",
+    "slug": "unichain",
+    "sourceRank": 24,
+    "readinessRank": 30,
+    "totalScore": 2,
+    "modules": {
+      "asset-registry": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "compliance": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
+      "oracles": {
+        "status": "partial",
+        "weightedContribution": 1
+      },
+      "settlement": {
+        "status": "partial",
+        "weightedContribution": 1
+      }
+    }
+  }
+]

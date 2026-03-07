@@ -1,0 +1,149 @@
+# Runbook
+
+## Install
+
+```bash
+npm install
+```
+
+## Run locally
+
+```bash
+npm run dev
+```
+
+Default local URL: `http://localhost:3000`
+
+## Access internal admin
+
+Production-style access:
+
+```bash
+ATLAS_ADMIN_PASSWORD=your-password npm run dev
+```
+
+Local development fallback:
+
+- if `ATLAS_ADMIN_PASSWORD` is not set and `NODE_ENV` is not production, `/internal/admin` accepts `atlas-admin`
+
+## Refresh the top 30 EVM dataset
+
+```bash
+npm run data:refresh-top30
+```
+
+This command:
+
+- fetches DeFiLlama `/chains`
+- filters the result through the curated EVM map
+- rewrites the top-30 snapshot used by Atlas
+
+After refresh:
+
+1. review [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
+2. update [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts) if a new chain entered the benchmark
+3. update any affected readiness seeds
+
+## Validate seed data
+
+```bash
+npm run validate:data
+```
+
+Use this after any edit to:
+
+- [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
+- [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts)
+- [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts)
+- any file under [`data/seed/economies`](/Users/qfedesq/Desktop/Atlas/data/seed/economies)
+- [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts)
+
+## Generate reports
+
+```bash
+npm run reports:generate
+```
+
+Outputs:
+
+- [`reports/ai-agent-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/ai-agent-readiness-report.md)
+- [`reports/defi-infrastructure-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/defi-infrastructure-readiness-report.md)
+- [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
+- JSON exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+
+## Typecheck
+
+```bash
+npm run typecheck
+```
+
+## Lint
+
+```bash
+npm run lint
+```
+
+## Test
+
+```bash
+npm run test
+```
+
+## Production build
+
+```bash
+npm run build
+```
+
+## Full repo health check
+
+```bash
+npm run check
+```
+
+## Recommended release workflow
+
+```bash
+npm run data:refresh-top30
+npm run validate:data
+npm run reports:generate
+npm run version:bump
+npm run check
+npm run build
+```
+
+## Manual verification before shipping
+
+1. Open `/` and confirm the home page states the DeFiLlama top-30 EVM snapshot basis.
+2. Switch across AI Agents, DeFi, RWA, and Prediction Markets on the home page.
+3. Confirm the selected economy updates:
+   - economy description
+   - required modules
+   - deployment sequencing
+   - active sort arrows in the leaderboard headers
+   - leaderboard rows
+4. Sort the leaderboard from the `Chain`, `Readiness`, and module headers and confirm URL params update cleanly.
+5. Open one chain profile from the home leaderboard.
+6. Confirm each chain profile updates:
+   - readiness score
+   - source TVL rank and snapshot metadata
+   - shareable scorecard snapshot
+   - module status
+   - gap analysis
+   - nearby peers
+   - score drivers
+   - stack recommendation
+    - deployment plan
+   - request assessment CTA
+7. Submit a test request from a chain profile and confirm:
+   - the success state appears
+   - a new record is written to `data/runtime/assessment-requests.json`
+   - a new event is written to `data/runtime/intent-events.json`
+8. Open `/internal/admin`.
+9. Confirm admin access works:
+   - with `ATLAS_ADMIN_PASSWORD` in production-like environments
+   - with the documented local fallback password in development
+10. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
+11. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+12. Regenerate reports and confirm the markdown and export files update cleanly.
+13. Confirm wording does not imply live or continuously synced data.

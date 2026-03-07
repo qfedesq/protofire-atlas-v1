@@ -1,0 +1,64 @@
+{
+  "updatedAt": "2026-03-07T00:00:00.000Z",
+  "updatedBy": "seed",
+  "statusScores": {
+    "missing": 0,
+    "partial": 0.5,
+    "available": 1
+  },
+  "economies": {
+    "ai-agents": {
+      "moduleWeights": {
+        "registry": 25,
+        "payments": 25,
+        "indexing": 25,
+        "security": 25
+      },
+      "recommendationConfig": {
+        "thresholdScore": 0.5,
+        "includePartialRecommendations": true,
+        "includeMissingRecommendations": true
+      }
+    },
+    "defi-infrastructure": {
+      "moduleWeights": {
+        "lending": 20,
+        "liquidity": 25,
+        "oracles": 20,
+        "indexing": 10,
+        "liquid-staking": 25
+      },
+      "recommendationConfig": {
+        "thresholdScore": 0.5,
+        "includePartialRecommendations": true,
+        "includeMissingRecommendations": true
+      }
+    },
+    "rwa-infrastructure": {
+      "moduleWeights": {
+        "asset-registry": 30,
+        "compliance": 30,
+        "oracles": 20,
+        "settlement": 20
+      },
+      "recommendationConfig": {
+        "thresholdScore": 0.5,
+        "includePartialRecommendations": true,
+        "includeMissingRecommendations": true
+      }
+    },
+    "prediction-markets": {
+      "moduleWeights": {
+        "oracles": 35,
+        "market-contracts": 30,
+        "indexing": 15,
+        "liquidity": 20
+      },
+      "recommendationConfig": {
+        "thresholdScore": 0.5,
+        "includePartialRecommendations": true,
+        "includeMissingRecommendations": true
+      }
+    }
+  }
+}

@@ -86,10 +86,12 @@ export function RankingsTable({
   return (
     <div className="border-border bg-surface overflow-x-auto rounded-3xl border shadow-[var(--shadow-soft)]">
       <table className="min-w-full text-left text-sm">
-        <thead className="border-border bg-surface-muted sticky top-0 z-20 border-b shadow-[0_1px_0_0_var(--border)]">
+        <thead className="border-border border-b">
           <tr className="text-muted">
-            <th className="bg-surface-muted px-5 py-4 font-medium">Rank</th>
-            <th className="bg-surface-muted px-5 py-4 font-medium">
+            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
+              Rank
+            </th>
+            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
               <SortableHeader
                 label="Chain"
                 sortKey="name"
@@ -98,7 +100,7 @@ export function RankingsTable({
                 buildSortHref={buildSortHref}
               />
             </th>
-            <th className="bg-surface-muted px-5 py-4 font-medium">
+            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
               <SortableHeader
                 label="Readiness"
                 sortKey="totalScore"
@@ -110,7 +112,7 @@ export function RankingsTable({
             {economy.modules.map((module) => (
               <th
                 key={module.id}
-                className="bg-surface-muted px-5 py-4 font-medium"
+                className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]"
               >
                 <SortableHeader
                   label={module.name}

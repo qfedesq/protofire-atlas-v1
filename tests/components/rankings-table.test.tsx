@@ -48,7 +48,9 @@ describe("RankingsTable", () => {
     expect(
       screen.queryByRole("link", { name: /Sort Rank/i }),
     ).not.toBeInTheDocument();
-    expect(screen.getByText("Rank").closest("thead")).toHaveClass("sticky");
+    const rankHeader = screen.getByRole("columnheader", { name: "Rank" });
+    expect(rankHeader).toHaveClass("sticky");
+    expect(rankHeader).toHaveClass("top-0");
   });
 
   it("renders an empty state when no rows match", () => {

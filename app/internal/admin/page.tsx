@@ -120,6 +120,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               Saving these values changes the public readiness model, rankings,
               and recommendation behavior.
             </p>
+            <p className="text-muted mt-2 text-sm leading-6">
+              This page is the narrow management surface for weights, status
+              mappings, and recommendation thresholds only.
+            </p>
           </div>
           <form action={logoutAdminAction}>
             <button

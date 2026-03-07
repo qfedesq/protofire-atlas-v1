@@ -11,6 +11,7 @@ import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { RecommendedStackSection } from "@/components/stack/recommended-stack";
+import { ExpandableSection } from "@/components/ui/expandable-section";
 import { Panel } from "@/components/ui/panel";
 import { siteConfig } from "@/lib/config/site";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
@@ -57,19 +58,19 @@ export function ChainProfileView({
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
-        <Panel className="protofire-dark-panel text-white">
+        <Panel>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-xs tracking-[0.18em] text-slate-300 uppercase">
+              <p className="text-muted text-xs tracking-[0.18em] uppercase">
                 {profile.chain.category} chain profile
               </p>
-              <h1 className="mt-3 text-4xl font-semibold tracking-tight">
+              <h1 className="text-foreground mt-3 text-4xl font-semibold tracking-tight">
                 {profile.chain.name}
               </h1>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-200">
+              <p className="text-muted mt-4 max-w-3xl text-sm leading-7">
                 {profile.chain.shortDescription}
               </p>
-              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs tracking-[0.16em] text-slate-300 uppercase">
+              <div className="text-muted mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs tracking-[0.16em] uppercase">
                 <span>Selected wedge: {profile.economy.shortLabel}</span>
                 <span>Source TVL rank: #{profile.chain.sourceRank}</span>
                 <span>TVL snapshot: {formatCurrencyCompact(profile.chain.sourceTvlUsd)}</span>
@@ -81,7 +82,7 @@ export function ChainProfileView({
                 href={profile.chain.website}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-white transition hover:border-white/40"
+                className="border-border text-foreground hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition"
               >
                 Chain website
                 <ArrowUpRight className="h-4 w-4" />
@@ -133,50 +134,32 @@ export function ChainProfileView({
         <ModuleStatusGrid readinessScore={profile.readinessScore} />
       </section>
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Gap analysis
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            What is still blocking readiness
-          </h2>
-        </div>
+      <ExpandableSection
+        eyebrow="Gap analysis"
+        title="What is still blocking readiness"
+      >
         <GapAnalysis
           gaps={profile.gapAnalysis}
           economyLabel={profile.economy.name}
         />
-      </section>
+      </ExpandableSection>
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            What moves your score
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            Highest-upside module improvements
-          </h2>
-        </div>
+      <ExpandableSection
+        eyebrow="What moves your score"
+        title="Highest-upside module improvements"
+      >
         <ScoreDriversSection drivers={profile.scoreDrivers} />
-      </section>
+      </ExpandableSection>
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Peer comparison
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            Nearby chains in the same economy wedge
-          </h2>
-          <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-            Atlas compares the closest ranks above and below this chain to show
-            where module gaps are still costing position.
-          </p>
-        </div>
+      <ExpandableSection
+        eyebrow="Peer comparison"
+        title="Nearby chains in the same economy wedge"
+        description="Atlas compares the closest ranks above and below this chain to show where module gaps are still costing position."
+      >
         <PeerComparisonSection profile={profile} />
-      </section>
+      </ExpandableSection>
 
-      <section className="space-y-4">
+      <section className="space-y-4" id="suggested-activations">
         <div>
           <p className="text-accent text-xs tracking-[0.16em] uppercase">
             Stack recommendation

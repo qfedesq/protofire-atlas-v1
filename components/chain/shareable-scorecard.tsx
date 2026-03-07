@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
@@ -58,6 +59,12 @@ export function ShareableScorecard({
           <p className="text-foreground mt-2 text-3xl font-semibold">
             {profile.recommendedStack.recommendedModules.length}
           </p>
+          <Link
+            href="#suggested-activations"
+            className="text-accent mt-3 inline-flex text-sm font-medium hover:underline"
+          >
+            Open suggested activations
+          </Link>
         </div>
       </div>
 

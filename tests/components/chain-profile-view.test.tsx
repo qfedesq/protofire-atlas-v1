@@ -44,5 +44,21 @@ describe("ChainProfileView", () => {
       0,
     );
     expect(screen.getByText(/Source TVL rank: #3/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Open suggested activations" }),
+    ).toHaveAttribute("href", "#suggested-activations");
+    expect(
+      screen.getByText("What is still blocking readiness").closest("details"),
+    ).not.toHaveAttribute("open");
+    expect(
+      screen
+        .getByText("Highest-upside module improvements")
+        .closest("details"),
+    ).not.toHaveAttribute("open");
+    expect(
+      screen
+        .getByText("Nearby chains in the same economy wedge")
+        .closest("details"),
+    ).not.toHaveAttribute("open");
   });
 });

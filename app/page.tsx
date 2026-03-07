@@ -2,7 +2,7 @@ import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
-import { atlasDatasetLabel, atlasDatasetSummary } from "@/lib/config/dataset";
+import { atlasDatasetLabel } from "@/lib/config/dataset";
 import { parseRankingsQuery } from "@/lib/domain/schemas";
 import type {
   RankingsQuery,
@@ -86,7 +86,6 @@ export default async function Home({ searchParams }: HomePageProps) {
     searchParams ? await searchParams : undefined,
   );
   const rows = repository.listRankedChains(query);
-  const chains = repository.listChains();
   const economies = repository.listEconomies();
   const economy = rows[0]?.economy ?? economies.find((item) => item.slug === query.economy);
 
@@ -114,34 +113,6 @@ export default async function Home({ searchParams }: HomePageProps) {
             Compare infrastructure readiness, expose missing modules, and map
             each gap to a deterministic Protofire deployment stack.
           </p>
-          <p className="mt-4 text-sm leading-6 text-slate-300">
-            Dataset basis: {atlasDatasetSummary}. Atlas uses a curated snapshot,
-            not live synchronization.
-          </p>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <div className="protofire-hero-metric rounded-2xl border p-4">
-              <p className="text-sm font-medium text-white">
-                {chains.length} seeded chains
-              </p>
-              <p className="mt-2 text-sm text-slate-300">
-                Top 30 EVM selection documented from DeFiLlama TVL.
-              </p>
-            </div>
-            <div className="protofire-hero-metric rounded-2xl border p-4">
-              <p className="text-sm font-medium text-white">
-                {economies.length} economy wedges
-              </p>
-              <p className="mt-2 text-sm text-slate-300">
-                AI Agents, DeFi, RWA, and Prediction Markets.
-              </p>
-            </div>
-            <div className="protofire-hero-metric rounded-2xl border p-4">
-              <p className="text-sm font-medium text-white">0 runtime AI</p>
-              <p className="mt-2 text-sm text-slate-300">
-                Rule-based scoring and recommendations only.
-              </p>
-            </div>
-          </div>
         </Panel>
 
         <EconomySwitcher
@@ -232,17 +203,9 @@ export default async function Home({ searchParams }: HomePageProps) {
       </section>
 
       <section className="space-y-4" id="ranking">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div>
-            <p className="text-accent text-xs tracking-[0.16em] uppercase">
-              Top 30 EVM chains by TVL
-            </p>
-            <p className="text-muted mt-2 max-w-3xl text-sm leading-6">
-              Current ranking for {economy.name}. Scores reflect the current
-              Atlas dataset and active assumptions, not live synchronization.
-            </p>
-          </div>
-        </div>
+        <p className="text-accent text-xs tracking-[0.16em] uppercase">
+          Top 30 EVM chains by TVL
+        </p>
         <RankingsTable
           economy={economy}
           rows={rows}

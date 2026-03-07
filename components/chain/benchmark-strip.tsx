@@ -16,12 +16,12 @@ export function BenchmarkStrip({
 }: BenchmarkStripProps) {
   return (
     <div className="grid gap-4 md:grid-cols-3">
-      <Panel className="protofire-dark-panel text-white">
-        <p className="text-xs tracking-[0.16em] text-slate-300 uppercase">
+      <Panel>
+        <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Position
         </p>
-        <p className="mt-3 text-3xl font-semibold">#{rank}</p>
-        <p className="mt-2 text-sm text-slate-300">
+        <p className="text-foreground mt-3 text-3xl font-semibold">#{rank}</p>
+        <p className="text-muted mt-2 text-sm">
           Deterministic rank in the current seeded Atlas dataset.
         </p>
       </Panel>

@@ -27,10 +27,13 @@ describe("RootLayout", () => {
 
       expect(screen.getByAltText("Protofire")).toBeInTheDocument();
       expect(screen.getByText("Atlas")).toBeInTheDocument();
-      expect(screen.getByText("V1.0")).toBeInTheDocument();
+      expect(screen.getByText("V1.1")).toBeInTheDocument();
       expect(
         screen.getByRole("link", { name: "Atlas overview" }),
       ).toHaveAttribute("href", "/");
+      expect(
+        screen.getByRole("link", { name: "Assumptions admin" }),
+      ).toHaveAttribute("href", "/internal/admin");
       expect(screen.getByText("Atlas content")).toBeInTheDocument();
     } finally {
       consoleError.mockRestore();

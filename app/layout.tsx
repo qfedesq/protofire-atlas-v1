@@ -50,6 +50,12 @@ export default function RootLayout({
                 <Link className="transition hover:text-white" href="/">
                   Atlas overview
                 </Link>
+                <Link
+                  className="transition hover:text-white"
+                  href="/internal/admin"
+                >
+                  Assumptions admin
+                </Link>
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-[0.18em] text-slate-200 uppercase">
                   {atlasVersion.label}
                 </span>

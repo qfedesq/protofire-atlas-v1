@@ -86,10 +86,10 @@ export function RankingsTable({
   return (
     <div className="border-border bg-surface overflow-x-auto rounded-3xl border shadow-[var(--shadow-soft)]">
       <table className="min-w-full text-left text-sm">
-        <thead className="border-border bg-surface-muted border-b">
+        <thead className="border-border bg-surface-muted sticky top-0 z-20 border-b shadow-[0_1px_0_0_var(--border)]">
           <tr className="text-muted">
-            <th className="px-5 py-4 font-medium">Rank</th>
-            <th className="px-5 py-4 font-medium">
+            <th className="bg-surface-muted px-5 py-4 font-medium">Rank</th>
+            <th className="bg-surface-muted px-5 py-4 font-medium">
               <SortableHeader
                 label="Chain"
                 sortKey="name"
@@ -98,7 +98,7 @@ export function RankingsTable({
                 buildSortHref={buildSortHref}
               />
             </th>
-            <th className="px-5 py-4 font-medium">
+            <th className="bg-surface-muted px-5 py-4 font-medium">
               <SortableHeader
                 label="Readiness"
                 sortKey="totalScore"
@@ -108,7 +108,10 @@ export function RankingsTable({
               />
             </th>
             {economy.modules.map((module) => (
-              <th key={module.id} className="px-5 py-4 font-medium">
+              <th
+                key={module.id}
+                className="bg-surface-muted px-5 py-4 font-medium"
+              >
                 <SortableHeader
                   label={module.name}
                   sortKey={module.slug}

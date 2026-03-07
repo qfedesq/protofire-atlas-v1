@@ -48,6 +48,7 @@ describe("RankingsTable", () => {
     expect(
       screen.queryByRole("link", { name: /Sort Rank/i }),
     ).not.toBeInTheDocument();
+    expect(screen.getByText("Rank").closest("thead")).toHaveClass("sticky");
   });
 
   it("renders an empty state when no rows match", () => {

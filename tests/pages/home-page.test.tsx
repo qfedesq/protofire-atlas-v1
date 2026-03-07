@@ -28,6 +28,13 @@ describe("home page", () => {
     );
     expect(screen.queryByText("Current ranking")).not.toBeInTheDocument();
     expect(screen.queryByText(/leaderboard/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Dataset basis:/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/30 seeded chains/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/4 economy wedges/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/0 runtime AI/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Scores reflect the current Atlas dataset/i),
+    ).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Search")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Category")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Sort by")).not.toBeInTheDocument();

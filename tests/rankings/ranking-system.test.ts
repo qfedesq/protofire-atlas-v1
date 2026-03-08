@@ -12,7 +12,7 @@ import {
 } from "@/lib/rankings/table";
 
 describe("ranking system", () => {
-  it("keeps a minimal default view for global and opportunity ranking modes", () => {
+  it("keeps all global columns visible by default and a minimal opportunity view", () => {
     const globalDefaults = getDefaultVisibleColumnIds(createGlobalRankingColumns());
     const opportunityDefaults = getDefaultVisibleColumnIds(
       createOpportunityRankingColumns(),
@@ -23,6 +23,15 @@ describe("ranking system", () => {
       "totalScore",
       "economyCompositeScore",
       "ecosystemScore",
+      "adoptionScore",
+      "performanceScore",
+      "wallets",
+      "activeUsers",
+      "protocols",
+      "ecosystemProjects",
+      "averageTransactionSpeed",
+      "blockTime",
+      "throughputIndicator",
     ]);
     expect(opportunityDefaults).toEqual([
       "chain",

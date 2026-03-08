@@ -73,10 +73,6 @@ export default async function GlobalRankingsPage({
             This ranking combines infrastructure readiness across four economies
             with ecosystem adoption and technical performance indicators.
           </p>
-          <p className="text-muted mt-3 text-sm leading-6">
-            Top 30 EVM chains by TVL. Atlas uses a curated snapshot and active
-            scoring assumptions, not live synchronization.
-          </p>
         </Panel>
       </section>
 

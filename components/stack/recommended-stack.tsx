@@ -1,10 +1,13 @@
 import { Panel } from "@/components/ui/panel";
 import type { RecommendedStack } from "@/lib/domain/types";
+import { cn } from "@/lib/utils/cn";
 
 export function RecommendedStackSection({
   stack,
+  layout = "stacked",
 }: {
   stack: RecommendedStack;
+  layout?: "stacked" | "grid";
 }) {
   const phaseTitleByKey = new Map(
     stack.deploymentPhases.map((phase) => [phase.key, phase.title] as const),
@@ -29,7 +32,14 @@ export function RecommendedStackSection({
           </p>
         </Panel>
       ) : (
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div
+          className={cn(
+            "grid gap-4",
+            layout === "grid" && stack.recommendedModules.length > 1
+              ? "2xl:grid-cols-2"
+              : "grid-cols-1",
+          )}
+        >
           {stack.recommendedModules.map((recommendation) => (
             <Panel key={recommendation.title}>
               <div className="flex flex-wrap items-start justify-between gap-4">

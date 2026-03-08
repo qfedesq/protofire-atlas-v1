@@ -10,6 +10,7 @@ import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repos
 import {
   loginAdminAction,
   logoutAdminAction,
+  syncAtlasDataNowAction,
   updateEconomyAssumptionsAction,
   updateGlobalRankingAssumptionsAction,
   updateOpportunityScoringAssumptionsAction,
@@ -22,6 +23,22 @@ type AdminPageProps = {
 
 function getMessage(value: string | string[] | undefined) {
   return Array.isArray(value) ? value[0] : value;
+}
+
+function formatSavedMessage(savedMessage: string) {
+  if (savedMessage === "sync-now") {
+    return "Atlas sync completed for the currently supported refresh workflow.";
+  }
+
+  return `Saved assumption set: ${savedMessage}.`;
+}
+
+function formatErrorMessage(errorMessage: string) {
+  if (errorMessage === "sync-now") {
+    return "Atlas sync could not complete in the current environment.";
+  }
+
+  return `Could not save assumption set: ${errorMessage}.`;
 }
 
 export default async function AdminPage({ searchParams }: AdminPageProps) {
@@ -154,13 +171,39 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           <p className="text-accent text-sm">Admin session opened.</p>
         ) : null}
         {savedMessage ? (
-          <p className="text-accent text-sm">Saved assumption set: {savedMessage}.</p>
+          <p className="text-accent text-sm">
+            {formatSavedMessage(savedMessage)}
+          </p>
         ) : null}
         {errorMessage ? (
           <p className="text-rose-600 text-sm">
-            Could not save assumption set: {errorMessage}.
+            {formatErrorMessage(errorMessage)}
           </p>
         ) : null}
+      </Panel>
+
+      <Panel className="space-y-4">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Snapshot refresh
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Sync supported Atlas sources
+          </h2>
+          <p className="text-muted mt-3 text-sm leading-6">
+            Runs the current Atlas refresh workflow for the DeFiLlama top-30
+            benchmark snapshot and regenerates reports and exports. This is not
+            live synchronization and only persists in writable environments.
+          </p>
+        </div>
+        <form action={syncAtlasDataNowAction}>
+          <button
+            type="submit"
+            className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+          >
+            SYNC NOW
+          </button>
+        </form>
       </Panel>
 
       <Panel className="space-y-4">

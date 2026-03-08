@@ -1,11 +1,25 @@
 import { Panel } from "@/components/ui/panel";
 import type { DeploymentPlan } from "@/lib/domain/types";
+import { cn } from "@/lib/utils/cn";
 
 type DeploymentPlanSectionProps = {
   plan: DeploymentPlan;
+  layout?: "stacked" | "grid";
 };
 
-export function DeploymentPlanSection({ plan }: DeploymentPlanSectionProps) {
+export function DeploymentPlanSection({
+  plan,
+  layout = "stacked",
+}: DeploymentPlanSectionProps) {
+  const gridClassName =
+    layout === "grid"
+      ? plan.phases.length >= 3
+        ? "xl:grid-cols-2 2xl:grid-cols-3"
+        : plan.phases.length === 2
+          ? "xl:grid-cols-2"
+          : "grid-cols-1"
+      : "grid-cols-1";
+
   return (
     <div className="space-y-4">
       {plan.phases.length === 0 ? (
@@ -17,7 +31,7 @@ export function DeploymentPlanSection({ plan }: DeploymentPlanSectionProps) {
           </p>
         </Panel>
       ) : (
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className={cn("grid gap-4", gridClassName)}>
           {plan.phases.map((phase) => (
             <Panel key={phase.id}>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">

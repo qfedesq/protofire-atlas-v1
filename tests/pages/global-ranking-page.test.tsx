@@ -16,9 +16,14 @@ describe("global ranking page", () => {
         /This ranking combines infrastructure readiness across four economies/i,
       ),
     ).toBeInTheDocument();
+    expect(screen.getAllByText("Wallets").length).toBeGreaterThan(1);
+    expect(screen.getAllByText("Throughput").length).toBeGreaterThan(1);
     expect(screen.getByRole("link", { name: "Ethereum" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Global Score descending" }),
     ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/Atlas uses a curated snapshot and active scoring assumptions/i),
+    ).not.toBeInTheDocument();
   });
 });

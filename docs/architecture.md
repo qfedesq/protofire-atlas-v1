@@ -100,6 +100,7 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
    - technical performance score
 3. Global ranking weights and the economy-composite blend are read from the active assumptions layer.
 4. [`app/rankings/global/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/rankings/global/page.tsx) renders the public holistic leaderboard.
+5. [`scripts/sync-atlas-data.mjs`](/Users/qfedesq/Desktop/Atlas/scripts/sync-atlas-data.mjs) runs the currently supported refresh workflow for the Atlas benchmark snapshot plus generated outputs.
 
 ## Target account flow
 
@@ -161,6 +162,7 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
    - global ranking component weights
    - economy composite weights inside the global ranking
    - opportunity-score weights for Target Account Mode
+6. The same admin route also exposes `SYNC NOW`, which triggers the currently supported Atlas refresh workflow through [`lib/admin/sync.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/sync.ts).
 
 ## Report flow
 
@@ -183,8 +185,9 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 Home page:
 
 - parses ranking search params at `/`
+- parses global-ranking sorting and column params at `/#global-ranking`
 - resolves the selected economy
-- renders the economy switcher, module overview, deployment sequencing, and full leaderboard in one page
+- renders the global leaderboard plus the selected-economy leaderboard in one page
 - drives leaderboard sorting directly from table header links instead of a separate filter panel
 - emits a lightweight intent beacon for the active economy selection
 
@@ -220,7 +223,7 @@ Layout:
 
 ## Why this structure
 
-- It keeps the public product surface narrow: one page for economy comparison, one route for chain detail, and one focused global leaderboard.
+- It keeps the public product surface narrow: one page for public rankings, one route for chain detail, and one focused compatibility route for the global leaderboard.
 - It preserves the multi-economy model without duplicating routes for each wedge.
 - It keeps chain selection reproducible without pretending the product is live.
 - It keeps data population inside explicit seed files instead of hidden services.

@@ -5,6 +5,7 @@ Atlas now uses one shared ranking-table architecture for all comparative views.
 Supported modes:
 
 - economy ranking at `/`
+- global chain ranking section at `/#global-ranking`
 - global chain ranking at `/rankings/global`
 - internal opportunity ranking at `/internal/targets`
 
@@ -81,10 +82,7 @@ Why this choice:
 
 Global ranking default:
 
-- Chain
-- Global Score
-- Economy Composite
-- Ecosystem Score
+- all global columns visible
 
 Opportunity ranking default:
 
@@ -115,7 +113,8 @@ Rules:
 
 - table container scrolls horizontally on smaller widths
 - sticky chain column remains visible
-- default columns stay minimal for global and internal ranking modes
+- default columns stay fully expanded for the public global ranking
+- default columns stay minimal for the internal opportunity ranking
 - advanced columns stay available through the column menu
 
 ## Extending the ranking system

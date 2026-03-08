@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { createAdminSession, clearAdminSession } from "@/lib/admin/auth";
+import { runAtlasSyncNow } from "@/lib/admin/sync";
 import {
   updateEconomyAssumptions,
   updateGlobalRankingAssumptions,
@@ -29,6 +30,15 @@ export async function loginAdminAction(formData: FormData) {
 export async function logoutAdminAction() {
   await clearAdminSession();
   redirect("/internal/admin");
+}
+
+export async function syncAtlasDataNowAction() {
+  try {
+    runAtlasSyncNow();
+    redirect("/internal/admin?saved=sync-now");
+  } catch {
+    redirect("/internal/admin?error=sync-now");
+  }
 }
 
 export async function updateStatusScoresAction(formData: FormData) {

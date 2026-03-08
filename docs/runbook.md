@@ -44,6 +44,19 @@ After refresh:
 2. update [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts) if a new chain entered the benchmark
 3. update any affected readiness seeds
 
+## Run the supported Atlas sync workflow
+
+```bash
+npm run data:sync
+```
+
+This command currently:
+
+- refreshes the top-30 EVM snapshot
+- regenerates reports and exports
+
+The same workflow is exposed from `/internal/admin` via `SYNC NOW`.
+
 ## Validate seed data
 
 ```bash
@@ -118,7 +131,9 @@ npm run build
 
 ## Manual verification before shipping
 
-1. Open `/` and confirm the home page states the DeFiLlama top-30 EVM snapshot basis.
+1. Open `/` and confirm the home page renders both:
+   - the global chain leaderboard
+   - the selected economy leaderboard
 2. Switch across AI Agents, DeFi, RWA, and Prediction Markets on the home page.
 3. Confirm the selected economy updates:
    - economy description
@@ -149,11 +164,11 @@ npm run build
    - with `ATLAS_ADMIN_PASSWORD` in production-like environments
    - with the documented local fallback password in development
 11. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
-12. Open `/rankings/global` and confirm:
+12. Open `/#global-ranking` or `/rankings/global` and confirm:
    - the leaderboard renders
    - sorting works for `Global Score`, `Ecosystem`, and `Adoption`
-   - default columns stay minimal
-   - optional columns can be toggled on
+   - all columns are visible by default
+   - optional columns can still be toggled off
    - chain links land on the public chain profile
 13. Open `/internal/targets` and confirm:
    - sorting works for `Opportunity Score`, `Readiness gap`, and `Ecosystem size`

@@ -13,14 +13,19 @@ describe("home page", () => {
     render(view);
 
     expect(
-      screen.getByText("DeFi Infrastructure Economy"),
+      screen.getAllByText("DeFi Infrastructure Economy").length,
+    ).toBeGreaterThan(1);
+    expect(
+      screen.getByText("Holistic chain leaderboard"),
     ).toBeInTheDocument();
     expect(screen.getByText("Required modules")).toBeInTheDocument();
     expect(screen.getByText("Deployment sequencing")).toBeInTheDocument();
     expect(screen.getByText("7-module LST weights")).toBeInTheDocument();
+    expect(screen.getAllByText("Wallets").length).toBeGreaterThan(1);
+    expect(screen.getAllByText("Avg Tx Speed").length).toBeGreaterThan(1);
     expect(
-      screen.getByRole("link", { name: "Sort Chain ascending" }),
-    ).toBeInTheDocument();
+      screen.getAllByRole("link", { name: "Sort Chain ascending" }).length,
+    ).toBeGreaterThan(1);
     expect(
       screen.getByRole("button", { name: /Add my chain/i }),
     ).toBeInTheDocument();
@@ -31,11 +36,13 @@ describe("home page", () => {
       "/?economy=defi-infrastructure&sort=totalScore&direction=desc",
     );
     expect(screen.queryByText("Current ranking")).not.toBeInTheDocument();
-    expect(screen.queryByText(/leaderboard/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/Dataset basis:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/30 seeded chains/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/4 economy wedges/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/0 runtime AI/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: /Open global chain ranking/i }),
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Scores reflect the current Atlas dataset/i),
     ).not.toBeInTheDocument();

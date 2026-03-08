@@ -20,7 +20,8 @@ Supported economy wedges:
 Core product surface:
 
 - one-page public Atlas overview at `/`
-- public Global Chain Ranking at `/rankings/global`
+- one-page public Global Chain Ranking section at `/#global-ranking`
+- compatibility Global Chain Ranking route at `/rankings/global`
 - economy switching inside the home page
 - full ranking and direct header sorting inside the home page
 - chain profile pages at `/chains/[slug]`
@@ -73,6 +74,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
 npm run dev
+npm run data:sync
 npm run data:refresh-top30
 npm run reports:generate
 npm run version:bump
@@ -92,6 +94,12 @@ npm run check
 
 ```bash
 npm run data:refresh-top30
+```
+
+Or run the currently supported full refresh workflow:
+
+```bash
+npm run data:sync
 ```
 
 2. Review the generated snapshot in [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json).
@@ -183,6 +191,15 @@ This layer controls:
 The internal route is:
 
 - `/internal/admin`
+
+The admin route also exposes `SYNC NOW`, which runs the currently supported
+Atlas refresh workflow:
+
+- refresh top-30 EVM benchmark snapshot
+- regenerate reports and exports
+
+It does not imply live synchronization and only persists in writable
+environments.
 
 Protection model:
 

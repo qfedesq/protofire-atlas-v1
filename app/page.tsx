@@ -1,14 +1,20 @@
-import Link from "next/link";
-
 import { submitChainAdditionRequestAction } from "@/app/actions/chain-addition-request";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { AddChainRequestForm } from "@/components/requests/add-chain-request-form";
-import { createEconomyRankingColumns } from "@/components/tables/ranking-column-definitions";
+import {
+  createEconomyRankingColumns,
+  createGlobalRankingColumns,
+} from "@/components/tables/ranking-column-definitions";
+import { GlobalRankingsTable } from "@/components/tables/global-rankings-table";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
-import { parseRankingsQuery } from "@/lib/domain/schemas";
+import {
+  parseGlobalRankingsQuery,
+  parseRankingsQuery,
+} from "@/lib/domain/schemas";
 import type {
+  GlobalRankingsQuery,
   RankingsQuery,
   RankingsSortDirection,
   RankingsSortKey,
@@ -34,12 +40,55 @@ type HomePageProps = {
 function buildEconomyHref(
   economy: RankingsQuery["economy"],
   query: RankingsQuery,
+  globalQuery: GlobalRankingsQuery,
+  globalVisibleColumnIds: string[],
+  globalColumns: ReturnType<typeof createGlobalRankingColumns>,
 ) {
-  return buildHomeHref(query, { economy });
+  const searchParams = new URLSearchParams();
+
+  searchParams.set("economy", economy);
+
+  if (query.q) {
+    searchParams.set("q", query.q);
+  }
+
+  if (query.category !== "All") {
+    searchParams.set("category", query.category);
+  }
+
+  if (query.sort !== "totalScore") {
+    searchParams.set("sort", query.sort);
+  }
+
+  if (query.direction !== "desc") {
+    searchParams.set("direction", query.direction);
+  }
+
+  const serializedGlobalColumns = serializeVisibleColumnIds(
+    globalVisibleColumnIds,
+    globalColumns,
+  );
+
+  if (globalQuery.sort !== "totalScore") {
+    searchParams.set("globalSort", globalQuery.sort);
+  }
+
+  if (globalQuery.direction !== "desc") {
+    searchParams.set("globalDirection", globalQuery.direction);
+  }
+
+  if (serializedGlobalColumns) {
+    searchParams.set("globalColumns", serializedGlobalColumns);
+  }
+
+  return `/?${searchParams.toString()}`;
 }
 
 function buildSortHref(
   query: RankingsQuery,
+  globalQuery: GlobalRankingsQuery,
+  globalVisibleColumnIds: string[],
+  globalColumns: ReturnType<typeof createGlobalRankingColumns>,
   visibleColumnIds: string[],
   columns: ReturnType<typeof createEconomyRankingColumns>,
   sort: RankingsSortKey,
@@ -59,6 +108,23 @@ function buildSortHref(
     searchParams.set("category", query.category);
   }
 
+  if (globalQuery.sort !== "totalScore") {
+    searchParams.set("globalSort", globalQuery.sort);
+  }
+
+  if (globalQuery.direction !== "desc") {
+    searchParams.set("globalDirection", globalQuery.direction);
+  }
+
+  const serializedGlobalColumns = serializeVisibleColumnIds(
+    globalVisibleColumnIds,
+    globalColumns,
+  );
+
+  if (serializedGlobalColumns) {
+    searchParams.set("globalColumns", serializedGlobalColumns);
+  }
+
   const serializedColumns = serializeVisibleColumnIds(visibleColumnIds, columns);
 
   if (serializedColumns) {
@@ -68,55 +134,82 @@ function buildSortHref(
   return `/?${searchParams.toString()}`;
 }
 
-function buildHomeHref(
+function buildGlobalSortHref(
   query: RankingsQuery,
-  overrides: Partial<
-    Pick<RankingsQuery, "economy" | "q" | "category" | "sort" | "direction">
-  > & { columns?: string },
+  globalQuery: GlobalRankingsQuery,
+  visibleColumnIds: string[],
+  columns: ReturnType<typeof createEconomyRankingColumns>,
+  globalVisibleColumnIds: string[],
+  globalColumns: ReturnType<typeof createGlobalRankingColumns>,
+  sort: GlobalRankingsQuery["sort"],
+  direction: RankingsSortDirection,
 ) {
   const searchParams = new URLSearchParams();
-  const nextQuery = {
-    ...query,
-    ...overrides,
-  };
 
-  searchParams.set("economy", nextQuery.economy);
+  searchParams.set("economy", query.economy);
 
-  if (nextQuery.q) {
-    searchParams.set("q", nextQuery.q);
+  if (query.q) {
+    searchParams.set("q", query.q);
   }
 
-  if (nextQuery.category !== "All") {
-    searchParams.set("category", nextQuery.category);
+  if (query.category !== "All") {
+    searchParams.set("category", query.category);
   }
 
-  if (nextQuery.sort !== "totalScore") {
-    searchParams.set("sort", nextQuery.sort);
+  if (query.sort !== "totalScore") {
+    searchParams.set("sort", query.sort);
   }
 
-  if (nextQuery.direction !== "desc") {
-    searchParams.set("direction", nextQuery.direction);
+  if (query.direction !== "desc") {
+    searchParams.set("direction", query.direction);
   }
 
-  if (overrides.columns) {
-    searchParams.set("columns", overrides.columns);
+  const serializedColumns = serializeVisibleColumnIds(visibleColumnIds, columns);
+
+  if (serializedColumns) {
+    searchParams.set("columns", serializedColumns);
   }
 
-  const search = searchParams.toString();
+  if (sort !== "totalScore") {
+    searchParams.set("globalSort", sort);
+  }
 
-  return search.length > 0 ? `/?${search}` : "/";
+  if (direction !== "desc") {
+    searchParams.set("globalDirection", direction);
+  }
+
+  const serializedGlobalColumns = serializeVisibleColumnIds(
+    globalVisibleColumnIds,
+    globalColumns,
+  );
+
+  if (serializedGlobalColumns) {
+    searchParams.set("globalColumns", serializedGlobalColumns);
+  }
+
+  return `/?${searchParams.toString()}#global-ranking`;
 }
 
 export default async function Home({ searchParams }: HomePageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const query = parseRankingsQuery(resolvedSearchParams);
+  const globalQuery = parseGlobalRankingsQuery({
+    sort: resolvedSearchParams?.globalSort,
+    direction: resolvedSearchParams?.globalDirection,
+  });
   const rows = repository.listRankedChains(query);
+  const globalRows = repository.listGlobalRankedChains(globalQuery);
   const economies = repository.listEconomies();
   const economy = rows[0]?.economy ?? economies.find((item) => item.slug === query.economy);
   const rankingColumns = createEconomyRankingColumns(economy ?? economies[0]!);
+  const globalRankingColumns = createGlobalRankingColumns();
   const visibleColumnIds = resolveVisibleColumnIds(
     parseVisibleColumnIds(resolvedSearchParams?.columns),
     rankingColumns,
+  );
+  const globalVisibleColumnIds = resolveVisibleColumnIds(
+    parseVisibleColumnIds(resolvedSearchParams?.globalColumns),
+    globalRankingColumns,
   );
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
   const activeLiquidStakingWeights = getActiveLiquidStakingDiagnosticWeights();
@@ -150,7 +243,97 @@ export default async function Home({ searchParams }: HomePageProps) {
         <EconomySwitcher
           economies={economies}
           selectedEconomy={economy.slug}
-          buildHref={(economySlug) => buildEconomyHref(economySlug, query)}
+          buildHref={(economySlug) =>
+            buildEconomyHref(
+              economySlug,
+              query,
+              globalQuery,
+              globalVisibleColumnIds,
+              globalRankingColumns,
+            )
+          }
+        />
+      </section>
+
+      <section className="space-y-4" id="global-ranking">
+        <div>
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Global chain ranking
+          </p>
+          <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-tight">
+            Holistic chain leaderboard
+          </h2>
+          <p className="text-muted mt-3 max-w-4xl text-base leading-7">
+            This ranking combines infrastructure readiness across four economies
+            with ecosystem adoption and technical performance indicators.
+          </p>
+        </div>
+        <GlobalRankingsTable
+          rows={globalRows}
+          sort={globalQuery.sort}
+          direction={globalQuery.direction}
+          visibleColumnIds={globalVisibleColumnIds}
+          buildSortHref={(sortKey, sortDirection) =>
+            buildGlobalSortHref(
+              query,
+              globalQuery,
+              visibleColumnIds,
+              rankingColumns,
+              globalVisibleColumnIds,
+              globalRankingColumns,
+              sortKey,
+              sortDirection,
+            )
+          }
+          buildColumnsHref={(columnIds) => {
+            const searchParams = new URLSearchParams();
+
+            searchParams.set("economy", query.economy);
+
+            if (query.q) {
+              searchParams.set("q", query.q);
+            }
+
+            if (query.category !== "All") {
+              searchParams.set("category", query.category);
+            }
+
+            if (query.sort !== "totalScore") {
+              searchParams.set("sort", query.sort);
+            }
+
+            if (query.direction !== "desc") {
+              searchParams.set("direction", query.direction);
+            }
+
+            const serializedColumns = serializeVisibleColumnIds(
+              visibleColumnIds,
+              rankingColumns,
+            );
+
+            if (serializedColumns) {
+              searchParams.set("columns", serializedColumns);
+            }
+
+            if (globalQuery.sort !== "totalScore") {
+              searchParams.set("globalSort", globalQuery.sort);
+            }
+
+            if (globalQuery.direction !== "desc") {
+              searchParams.set("globalDirection", globalQuery.direction);
+            }
+
+            const serializedGlobalColumns = serializeVisibleColumnIds(
+              columnIds,
+              globalRankingColumns,
+            );
+
+            if (serializedGlobalColumns) {
+              searchParams.set("globalColumns", serializedGlobalColumns);
+            }
+
+            return `/?${searchParams.toString()}#global-ranking`;
+          }}
         />
       </section>
 
@@ -239,16 +422,13 @@ export default async function Home({ searchParams }: HomePageProps) {
       </section>
 
       <section className="space-y-4" id="ranking">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
           <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Top 30 EVM chains by TVL
+            Economy ranking
           </p>
-          <Link
-            href="/rankings/global"
-            className="text-accent text-sm font-medium hover:underline"
-          >
-            Open global chain ranking
-          </Link>
+          <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-tight">
+            {economy.name}
+          </h2>
         </div>
         <RankingsTable
           economy={economy}
@@ -259,17 +439,64 @@ export default async function Home({ searchParams }: HomePageProps) {
           buildSortHref={(sortKey, sortDirection) =>
             buildSortHref(
               query,
+              globalQuery,
+              globalVisibleColumnIds,
+              globalRankingColumns,
               visibleColumnIds,
               rankingColumns,
               sortKey,
               sortDirection,
             )
           }
-          buildColumnsHref={(columnIds) =>
-            buildHomeHref(query, {
-              columns: serializeVisibleColumnIds(columnIds, rankingColumns),
-            })
-          }
+          buildColumnsHref={(columnIds) => {
+            const searchParams = new URLSearchParams();
+
+            searchParams.set("economy", query.economy);
+
+            if (query.q) {
+              searchParams.set("q", query.q);
+            }
+
+            if (query.category !== "All") {
+              searchParams.set("category", query.category);
+            }
+
+            if (query.sort !== "totalScore") {
+              searchParams.set("sort", query.sort);
+            }
+
+            if (query.direction !== "desc") {
+              searchParams.set("direction", query.direction);
+            }
+
+            const serializedColumns = serializeVisibleColumnIds(
+              columnIds,
+              rankingColumns,
+            );
+
+            if (serializedColumns) {
+              searchParams.set("columns", serializedColumns);
+            }
+
+            if (globalQuery.sort !== "totalScore") {
+              searchParams.set("globalSort", globalQuery.sort);
+            }
+
+            if (globalQuery.direction !== "desc") {
+              searchParams.set("globalDirection", globalQuery.direction);
+            }
+
+            const serializedGlobalColumns = serializeVisibleColumnIds(
+              globalVisibleColumnIds,
+              globalRankingColumns,
+            );
+
+            if (serializedGlobalColumns) {
+              searchParams.set("globalColumns", serializedGlobalColumns);
+            }
+
+            return `/?${searchParams.toString()}`;
+          }}
         />
         <AddChainRequestForm
           selectedEconomy={economy.slug}

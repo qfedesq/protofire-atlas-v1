@@ -111,8 +111,11 @@ export default async function AccountIntelligencePage({
             Recommended wedge and deployment path
           </h2>
         </div>
-        <RecommendedStackSection stack={profile.recommendedStack} />
-        <DeploymentPlanSection plan={profile.deploymentPlan} />
+        <RecommendedStackSection
+          stack={profile.recommendedStack}
+          layout="grid"
+        />
+        <DeploymentPlanSection plan={profile.deploymentPlan} layout="grid" />
       </Panel>
 
       <OutreachBriefSection brief={outreachBrief} />

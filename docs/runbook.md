@@ -125,43 +125,47 @@ npm run build
    - required modules
    - deployment sequencing
    - active sort arrows in the leaderboard headers
+   - column menu state and reset-to-default behavior
    - leaderboard rows
 4. Sort the leaderboard from the `Chain`, `Readiness`, and module headers and confirm URL params update cleanly.
-5. Open one chain profile from the home leaderboard.
-6. Confirm each chain profile updates:
-   - readiness score
-   - source TVL rank and snapshot metadata
-   - shareable scorecard snapshot
-   - module status
-   - gap analysis
-   - nearby peers
-   - score drivers
-   - stack recommendation
-    - deployment plan
+5. Open the leaderboard column menu and confirm:
+   - sticky chain column stays visible
+   - hidden columns disappear from the table
+   - `Reset to default` restores the standard view
+6. Open one chain profile from the home leaderboard.
+7. Confirm each chain profile updates in this order:
+   - primary score
+   - score composition
+   - improvement path
+   - competitive context
+   - global position
    - request assessment CTA
-   - global position section
-7. Submit a test request from a chain profile and confirm:
+8. Submit a test request from a chain profile and confirm:
    - the success state appears
    - a new record is written to `data/runtime/assessment-requests.json`
    - a new event is written to `data/runtime/intent-events.json`
-8. Open `/internal/admin`.
-9. Confirm admin access works:
+9. Open `/internal/admin`.
+10. Confirm admin access works:
    - with `ATLAS_ADMIN_PASSWORD` in production-like environments
    - with the documented local fallback password in development
-10. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
-11. Open `/rankings/global` and confirm:
+11. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
+12. Open `/rankings/global` and confirm:
    - the leaderboard renders
    - sorting works for `Global Score`, `Ecosystem`, and `Adoption`
+   - default columns stay minimal
+   - optional columns can be toggled on
    - chain links land on the public chain profile
-12. Open `/internal/targets` and confirm:
+13. Open `/internal/targets` and confirm:
    - sorting works for `Opportunity Score`, `Readiness gap`, and `Ecosystem size`
+   - default columns stay minimal
+   - optional columns can be toggled on
    - chain links open `/internal/account/[chain]`
-13. On one internal account page confirm:
+14. On one internal account page confirm:
    - global rank
    - opportunity score
    - gap analysis
    - recommended stack
    - outreach brief
-14. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
-15. Regenerate reports and confirm the markdown and export files update cleanly.
-16. Confirm wording does not imply live or continuously synced data.
+15. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+16. Regenerate reports and confirm the markdown and export files update cleanly.
+17. Confirm wording does not imply live or continuously synced data.

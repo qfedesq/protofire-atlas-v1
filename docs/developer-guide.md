@@ -143,6 +143,34 @@ Nearby-peer logic and score-driver derivation live in:
 
 Do not move comparison heuristics into components. Keep them deterministic and testable.
 
+## Update ranking columns or defaults
+
+Atlas now uses one ranking-table system across:
+
+- `/`
+- `/rankings/global`
+- `/internal/targets`
+
+Files:
+
+- shared renderer: [`components/tables/ranking-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/ranking-table.tsx)
+- per-mode columns: [`components/tables/ranking-column-definitions.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/ranking-column-definitions.tsx)
+- visibility helpers: [`lib/rankings/table.ts`](/Users/qfedesq/Desktop/Atlas/lib/rankings/table.ts)
+
+Rules:
+
+- keep the chain column sticky and non-hideable
+- add new columns through the mode definition file, not inside the page route
+- keep default visible columns minimal for global and opportunity ranking
+- preserve URL-driven `columns` state so links remain shareable
+
+If you need a new ranking mode:
+
+1. add the mode-specific column definitions
+2. wrap the shared `RankingTable`
+3. wire sorting and column serialization in the page
+4. add tests before shipping
+
 ## Update target-account logic
 
 Opportunity scoring and account prioritization live in:
@@ -249,7 +277,7 @@ Public label source:
 Bump rule:
 
 - every completed update increments by `+0.1`
-- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`, `1.6.0`, `1.7.0`, `1.8.0`, `1.9.0`, `1.10.0`, `1.11.0`, `1.12.0`, `1.13.0`
+- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`, `1.6.0`, `1.7.0`, `1.8.0`, `1.9.0`, `1.10.0`, `1.11.0`, `1.12.0`, `1.13.0`, `1.14.0`
 
 Helper:
 

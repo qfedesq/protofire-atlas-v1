@@ -1,3 +1,4 @@
+import { createGlobalRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { GlobalRankingsTable } from "@/components/tables/global-rankings-table";
 import { Panel } from "@/components/ui/panel";
 import { parseGlobalRankingsQuery } from "@/lib/domain/schemas";
@@ -5,6 +6,11 @@ import type {
   GlobalRankingsQuery,
   RankingsSortDirection,
 } from "@/lib/domain/types";
+import {
+  parseVisibleColumnIds,
+  resolveVisibleColumnIds,
+  serializeVisibleColumnIds,
+} from "@/lib/rankings/table";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
 const repository = createSeedChainsRepository();
@@ -15,6 +21,8 @@ type GlobalRankingsPageProps = {
 
 function buildSortHref(
   query: GlobalRankingsQuery,
+  visibleColumnIds: string[],
+  columns: ReturnType<typeof createGlobalRankingColumns>,
   sort: GlobalRankingsQuery["sort"],
   direction: RankingsSortDirection,
 ) {
@@ -28,6 +36,12 @@ function buildSortHref(
     searchParams.set("direction", direction);
   }
 
+  const serializedColumns = serializeVisibleColumnIds(visibleColumnIds, columns);
+
+  if (serializedColumns) {
+    searchParams.set("columns", serializedColumns);
+  }
+
   const search = searchParams.toString();
 
   return search.length > 0 ? `/rankings/global?${search}` : "/rankings/global";
@@ -36,10 +50,14 @@ function buildSortHref(
 export default async function GlobalRankingsPage({
   searchParams,
 }: GlobalRankingsPageProps) {
-  const query = parseGlobalRankingsQuery(
-    searchParams ? await searchParams : undefined,
-  );
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const query = parseGlobalRankingsQuery(resolvedSearchParams);
   const rows = repository.listGlobalRankedChains(query);
+  const columns = createGlobalRankingColumns();
+  const visibleColumnIds = resolveVisibleColumnIds(
+    parseVisibleColumnIds(resolvedSearchParams?.columns),
+    columns,
+  );
 
   return (
     <div className="space-y-6">
@@ -66,7 +84,33 @@ export default async function GlobalRankingsPage({
         rows={rows}
         sort={query.sort}
         direction={query.direction}
-        buildSortHref={(sort, direction) => buildSortHref(query, sort, direction)}
+        visibleColumnIds={visibleColumnIds}
+        buildSortHref={(sort, direction) =>
+          buildSortHref(query, visibleColumnIds, columns, sort, direction)
+        }
+        buildColumnsHref={(columnIds) => {
+          const searchParams = new URLSearchParams();
+
+          if (query.sort !== "totalScore") {
+            searchParams.set("sort", query.sort);
+          }
+
+          if (query.direction !== "desc") {
+            searchParams.set("direction", query.direction);
+          }
+
+          const serializedColumns = serializeVisibleColumnIds(columnIds, columns);
+
+          if (serializedColumns) {
+            searchParams.set("columns", serializedColumns);
+          }
+
+          const search = searchParams.toString();
+
+          return search.length > 0
+            ? `/rankings/global?${search}`
+            : "/rankings/global";
+        }}
       />
     </div>
   );

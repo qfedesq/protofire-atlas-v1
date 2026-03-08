@@ -42,6 +42,8 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
   - deterministic markdown and JSON report generation
 - `lib/repositories/`
   - seed-backed read model used by the UI and reports
+- `lib/rankings/`
+  - shared ranking-table visibility and column-selection helpers
 - `scripts/`
   - refresh and generation utilities
 - `reports/`
@@ -123,6 +125,20 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 3. The rankings table uses that output to show the current roadmap stage and the best score lever for the selected economy.
 4. The chain profile renders the same logic inside the `Competitive analysis` section so roadmap context and stack recommendation stay in one place.
 
+## Ranking system flow
+
+1. [`components/tables/ranking-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/ranking-table.tsx) owns the shared markup, sticky-chain-column behavior, column toggles, and sort-control rendering.
+2. [`components/tables/ranking-column-definitions.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/ranking-column-definitions.tsx) defines per-mode columns for:
+   - economy ranking
+   - global ranking
+   - opportunity ranking
+3. [`lib/rankings/table.ts`](/Users/qfedesq/Desktop/Atlas/lib/rankings/table.ts) parses, resolves, toggles, and serializes visible-column sets.
+4. Each page keeps its own URL builder, but all ranking pages now render through the same shared table layer.
+5. The current mode wrappers are:
+   - [`components/tables/rankings-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/rankings-table.tsx)
+   - [`components/tables/global-rankings-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/global-rankings-table.tsx)
+   - [`components/tables/targets-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/tables/targets-table.tsx)
+
 ## Request capture flow
 
 1. [`components/requests/assessment-request-form.tsx`](/Users/qfedesq/Desktop/Atlas/components/requests/assessment-request-form.tsx) renders the inline assessment CTA on chain pages.
@@ -182,8 +198,13 @@ Chain profile page:
 
 - parses `economy` from search params
 - resolves one chain profile for the selected economy
-- renders source rank and TVL snapshot metadata alongside readiness, gaps, peers, score drivers, stack recommendations, assessment CTA, and the phased plan
-- adds a `Global position` section so the chain can be read inside the broader ecosystem context
+- renders the score hierarchy in this order:
+  - primary score
+  - score composition
+  - improvement path
+  - competitive context
+  - global context
+- keeps module evidence, public scorecard, and liquid-staking diagnosis available through expandable secondary sections
 - emits intent beacons for profile views and peer-comparison driven navigation
 
 Internal target pages:

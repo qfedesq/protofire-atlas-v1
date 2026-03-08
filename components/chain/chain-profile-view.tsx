@@ -1,19 +1,20 @@
 import { submitAssessmentRequestAction } from "@/app/actions/assessment-request";
 import { ArrowUpRight } from "lucide-react";
 
-import { BenchmarkStrip } from "@/components/chain/benchmark-strip";
 import { CompetitiveAnalysisSection } from "@/components/chain/competitive-analysis";
 import { GlobalPositionSection } from "@/components/chain/global-position-section";
+import { ImprovementPathSection } from "@/components/chain/improvement-path-section";
 import { LiquidStakingDiagnosisSection } from "@/components/chain/liquid-staking-diagnosis";
 import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
+import { ScoreCompositionSection } from "@/components/chain/score-composition-section";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
-import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { Panel } from "@/components/ui/panel";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
+import { BenchmarkStrip } from "@/components/chain/benchmark-strip";
 
 export function ChainProfileView({
   profile,
@@ -89,14 +90,20 @@ export function ChainProfileView({
           </div>
         </Panel>
         <Panel>
-          <p className="text-muted text-xs tracking-[0.16em] uppercase">
-            Overall readiness score
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Primary score
           </p>
-          <p className="text-foreground mt-3 text-5xl font-semibold">
+          <h2 className="text-foreground mt-2 text-xl font-semibold">
+            {profile.economy.shortLabel} score
+          </h2>
+          <p className="text-foreground mt-4 text-6xl font-semibold tracking-tight">
             {formatScore(profile.readinessScore.totalScore)}
+            <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
           </p>
-          <p className="text-muted mt-2 text-sm">
-            Weighted score for {profile.economy.shortLabel} on a 0-10 scale
+          <p className="text-muted mt-3 text-sm leading-6">
+            {profile.chain.name} currently ranks #{profile.rank} in the{" "}
+            {profile.economy.name} benchmark. The score below reflects the
+            weighted module posture under the active Atlas assumptions.
           </p>
           <div className="border-border/70 text-muted mt-6 divide-y border-t text-sm">
             <div className="flex items-center justify-between gap-3 py-3">
@@ -108,24 +115,21 @@ export function ChainProfileView({
               <p className="text-foreground font-semibold">{partialModuleCount}</p>
             </div>
           </div>
+          <BenchmarkStrip
+            rank={profile.rank}
+            leader={profile.leader}
+            leaderGap={profile.leaderGap}
+            chainsOutranked={profile.chainsOutranked}
+          />
         </Panel>
       </section>
 
-      <BenchmarkStrip
-        rank={profile.rank}
-        leader={profile.leader}
-        leaderGap={profile.leaderGap}
-        chainsOutranked={profile.chainsOutranked}
-      />
-
-      <GlobalPositionSection position={profile.globalPosition} />
-
-      <ShareableScorecard profile={profile} />
+      <ScoreCompositionSection profile={profile} />
 
       <ExpandableSection
         id="module-status"
-        eyebrow="Module-by-module status"
-        title={`${profile.economy.shortLabel} modules`}
+        eyebrow="Module evidence"
+        title={`${profile.economy.shortLabel} module notes`}
       >
         <ModuleStatusGrid
           readinessScore={profile.readinessScore}
@@ -147,25 +151,19 @@ export function ChainProfileView({
         </ExpandableSection>
       ) : null}
 
-      <ExpandableSection
-        id="suggested-activations"
-        eyebrow="Competitive analysis"
-        title="Roadmap fit, gaps, score drivers, peers, and stack"
-      >
-        <CompetitiveAnalysisSection profile={profile} />
-      </ExpandableSection>
+      <ImprovementPathSection profile={profile} />
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Deployment plan
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            Phased rollout
-          </h2>
-        </div>
-        <DeploymentPlanSection plan={profile.deploymentPlan} />
-      </section>
+      <CompetitiveAnalysisSection profile={profile} />
+
+      <GlobalPositionSection position={profile.globalPosition} />
+
+      <ExpandableSection
+        id="public-scorecard"
+        eyebrow="Shareable scorecard"
+        title="Public summary snapshot"
+      >
+        <ShareableScorecard profile={profile} />
+      </ExpandableSection>
 
       <section className="space-y-4" id="assessment">
         <div>

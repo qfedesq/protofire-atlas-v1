@@ -4,6 +4,7 @@ import { submitChainAdditionRequestAction } from "@/app/actions/chain-addition-r
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { AddChainRequestForm } from "@/components/requests/add-chain-request-form";
+import { createEconomyRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
 import { parseRankingsQuery } from "@/lib/domain/schemas";
@@ -12,6 +13,11 @@ import type {
   RankingsSortDirection,
   RankingsSortKey,
 } from "@/lib/domain/types";
+import {
+  parseVisibleColumnIds,
+  resolveVisibleColumnIds,
+  serializeVisibleColumnIds,
+} from "@/lib/rankings/table";
 import { createArithmeticCaptcha } from "@/lib/requests/captcha";
 import {
   getActiveLiquidStakingDiagnosticWeights,
@@ -34,6 +40,8 @@ function buildEconomyHref(
 
 function buildSortHref(
   query: RankingsQuery,
+  visibleColumnIds: string[],
+  columns: ReturnType<typeof createEconomyRankingColumns>,
   sort: RankingsSortKey,
   direction: RankingsSortDirection,
 ) {
@@ -51,6 +59,12 @@ function buildSortHref(
     searchParams.set("category", query.category);
   }
 
+  const serializedColumns = serializeVisibleColumnIds(visibleColumnIds, columns);
+
+  if (serializedColumns) {
+    searchParams.set("columns", serializedColumns);
+  }
+
   return `/?${searchParams.toString()}`;
 }
 
@@ -58,7 +72,7 @@ function buildHomeHref(
   query: RankingsQuery,
   overrides: Partial<
     Pick<RankingsQuery, "economy" | "q" | "category" | "sort" | "direction">
-  >,
+  > & { columns?: string },
 ) {
   const searchParams = new URLSearchParams();
   const nextQuery = {
@@ -84,18 +98,26 @@ function buildHomeHref(
     searchParams.set("direction", nextQuery.direction);
   }
 
+  if (overrides.columns) {
+    searchParams.set("columns", overrides.columns);
+  }
+
   const search = searchParams.toString();
 
   return search.length > 0 ? `/?${search}` : "/";
 }
 
 export default async function Home({ searchParams }: HomePageProps) {
-  const query = parseRankingsQuery(
-    searchParams ? await searchParams : undefined,
-  );
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const query = parseRankingsQuery(resolvedSearchParams);
   const rows = repository.listRankedChains(query);
   const economies = repository.listEconomies();
   const economy = rows[0]?.economy ?? economies.find((item) => item.slug === query.economy);
+  const rankingColumns = createEconomyRankingColumns(economy ?? economies[0]!);
+  const visibleColumnIds = resolveVisibleColumnIds(
+    parseVisibleColumnIds(resolvedSearchParams?.columns),
+    rankingColumns,
+  );
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
   const activeLiquidStakingWeights = getActiveLiquidStakingDiagnosticWeights();
   const chainAdditionCaptcha = createArithmeticCaptcha();
@@ -233,8 +255,20 @@ export default async function Home({ searchParams }: HomePageProps) {
           rows={rows}
           sort={query.sort}
           direction={query.direction}
+          visibleColumnIds={visibleColumnIds}
           buildSortHref={(sortKey, sortDirection) =>
-            buildSortHref(query, sortKey, sortDirection)
+            buildSortHref(
+              query,
+              visibleColumnIds,
+              rankingColumns,
+              sortKey,
+              sortDirection,
+            )
+          }
+          buildColumnsHref={(columnIds) =>
+            buildHomeHref(query, {
+              columns: serializeVisibleColumnIds(columnIds, rankingColumns),
+            })
           }
         />
         <AddChainRequestForm

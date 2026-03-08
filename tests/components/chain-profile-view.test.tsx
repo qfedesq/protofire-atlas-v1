@@ -21,7 +21,7 @@ vi.mock("next/link", () => ({
 }));
 
 describe("ChainProfileView", () => {
-  it("renders readiness sections, roadmap fit, unified competitive analysis, and recommended stack", () => {
+  it("renders the refactored score hierarchy, improvement path, and global context", () => {
     const repository = createSeedChainsRepository();
     const profile = repository.getChainProfileBySlug("base", "ai-agents");
 
@@ -37,18 +37,20 @@ describe("ChainProfileView", () => {
       />,
     );
 
-    expect(
-      screen.getByText("Deterministic Protofire activation stack"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("AI Agents score")).toBeInTheDocument();
+    expect(screen.getByText("Score composition")).toBeInTheDocument();
+    expect(screen.getByText("Improvement path")).toBeInTheDocument();
+    expect(screen.getByText("Competitive context")).toBeInTheDocument();
+    expect(screen.getByText("Global position")).toBeInTheDocument();
     expect(
       screen.getAllByText("Upgrade Agent Indexing Layer").length,
     ).toBeGreaterThan(0);
-    expect(screen.getByText("AI Agents modules")).toBeInTheDocument();
+    expect(screen.getByText("AI Agents module notes")).toBeInTheDocument();
     expect(
-      screen.getByText("Current stage and best score lever"),
+      screen.getByText("What improves the score next"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Roadmap fit, gaps, score drivers, peers, and stack"),
+      screen.getByText("How this chain compares to nearby peers"),
     ).toBeInTheDocument();
     expect(
       screen.getByText("Request infrastructure assessment"),
@@ -65,12 +67,10 @@ describe("ChainProfileView", () => {
     expect(screen.getAllByText("Diagnostic gap").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Activation plan").length).toBeGreaterThan(0);
     expect(
-      screen
-        .getByText("Roadmap fit, gaps, score drivers, peers, and stack")
-        .closest("details"),
+      screen.getByText("Public summary snapshot").closest("details"),
     ).not.toHaveAttribute("open");
     expect(
-      screen.getByText("AI Agents modules").closest("details"),
+      screen.getByText("AI Agents module notes").closest("details"),
     ).not.toHaveAttribute("open");
   });
 

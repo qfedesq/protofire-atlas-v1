@@ -18,7 +18,7 @@ export function GlobalPositionSection({
           Global position
         </p>
         <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          Ecosystem context across readiness, adoption, and performance
+          Secondary context across readiness, adoption, and performance
         </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
           Atlas combines the four economy scores with curated ecosystem
@@ -27,12 +27,12 @@ export function GlobalPositionSection({
         </p>
       </div>
 
-      <div className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-5">
+      <div className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-4">
         <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Global rank
           </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          <p className="text-foreground mt-2 text-2xl font-semibold">
             #{position.benchmarkRank}
           </p>
         </div>
@@ -40,7 +40,7 @@ export function GlobalPositionSection({
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Global score
           </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          <p className="text-foreground mt-2 text-2xl font-semibold">
             {formatScore(position.score.totalScore)}
           </p>
         </div>
@@ -48,25 +48,17 @@ export function GlobalPositionSection({
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Economy composite
           </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          <p className="text-foreground mt-2 text-2xl font-semibold">
             {formatScore(position.score.economyCompositeScore)}
           </p>
         </div>
         <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Ecosystem activity
+            Adoption + ecosystem
           </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
-            {formatScore(position.score.ecosystemScore)}
-          </p>
-        </div>
-        <div>
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Adoption + performance
-          </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          <p className="text-foreground mt-2 text-2xl font-semibold">
             {formatScore(
-              (position.score.adoptionScore + position.score.performanceScore) / 2,
+              (position.score.ecosystemScore + position.score.adoptionScore) / 2,
             )}
           </p>
         </div>

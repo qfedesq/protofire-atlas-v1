@@ -155,6 +155,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               >
                 Open target accounts
               </Link>
+              <Link
+                href="/internal/admin/data-sources"
+                className="text-accent font-medium hover:underline"
+              >
+                Open data source registry
+              </Link>
             </div>
           </div>
           <form action={logoutAdminAction}>

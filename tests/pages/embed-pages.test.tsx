@@ -20,7 +20,7 @@ describe("embed pages", () => {
 
     render(view);
 
-    expect(screen.getByText("Public scorecard snapshot")).toBeInTheDocument();
+    expect(screen.getByText(/Share-ready summary/i)).toBeInTheDocument();
     expect(screen.getByText(/Base · AI Agents/i)).toBeInTheDocument();
   });
 });

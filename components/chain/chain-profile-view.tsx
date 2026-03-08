@@ -11,7 +11,9 @@ import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { ExpandableSection } from "@/components/ui/expandable-section";
+import { atlasDatasetLabel } from "@/lib/config/dataset";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
+import { buildEconomyReadinessSummary } from "@/lib/utils/economy-summary";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
 function getPrimaryInterpretation(profile: ChainProfile) {
@@ -68,11 +70,14 @@ export function ChainProfileView({
         </div>
       </section>
 
-      <section className="border-border/70 grid gap-8 border-t pt-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
-        <div className="space-y-5">
+      <section className="border-border/70 space-y-6 border-t pt-6">
+        <div className="space-y-4">
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Chain header
+          </p>
           <div className="space-y-3">
-            <p className="text-accent text-xs tracking-[0.16em] uppercase">
-              Chain header
+            <p className="text-muted text-xs tracking-[0.16em] uppercase">
+              {profile.economy.name}
             </p>
             <h1 className="text-foreground text-5xl font-semibold tracking-tight">
               {profile.chain.name}
@@ -80,11 +85,13 @@ export function ChainProfileView({
             <p className="text-muted max-w-4xl text-base leading-7">
               {profile.chain.shortDescription}
             </p>
+            <p className="text-foreground text-sm leading-6">
+              {buildEconomyReadinessSummary(profile.economy)}
+            </p>
           </div>
 
           <div className="text-muted flex flex-wrap gap-x-5 gap-y-2 text-xs tracking-[0.16em] uppercase">
-            <span>{profile.economy.name}</span>
-            <span>Dataset scope: Top 30 EVM chains by TVL</span>
+            <span>Dataset scope: {atlasDatasetLabel}</span>
             <span>Source TVL rank: #{profile.chain.sourceRank}</span>
             <span>Snapshot TVL: {formatCurrencyCompact(profile.chain.sourceTvlUsd)}</span>
             <span>Snapshot date: {profile.chain.sourceSnapshotDate}</span>
@@ -103,56 +110,65 @@ export function ChainProfileView({
           ) : null}
         </div>
 
-        <div className="border-border/70 space-y-5 border-l pl-6 xl:pl-8">
-          <div>
-            <p className="text-accent text-xs tracking-[0.16em] uppercase">
-              Primary score
-            </p>
-            <h2 className="text-foreground mt-2 text-2xl font-semibold">
-              {profile.economy.shortLabel} score
-            </h2>
-            <p className="text-foreground mt-3 text-7xl font-semibold tracking-tight">
-              {formatScore(profile.readinessScore.totalScore)}
-              <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
-            </p>
-            <p className="text-foreground mt-3 text-lg font-semibold">
-              Rank #{profile.rank} for {profile.economy.shortLabel}
-            </p>
-            <p className="text-muted mt-3 max-w-xl text-sm leading-6">
-              {getPrimaryInterpretation(profile)}
-            </p>
-          </div>
+        <div className="border-border/70 space-y-4 border-t pt-6">
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Primary score
+          </p>
+          <h2 className="text-foreground text-2xl font-semibold">
+            {profile.economy.shortLabel} score
+          </h2>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="space-y-3">
+              <p className="text-foreground text-7xl font-semibold tracking-tight">
+                {formatScore(profile.readinessScore.totalScore)}
+                <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
+              </p>
+              <p className="text-foreground text-lg font-semibold">
+                Rank #{profile.rank} for {profile.economy.shortLabel}
+              </p>
+            </div>
 
-          <dl className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-3">
-            <div>
-              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
-                Missing modules
-              </dt>
-              <dd className="text-foreground mt-2 text-2xl font-semibold">
-                {missingModuleCount}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
-                Partial modules
-              </dt>
-              <dd className="text-foreground mt-2 text-2xl font-semibold">
-                {partialModuleCount}
-              </dd>
-            </div>
-            <div>
-              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
-                Immediate upside
-              </dt>
-              <dd className="text-foreground mt-2 text-2xl font-semibold">
-                +{formatScore(totalPotentialLift)}
-              </dd>
-            </div>
-          </dl>
+            <dl className="grid gap-4 sm:grid-cols-3 lg:min-w-[34rem]">
+              <div>
+                <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+                  Missing modules
+                </dt>
+                <dd className="text-foreground mt-2 text-2xl font-semibold">
+                  {missingModuleCount}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+                  Partial modules
+                </dt>
+                <dd className="text-foreground mt-2 text-2xl font-semibold">
+                  {partialModuleCount}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+                  Immediate upside
+                </dt>
+                <dd className="text-foreground mt-2 text-2xl font-semibold">
+                  +{formatScore(totalPotentialLift)}
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <p className="text-muted max-w-3xl text-sm leading-6">
+            {getPrimaryInterpretation(profile)}
+          </p>
         </div>
       </section>
 
-      <ScoreCompositionSection profile={profile} />
+      <ExpandableSection
+        id="score-composition"
+        eyebrow="Score composition"
+        title={`How the ${profile.economy.shortLabel} score is built`}
+        defaultOpen
+      >
+        <ScoreCompositionSection profile={profile} />
+      </ExpandableSection>
 
       <ExpandableSection
         id="module-status"
@@ -179,11 +195,23 @@ export function ChainProfileView({
         </ExpandableSection>
       ) : null}
 
-      <ImprovementPathSection profile={profile} />
+        <ImprovementPathSection profile={profile} />
 
-      <CompetitiveAnalysisSection profile={profile} />
+      <ExpandableSection
+        id="competitive-context"
+        eyebrow="Competitive context"
+        title="How this chain compares to nearby peers"
+      >
+        <CompetitiveAnalysisSection profile={profile} />
+      </ExpandableSection>
 
-      <GlobalPositionSection position={profile.globalPosition} />
+      <ExpandableSection
+        id="global-context"
+        eyebrow="Global context"
+        title="Global position"
+      >
+        <GlobalPositionSection position={profile.globalPosition} />
+      </ExpandableSection>
 
       <ExpandableSection
         id="public-scorecard"

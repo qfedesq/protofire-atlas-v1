@@ -10,21 +10,12 @@ export function ScoreCompositionSection({
   profile: ChainProfile;
 }) {
   return (
-    <section className="space-y-5 border-t border-[var(--border)] pt-6">
-      <div>
-        <p className="text-accent text-xs tracking-[0.16em] uppercase">
-          Score composition
-        </p>
-        <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          How the {profile.economy.shortLabel} score is built
-        </h2>
-        <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          Atlas converts module status into weighted contribution. This is the
-          fastest way to see why the score lands here and which module is
-          still holding it down.
-        </p>
-      </div>
-
+    <div className="space-y-4">
+      <p className="text-muted max-w-4xl text-sm leading-6">
+        Atlas converts module status into weighted contribution. This is the
+        fastest way to see why the score lands here and which module is still
+        holding it down.
+      </p>
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse text-left text-sm">
           <thead>
@@ -123,6 +114,6 @@ export function ScoreCompositionSection({
           </tfoot>
         </table>
       </div>
-    </section>
+    </div>
   );
 }

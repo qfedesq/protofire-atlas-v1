@@ -164,6 +164,51 @@ Primary implementation files:
 - [`components/chain/score-composition-section.tsx`](/Users/qfedesq/Desktop/Atlas/components/chain/score-composition-section.tsx)
 - [`components/chain/improvement-path-section.tsx`](/Users/qfedesq/Desktop/Atlas/components/chain/improvement-path-section.tsx)
 
+Supporting memo-style bodies:
+
+- [`components/chain/gap-analysis.tsx`](/Users/qfedesq/Desktop/Atlas/components/chain/gap-analysis.tsx)
+- [`components/stack/recommended-stack.tsx`](/Users/qfedesq/Desktop/Atlas/components/stack/recommended-stack.tsx)
+- [`components/stack/deployment-plan.tsx`](/Users/qfedesq/Desktop/Atlas/components/stack/deployment-plan.tsx)
+
+Future changes to chain pages should preserve these rules:
+
+- no explanatory three-column layouts for long-form content
+- no chip or stat-tile treatment inside analytical sections
+- section titles stay visible even when bodies are collapsed
+- score explanation comes before competitive or global context
+
+## Section toggle behavior
+
+Major analytical sections on chain pages use [`components/ui/expandable-section.tsx`](/Users/qfedesq/Desktop/Atlas/components/ui/expandable-section.tsx).
+
+Rules:
+
+- title row is always visible
+- body is expandable/collapsible through native `<details>`
+- primary analytical sections can default open
+- secondary context sections default closed
+- toggles should feel like document disclosure, not FAQ accordions
+
+## Admin provenance registry
+
+The internal provenance registry lives at:
+
+- `/internal/admin/data-sources`
+
+Backing files:
+
+- [`lib/admin/data-source-registry.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/data-source-registry.ts)
+- [`components/admin/data-source-registry-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/admin/data-source-registry-table.tsx)
+- [`app/internal/admin/data-sources/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/internal/admin/data-sources/page.tsx)
+
+This registry is the operational map of:
+
+- blockchain-related external metrics
+- readiness model inputs
+- admin-managed assumptions
+- seeded fallback datasets
+- supplemental roadmap and liquid-staking inputs
+
 ## Internal-only flows
 
 Internal GTM surfaces remain separate and protected:

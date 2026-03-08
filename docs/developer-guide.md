@@ -177,6 +177,26 @@ Rules:
 - flat analytical layout
 - no rounded metric-chip grids
 - competitive and global context come after score explanation and improvement path
+- preserve the memo-style top-to-bottom reading flow
+- use section toggles instead of adding more page chrome
+- normalize economy module summaries through [`lib/utils/economy-summary.ts`](/Users/qfedesq/Desktop/Atlas/lib/utils/economy-summary.ts)
+
+## Update the admin data source registry
+
+Registry files:
+
+- [`lib/admin/data-source-registry.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/data-source-registry.ts)
+- [`components/admin/data-source-registry-table.tsx`](/Users/qfedesq/Desktop/Atlas/components/admin/data-source-registry-table.tsx)
+- [`app/internal/admin/data-sources/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/internal/admin/data-sources/page.tsx)
+
+When adding a new blockchain-related metric:
+
+1. add or update the actual source/connector/seed
+2. update the provenance row in the registry
+3. document refresh behavior and last-updated source
+4. add or update the relevant tests
+
+Do not add hidden metrics to the model without registering their provenance.
 
 ## Regenerate outputs
 

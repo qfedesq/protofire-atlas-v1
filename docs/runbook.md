@@ -130,15 +130,27 @@ npm run build
    - `data/runtime/assessment-requests.json` updates
    - `data/runtime/intent-events.json` updates
 8. Open `/internal/admin` and confirm authentication works.
-9. Trigger `SYNC NOW` and confirm the action completes in a writable environment.
-10. Open `/api/public/rankings/global` and one `/api/public/chains/[slug]` route and confirm:
+9. Open `/internal/admin/data-sources` and confirm the provenance registry renders:
+   - benchmark source rows
+   - external metric rows
+   - readiness and assumption rows
+   - roadmap and liquid-staking rows
+10. Trigger `SYNC NOW` and confirm the action completes in a writable environment.
+11. Open `/api/public/rankings/global` and one `/api/public/chains/[slug]` route and confirm:
    - `atlas_version`
    - `updated_at`
    - `source_note`
-11. Open `/data`, `/data/rankings`, `/data/research`, and `/data/gaps`.
-12. Open one embed and one badge route:
+12. Open `/data`, `/data/rankings`, `/data/research`, and `/data/gaps`.
+13. Open one embed and one badge route:
    - `/embed/rankings/global`
    - `/badge/chains/ethereum/global`
-13. Open `/internal/targets` and `/internal/account/[chain]` and confirm internal-only GTM surfaces still work.
-14. Verify the public version label matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
-15. Confirm no public wording implies always-live synchronization.
+14. Open `/internal/targets` and `/internal/account/[chain]` and confirm internal-only GTM surfaces still work.
+15. Verify the public version label matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+16. Confirm no public wording implies always-live synchronization.
+17. On one chain page, confirm these sections can expand/collapse cleanly:
+    - score composition
+    - module evidence
+    - diagnosis and blockers
+    - activation plan
+    - competitive context
+    - global context

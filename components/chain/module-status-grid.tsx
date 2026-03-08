@@ -17,23 +17,41 @@ export function ModuleStatusGrid({
   return (
     <div className="border-border/70 divide-y border-t">
       {readinessScore.moduleBreakdown.map((module) => (
-        <div key={module.module.id} className="grid gap-4 py-4 lg:grid-cols-[0.35fr_0.65fr]">
-          <div className="space-y-2">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-foreground font-semibold">{module.module.name}</p>
-                <p className="text-muted mt-1 text-sm">
-                  {formatScore(module.weightedContribution)} /{" "}
-                  {formatScore((module.module.weight * 10) / 100)}
-                </p>
-              </div>
-              <StatusBadge status={module.status} />
+        <div key={module.module.id} className="space-y-4 py-5">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div className="space-y-1">
+              <p className="text-foreground text-lg font-semibold">
+                {module.module.name}
+              </p>
+              <p className="text-muted text-sm">
+                {formatScore(module.weightedContribution)} /{" "}
+                {formatScore((module.module.weight * 10) / 100)}
+              </p>
             </div>
-            <p className="text-muted text-sm leading-6">
-              {module.module.description}
-            </p>
+            <StatusBadge status={module.status} />
+          </div>
+
+          <p className="text-muted text-sm leading-6">{module.module.description}</p>
+
+          <div className="space-y-4 text-sm">
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Why this status
+              </p>
+              <p className="text-foreground mt-2 leading-6">{module.rationale}</p>
+            </div>
+
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Evidence note
+              </p>
+              <p className="text-foreground mt-2 leading-6">
+                {module.evidenceNote}
+              </p>
+            </div>
+
             {module.module.slug === "liquid-staking" && liquidStakingDiagnosis ? (
-              <div className="border-border/60 border-l pl-4">
+              <div>
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   7-module diagnosis
                 </p>
@@ -48,25 +66,6 @@ export function ModuleStatusGrid({
                 </Link>
               </div>
             ) : null}
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <div>
-              <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                Why this status
-              </p>
-              <p className="text-foreground mt-2 text-sm leading-6">
-                {module.rationale}
-              </p>
-            </div>
-            <div>
-              <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                Evidence note
-              </p>
-              <p className="text-foreground mt-2 text-sm leading-6">
-                {module.evidenceNote}
-              </p>
-            </div>
           </div>
         </div>
       ))}

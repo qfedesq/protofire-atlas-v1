@@ -7,6 +7,7 @@ type ExpandableSectionProps = {
   title: string;
   description?: string;
   children: ReactNode;
+  defaultOpen?: boolean;
 };
 
 export function ExpandableSection({
@@ -15,10 +16,11 @@ export function ExpandableSection({
   title,
   description,
   children,
+  defaultOpen = false,
 }: ExpandableSectionProps) {
   return (
     <section id={id} className="border-border/70 border-t pt-6">
-      <details className="group">
+      <details className="group" open={defaultOpen}>
         <summary className="list-none cursor-pointer">
           <div className="flex items-start justify-between gap-4">
             <div>

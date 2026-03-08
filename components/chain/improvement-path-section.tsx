@@ -4,6 +4,7 @@ import { GapAnalysis } from "@/components/chain/gap-analysis";
 import { ScoreDriversSection } from "@/components/chain/score-drivers";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { RecommendedStackSection } from "@/components/stack/recommended-stack";
+import { ExpandableSection } from "@/components/ui/expandable-section";
 import type { ChainProfile } from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
 
@@ -75,58 +76,41 @@ export function ImprovementPathSection({
         </div>
       </dl>
 
-      <div className="grid gap-8 xl:grid-cols-[0.92fr_1.08fr]">
-        <div className="space-y-4">
-          <div>
-            <p className="text-accent text-xs tracking-[0.16em] uppercase">
-              Missing and weak modules
-            </p>
-            <h3 className="text-foreground mt-2 text-xl font-semibold">
-              Diagnosis and score blockers
-            </h3>
-          </div>
-          <GapAnalysis
-            gaps={profile.gapAnalysis}
-            economyLabel={profile.economy.name}
-          />
-        </div>
+      <ExpandableSection
+        id="diagnosis-and-blockers"
+        eyebrow="Missing and weak modules"
+        title="Diagnosis and score blockers"
+        defaultOpen
+      >
+        <GapAnalysis gaps={profile.gapAnalysis} economyLabel={profile.economy.name} />
+      </ExpandableSection>
 
-        <div className="space-y-4">
-          <div>
-            <p className="text-accent text-xs tracking-[0.16em] uppercase">
-              Protofire recommended stack
-            </p>
-            <h3 className="text-foreground mt-2 text-xl font-semibold">
-              Activation plan
-            </h3>
-          </div>
-          <RecommendedStackSection stack={profile.recommendedStack} />
-        </div>
-      </div>
+      <ExpandableSection
+        id="activation-plan"
+        eyebrow="Protofire recommended stack"
+        title="Activation plan"
+        defaultOpen
+      >
+        <RecommendedStackSection stack={profile.recommendedStack} />
+      </ExpandableSection>
 
-      <div className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Highest-upside improvements
-          </p>
-          <h3 className="text-foreground mt-2 text-xl font-semibold">
-            Score drivers
-          </h3>
-        </div>
+      <ExpandableSection
+        id="score-drivers"
+        eyebrow="Highest-upside improvements"
+        title="Score drivers"
+        defaultOpen
+      >
         <ScoreDriversSection drivers={profile.scoreDrivers} />
-      </div>
+      </ExpandableSection>
 
-      <div className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Sequenced rollout
-          </p>
-          <h3 className="text-foreground mt-2 text-xl font-semibold">
-            Deployment plan
-          </h3>
-        </div>
+      <ExpandableSection
+        id="deployment-plan"
+        eyebrow="Sequenced rollout"
+        title="Deployment plan"
+        defaultOpen
+      >
         <DeploymentPlanSection plan={profile.deploymentPlan} />
-      </div>
+      </ExpandableSection>
     </section>
   );
 }

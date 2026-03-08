@@ -43,6 +43,9 @@ describe("ChainProfileView", () => {
     expect(screen.getByText("Competitive context")).toBeInTheDocument();
     expect(screen.getByText("Global position")).toBeInTheDocument();
     expect(
+      screen.getByText("AI Agents Readiness: Registry, Payments, Indexing, Security"),
+    ).toBeInTheDocument();
+    expect(
       screen.getAllByText("Upgrade Agent Indexing Layer").length,
     ).toBeGreaterThan(0);
     expect(screen.getByText("AI Agents module notes")).toBeInTheDocument();
@@ -69,6 +72,18 @@ describe("ChainProfileView", () => {
     ).not.toHaveAttribute("open");
     expect(
       screen.getByText("AI Agents module notes").closest("details"),
+    ).not.toHaveAttribute("open");
+    expect(
+      screen.getByText("How the AI Agents score is built").closest("details"),
+    ).toHaveAttribute("open");
+    expect(
+      screen.getByText("Diagnosis and score blockers").closest("details"),
+    ).toHaveAttribute("open");
+    expect(
+      screen.getAllByText("Activation plan")[0]?.closest("details"),
+    ).toHaveAttribute("open");
+    expect(
+      screen.getByText("How this chain compares to nearby peers").closest("details"),
     ).not.toHaveAttribute("open");
   });
 
@@ -99,6 +114,11 @@ describe("ChainProfileView", () => {
     expect(screen.getByText("LST market snapshot").closest("details")).not.toHaveAttribute(
       "open",
     );
+    expect(
+      screen.getByText(
+        "DeFi Infrastructure Readiness: Liquid Staking Infrastructure, Lending Infrastructure, Liquidity Layer, Oracle Infrastructure, Indexing Layer",
+      ),
+    ).toBeInTheDocument();
     expect(screen.getAllByText("Liquidity & Exit").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Stress Resilience").length).toBeGreaterThan(0);
   });

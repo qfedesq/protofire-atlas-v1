@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ButtonLink } from "@/components/ui/button-link";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type { ChainProfile } from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
@@ -17,18 +16,20 @@ export function ShareableScorecard({
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Public scorecard snapshot
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+          <h3 className="text-foreground text-2xl font-semibold">
             {profile.chain.name} · {profile.economy.shortLabel}
-          </h2>
+          </h3>
           <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
             Share-ready summary of the current Atlas score, visible blockers, and
             the corresponding Protofire activation path.
           </p>
         </div>
-        <ButtonLink href="#assessment">Request Infrastructure Assessment</ButtonLink>
+        <Link
+          href="#assessment"
+          className="text-accent inline-flex text-sm font-semibold hover:underline"
+        >
+          Request Infrastructure Assessment
+        </Link>
       </div>
 
       <dl className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-4">
@@ -68,7 +69,7 @@ export function ShareableScorecard({
         </div>
       </dl>
 
-      <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr_1fr]">
+      <div className="space-y-6">
         <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Module status summary

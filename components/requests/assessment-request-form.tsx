@@ -40,7 +40,7 @@ export function AssessmentRequestForm({
         <input
           id="request-name"
           name="name"
-          className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+          className="border-border text-foreground focus:border-accent w-full border bg-white px-4 py-3 text-sm outline-none"
           placeholder="Your name"
           required
         />
@@ -57,7 +57,7 @@ export function AssessmentRequestForm({
           id="request-email"
           name="workEmail"
           type="email"
-          className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+          className="border-border text-foreground focus:border-accent w-full border bg-white px-4 py-3 text-sm outline-none"
           placeholder="you@company.com"
           required
         />
@@ -74,7 +74,7 @@ export function AssessmentRequestForm({
           id="request-company"
           name="companyOrChain"
           defaultValue={chainName}
-          className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+          className="border-border text-foreground focus:border-accent w-full border bg-white px-4 py-3 text-sm outline-none"
           required
         />
       </div>
@@ -90,7 +90,7 @@ export function AssessmentRequestForm({
           id="request-economy"
           value={economyLabel}
           readOnly
-          className="border-border text-foreground w-full rounded-2xl border bg-surface-muted px-4 py-3 text-sm outline-none"
+          className="border-border text-foreground w-full border bg-surface-muted px-4 py-3 text-sm outline-none"
         />
       </div>
 
@@ -105,7 +105,7 @@ export function AssessmentRequestForm({
           id="request-notes"
           name="notes"
           rows={5}
-          className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+          className="border-border text-foreground focus:border-accent w-full border bg-white px-4 py-3 text-sm outline-none"
           placeholder={`What would you like Protofire to assess for ${chainName} in ${economyLabel}?`}
         />
       </div>
@@ -113,7 +113,7 @@ export function AssessmentRequestForm({
       <div className="lg:col-span-2">
         <button
           type="submit"
-          className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+          className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex px-5 py-3 text-sm font-semibold transition"
         >
           Request Infrastructure Assessment
         </button>

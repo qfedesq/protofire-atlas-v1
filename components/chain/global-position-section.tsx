@@ -11,21 +11,12 @@ export function GlobalPositionSection({
   position: GlobalRankedChain;
 }) {
   return (
-    <section className="space-y-5 border-t border-[var(--border)] pt-6">
-      <div>
-        <p className="text-accent text-xs tracking-[0.16em] uppercase">
-          Global context
-        </p>
-        <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          Global position
-        </h2>
-        <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          This is secondary context. Atlas blends the four economy scores with
-          ecosystem activity, adoption, and performance signals to position the
-          chain inside the broader EVM landscape.
-        </p>
-      </div>
-
+    <div className="space-y-5">
+      <p className="text-muted max-w-4xl text-sm leading-6">
+        This is secondary context. Atlas blends the four economy scores with
+        ecosystem activity, adoption, and performance signals to position the
+        chain inside the broader EVM landscape.
+      </p>
       <dl className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-2 xl:grid-cols-4">
         <div>
           <dt className="text-muted text-xs tracking-[0.14em] uppercase">
@@ -100,7 +91,7 @@ export function GlobalPositionSection({
           ]}
         />
       </div>
-    </section>
+    </div>
   );
 }
 

@@ -41,26 +41,27 @@ export function LiquidStakingDiagnosisSection({
 
       <div className="border-border/70 divide-y border-t">
         {diagnosis.dimensions.map((dimension) => (
-          <div key={dimension.dimension.id} className="grid gap-4 py-4 lg:grid-cols-[0.32fr_0.68fr]">
-            <div>
-              <div className="flex flex-wrap items-start justify-between gap-3">
+          <div key={dimension.dimension.id} className="space-y-4 py-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
                 <p className="text-foreground text-lg font-semibold">
                   {dimension.dimension.name}
                 </p>
-                <p className="text-foreground text-lg font-semibold">
-                  {dimension.score}
+                <p className="text-muted mt-2 text-sm leading-6">
+                  {dimension.dimension.description}
                 </p>
               </div>
-              <p className="text-muted mt-2 text-sm leading-6">
-                {dimension.dimension.description}
+              <p className="text-foreground text-lg font-semibold">
+                {dimension.score}
               </p>
             </div>
-            <div className="grid gap-4 md:grid-cols-3">
+
+            <div className="space-y-4 text-sm">
               <div>
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Weight
                 </p>
-                <p className="text-foreground mt-2 text-sm font-semibold">
+                <p className="text-foreground mt-2 font-semibold">
                   {dimension.weight}%
                 </p>
               </div>
@@ -68,7 +69,7 @@ export function LiquidStakingDiagnosisSection({
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Rationale
                 </p>
-                <p className="text-foreground mt-2 text-sm leading-6">
+                <p className="text-foreground mt-2 leading-6">
                   {dimension.rationale}
                 </p>
               </div>
@@ -76,9 +77,7 @@ export function LiquidStakingDiagnosisSection({
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Risk
                 </p>
-                <p className="mt-2 text-sm leading-6 text-rose-600">
-                  {dimension.risk}
-                </p>
+                <p className="mt-2 leading-6 text-rose-600">{dimension.risk}</p>
               </div>
             </div>
           </div>
@@ -107,7 +106,7 @@ export function LiquidStakingDiagnosisSection({
               until a verified source snapshot is added.
             </p>
 
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="border-border/70 divide-y border-t">
               <MetricRow
                 label="Native Token"
                 value={
@@ -214,9 +213,9 @@ export function LiquidStakingDiagnosisSection({
 
 function MetricRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-l border-[var(--border)] pl-4">
+    <div className="flex items-center justify-between gap-4 py-3 text-sm">
       <p className="text-muted text-xs tracking-[0.16em] uppercase">{label}</p>
-      <p className="text-foreground mt-2 text-lg font-semibold">{value}</p>
+      <p className="text-foreground text-base font-semibold">{value}</p>
     </div>
   );
 }

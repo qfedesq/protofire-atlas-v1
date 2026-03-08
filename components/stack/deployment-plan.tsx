@@ -35,7 +35,7 @@ export function DeploymentPlanSection({
             <p className="text-muted text-sm">{phase.timelineLabel}</p>
           </div>
 
-          <dl className="grid gap-4 border-l border-[var(--border)] pl-4 md:grid-cols-3 md:border-l-0 md:pl-0">
+          <dl className="border-border/70 grid gap-4 border-t pt-4 md:grid-cols-3">
             {phase.kpis.map((kpi) => (
               <div key={`${phase.id}-${kpi.label}`}>
                 <dt className="text-muted text-xs tracking-[0.16em] uppercase">

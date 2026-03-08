@@ -1,0 +1,31 @@
+rank,chain,economy,score,missing_modules,updated_at,atlas_version
+1,Arbitrum,AI Agent Economy,8.8,,2026-03-08T19:15:35.826Z,V1.20
+2,Ethereum,AI Agent Economy,8.8,,2026-03-08T19:15:35.826Z,V1.20
+3,Base,AI Agent Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+4,Optimism,AI Agent Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+5,Avalanche,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+6,BNB Chain,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+7,Cronos,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+8,Gnosis,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+9,Katana,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+10,Polygon,AI Agent Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+11,Berachain,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+12,BOB,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+13,Fraxtal,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+14,Ink,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+15,Linea,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+16,Mantle,AI Agent Economy,5,Security,2026-03-08T19:15:35.826Z,V1.20
+17,Mode,AI Agent Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+18,Plasma,AI Agent Economy,5,Indexing,2026-03-08T19:15:35.826Z,V1.20
+19,Sonic,AI Agent Economy,5,Registry,2026-03-08T19:15:35.826Z,V1.20
+20,AILayer,AI Agent Economy,3.8,Indexing,2026-03-08T19:15:35.826Z,V1.20
+21,Bitlayer,AI Agent Economy,3.8,Registry,2026-03-08T19:15:35.826Z,V1.20
+22,Hedera,AI Agent Economy,3.8,Registry,2026-03-08T19:15:35.826Z,V1.20
+23,Hemi,AI Agent Economy,3.8,Indexing,2026-03-08T19:15:35.826Z,V1.20
+24,Monad,AI Agent Economy,3.8,Registry,2026-03-08T19:15:35.826Z,V1.20
+25,Plume,AI Agent Economy,3.8,Registry,2026-03-08T19:15:35.826Z,V1.20
+26,Rootstock,AI Agent Economy,3.8,Indexing,2026-03-08T19:15:35.826Z,V1.20
+27,Scroll,AI Agent Economy,3.8,Registry,2026-03-08T19:15:35.826Z,V1.20
+28,Unichain,AI Agent Economy,3.8,Indexing,2026-03-08T19:15:35.826Z,V1.20
+29,Ethereal,AI Agent Economy,2.5,Registry | Indexing,2026-03-08T19:15:35.826Z,V1.20
+30,MegaETH,AI Agent Economy,2.5,Registry | Indexing,2026-03-08T19:15:35.826Z,V1.20

@@ -191,9 +191,10 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             Sync supported Atlas sources
           </h2>
           <p className="text-muted mt-3 text-sm leading-6">
-            Runs the current Atlas refresh workflow for the DeFiLlama top-30
-            benchmark snapshot and regenerates reports and exports. This is not
-            live synchronization and only persists in writable environments.
+            Runs the current Atlas refresh workflow for the top-30 benchmark,
+            the source-backed external chain metrics snapshot, and the public
+            reports/exports. This is not live synchronization and only persists
+            in writable environments.
           </p>
         </div>
         <form action={syncAtlasDataNowAction}>

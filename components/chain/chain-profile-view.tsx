@@ -11,9 +11,18 @@ import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { ExpandableSection } from "@/components/ui/expandable-section";
-import { Panel } from "@/components/ui/panel";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
+
+function getPrimaryInterpretation(profile: ChainProfile) {
+  const firstGap = profile.gapAnalysis[0];
+
+  if (!firstGap) {
+    return "Strong readiness. No foundational module gaps remain in the current Atlas model.";
+  }
+
+  return `Main gap: ${firstGap.module.name.toLowerCase()}. Closing it is the clearest path to a higher ${profile.economy.shortLabel.toLowerCase()} score.`;
+}
 
 export function ChainProfileView({
   profile,
@@ -36,20 +45,16 @@ export function ChainProfileView({
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <section className="space-y-4">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-accent text-xs tracking-[0.16em] uppercase">
               Economy wedge
             </p>
-            <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-tight">
+            <h2 className="text-foreground mt-2 text-2xl font-semibold tracking-tight">
               {profile.economy.name}
             </h2>
-            <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-              Switch the same chain across economy wedges to compare how
-              readiness, gaps, and deployment sequencing change by market.
-            </p>
           </div>
           <div className="lg:min-w-[32rem]">
             <EconomySwitcher
@@ -63,108 +68,88 @@ export function ChainProfileView({
         </div>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(22rem,0.75fr)]">
-        <Panel className="space-y-6">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-muted text-xs tracking-[0.18em] uppercase">
-                {profile.chain.category} chain profile
-              </p>
-              <h1 className="text-foreground mt-3 text-4xl font-semibold tracking-tight">
-                {profile.chain.name}
-              </h1>
-              <p className="text-muted mt-4 max-w-3xl text-sm leading-7">
-                {profile.chain.shortDescription}
-              </p>
-              <div className="text-muted mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs tracking-[0.16em] uppercase">
-                <span>Selected wedge: {profile.economy.shortLabel}</span>
-                <span>Source TVL rank: #{profile.chain.sourceRank}</span>
-                <span>TVL snapshot: {formatCurrencyCompact(profile.chain.sourceTvlUsd)}</span>
-                <span>Snapshot date: {profile.chain.sourceSnapshotDate}</span>
-              </div>
-            </div>
-            {profile.chain.website ? (
-              <a
-                href={profile.chain.website}
-                target="_blank"
-                rel="noreferrer"
-                className="border-border text-foreground hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition"
-              >
-                Chain website
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            ) : null}
+      <section className="border-border/70 grid gap-8 border-t pt-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
+        <div className="space-y-5">
+          <div className="space-y-3">
+            <p className="text-accent text-xs tracking-[0.16em] uppercase">
+              Chain header
+            </p>
+            <h1 className="text-foreground text-5xl font-semibold tracking-tight">
+              {profile.chain.name}
+            </h1>
+            <p className="text-muted max-w-4xl text-base leading-7">
+              {profile.chain.shortDescription}
+            </p>
           </div>
 
-          <div className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-3">
-            <div>
-              <p className="text-muted text-xs tracking-[0.14em] uppercase">
-                Current rank
-              </p>
-              <p className="text-foreground mt-2 text-2xl font-semibold">
-                #{profile.rank}
-              </p>
-            </div>
-            <div>
-              <p className="text-muted text-xs tracking-[0.14em] uppercase">
-                Missing modules
-              </p>
-              <p className="text-foreground mt-2 text-2xl font-semibold">
-                {missingModuleCount}
-              </p>
-            </div>
-            <div>
-              <p className="text-muted text-xs tracking-[0.14em] uppercase">
-                Immediate score upside
-              </p>
-              <p className="text-foreground mt-2 text-2xl font-semibold">
-                +{formatScore(totalPotentialLift)}
-              </p>
-            </div>
+          <div className="text-muted flex flex-wrap gap-x-5 gap-y-2 text-xs tracking-[0.16em] uppercase">
+            <span>{profile.economy.name}</span>
+            <span>Dataset scope: Top 30 EVM chains by TVL</span>
+            <span>Source TVL rank: #{profile.chain.sourceRank}</span>
+            <span>Snapshot TVL: {formatCurrencyCompact(profile.chain.sourceTvlUsd)}</span>
+            <span>Snapshot date: {profile.chain.sourceSnapshotDate}</span>
           </div>
-        </Panel>
-        <Panel className="space-y-5">
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Primary score
-          </p>
-          <div className="space-y-2">
-            <h2 className="text-foreground text-xl font-semibold">
+
+          {profile.chain.website ? (
+            <a
+              href={profile.chain.website}
+              target="_blank"
+              rel="noreferrer"
+              className="text-accent inline-flex items-center gap-2 text-sm font-medium hover:underline"
+            >
+              Chain website
+              <ArrowUpRight className="h-4 w-4" />
+            </a>
+          ) : null}
+        </div>
+
+        <div className="border-border/70 space-y-5 border-l pl-6 xl:pl-8">
+          <div>
+            <p className="text-accent text-xs tracking-[0.16em] uppercase">
+              Primary score
+            </p>
+            <h2 className="text-foreground mt-2 text-2xl font-semibold">
               {profile.economy.shortLabel} score
             </h2>
-            <p className="text-foreground text-6xl font-semibold tracking-tight">
+            <p className="text-foreground mt-3 text-7xl font-semibold tracking-tight">
               {formatScore(profile.readinessScore.totalScore)}
               <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
             </p>
-            <p className="text-foreground text-lg font-medium">
-              Rank #{profile.rank} in the current {profile.economy.shortLabel} benchmark
+            <p className="text-foreground mt-3 text-lg font-semibold">
+              Rank #{profile.rank} for {profile.economy.shortLabel}
+            </p>
+            <p className="text-muted mt-3 max-w-xl text-sm leading-6">
+              {getPrimaryInterpretation(profile)}
             </p>
           </div>
-          <p className="text-muted text-sm leading-6">
-            This is the main score to watch. It measures how ready{" "}
-            {profile.chain.name} is to support the selected economy under the
-            active Atlas model, and it is the benchmark Protofire can improve
-            directly through infrastructure activation.
-          </p>
-          <div className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-2">
+
+          <dl className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-3">
             <div>
-              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+                Missing modules
+              </dt>
+              <dd className="text-foreground mt-2 text-2xl font-semibold">
+                {missingModuleCount}
+              </dd>
+            </div>
+            <div>
+              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
                 Partial modules
-              </p>
-              <p className="text-foreground mt-2 text-2xl font-semibold">
+              </dt>
+              <dd className="text-foreground mt-2 text-2xl font-semibold">
                 {partialModuleCount}
-              </p>
+              </dd>
             </div>
             <div>
-              <p className="text-muted text-xs tracking-[0.14em] uppercase">
-                Next activation focus
-              </p>
-              <p className="text-foreground mt-2 text-2xl font-semibold">
-                {profile.recommendedStack.recommendedModules[0]?.module.name ??
-                  "No immediate gap"}
-              </p>
+              <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+                Immediate upside
+              </dt>
+              <dd className="text-foreground mt-2 text-2xl font-semibold">
+                +{formatScore(totalPotentialLift)}
+              </dd>
             </div>
-          </div>
-        </Panel>
+          </dl>
+        </div>
       </section>
 
       <ScoreCompositionSection profile={profile} />
@@ -185,7 +170,7 @@ export function ChainProfileView({
           id="liquid-staking-diagnosis"
           eyebrow="Liquid staking"
           title="7-module diagnosis"
-          description="Atlas uses a dedicated seven-part lens for liquid staking to make exit quality, peg behavior, DeFi utility, validator risk, and stress handling visible chain by chain."
+          description="Atlas uses a dedicated seven-part liquid staking lens to make exit quality, peg behavior, DeFi utility, validator risk, and stress handling visible chain by chain."
         >
           <LiquidStakingDiagnosisSection
             diagnosis={profile.liquidStakingDiagnosis}
@@ -208,25 +193,29 @@ export function ChainProfileView({
         <ShareableScorecard profile={profile} />
       </ExpandableSection>
 
-      <section className="space-y-4" id="assessment">
+      <section className="border-border/70 space-y-4 border-t pt-6" id="assessment">
         <div>
           <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Improve my score
+            Request assessment
           </p>
           <h2 className="text-foreground mt-2 text-2xl font-semibold">
             Request infrastructure assessment
           </h2>
+          <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
+            Protofire can review the current Atlas result, validate the missing
+            infrastructure, and scope the activation path required to move this
+            chain higher in the selected economy.
+          </p>
         </div>
-        <Panel>
-          <AssessmentRequestForm
-            chainName={profile.chain.name}
-            chainSlug={profile.chain.slug}
-            economyLabel={profile.economy.name}
-            economySlug={profile.economy.slug}
-            requestState={requestState}
-            action={submitAssessmentRequestAction}
-          />
-        </Panel>
+
+        <AssessmentRequestForm
+          chainName={profile.chain.name}
+          chainSlug={profile.chain.slug}
+          economyLabel={profile.economy.name}
+          economySlug={profile.economy.slug}
+          requestState={requestState}
+          action={submitAssessmentRequestAction}
+        />
       </section>
     </div>
   );

@@ -1,8 +1,6 @@
-import { chainCatalogSeeds } from "@/data/seed/catalog";
-import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
 import { getActiveGlobalRankingAssumptions } from "@/lib/assumptions/resolve";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
-import { validateChainEcosystemMetricsSeeds } from "@/lib/domain/schemas";
+import { listResolvedChainEcosystemMetrics } from "@/lib/external-data/service";
 import type {
   Chain,
   ChainEcosystemMetrics,
@@ -44,39 +42,7 @@ function average(values: number[]) {
 function buildMetricsByChain(
   chains: Chain[],
 ): Map<string, ChainEcosystemMetrics> {
-  const validatedMetrics = validateChainEcosystemMetricsSeeds(
-    chainCatalogSeeds,
-    chainEcosystemMetricsSeeds,
-  );
-  const metricsBySlug = new Map(
-    validatedMetrics.map((record) => [record.chainSlug, record] as const),
-  );
-
-  return new Map(
-    chains.map((chain) => {
-      const seed = metricsBySlug.get(chain.slug);
-
-      if (!seed) {
-        throw new Error(`Missing ecosystem metrics for ${chain.slug}.`);
-      }
-
-      return [
-        chain.slug,
-        {
-          chainId: chain.id,
-          wallets: seed.wallets,
-          activeUsers: seed.activeUsers,
-          protocols: seed.protocols,
-          ecosystemProjects: seed.ecosystemProjects,
-          averageTransactionSpeed: seed.averageTransactionSpeed,
-          blockTime: seed.blockTime,
-          throughputIndicator: seed.throughputIndicator,
-          snapshotDate: seed.snapshotDate,
-          sourceLabel: seed.sourceLabel,
-        },
-      ] as const;
-    }),
-  );
+  return listResolvedChainEcosystemMetrics(chains);
 }
 
 function buildEconomyCompositeScore(

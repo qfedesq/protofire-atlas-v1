@@ -1,4 +1,5 @@
 import { submitChainAdditionRequestAction } from "@/app/actions/chain-addition-request";
+import { CitationBlock } from "@/components/public/citation-block";
 import { AddChainRequestForm } from "@/components/requests/add-chain-request-form";
 import { createGlobalRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { GlobalRankingsTable } from "@/components/tables/global-rankings-table";
@@ -148,6 +149,8 @@ export default async function Home({ searchParams }: HomePageProps) {
             )
           }
         />
+
+        <CitationBlock />
 
         <AddChainRequestForm
           selectedEconomy={defaultEconomySlug}

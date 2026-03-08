@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ChainProfileView } from "@/components/chain/chain-profile-view";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
+import { siteConfig } from "@/lib/config/site";
 import { parseEconomySelection } from "@/lib/domain/schemas";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
@@ -44,6 +45,16 @@ export async function generateMetadata({
   return {
     title: `${profile.chain.name} | ${profile.economy.shortLabel}`,
     description: `${profile.chain.name} readiness score, gap analysis, recommended stack, and phased Protofire deployment plan for ${profile.economy.name}.`,
+    alternates: {
+      canonical: `/chains/${profile.chain.slug}?economy=${profile.economy.slug}`,
+    },
+    openGraph: {
+      title: `${profile.chain.name} | ${profile.economy.shortLabel}`,
+      description: `${profile.chain.name} readiness score, missing infrastructure, and Protofire activation path for ${profile.economy.name}.`,
+      url: `${siteConfig.siteUrl}/chains/${profile.chain.slug}?economy=${profile.economy.slug}`,
+      siteName: siteConfig.name,
+      type: "article",
+    },
   };
 }
 

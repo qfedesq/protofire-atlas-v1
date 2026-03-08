@@ -1,0 +1,2098 @@
+{
+  "updatedAt": "2026-03-08T19:15:35.826Z",
+  "sourceNote": "Atlas uses source-backed external metrics where a connector returns valid data and preserves the last valid snapshot or Atlas baseline fallback when a source is unavailable.",
+  "connectors": [
+    {
+      "connector": "DeFiLlama",
+      "status": "failed",
+      "message": "fetch failed"
+    },
+    {
+      "connector": "Dune",
+      "status": "skipped",
+      "message": "Skipped because DUNE_API_KEY or DUNE_CHAIN_METRICS_QUERY_ID is not set."
+    },
+    {
+      "connector": "Artemis",
+      "status": "skipped",
+      "message": "Skipped because ARTEMIS_CHAIN_METRICS_URL is not set."
+    },
+    {
+      "connector": "Token Terminal",
+      "status": "skipped",
+      "message": "Skipped because TOKEN_TERMINAL_CHAIN_METRICS_URL is not set."
+    }
+  ],
+  "chains": [
+    {
+      "chainSlug": "ai-layer",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 68820461.89275603
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1700000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 31000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 18
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 45
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.9
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 60
+        }
+      }
+    },
+    {
+      "chainSlug": "arbitrum",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3027059197.386795
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 88000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 980000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 760
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1450
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.8
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 95
+        }
+      }
+    },
+    {
+      "chainSlug": "avalanche",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1572020058.582735
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 42000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 410000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 310
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 720
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 65
+        }
+      }
+    },
+    {
+      "chainSlug": "base",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5861543762.677292
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 72000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1480000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 520
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 980
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 120
+        }
+      }
+    },
+    {
+      "chainSlug": "berachain",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 356916813.5063607
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 7500000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 155000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 78
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 180
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.6
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 140
+        }
+      }
+    },
+    {
+      "chainSlug": "bitlayer",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 88257145.4792224
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 4200000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 59000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 40
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 92
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.8
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.5
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 45
+        }
+      }
+    },
+    {
+      "chainSlug": "bnb-chain",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 7291010357.232988
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 240000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1850000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 970
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1900
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3.1
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 170
+        }
+      }
+    },
+    {
+      "chainSlug": "bob",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 84324239.72610378
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 6100000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 67000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 58
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 130
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.1
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 65
+        }
+      }
+    },
+    {
+      "chainSlug": "cronos",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 367225542.59794134
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 38000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 175000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 220
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 430
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5.6
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5.6
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 40
+        }
+      }
+    },
+    {
+      "chainSlug": "ethereal",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 61632148.49833762
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1200000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 22000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 16
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 36
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.6
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.5
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 70
+        }
+      }
+    },
+    {
+      "chainSlug": "ethereum",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 106358856047.8496
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 310000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 920000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1350
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2600
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 13.2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 12
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 18
+        }
+      }
+    },
+    {
+      "chainSlug": "fraxtal",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 52243272.66214651
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 4500000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 52000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 70
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 150
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 90
+        }
+      }
+    },
+    {
+      "chainSlug": "gnosis",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 188776846.531697
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 12000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 82000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 155
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 350
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 35
+        }
+      }
+    },
+    {
+      "chainSlug": "hedera",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 109207983.90558125
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 110000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 690000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 95
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 250
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3.5
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3.5
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1300
+        }
+      }
+    },
+    {
+      "chainSlug": "hemi",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 55433791.081922784
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1500000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 28000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 19
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 44
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.4
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 55
+        }
+      }
+    },
+    {
+      "chainSlug": "ink",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 578312427.1181417
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2800000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 76000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 34
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 80
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.1
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 75
+        }
+      }
+    },
+    {
+      "chainSlug": "katana",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1185441342.4459987
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2200000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 54000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 26
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 58
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.9
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 90
+        }
+      }
+    },
+    {
+      "chainSlug": "linea",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 148092531.51649275
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 20000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 260000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 160
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 330
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.1
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 60
+        }
+      }
+    },
+    {
+      "chainSlug": "mantle",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1068350583.2470126
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 18000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 250000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 145
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 300
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 70
+        }
+      }
+    },
+    {
+      "chainSlug": "megaeth",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 97057242.9519142
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3100000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 83000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 29
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 70
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 0.5
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 0.2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 20000
+        }
+      }
+    },
+    {
+      "chainSlug": "mode",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 67584258.82514393
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 11000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 98000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 102
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 220
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 85
+        }
+      }
+    },
+    {
+      "chainSlug": "monad",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 486967290.04871047
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5500000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 98000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 42
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 95
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2500
+        }
+      }
+    },
+    {
+      "chainSlug": "optimism",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 289679367.6631271
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 70000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 720000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 510
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 990
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 110
+        }
+      }
+    },
+    {
+      "chainSlug": "plasma",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3250630575.2556696
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 4000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 68000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 38
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 74
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.4
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 95
+        }
+      }
+    },
+    {
+      "chainSlug": "plume",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 102497322.7490807
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3400000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 62000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 36
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 84
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.4
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 80
+        }
+      }
+    },
+    {
+      "chainSlug": "polygon",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1178868431.0921535
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 160000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 810000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 640
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1400
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.3
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.1
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 180
+        }
+      }
+    },
+    {
+      "chainSlug": "rootstock",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 97877850.50230648
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 9000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 45000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 82
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 190
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 30
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 30
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 7
+        }
+      }
+    },
+    {
+      "chainSlug": "scroll",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 481459219.07436305
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 15000000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 210000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 120
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 260
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 2.3
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 3
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 55
+        }
+      }
+    },
+    {
+      "chainSlug": "sonic",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 54686795.386572555
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 8600000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 130000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 95
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 210
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 0.8
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 0.7
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 400
+        }
+      }
+    },
+    {
+      "chainSlug": "unichain",
+      "metrics": {
+        "tvlUsd": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 83639712.12185673
+        },
+        "wallets": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 5800000
+        },
+        "activeUsers": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 120000
+        },
+        "protocols": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 75
+        },
+        "ecosystemProjects": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 160
+        },
+        "averageTransactionSpeed": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1.7
+        },
+        "blockTime": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 1
+        },
+        "throughputIndicator": {
+          "sourceName": "Curated Atlas ecosystem and performance snapshot",
+          "sourceEndpoint": "seed://chain-ecosystem-metrics",
+          "fetchedAt": "2026-03-07T00:00:00.000Z",
+          "normalizationNote": "Curated Atlas fallback snapshot.",
+          "freshness": "fallback",
+          "value": 180
+        }
+      }
+    }
+  ]
+}

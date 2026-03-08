@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import localFont from "next/font/local";
-import Link from "next/link";
 
+import { SiteShell } from "@/components/layout/site-shell";
 import { siteConfig } from "@/lib/config/site";
-import { atlasVersion } from "@/lib/config/version";
 
 import "./globals.css";
 
@@ -16,11 +14,19 @@ const onest = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.siteUrl,
+    siteName: siteConfig.name,
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -31,49 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${onest.variable} antialiased`}>
-        <div className="min-h-screen">
-          <header className="protofire-topbar border-b backdrop-blur">
-            <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-              <Link href="/" className="flex items-center gap-4">
-                <Image
-                  src="/brand/protofire-logotype-brand-monochrome-light.svg"
-                  alt="Protofire"
-                  width={144}
-                  height={24}
-                  className="h-6 w-auto"
-                />
-                <span className="text-xs font-medium tracking-[0.18em] text-slate-200 uppercase">
-                  Atlas
-                </span>
-              </Link>
-              <nav className="flex items-center gap-6 text-sm text-slate-300">
-                <Link
-                  className="transition hover:text-white"
-                  href="/#global-ranking"
-                >
-                  Global ranking
-                </Link>
-                <Link
-                  className="transition hover:text-white"
-                  href="/internal/admin"
-                >
-                  Admin
-                </Link>
-                <span className="text-xs font-medium tracking-[0.18em] text-slate-200 uppercase">
-                  {atlasVersion.label}
-                </span>
-              </nav>
-            </div>
-          </header>
-          <main className="mx-auto w-full max-w-7xl px-6 py-10 lg:px-8 lg:py-12">
-            {children}
-          </main>
-          <footer className="border-border/80 bg-white/70 border-t backdrop-blur">
-            <div className="text-muted mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-6 text-sm lg:px-8">
-              <p>Built for chains evaluating infrastructure readiness by economy.</p>
-            </div>
-          </footer>
-        </div>
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

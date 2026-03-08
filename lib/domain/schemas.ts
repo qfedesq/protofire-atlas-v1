@@ -13,6 +13,7 @@ import {
   chainSourceMetrics,
   chainSourceProviders,
   economyTypeSlugs,
+  externalMetricKeys,
   globalRankingsSortKeys,
   moduleAvailabilityStatuses,
   rankingsSortDirections,
@@ -25,6 +26,7 @@ import type {
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
   EconomyType,
+  ExternalMetricsSnapshot,
   GlobalRankingsQuery,
   RankingsQuery,
   RankingsSortKey,
@@ -333,8 +335,10 @@ const chainRoadmapSeedsSchema = z
 
 const chainEcosystemMetricsSeedSchema = z.object({
   chainSlug: z.string().min(1),
+  tvlUsd: z.number().nonnegative().optional(),
   wallets: z.number().int().nonnegative(),
   activeUsers: z.number().int().nonnegative(),
+  transactions: z.number().nonnegative().optional(),
   protocols: z.number().int().nonnegative(),
   ecosystemProjects: z.number().int().nonnegative(),
   averageTransactionSpeed: z.number().positive(),
@@ -356,6 +360,39 @@ const chainEcosystemMetricsSeedsSchema = z
       "Duplicate chain ecosystem metrics record",
     );
   });
+
+const externalMetricProvenanceSchema = z.object({
+  sourceName: z.string().min(1),
+  sourceEndpoint: z.string().min(1),
+  fetchedAt: z.string().min(1),
+  normalizationNote: z.string().min(1),
+  freshness: z.enum(["source-backed", "fallback"]),
+});
+
+const externalMetricSnapshotValueSchema = externalMetricProvenanceSchema.extend({
+  value: z.number().nonnegative(),
+});
+
+const externalChainMetricsSnapshotSchema = z.object({
+  chainSlug: z.string().min(1),
+  metrics: z.partialRecord(
+    z.enum(externalMetricKeys),
+    externalMetricSnapshotValueSchema,
+  ),
+});
+
+const externalMetricsSnapshotSchema = z.object({
+  updatedAt: z.string().min(1),
+  sourceNote: z.string().min(1),
+  connectors: z.array(
+    z.object({
+      connector: z.string().min(1),
+      status: z.enum(["success", "skipped", "failed"]),
+      message: z.string().min(1),
+    }),
+  ),
+  chains: z.array(externalChainMetricsSnapshotSchema),
+});
 
 const chainEconomySeedRecordsSchema = z
   .array(chainEconomySeedRecordSchema)
@@ -434,6 +471,12 @@ export function parseChainEcosystemMetricsSeeds(
   input: unknown,
 ): ChainEcosystemMetricsSeed[] {
   return chainEcosystemMetricsSeedsSchema.parse(input);
+}
+
+export function parseExternalMetricsSnapshot(
+  input: unknown,
+): ExternalMetricsSnapshot {
+  return externalMetricsSnapshotSchema.parse(input);
 }
 
 export function validateChainRoadmapSeeds(

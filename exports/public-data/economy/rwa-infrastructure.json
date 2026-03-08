@@ -1,0 +1,1777 @@
+{
+  "title": "RWA Infrastructure Economy ranking",
+  "economy": "rwa-infrastructure",
+  "economy_name": "RWA Infrastructure Economy",
+  "dataset": "Top 30 EVM chains by TVL",
+  "updated_at": "2026-03-08T19:15:35.826Z",
+  "atlas_version": "V1.20",
+  "source_note": "Top 30 EVM chains by TVL from DeFiLlama snapshot 2026-03-07. Atlas publishes source-backed metrics when available and preserves the last valid snapshot otherwise.",
+  "rows": [
+    {
+      "chain": {
+        "slug": "ethereum",
+        "name": "Ethereum",
+        "category": "L1",
+        "website": "https://ethereum.org",
+        "source_tvl_rank": 1,
+        "source_tvl_usd": 106358856047.8496
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 1,
+      "score": 8.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "available",
+          "weight": 30,
+          "contribution": 3,
+          "max_contribution": 3,
+          "rationale": "Tokenized assets can already anchor to a credible issuance and identity layer, which lowers friction for new issuer programs.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, asset registry infrastructure is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "External data support is already credible enough to anchor valuation and verification workflows for tokenized assets.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, oracle verification is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "avalanche",
+        "name": "Avalanche",
+        "category": "L1",
+        "website": "https://www.avax.network",
+        "source_tvl_rank": 6,
+        "source_tvl_usd": 1572020058.582735
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 2,
+      "score": 7.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "available",
+          "weight": 30,
+          "contribution": 3,
+          "max_contribution": 3,
+          "rationale": "Tokenized assets can already anchor to a credible issuance and identity layer, which lowers friction for new issuer programs.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, asset registry infrastructure is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "plume",
+        "name": "Plume",
+        "category": "L1",
+        "website": "https://plume.org",
+        "source_tvl_rank": 19,
+        "source_tvl_usd": 102497322.7490807
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 3,
+      "score": 7.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "available",
+          "weight": 30,
+          "contribution": 3,
+          "max_contribution": 3,
+          "rationale": "Tokenized assets can already anchor to a credible issuance and identity layer, which lowers friction for new issuer programs.",
+          "evidence_note": "Seeded demo assessment: For Plume, asset registry infrastructure is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Plume, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "External data support is already credible enough to anchor valuation and verification workflows for tokenized assets.",
+          "evidence_note": "Seeded demo assessment: For Plume, oracle verification is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Plume, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "arbitrum",
+        "name": "Arbitrum",
+        "category": "L2",
+        "website": "https://arbitrum.io",
+        "source_tvl_rank": 5,
+        "source_tvl_usd": 3027059197.386795
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 4,
+      "score": 7,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "External data support is already credible enough to anchor valuation and verification workflows for tokenized assets.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, oracle verification is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "base",
+        "name": "Base",
+        "category": "L2",
+        "website": "https://base.org",
+        "source_tvl_rank": 3,
+        "source_tvl_usd": 5861543762.677292
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 5,
+      "score": 7,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Base, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Base, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "External data support is already credible enough to anchor valuation and verification workflows for tokenized assets.",
+          "evidence_note": "Seeded demo assessment: For Base, oracle verification is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Base, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "polygon",
+        "name": "Polygon",
+        "category": "L1",
+        "website": "https://polygon.technology",
+        "source_tvl_rank": 8,
+        "source_tvl_usd": 1178868431.0921535
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 6,
+      "score": 7,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Polygon, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Polygon, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "External data support is already credible enough to anchor valuation and verification workflows for tokenized assets.",
+          "evidence_note": "Seeded demo assessment: For Polygon, oracle verification is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Polygon, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "hedera",
+        "name": "Hedera",
+        "category": "L1",
+        "website": "https://hedera.com",
+        "source_tvl_rank": 18,
+        "source_tvl_usd": 109207983.90558125
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 7,
+      "score": 6.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Hedera, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "available",
+          "weight": 30,
+          "contribution": 3,
+          "max_contribution": 3,
+          "rationale": "Permissioning and policy controls are already strong enough to support more demanding asset workflows.",
+          "evidence_note": "Seeded demo assessment: For Hedera, compliance infrastructure is treated as available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Hedera, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Hedera, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "optimism",
+        "name": "Optimism",
+        "category": "L2",
+        "website": "https://www.optimism.io",
+        "source_tvl_rank": 15,
+        "source_tvl_usd": 289679367.6631271
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 8,
+      "score": 6,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Optimism, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Optimism, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Optimism, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For Optimism, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "gnosis",
+        "name": "Gnosis",
+        "category": "L1",
+        "website": "https://www.gnosis.io",
+        "source_tvl_rank": 16,
+        "source_tvl_usd": 188776846.531697
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 9,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some policy controls exist, but the chain still needs a more explicit compliance layer before larger issuer programs become easier to support.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, compliance infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "bnb-chain",
+        "name": "BNB Chain",
+        "category": "L1",
+        "website": "https://www.bnbchain.org",
+        "source_tvl_rank": 2,
+        "source_tvl_usd": 7291010357.232988
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 10,
+      "score": 4.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "available",
+          "weight": 20,
+          "contribution": 2,
+          "max_contribution": 2,
+          "rationale": "Transfer and servicing rails are already strong enough to support more complete tokenized asset transaction flows.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, settlement infrastructure is treated as available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "cronos",
+        "name": "Cronos",
+        "category": "L1",
+        "website": "https://cronos.org",
+        "source_tvl_rank": 13,
+        "source_tvl_usd": 367225542.59794134
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 11,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Cronos, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Cronos, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Cronos, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Cronos, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "ink",
+        "name": "Ink",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 10,
+        "source_tvl_usd": 578312427.1181417
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 12,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Ink, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Ink, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Ink, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Ink, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "linea",
+        "name": "Linea",
+        "category": "L2",
+        "website": "https://linea.build",
+        "source_tvl_rank": 17,
+        "source_tvl_usd": 148092531.51649275
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 13,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Linea, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Linea, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Linea, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Linea, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "mantle",
+        "name": "Mantle",
+        "category": "L2",
+        "website": "https://www.mantle.xyz",
+        "source_tvl_rank": 9,
+        "source_tvl_usd": 1068350583.2470126
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 14,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Mantle, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Mantle, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Mantle, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Mantle, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "monad",
+        "name": "Monad",
+        "category": "L1",
+        "website": "https://monad.xyz",
+        "source_tvl_rank": 11,
+        "source_tvl_usd": 486967290.04871047
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 15,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Monad, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Monad, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Monad, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Monad, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "sonic",
+        "name": "Sonic",
+        "category": "L1",
+        "website": "https://www.soniclabs.com",
+        "source_tvl_rank": 29,
+        "source_tvl_usd": 54686795.386572555
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 16,
+      "score": 3.5,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "partial",
+          "weight": 30,
+          "contribution": 1.5,
+          "max_contribution": 3,
+          "rationale": "Some issuance support exists, but asset identity and lifecycle handling still need hardening before the chain can market a stronger RWA posture.",
+          "evidence_note": "Seeded demo assessment: For Sonic, asset registry infrastructure is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Sonic, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Sonic, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Sonic, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "ai-layer",
+        "name": "AILayer",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 25,
+        "source_tvl_usd": 68820461.89275603
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 17,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For AILayer, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For AILayer, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For AILayer, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For AILayer, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "berachain",
+        "name": "Berachain",
+        "category": "L1",
+        "website": "https://www.berachain.com",
+        "source_tvl_rank": 14,
+        "source_tvl_usd": 356916813.5063607
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 18,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Berachain, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Berachain, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Berachain, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Berachain, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "bitlayer",
+        "name": "Bitlayer",
+        "category": "L2",
+        "website": "https://www.bitlayer.org",
+        "source_tvl_rank": 22,
+        "source_tvl_usd": 88257145.4792224
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 19,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "bob",
+        "name": "BOB",
+        "category": "L2",
+        "website": "https://buildonbob.xyz",
+        "source_tvl_rank": 23,
+        "source_tvl_usd": 84324239.72610378
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 20,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For BOB, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For BOB, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For BOB, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For BOB, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "ethereal",
+        "name": "Ethereal",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 27,
+        "source_tvl_usd": 61632148.49833762
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 21,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "fraxtal",
+        "name": "Fraxtal",
+        "category": "L2",
+        "website": "https://frax.finance",
+        "source_tvl_rank": 30,
+        "source_tvl_usd": 52243272.66214651
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 22,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "hemi",
+        "name": "Hemi",
+        "category": "L2",
+        "website": "https://hemi.xyz",
+        "source_tvl_rank": 28,
+        "source_tvl_usd": 55433791.081922784
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 23,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Hemi, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Hemi, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Hemi, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Hemi, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "katana",
+        "name": "Katana",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 7,
+        "source_tvl_usd": 1185441342.4459987
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 24,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Katana, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Katana, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Katana, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Katana, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "megaeth",
+        "name": "MegaETH",
+        "category": "L2",
+        "website": "https://megaeth.com",
+        "source_tvl_rank": 21,
+        "source_tvl_usd": 97057242.9519142
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 25,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "mode",
+        "name": "Mode",
+        "category": "L2",
+        "website": "https://www.mode.network",
+        "source_tvl_rank": 26,
+        "source_tvl_usd": 67584258.82514393
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 26,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Mode, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Mode, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Mode, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Mode, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "plasma",
+        "name": "Plasma",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 4,
+        "source_tvl_usd": 3250630575.2556696
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 27,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Plasma, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Plasma, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Plasma, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Plasma, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "rootstock",
+        "name": "Rootstock",
+        "category": "L2",
+        "website": "https://rootstock.io",
+        "source_tvl_rank": 20,
+        "source_tvl_usd": 97877850.50230648
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 28,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "scroll",
+        "name": "Scroll",
+        "category": "L2",
+        "website": "https://scroll.io",
+        "source_tvl_rank": 12,
+        "source_tvl_usd": 481459219.07436305
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 29,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Scroll, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Scroll, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Scroll, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Scroll, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "unichain",
+        "name": "Unichain",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 24,
+        "source_tvl_usd": 83639712.12185673
+      },
+      "economy": "rwa-infrastructure",
+      "economy_name": "RWA Infrastructure Economy",
+      "rank": 30,
+      "score": 2,
+      "modules": [
+        {
+          "slug": "asset-registry",
+          "name": "Asset Registry",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without a canonical asset registry, tokenized issuance remains fragmented and harder for issuers and partners to coordinate around.",
+          "evidence_note": "Seeded demo assessment: For Unichain, asset registry infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "compliance",
+          "name": "Compliance Layer",
+          "status": "missing",
+          "weight": 30,
+          "contribution": 0,
+          "max_contribution": 3,
+          "rationale": "Without stronger compliance rails, the chain has a weak answer to transfer controls, auditability, and regulated workflow requirements.",
+          "evidence_note": "Seeded demo assessment: For Unichain, compliance infrastructure is treated as missing for the RWA benchmark."
+        },
+        {
+          "slug": "oracles",
+          "name": "Oracle Feeds",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Some external data coverage exists, but it still needs more structured packaging before a broader RWA stack can rely on it.",
+          "evidence_note": "Seeded demo assessment: For Unichain, oracle verification is treated as partially available for the RWA benchmark."
+        },
+        {
+          "slug": "settlement",
+          "name": "Settlement Infrastructure",
+          "status": "partial",
+          "weight": 20,
+          "contribution": 1,
+          "max_contribution": 2,
+          "rationale": "Basic settlement is possible, but the chain still needs a more dependable operating layer for transfers and post-trade servicing.",
+          "evidence_note": "Seeded demo assessment: For Unichain, settlement infrastructure is treated as partially available for the RWA benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Asset Registry",
+        "Compliance Layer"
+      ]
+    }
+  ]
+}

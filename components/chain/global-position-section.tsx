@@ -1,4 +1,3 @@
-import { Panel } from "@/components/ui/panel";
 import type { GlobalRankedChain } from "@/lib/domain/types";
 import {
   formatCountCompact,
@@ -12,131 +11,117 @@ export function GlobalPositionSection({
   position: GlobalRankedChain;
 }) {
   return (
-    <Panel className="space-y-6">
+    <section className="space-y-5 border-t border-[var(--border)] pt-6">
       <div>
         <p className="text-accent text-xs tracking-[0.16em] uppercase">
-          Global position
+          Global context
         </p>
         <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          Secondary context across the broader chain benchmark
+          Global position
         </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          Atlas combines the four economy scores with curated ecosystem
-          activity, adoption, and performance indicators to position the chain
-          in the broader EVM landscape.
+          This is secondary context. Atlas blends the four economy scores with
+          ecosystem activity, adoption, and performance signals to position the
+          chain inside the broader EVM landscape.
         </p>
       </div>
 
-      <div className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-2 xl:grid-cols-4">
+      <dl className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-2 xl:grid-cols-4">
         <div>
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
             Global rank
-          </p>
-          <p className="text-foreground mt-2 text-xl font-semibold">
+          </dt>
+          <dd className="text-foreground mt-2 text-xl font-semibold">
             #{position.benchmarkRank}
-          </p>
+          </dd>
         </div>
         <div>
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
             Global score
-          </p>
-          <p className="text-foreground mt-2 text-xl font-semibold">
+          </dt>
+          <dd className="text-foreground mt-2 text-xl font-semibold">
             {formatScore(position.score.totalScore)}
-          </p>
+          </dd>
         </div>
         <div>
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
             Economy composite
-          </p>
-          <p className="text-foreground mt-2 text-xl font-semibold">
+          </dt>
+          <dd className="text-foreground mt-2 text-xl font-semibold">
             {formatScore(position.score.economyCompositeScore)}
-          </p>
+          </dd>
         </div>
         <div>
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Adoption + ecosystem
-          </p>
-          <p className="text-foreground mt-2 text-xl font-semibold">
-            {formatScore(
-              (position.score.ecosystemScore + position.score.adoptionScore) / 2,
-            )}
-          </p>
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
+            Source TVL
+          </dt>
+          <dd className="text-foreground mt-2 text-xl font-semibold">
+            {formatCurrencyCompact(position.chain.sourceTvlUsd)}
+          </dd>
         </div>
+      </dl>
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        <MetricGroup
+          title="Adoption metrics"
+          rows={[
+            ["Wallets", formatCountCompact(position.score.metrics.wallets)],
+            ["Active users", formatCountCompact(position.score.metrics.activeUsers)],
+            [
+              "Transactions",
+              position.score.metrics.transactions == null
+                ? "Not captured"
+                : formatCountCompact(position.score.metrics.transactions),
+            ],
+          ]}
+        />
+        <MetricGroup
+          title="Ecosystem activity"
+          rows={[
+            ["Protocols", formatCountCompact(position.score.metrics.protocols)],
+            [
+              "Ecosystem projects",
+              formatCountCompact(position.score.metrics.ecosystemProjects),
+            ],
+          ]}
+        />
+        <MetricGroup
+          title="Performance"
+          rows={[
+            [
+              "Avg transaction speed",
+              `${position.score.metrics.averageTransactionSpeed}s`,
+            ],
+            ["Block time", `${position.score.metrics.blockTime}s`],
+            [
+              "Throughput indicator",
+              formatCountCompact(position.score.metrics.throughputIndicator),
+            ],
+          ]}
+        />
       </div>
+    </section>
+  );
+}
 
-      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr_0.9fr]">
-        <div className="space-y-3">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Adoption metrics
-          </p>
-          <div className="border-border/70 divide-y border-t text-sm">
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Wallets</span>
-              <span className="text-foreground font-medium">
-                {formatCountCompact(position.score.metrics.wallets)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Active users</span>
-              <span className="text-foreground font-medium">
-                {formatCountCompact(position.score.metrics.activeUsers)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Source TVL</span>
-              <span className="text-foreground font-medium">
-                {formatCurrencyCompact(position.chain.sourceTvlUsd)}
-              </span>
-            </div>
+function MetricGroup({
+  title,
+  rows,
+}: {
+  title: string;
+  rows: [string, string][];
+}) {
+  return (
+    <div>
+      <p className="text-muted text-xs tracking-[0.14em] uppercase">{title}</p>
+      <div className="border-border/70 divide-y border-t pt-1">
+        {rows.map(([label, value]) => (
+          <div key={label} className="flex items-center justify-between gap-3 py-3 text-sm">
+            <span className="text-muted">{label}</span>
+            <span className="text-foreground font-medium">{value}</span>
           </div>
-        </div>
-
-        <div className="space-y-3">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Ecosystem activity
-          </p>
-          <div className="border-border/70 divide-y border-t text-sm">
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Protocols</span>
-              <span className="text-foreground font-medium">
-                {formatCountCompact(position.score.metrics.protocols)}
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Ecosystem projects</span>
-              <span className="text-foreground font-medium">
-                {formatCountCompact(position.score.metrics.ecosystemProjects)}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
-            Technical performance
-          </p>
-          <div className="border-border/70 divide-y border-t text-sm">
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Avg transaction speed</span>
-              <span className="text-foreground font-medium">
-                {position.score.metrics.averageTransactionSpeed}s
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Block time</span>
-              <span className="text-foreground font-medium">
-                {position.score.metrics.blockTime}s
-              </span>
-            </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <span className="text-muted">Throughput indicator</span>
-              <span className="text-foreground font-medium">
-                {formatCountCompact(position.score.metrics.throughputIndicator)}
-              </span>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
-    </Panel>
+    </div>
   );
 }

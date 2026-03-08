@@ -8,7 +8,7 @@ export function CompetitiveAnalysisSection({
   profile: ChainProfile;
 }) {
   return (
-    <section className="space-y-4">
+    <section className="space-y-4 border-t border-[var(--border)] pt-6">
       <div>
         <p className="text-accent text-xs tracking-[0.16em] uppercase">
           Competitive context

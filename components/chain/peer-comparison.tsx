@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { Panel } from "@/components/ui/panel";
 import type { ChainProfile } from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
 
@@ -11,70 +10,71 @@ export function PeerComparisonSection({
 }) {
   if (profile.peers.length === 0) {
     return (
-      <Panel>
+      <div className="border-border/70 border-t pt-4">
         <p className="text-muted text-sm leading-6">
           No nearby peers are available in the current benchmark slice for this
           chain and economy.
         </p>
-      </Panel>
+      </div>
     );
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-3">
+    <div className="border-border/70 divide-y border-t">
       {profile.peers.map((peer) => (
-        <Panel key={`${profile.economy.slug}:${peer.chain.slug}`}>
-          <div className="flex items-start justify-between gap-3">
+        <div key={`${profile.economy.slug}:${peer.chain.slug}`} className="space-y-4 py-5">
+          <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">
                 {peer.relativePosition === "above"
                   ? "Nearby chain ahead"
                   : "Nearby chain behind"}
               </p>
-              <h3 className="text-foreground mt-2 text-xl font-semibold">
+              <h3 className="text-foreground mt-2 text-2xl font-semibold">
                 {peer.chain.name}
               </h3>
             </div>
-            <p className="text-muted text-sm">#{peer.rank}</p>
+            <p className="text-muted text-sm">
+              Rank #{peer.rank} · Score {formatScore(peer.totalScore)}
+            </p>
           </div>
-          <p className="text-muted mt-3 text-sm leading-6">
-            Score {formatScore(peer.totalScore)}. Gap versus {profile.chain.name}:{" "}
-            {formatScore(peer.scoreGap)} points.
+
+          <p className="text-muted text-sm leading-6">
+            Gap versus {profile.chain.name}: {formatScore(peer.scoreGap)} points.
           </p>
-          <div className="mt-5 space-y-3">
+
+          <div className="border-l border-[var(--border)] pl-4">
             {peer.decisiveModules.length === 0 ? (
               <p className="text-muted text-sm leading-6">
                 This peer has no material module delta in the current readiness
                 model.
               </p>
             ) : (
-              peer.decisiveModules.map((delta) => (
-                <div
-                  key={`${peer.chain.slug}:${delta.module.id}`}
-                  className="border-border/70 border-t pt-4 text-sm first:border-t-0 first:pt-0"
-                >
-                  <p className="text-foreground font-medium">
-                    {delta.module.name}
-                  </p>
-                  <p className="text-muted mt-1 leading-6">
-                    {profile.chain.name}: {delta.currentStatus} | {peer.chain.name}:{" "}
-                    {delta.peerStatus}
-                  </p>
-                  <p className="text-muted mt-2 leading-6">
-                    This module explains up to {formatScore(delta.weightedGap)}{" "}
-                    points of the nearby rank gap.
-                  </p>
-                </div>
-              ))
+              <div className="space-y-3">
+                {peer.decisiveModules.map((delta) => (
+                  <div key={`${peer.chain.slug}:${delta.module.id}`} className="text-sm">
+                    <p className="text-foreground font-medium">{delta.module.name}</p>
+                    <p className="text-muted mt-1 leading-6">
+                      {profile.chain.name}: {delta.currentStatus} | {peer.chain.name}:{" "}
+                      {delta.peerStatus}
+                    </p>
+                    <p className="text-muted mt-1 leading-6">
+                      This module explains up to {formatScore(delta.weightedGap)}{" "}
+                      points of the nearby rank gap.
+                    </p>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
+
           <Link
             href={`/chains/${peer.chain.slug}?economy=${profile.economy.slug}&from=peer-comparison`}
-            className="text-accent mt-5 inline-flex text-sm font-semibold hover:underline"
+            className="text-accent inline-flex text-sm font-semibold hover:underline"
           >
             Open comparison profile
           </Link>
-        </Panel>
+        </div>
       ))}
     </div>
   );

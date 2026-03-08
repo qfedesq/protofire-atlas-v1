@@ -1,6 +1,6 @@
 import Link from "next/link";
+
 import { ButtonLink } from "@/components/ui/button-link";
-import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type { ChainProfile } from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
@@ -14,145 +14,145 @@ export function ShareableScorecard({
   const blockingModules = profile.gapAnalysis.slice(0, 3);
 
   return (
-    <Panel className="space-y-6">
+    <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="text-accent text-xs tracking-[0.16em] uppercase">
             Public scorecard snapshot
           </p>
           <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            {profile.chain.name} • {profile.economy.shortLabel}
+            {profile.chain.name} · {profile.economy.shortLabel}
           </h2>
           <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-            Share-ready summary of the current Atlas dataset, active scoring
-            assumptions, visible gaps, and the corresponding Protofire stack.
+            Share-ready summary of the current Atlas score, visible blockers, and
+            the corresponding Protofire activation path.
           </p>
         </div>
         <ButtonLink href="#assessment">Request Infrastructure Assessment</ButtonLink>
       </div>
 
-      <div className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-4">
-        <div className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">Rank</p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+      <dl className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-4">
+        <div>
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">Rank</dt>
+          <dd className="text-foreground mt-2 text-3xl font-semibold">
             #{profile.rank}
-          </p>
+          </dd>
         </div>
-        <div className="border-border/70 border-l pl-4">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">Score</p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+        <div>
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">Score</dt>
+          <dd className="text-foreground mt-2 text-3xl font-semibold">
             {formatScore(profile.readinessScore.totalScore)}
-          </p>
+          </dd>
         </div>
-        <div className="border-border/70 border-l pl-4">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
+        <div>
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
             Missing modules
-          </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          </dt>
+          <dd className="text-foreground mt-2 text-3xl font-semibold">
             {profile.gapAnalysis.filter((gap) => gap.status === "missing").length}
-          </p>
+          </dd>
         </div>
-        <div className="border-border/70 border-l pl-4">
-          <p className="text-muted text-xs tracking-[0.14em] uppercase">
+        <div>
+          <dt className="text-muted text-xs tracking-[0.14em] uppercase">
             Suggested activations
-          </p>
-          <p className="text-foreground mt-2 text-3xl font-semibold">
+          </dt>
+          <dd className="text-foreground mt-2 text-3xl font-semibold">
             {profile.recommendedStack.recommendedModules.length}
-          </p>
+          </dd>
           <Link
             href="#suggested-activations"
-            className="text-accent mt-3 inline-flex text-sm font-medium hover:underline"
+            className="text-accent mt-2 inline-flex text-sm font-medium hover:underline"
           >
             Open suggested activations
           </Link>
         </div>
-      </div>
+      </dl>
 
-      <div className="grid gap-4 lg:grid-cols-[1.2fr_1fr_1fr]">
-        <div className="space-y-3">
+      <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr_1fr]">
+        <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Module status summary
           </p>
-          {profile.readinessScore.moduleBreakdown.map((module) => (
-            <div
-              key={module.module.id}
-              className="border-border/70 flex items-center justify-between gap-3 border-t py-3 first:border-t-0 first:pt-0"
-            >
-              <span className="text-foreground text-sm font-medium">
-                {module.module.name}
-              </span>
-              <StatusBadge status={module.status} />
-            </div>
-          ))}
+          <div className="border-border/70 divide-y border-t">
+            {profile.readinessScore.moduleBreakdown.map((module) => (
+              <div
+                key={module.module.id}
+                className="flex items-center justify-between gap-3 py-3"
+              >
+                <span className="text-foreground text-sm font-medium">
+                  {module.module.name}
+                </span>
+                <StatusBadge status={module.status} />
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="space-y-3">
+        <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Missing infrastructure
           </p>
-          {blockingModules.length === 0 ? (
-            <Panel className="border-rose-200 bg-rose-50/70 shadow-none">
-              <p className="text-muted text-sm leading-6">
-                No missing infrastructure modules remain in the current Atlas
-                model.
-              </p>
-            </Panel>
-          ) : (
-            blockingModules.map((gap) => (
-              <div
-                key={gap.module.id}
-                className="border-l-2 border-rose-400 pl-4"
-              >
-                <p className="text-rose-700 text-[11px] font-semibold tracking-[0.14em] uppercase">
-                  Diagnostic gap
-                </p>
-                <p className="text-foreground text-sm font-medium">
-                  {gap.module.name}
-                </p>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {gap.impact}
+          <div className="border-border/70 divide-y border-t">
+            {blockingModules.length === 0 ? (
+              <div className="py-3">
+                <p className="text-muted text-sm leading-6">
+                  No missing infrastructure modules remain in the current Atlas
+                  model.
                 </p>
               </div>
-            ))
-          )}
+            ) : (
+              blockingModules.map((gap) => (
+                <div key={gap.module.id} className="py-3">
+                  <p className="text-rose-700 text-[11px] font-semibold tracking-[0.14em] uppercase">
+                    Diagnostic gap
+                  </p>
+                  <p className="text-foreground mt-1 text-sm font-medium">
+                    {gap.module.name}
+                  </p>
+                  <p className="text-muted mt-2 text-sm leading-6">
+                    {gap.impact}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
         </div>
 
-        <div className="space-y-3">
+        <div>
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Protofire recommended stack
           </p>
-          {topRecommendations.length === 0 ? (
-            <Panel className="border-accent/25 bg-accent/8 shadow-none">
-              <p className="text-muted text-sm leading-6">
-                Current posture is strong enough that Protofire can focus on
-                optimization and packaging instead of foundational rollout.
-              </p>
-            </Panel>
-          ) : (
-            topRecommendations.map((recommendation) => (
-              <div
-                key={recommendation.title}
-                className="border-l-2 border-accent pl-4"
-              >
-                <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
-                  Activation plan
-                </p>
-                <p className="text-foreground text-sm font-medium">
-                  {recommendation.title}
-                </p>
-                {recommendation.kpis[0] ? (
-                  <p className="text-foreground mt-2 text-sm font-semibold">
-                    {recommendation.kpis[0].label}: {recommendation.kpis[0].value}
-                  </p>
-                ) : null}
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {recommendation.directChainImpact}
+          <div className="border-border/70 divide-y border-t">
+            {topRecommendations.length === 0 ? (
+              <div className="py-3">
+                <p className="text-muted text-sm leading-6">
+                  Current posture is strong enough that Protofire can focus on
+                  optimization and packaging instead of foundational rollout.
                 </p>
               </div>
-            ))
-          )}
+            ) : (
+              topRecommendations.map((recommendation) => (
+                <div key={recommendation.title} className="py-3">
+                  <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
+                    Activation plan
+                  </p>
+                  <p className="text-foreground mt-1 text-sm font-medium">
+                    {recommendation.title}
+                  </p>
+                  {recommendation.kpis[0] ? (
+                    <p className="text-foreground mt-2 text-sm font-semibold">
+                      {recommendation.kpis[0].label}: {recommendation.kpis[0].value}
+                    </p>
+                  ) : null}
+                  <p className="text-muted mt-2 text-sm leading-6">
+                    {recommendation.directChainImpact}
+                  </p>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
-    </Panel>
+    </div>
   );
 }

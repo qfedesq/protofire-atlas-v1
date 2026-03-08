@@ -19,13 +19,13 @@ export function BenchmarkStrip({
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Current rank
         </p>
-        <p className="text-foreground mt-2 text-2xl font-semibold">#{rank}</p>
+        <p className="text-foreground mt-2 text-xl font-semibold">#{rank}</p>
       </div>
       <div>
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Leader gap
         </p>
-        <p className="text-foreground mt-2 text-2xl font-semibold">
+        <p className="text-foreground mt-2 text-xl font-semibold">
           {formatDelta(leaderGap)}
         </p>
         <p className="text-muted mt-1 text-sm">Points behind {leader}</p>
@@ -34,7 +34,7 @@ export function BenchmarkStrip({
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Chains outranked
         </p>
-        <p className="text-foreground mt-2 text-2xl font-semibold">
+        <p className="text-foreground mt-2 text-xl font-semibold">
           {chainsOutranked}
         </p>
       </div>

@@ -1,6 +1,5 @@
 import { ChevronDown } from "lucide-react";
 
-import { Panel } from "@/components/ui/panel";
 import type {
   LiquidStakingDiagnosis,
   LiquidStakingMarketSnapshot,
@@ -29,40 +28,42 @@ export function LiquidStakingDiagnosisSection({
   marketSnapshot?: LiquidStakingMarketSnapshot;
 }) {
   return (
-    <div className="space-y-4">
-      <Panel className="min-w-44 px-5 py-4 shadow-none">
+    <div className="space-y-5">
+      <div className="border-border/70 border-t pt-4">
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Weighted LST score
         </p>
-        <p className="text-foreground mt-2 text-3xl font-semibold">
+        <p className="text-foreground mt-2 text-4xl font-semibold">
           {formatDiagnosisScore(diagnosis.weightedScore)}
+          <span className="text-muted ml-2 text-base font-medium">/ 100</span>
         </p>
-        <p className="text-muted mt-1 text-sm">/ 100</p>
-      </Panel>
+      </div>
 
-      <div className="grid gap-4 xl:grid-cols-2">
+      <div className="border-border/70 divide-y border-t">
         {diagnosis.dimensions.map((dimension) => (
-          <Panel key={dimension.dimension.id}>
-            <div className="flex items-start justify-between gap-4">
-              <div>
+          <div key={dimension.dimension.id} className="grid gap-4 py-4 lg:grid-cols-[0.32fr_0.68fr]">
+            <div>
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <p className="text-foreground text-lg font-semibold">
                   {dimension.dimension.name}
                 </p>
-                <p className="text-muted mt-2 text-sm leading-6">
-                  {dimension.dimension.description}
-                </p>
-              </div>
-              <div className="border-border/70 min-w-20 border-l pl-4 text-right">
-                <p className="text-foreground text-xl font-semibold">
+                <p className="text-foreground text-lg font-semibold">
                   {dimension.score}
                 </p>
-                <p className="text-muted mt-1 text-xs uppercase">
-                  {dimension.weight}% weight
+              </div>
+              <p className="text-muted mt-2 text-sm leading-6">
+                {dimension.dimension.description}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div>
+                <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                  Weight
+                </p>
+                <p className="text-foreground mt-2 text-sm font-semibold">
+                  {dimension.weight}%
                 </p>
               </div>
-            </div>
-
-            <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 lg:grid-cols-2">
               <div>
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Rationale
@@ -80,41 +81,41 @@ export function LiquidStakingDiagnosisSection({
                 </p>
               </div>
             </div>
-          </Panel>
+          </div>
         ))}
       </div>
 
       {marketSnapshot ? (
-        <details className="group border-border bg-surface rounded-3xl border shadow-[var(--shadow-soft)]">
-          <summary className="list-none cursor-pointer px-6 py-5">
+        <details className="group border-border/70 border-t pt-4">
+          <summary className="list-none cursor-pointer">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-accent text-xs tracking-[0.16em] uppercase">
                   LST market snapshot
                 </p>
                 <h3 className="text-foreground mt-2 text-xl font-semibold">
-                  Current data fields prepared for onchain capture
+                  Current source-backed fields
                 </h3>
               </div>
               <ChevronDown className="text-muted mt-1 h-5 w-5 shrink-0 transition group-open:rotate-180" />
             </div>
           </summary>
-          <div className="border-border/60 px-6 pt-4 pb-6">
+          <div className="mt-4 space-y-4">
             <p className="text-muted max-w-3xl text-sm leading-6">
               Snapshot date {marketSnapshot.snapshotDate}. Captured fields are
               shown directly; pending and non-applicable fields stay explicit
               until a verified source snapshot is added.
             </p>
 
-            <div className="border-border/70 mt-4 grid gap-4 border-t pt-4 md:grid-cols-2 xl:grid-cols-3">
-              <MetricCard
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <MetricRow
                 label="Native Token"
                 value={
                   marketSnapshot.nativeTokenSymbol ??
                   getMetricPlaceholder("nativeTokenSymbol", marketSnapshot.sources)
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="Market Cap"
                 value={
                   marketSnapshot.marketCapUsd == null
@@ -122,7 +123,7 @@ export function LiquidStakingDiagnosisSection({
                     : formatCurrencyCompact(marketSnapshot.marketCapUsd)
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="% Staked"
                 value={
                   marketSnapshot.percentStaked == null
@@ -130,7 +131,7 @@ export function LiquidStakingDiagnosisSection({
                     : `${marketSnapshot.percentStaked}%`
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="Staking APY"
                 value={
                   marketSnapshot.stakingApyPercent == null
@@ -141,7 +142,7 @@ export function LiquidStakingDiagnosisSection({
                     : `${marketSnapshot.stakingApyPercent}%`
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="# Stakers"
                 value={
                   marketSnapshot.stakersCount == null
@@ -151,11 +152,11 @@ export function LiquidStakingDiagnosisSection({
                       )
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="Global LST Health"
                 value={`${marketSnapshot.globalLstHealthScore}`}
               />
-              <MetricCard
+              <MetricRow
                 label="# of LSTs"
                 value={
                   marketSnapshot.lstProtocolCount == null
@@ -166,7 +167,7 @@ export function LiquidStakingDiagnosisSection({
                     : `${marketSnapshot.lstProtocolCount}`
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="LST / Staked %"
                 value={
                   marketSnapshot.lstToStakedPercent == null
@@ -177,18 +178,15 @@ export function LiquidStakingDiagnosisSection({
                     : `${marketSnapshot.lstToStakedPercent}%`
                 }
               />
-              <MetricCard
+              <MetricRow
                 label="DeFi TVL"
                 value={formatCurrencyCompact(marketSnapshot.defiTvlUsd)}
               />
             </div>
 
-            <div className="border-border/70 mt-4 grid gap-4 border-t pt-4 lg:grid-cols-2">
+            <div className="border-border/70 divide-y border-t">
               {marketSnapshot.sources.map((source) => (
-                <div
-                  key={`${source.metric}:${source.provider}`}
-                  className="border-border/70 border-l pl-4 text-sm"
-                >
+                <div key={`${source.metric}:${source.provider}`} className="py-4 text-sm">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-foreground font-medium">{source.metric}</p>
                     <p className="text-muted text-xs uppercase">
@@ -200,7 +198,7 @@ export function LiquidStakingDiagnosisSection({
                     href={source.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="text-accent mt-3 inline-flex hover:underline"
+                    className="text-accent mt-2 inline-flex hover:underline"
                   >
                     Open source
                   </a>
@@ -214,9 +212,9 @@ export function LiquidStakingDiagnosisSection({
   );
 }
 
-function MetricCard({ label, value }: { label: string; value: string }) {
+function MetricRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-border/70 border-l pl-4">
+    <div className="border-l border-[var(--border)] pl-4">
       <p className="text-muted text-xs tracking-[0.16em] uppercase">{label}</p>
       <p className="text-foreground mt-2 text-lg font-semibold">{value}</p>
     </div>

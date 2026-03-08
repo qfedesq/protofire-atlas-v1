@@ -1,0 +1,31 @@
+rank,chain,economy,score,missing_modules,updated_at,atlas_version
+1,Arbitrum,Prediction Market Economy,10,,2026-03-08T19:15:35.826Z,V1.20
+2,Ethereum,Prediction Market Economy,10,,2026-03-08T19:15:35.826Z,V1.20
+3,Base,Prediction Market Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+4,Polygon,Prediction Market Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+5,Optimism,Prediction Market Economy,7.3,,2026-03-08T19:15:35.826Z,V1.20
+6,BNB Chain,Prediction Market Economy,6,,2026-03-08T19:15:35.826Z,V1.20
+7,Berachain,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+8,BOB,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+9,Cronos,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+10,Fraxtal,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+11,Gnosis,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+12,Hemi,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+13,Ink,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+14,Katana,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+15,Linea,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+16,Mantle,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+17,Mode,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+18,Sonic,Prediction Market Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+19,Avalanche,Prediction Market Economy,4.3,Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+20,Monad,Prediction Market Economy,4,Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20
+21,MegaETH,Prediction Market Economy,3.3,Indexing Infrastructure | Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20
+22,Unichain,Prediction Market Economy,2.8,Market Contracts | Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+23,Plasma,Prediction Market Economy,2.5,Oracle Layer | Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+24,Scroll,Prediction Market Economy,2.5,Market Contracts | Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20
+25,AILayer,Prediction Market Economy,1,Oracle Layer | Market Contracts | Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+26,Ethereal,Prediction Market Economy,1,Oracle Layer | Market Contracts | Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+27,Rootstock,Prediction Market Economy,1,Oracle Layer | Market Contracts | Indexing Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+28,Bitlayer,Prediction Market Economy,0.8,Oracle Layer | Market Contracts | Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20
+29,Hedera,Prediction Market Economy,0.8,Oracle Layer | Market Contracts | Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20
+30,Plume,Prediction Market Economy,0.8,Oracle Layer | Market Contracts | Liquidity Integration,2026-03-08T19:15:35.826Z,V1.20

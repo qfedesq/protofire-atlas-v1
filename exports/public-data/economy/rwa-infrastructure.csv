@@ -1,0 +1,31 @@
+rank,chain,economy,score,missing_modules,updated_at,atlas_version
+1,Ethereum,RWA Infrastructure Economy,8.5,,2026-03-08T19:15:35.826Z,V1.20
+2,Avalanche,RWA Infrastructure Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+3,Plume,RWA Infrastructure Economy,7.5,,2026-03-08T19:15:35.826Z,V1.20
+4,Arbitrum,RWA Infrastructure Economy,7,,2026-03-08T19:15:35.826Z,V1.20
+5,Base,RWA Infrastructure Economy,7,,2026-03-08T19:15:35.826Z,V1.20
+6,Polygon,RWA Infrastructure Economy,7,,2026-03-08T19:15:35.826Z,V1.20
+7,Hedera,RWA Infrastructure Economy,6.5,,2026-03-08T19:15:35.826Z,V1.20
+8,Optimism,RWA Infrastructure Economy,6,,2026-03-08T19:15:35.826Z,V1.20
+9,Gnosis,RWA Infrastructure Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+10,BNB Chain,RWA Infrastructure Economy,4.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+11,Cronos,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+12,Ink,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+13,Linea,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+14,Mantle,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+15,Monad,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+16,Sonic,RWA Infrastructure Economy,3.5,Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+17,AILayer,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+18,Berachain,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+19,Bitlayer,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+20,BOB,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+21,Ethereal,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+22,Fraxtal,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+23,Hemi,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+24,Katana,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+25,MegaETH,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+26,Mode,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+27,Plasma,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+28,Rootstock,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+29,Scroll,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20
+30,Unichain,RWA Infrastructure Economy,2,Asset Registry | Compliance Layer,2026-03-08T19:15:35.826Z,V1.20

@@ -46,9 +46,7 @@ describe("ChainProfileView", () => {
       screen.getAllByText("Upgrade Agent Indexing Layer").length,
     ).toBeGreaterThan(0);
     expect(screen.getByText("AI Agents module notes")).toBeInTheDocument();
-    expect(
-      screen.getByText("What improves the score next"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("What to activate next")).toBeInTheDocument();
     expect(
       screen.getByText("How this chain compares to nearby peers"),
     ).toBeInTheDocument();

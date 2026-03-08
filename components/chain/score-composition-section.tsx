@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type { ChainProfile } from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
@@ -11,76 +10,119 @@ export function ScoreCompositionSection({
   profile: ChainProfile;
 }) {
   return (
-    <Panel className="space-y-6">
+    <section className="space-y-5 border-t border-[var(--border)] pt-6">
       <div>
         <p className="text-accent text-xs tracking-[0.16em] uppercase">
           Score composition
         </p>
         <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          Why the current score lands at {formatScore(profile.readinessScore.totalScore)}
+          How the {profile.economy.shortLabel} score is built
         </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          Atlas turns module status into weighted contribution. This shows what
-          is already supporting the score and what is still holding it back.
+          Atlas converts module status into weighted contribution. This is the
+          fastest way to see why the score lands here and which module is
+          still holding it down.
         </p>
       </div>
 
-      <div className="space-y-4">
-        {profile.readinessScore.moduleBreakdown.map((module) => {
-          const maxContribution =
-            (module.module.weight * profile.economy.scoringConfig.maximumScore) / 100;
-          const progress =
-            maxContribution === 0
-              ? 0
-              : Math.max(
-                  0,
-                  Math.min(100, (module.weightedContribution / maxContribution) * 100),
-                );
+      <div className="overflow-x-auto">
+        <table className="min-w-full border-collapse text-left text-sm">
+          <thead>
+            <tr className="border-border/70 border-b">
+              <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                Module
+              </th>
+              <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                Status
+              </th>
+              <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                Weight
+              </th>
+              <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                Contribution
+              </th>
+              <th className="py-3 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                Why it lands here
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {profile.readinessScore.moduleBreakdown.map((module) => {
+              const maxContribution =
+                (module.module.weight * profile.economy.scoringConfig.maximumScore) /
+                100;
+              const progress =
+                maxContribution === 0
+                  ? 0
+                  : Math.max(
+                      0,
+                      Math.min(
+                        100,
+                        (module.weightedContribution / maxContribution) * 100,
+                      ),
+                    );
 
-          return (
-            <div
-              key={module.module.id}
-              className="border-border/70 border-t pt-4 first:border-t-0 first:pt-0"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="space-y-2">
-                  <p className="text-foreground text-lg font-semibold">
-                    {module.module.name}
-                  </p>
-                  <StatusBadge status={module.status} />
-                </div>
-                <div className="text-right">
-                  <p className="text-muted text-[11px] tracking-[0.14em] uppercase">
-                    Contribution
-                  </p>
-                  <p className="text-foreground mt-2 text-2xl font-semibold">
-                    {formatScore(module.weightedContribution)}
-                  </p>
-                  <p className="text-muted mt-1 text-xs">
-                    Max {formatScore(maxContribution)}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-surface-muted mt-4 h-2 overflow-hidden rounded-sm">
-                <div
-                  className="bg-accent h-full rounded-sm"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-              <p className="text-muted mt-4 text-sm leading-6">{module.rationale}</p>
-              {module.module.slug === "liquid-staking" &&
-              profile.liquidStakingDiagnosis ? (
-                <Link
-                  href="#liquid-staking-diagnosis"
-                  className="text-accent mt-3 inline-flex text-sm font-medium hover:underline"
+              return (
+                <tr
+                  key={module.module.id}
+                  className="border-border/60 border-b align-top last:border-b-0"
                 >
-                  Open liquid staking diagnosis
-                </Link>
-              ) : null}
-            </div>
-          );
-        })}
+                  <td className="py-4 pr-4">
+                    <p className="text-foreground font-semibold">
+                      {module.module.name}
+                    </p>
+                  </td>
+                  <td className="py-4 pr-4">
+                    <StatusBadge status={module.status} />
+                  </td>
+                  <td className="py-4 pr-4 text-foreground">
+                    {module.module.weight}%
+                  </td>
+                  <td className="py-4 pr-4">
+                    <p className="text-foreground font-semibold">
+                      {formatScore(module.weightedContribution)}
+                    </p>
+                    <p className="text-muted mt-1 text-xs">
+                      Max {formatScore(maxContribution)}
+                    </p>
+                    <div className="bg-surface-muted mt-3 h-1.5 overflow-hidden">
+                      <div
+                        className="bg-accent h-full"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                  </td>
+                  <td className="py-4">
+                    <p className="text-muted max-w-2xl leading-6">{module.rationale}</p>
+                    {module.module.slug === "liquid-staking" &&
+                    profile.liquidStakingDiagnosis ? (
+                      <Link
+                        href="#liquid-staking-diagnosis"
+                        className="text-accent mt-2 inline-flex font-medium hover:underline"
+                      >
+                        Open liquid staking diagnosis
+                      </Link>
+                    ) : null}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="border-border/70 border-t">
+              <td colSpan={3} className="py-4 text-foreground font-semibold">
+                Total
+              </td>
+              <td className="py-4 text-foreground font-semibold">
+                {formatScore(profile.readinessScore.totalScore)} / 10
+              </td>
+              <td className="py-4 text-muted">
+                Sum of weighted module contributions under the active Atlas assumptions.
+              </td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
-    </Panel>
+    </section>
   );
 }

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type {
   ChainEconomyReadiness,
@@ -16,68 +15,60 @@ export function ModuleStatusGrid({
   liquidStakingDiagnosis?: LiquidStakingDiagnosis;
 }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
+    <div className="border-border/70 divide-y border-t">
       {readinessScore.moduleBreakdown.map((module) => (
-        <Panel key={module.module.id}>
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                {module.module.name}
-              </p>
-              <h3 className="text-foreground mt-2 text-xl font-semibold">
-                {formatScore(module.weightedContribution)} /{" "}
-                {formatScore((module.module.weight * 10) / 100)}
-              </h3>
+        <div key={module.module.id} className="grid gap-4 py-4 lg:grid-cols-[0.35fr_0.65fr]">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-foreground font-semibold">{module.module.name}</p>
+                <p className="text-muted mt-1 text-sm">
+                  {formatScore(module.weightedContribution)} /{" "}
+                  {formatScore((module.module.weight * 10) / 100)}
+                </p>
+              </div>
+              <StatusBadge status={module.status} />
             </div>
-            <StatusBadge status={module.status} />
-          </div>
-          <p className="text-muted mt-4 text-sm leading-6">
-            {module.module.description}
-          </p>
-          <div className="border-border/70 text-muted mt-5 grid gap-3 border-t pt-4 text-sm">
-            <div>
-              <p className="text-foreground font-medium">Why this status</p>
-              <p className="mt-1 leading-6">{module.rationale}</p>
-            </div>
-            <div>
-              <p className="text-foreground font-medium">Evidence note</p>
-              <p className="mt-1 leading-6">{module.evidenceNote}</p>
-            </div>
-          </div>
-          {module.module.slug === "liquid-staking" && liquidStakingDiagnosis ? (
-            <div className="border-border/70 mt-5 border-t pt-4">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    7-module diagnosis
-                  </p>
-                  <p className="text-foreground mt-2 text-xl font-semibold">
-                    {Math.round(liquidStakingDiagnosis.weightedScore)} / 100
-                  </p>
-                </div>
+            <p className="text-muted text-sm leading-6">
+              {module.module.description}
+            </p>
+            {module.module.slug === "liquid-staking" && liquidStakingDiagnosis ? (
+              <div className="border-border/60 border-l pl-4">
+                <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                  7-module diagnosis
+                </p>
+                <p className="text-foreground mt-2 text-lg font-semibold">
+                  {Math.round(liquidStakingDiagnosis.weightedScore)} / 100
+                </p>
                 <Link
                   href="#liquid-staking-diagnosis"
-                  className="text-accent text-sm font-medium hover:underline"
+                  className="text-accent mt-2 inline-flex text-sm font-medium hover:underline"
                 >
                   Open diagnosis
                 </Link>
               </div>
-              <div className="border-border/60 mt-4 divide-y">
-                {liquidStakingDiagnosis.dimensions.map((dimension) => (
-                  <div
-                    key={dimension.dimension.id}
-                    className="text-muted flex items-center justify-between gap-3 py-2 text-sm first:pt-0 last:pb-0"
-                  >
-                    <span>{dimension.dimension.name}</span>
-                    <span className="text-foreground font-medium">
-                      {dimension.weight}%
-                    </span>
-                  </div>
-                ))}
-              </div>
+            ) : null}
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Why this status
+              </p>
+              <p className="text-foreground mt-2 text-sm leading-6">
+                {module.rationale}
+              </p>
             </div>
-          ) : null}
-        </Panel>
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Evidence note
+              </p>
+              <p className="text-foreground mt-2 text-sm leading-6">
+                {module.evidenceNote}
+              </p>
+            </div>
+          </div>
+        </div>
       ))}
     </div>
   );

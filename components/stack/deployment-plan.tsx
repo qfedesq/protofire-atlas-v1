@@ -1,6 +1,4 @@
-import { Panel } from "@/components/ui/panel";
 import type { DeploymentPlan } from "@/lib/domain/types";
-import { cn } from "@/lib/utils/cn";
 
 type DeploymentPlanSectionProps = {
   plan: DeploymentPlan;
@@ -9,68 +7,69 @@ type DeploymentPlanSectionProps = {
 
 export function DeploymentPlanSection({
   plan,
-  layout = "stacked",
 }: DeploymentPlanSectionProps) {
-  const gridClassName =
-    layout === "grid"
-      ? plan.phases.length >= 3
-        ? "xl:grid-cols-2 2xl:grid-cols-3"
-        : plan.phases.length === 2
-          ? "xl:grid-cols-2"
-          : "grid-cols-1"
-      : "grid-cols-1";
+  if (plan.phases.length === 0) {
+    return (
+      <div className="border-border/70 border-t pt-4">
+        <p className="text-muted text-sm leading-6">
+          No phased rollout is required from the current Atlas dataset. Protofire
+          can move directly into benchmarking and readiness messaging support.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      {plan.phases.length === 0 ? (
-        <Panel>
-          <p className="text-muted text-sm leading-6">
-            No phased rollout is required from the current seeded dataset.
-            Protofire can move directly into benchmarking and readiness
-            messaging support.
-          </p>
-        </Panel>
-      ) : (
-        <div className={cn("grid gap-4", gridClassName)}>
-          {plan.phases.map((phase) => (
-            <Panel key={phase.id}>
+    <div className="border-border/70 divide-y border-t">
+      {plan.phases.map((phase) => (
+        <div key={phase.id} className="space-y-4 py-5">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">
                 {phase.label}
               </p>
-              <h3 className="text-foreground mt-2 text-xl font-semibold">
+              <h3 className="text-foreground mt-2 text-2xl font-semibold">
                 {phase.title}
               </h3>
-              <p className="text-muted mt-1 text-sm">{phase.timelineLabel}</p>
-              <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 sm:grid-cols-3">
-                {phase.kpis.map((kpi) => (
-                  <div
-                    key={`${phase.id}-${kpi.label}`}
-                    className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0"
-                  >
-                    <p className="text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
-                      {kpi.label}
-                    </p>
-                    <p className="text-foreground mt-3 text-2xl font-semibold tracking-tight">
-                      {kpi.value}
-                    </p>
-                  </div>
-                ))}
+            </div>
+            <p className="text-muted text-sm">{phase.timelineLabel}</p>
+          </div>
+
+          <dl className="grid gap-4 border-l border-[var(--border)] pl-4 md:grid-cols-3 md:border-l-0 md:pl-0">
+            {phase.kpis.map((kpi) => (
+              <div key={`${phase.id}-${kpi.label}`}>
+                <dt className="text-muted text-xs tracking-[0.16em] uppercase">
+                  {kpi.label}
+                </dt>
+                <dd className="text-foreground mt-2 text-2xl font-semibold">
+                  {kpi.value}
+                </dd>
               </div>
-              <p className="text-muted mt-4 text-sm leading-6">
-                {phase.objective}
-              </p>
-              <ul className="text-foreground mt-5 space-y-3 text-sm">
-                {phase.tasks.map((task) => (
-                  <li key={task} className="flex gap-3">
-                    <span className="bg-accent mt-1 h-2 w-2 rounded-sm" />
-                    <span>{task}</span>
-                  </li>
-                ))}
-              </ul>
-            </Panel>
-          ))}
+            ))}
+          </dl>
+
+          <div>
+            <p className="text-muted text-xs tracking-[0.16em] uppercase">
+              Objective
+            </p>
+            <p className="text-foreground mt-2 text-sm leading-6">
+              {phase.objective}
+            </p>
+          </div>
+
+          <div>
+            <p className="text-muted text-xs tracking-[0.16em] uppercase">Tasks</p>
+            <ul className="mt-3 space-y-3 text-sm text-foreground">
+              {phase.tasks.map((task) => (
+                <li key={task} className="flex gap-3">
+                  <span className="bg-accent mt-2 h-1.5 w-1.5 shrink-0" />
+                  <span className="leading-6">{task}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      )}
+      ))}
     </div>
   );
 }

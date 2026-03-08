@@ -1,0 +1,31 @@
+rank,chain,economy,score,missing_modules,updated_at,atlas_version
+1,Ethereum,DeFi Infrastructure Economy,10,,2026-03-08T19:15:35.826Z,V1.20
+2,Arbitrum,DeFi Infrastructure Economy,8.8,,2026-03-08T19:15:35.826Z,V1.20
+3,Optimism,DeFi Infrastructure Economy,7.8,,2026-03-08T19:15:35.826Z,V1.20
+4,Avalanche,DeFi Infrastructure Economy,7.3,,2026-03-08T19:15:35.826Z,V1.20
+5,Base,DeFi Infrastructure Economy,7.3,,2026-03-08T19:15:35.826Z,V1.20
+6,BNB Chain,DeFi Infrastructure Economy,7.3,,2026-03-08T19:15:35.826Z,V1.20
+7,Polygon,DeFi Infrastructure Economy,7.3,,2026-03-08T19:15:35.826Z,V1.20
+8,Berachain,DeFi Infrastructure Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+9,Katana,DeFi Infrastructure Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+10,Mantle,DeFi Infrastructure Economy,6.3,,2026-03-08T19:15:35.826Z,V1.20
+11,Cronos,DeFi Infrastructure Economy,5,,2026-03-08T19:15:35.826Z,V1.20
+12,Plasma,DeFi Infrastructure Economy,4,Liquid Staking Infrastructure | Oracle Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+13,BOB,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+14,Fraxtal,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+15,Gnosis,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+16,Ink,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+17,Linea,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+18,Mode,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+19,Monad,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+20,Sonic,DeFi Infrastructure Economy,3.8,Liquid Staking Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+21,Hemi,DeFi Infrastructure Economy,3.3,Liquid Staking Infrastructure | Indexing Layer,2026-03-08T19:15:35.826Z,V1.20
+22,Rootstock,DeFi Infrastructure Economy,3.3,Liquid Staking Infrastructure | Indexing Layer,2026-03-08T19:15:35.826Z,V1.20
+23,Bitlayer,DeFi Infrastructure Economy,2.8,Liquid Staking Infrastructure | Lending Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+24,Hedera,DeFi Infrastructure Economy,2.8,Liquid Staking Infrastructure | Lending Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+25,Plume,DeFi Infrastructure Economy,2.8,Liquid Staking Infrastructure | Lending Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+26,Scroll,DeFi Infrastructure Economy,2.8,Liquid Staking Infrastructure | Lending Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+27,Unichain,DeFi Infrastructure Economy,2.3,Liquid Staking Infrastructure | Lending Infrastructure | Indexing Layer,2026-03-08T19:15:35.826Z,V1.20
+28,MegaETH,DeFi Infrastructure Economy,1.8,Liquid Staking Infrastructure | Lending Infrastructure | Oracle Infrastructure,2026-03-08T19:15:35.826Z,V1.20
+29,AILayer,DeFi Infrastructure Economy,1.3,Liquid Staking Infrastructure | Lending Infrastructure | Oracle Infrastructure | Indexing Layer,2026-03-08T19:15:35.826Z,V1.20
+30,Ethereal,DeFi Infrastructure Economy,1.3,Liquid Staking Infrastructure | Lending Infrastructure | Oracle Infrastructure | Indexing Layer,2026-03-08T19:15:35.826Z,V1.20

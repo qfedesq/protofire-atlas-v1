@@ -1,12 +1,13 @@
 {
   "name": "protofire-atlas-v1",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "data:sync": "node scripts/sync-atlas-data.mjs",
+    "data:sync-external": "node --import tsx scripts/sync-external-chain-metrics.ts",
     "data:refresh-top30": "bash scripts/refresh-top-30-evm-chains.sh",
     "reports:generate": "node --import tsx scripts/generate-reports.ts",
     "version:bump": "node scripts/bump-version.mjs",

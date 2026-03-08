@@ -1,10 +1,7 @@
-import { Panel } from "@/components/ui/panel";
 import type { RecommendedStack } from "@/lib/domain/types";
-import { cn } from "@/lib/utils/cn";
 
 export function RecommendedStackSection({
   stack,
-  layout = "stacked",
 }: {
   stack: RecommendedStack;
   layout?: "stacked" | "grid";
@@ -15,40 +12,29 @@ export function RecommendedStackSection({
 
   return (
     <div className="space-y-4">
-      <Panel className="shadow-none">
-        <p className="text-muted text-xs tracking-[0.16em] uppercase">
-          Recommended Protofire stack
-        </p>
-        <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-          {stack.narrativeSummary}
-        </p>
-      </Panel>
+      <div className="border-border/70 border-t pt-4">
+        <p className="text-muted text-sm leading-6">{stack.narrativeSummary}</p>
+      </div>
+
       {stack.recommendedModules.length === 0 ? (
-        <Panel>
+        <div className="border-border/70 border-t pt-4">
           <p className="text-muted text-sm leading-6">
-            No activation modules are required in the current seeded dataset.
-            Protofire can treat this chain as a refinement and positioning
-            exercise instead of a foundational rollout.
+            No activation modules are required in the current dataset. Protofire can
+            treat this chain as a refinement and positioning exercise instead of a
+            foundational rollout.
           </p>
-        </Panel>
+        </div>
       ) : (
-        <div
-          className={cn(
-            "grid gap-4",
-            layout === "grid" && stack.recommendedModules.length > 1
-              ? "2xl:grid-cols-2"
-              : "grid-cols-1",
-          )}
-        >
+        <div className="border-border/70 divide-y border-t">
           {stack.recommendedModules.map((recommendation) => (
-            <Panel key={recommendation.title}>
+            <div key={recommendation.title} className="space-y-4 py-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <p className="text-accent text-xs tracking-[0.16em] uppercase">
                     {phaseTitleByKey.get(recommendation.deploymentPhaseKey) ??
                       recommendation.deploymentPhaseKey}
                   </p>
-                  <h3 className="text-foreground mt-2 text-xl font-semibold">
+                  <h3 className="text-foreground mt-2 text-2xl font-semibold">
                     {recommendation.title}
                   </h3>
                 </div>
@@ -59,42 +45,56 @@ export function RecommendedStackSection({
                   </span>
                 </p>
               </div>
-              <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 sm:grid-cols-3">
+
+              <dl className="grid gap-4 border-l border-[var(--border)] pl-4 md:grid-cols-3 md:border-l-0 md:pl-0">
                 {recommendation.kpis.map((kpi) => (
-                  <div
-                    key={`${recommendation.title}-${kpi.label}`}
-                    className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0"
-                  >
-                    <p className="text-muted text-[11px] font-semibold tracking-[0.14em] uppercase">
+                  <div key={`${recommendation.title}-${kpi.label}`}>
+                    <dt className="text-muted text-xs tracking-[0.16em] uppercase">
                       {kpi.label}
-                    </p>
-                    <p className="text-foreground mt-3 text-xl font-semibold tracking-tight">
+                    </dt>
+                    <dd className="text-foreground mt-2 text-2xl font-semibold">
                       {kpi.value}
-                    </p>
+                    </dd>
                   </div>
                 ))}
-              </div>
-              <div className="text-muted mt-5 space-y-4 text-sm leading-6">
+              </dl>
+
+              <div className="grid gap-5 lg:grid-cols-3">
                 <div>
-                  <p className="text-foreground font-medium">Why it matters</p>
-                  <p className="mt-1">{recommendation.whyItMatters}</p>
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                    Why it matters
+                  </p>
+                  <p className="text-foreground mt-2 text-sm leading-6">
+                    {recommendation.whyItMatters}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">Expected result</p>
-                  <p className="mt-1">{recommendation.expectedResult}</p>
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                    Expected result
+                  </p>
+                  <p className="text-foreground mt-2 text-sm leading-6">
+                    {recommendation.expectedResult}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
                     Direct chain impact
                   </p>
-                  <p className="mt-1">{recommendation.directChainImpact}</p>
-                </div>
-                <div>
-                  <p className="text-foreground font-medium">Stack summary</p>
-                  <p className="mt-1">{recommendation.narrativeSummary}</p>
+                  <p className="text-foreground mt-2 text-sm leading-6">
+                    {recommendation.directChainImpact}
+                  </p>
                 </div>
               </div>
-            </Panel>
+
+              <div>
+                <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                  Stack summary
+                </p>
+                <p className="text-foreground mt-2 text-sm leading-6">
+                  {recommendation.narrativeSummary}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       )}

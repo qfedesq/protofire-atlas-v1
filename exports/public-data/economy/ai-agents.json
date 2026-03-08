@@ -1,0 +1,1751 @@
+{
+  "title": "AI Agent Economy ranking",
+  "economy": "ai-agents",
+  "economy_name": "AI Agent Economy",
+  "dataset": "Top 30 EVM chains by TVL",
+  "updated_at": "2026-03-08T19:15:35.826Z",
+  "atlas_version": "V1.20",
+  "source_note": "Top 30 EVM chains by TVL from DeFiLlama snapshot 2026-03-07. Atlas publishes source-backed metrics when available and preserves the last valid snapshot otherwise.",
+  "rows": [
+    {
+      "chain": {
+        "slug": "arbitrum",
+        "name": "Arbitrum",
+        "category": "L2",
+        "website": "https://arbitrum.io",
+        "source_tvl_rank": 5,
+        "source_tvl_usd": 3027059197.386795
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 1,
+      "score": 8.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Agent identity and discovery can already be launched against a credible chain-level registration surface.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, registry infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Queryable state and event coverage are strong enough to support discovery, monitoring, and orchestration for agent workflows.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, indexing infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Arbitrum, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "ethereum",
+        "name": "Ethereum",
+        "category": "L1",
+        "website": "https://ethereum.org",
+        "source_tvl_rank": 1,
+        "source_tvl_usd": 106358856047.8496
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 2,
+      "score": 8.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Agent identity and discovery can already be launched against a credible chain-level registration surface.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, registry infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Queryable state and event coverage are strong enough to support discovery, monitoring, and orchestration for agent workflows.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, indexing infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Ethereum, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "base",
+        "name": "Base",
+        "category": "L2",
+        "website": "https://base.org",
+        "source_tvl_rank": 3,
+        "source_tvl_usd": 5861543762.677292
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 3,
+      "score": 7.5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Agent identity and discovery can already be launched against a credible chain-level registration surface.",
+          "evidence_note": "Seeded demo assessment: For Base, registry infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Base, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Base, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Base, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "optimism",
+        "name": "Optimism",
+        "category": "L2",
+        "website": "https://www.optimism.io",
+        "source_tvl_rank": 15,
+        "source_tvl_usd": 289679367.6631271
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 4,
+      "score": 7.5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Agent identity and discovery can already be launched against a credible chain-level registration surface.",
+          "evidence_note": "Seeded demo assessment: For Optimism, registry infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Optimism, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Queryable state and event coverage are strong enough to support discovery, monitoring, and orchestration for agent workflows.",
+          "evidence_note": "Seeded demo assessment: For Optimism, indexing infrastructure is treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Optimism, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "avalanche",
+        "name": "Avalanche",
+        "category": "L1",
+        "website": "https://www.avax.network",
+        "source_tvl_rank": 6,
+        "source_tvl_usd": 1572020058.582735
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 5,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "The chain already has a credible assurance layer for safer autonomous execution and partner diligence.",
+          "evidence_note": "Seeded demo assessment: For Avalanche, security and trust controls are treated as available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "bnb-chain",
+        "name": "BNB Chain",
+        "category": "L1",
+        "website": "https://www.bnbchain.org",
+        "source_tvl_rank": 2,
+        "source_tvl_usd": 7291010357.232988
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 6,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For BNB Chain, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "cronos",
+        "name": "Cronos",
+        "category": "L1",
+        "website": "https://cronos.org",
+        "source_tvl_rank": 13,
+        "source_tvl_usd": 367225542.59794134
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 7,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Cronos, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Cronos, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Cronos, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Cronos, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "gnosis",
+        "name": "Gnosis",
+        "category": "L1",
+        "website": "https://www.gnosis.io",
+        "source_tvl_rank": 16,
+        "source_tvl_usd": 188776846.531697
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 8,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "The chain already has a credible assurance layer for safer autonomous execution and partner diligence.",
+          "evidence_note": "Seeded demo assessment: For Gnosis, security and trust controls are treated as available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "katana",
+        "name": "Katana",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 7,
+        "source_tvl_usd": 1185441342.4459987
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 9,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Katana, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Katana, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Katana, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Katana, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "polygon",
+        "name": "Polygon",
+        "category": "L1",
+        "website": "https://polygon.technology",
+        "source_tvl_rank": 8,
+        "source_tvl_usd": 1178868431.0921535
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 10,
+      "score": 6.3,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Polygon, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Polygon, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Polygon, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Polygon, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "berachain",
+        "name": "Berachain",
+        "category": "L1",
+        "website": "https://www.berachain.com",
+        "source_tvl_rank": 14,
+        "source_tvl_usd": 356916813.5063607
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 11,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Berachain, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Berachain, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Berachain, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Berachain, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "bob",
+        "name": "BOB",
+        "category": "L2",
+        "website": "https://buildonbob.xyz",
+        "source_tvl_rank": 23,
+        "source_tvl_usd": 84324239.72610378
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 12,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For BOB, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For BOB, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For BOB, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For BOB, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "fraxtal",
+        "name": "Fraxtal",
+        "category": "L2",
+        "website": "https://frax.finance",
+        "source_tvl_rank": 30,
+        "source_tvl_usd": 52243272.66214651
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 13,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Fraxtal, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "ink",
+        "name": "Ink",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 10,
+        "source_tvl_usd": 578312427.1181417
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 14,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Ink, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Ink, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Ink, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Ink, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "linea",
+        "name": "Linea",
+        "category": "L2",
+        "website": "https://linea.build",
+        "source_tvl_rank": 17,
+        "source_tvl_usd": 148092531.51649275
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 15,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Linea, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Linea, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Linea, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Linea, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "mantle",
+        "name": "Mantle",
+        "category": "L2",
+        "website": "https://www.mantle.xyz",
+        "source_tvl_rank": 9,
+        "source_tvl_usd": 1068350583.2470126
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 16,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Mantle, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Mantle, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Mantle, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a visible monitoring and trust layer, the chain cannot credibly market safer autonomous activity.",
+          "evidence_note": "Seeded demo assessment: For Mantle, security and trust controls are treated as missing for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Security"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "mode",
+        "name": "Mode",
+        "category": "L2",
+        "website": "https://www.mode.network",
+        "source_tvl_rank": 26,
+        "source_tvl_usd": 67584258.82514393
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 17,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Mode, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Mode, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Mode, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Mode, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": []
+    },
+    {
+      "chain": {
+        "slug": "plasma",
+        "name": "Plasma",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 4,
+        "source_tvl_usd": 3250630575.2556696
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 18,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Plasma, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "Machine-to-machine settlement is already credible enough to support paid agent flows, recurring execution, and service monetization.",
+          "evidence_note": "Seeded demo assessment: For Plasma, payment rails are treated as available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For Plasma, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Plasma, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "sonic",
+        "name": "Sonic",
+        "category": "L1",
+        "website": "https://www.soniclabs.com",
+        "source_tvl_rank": 29,
+        "source_tvl_usd": 54686795.386572555
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 19,
+      "score": 5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Sonic, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Sonic, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Sonic, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "available",
+          "weight": 25,
+          "contribution": 2.5,
+          "max_contribution": 2.5,
+          "rationale": "The chain already has a credible assurance layer for safer autonomous execution and partner diligence.",
+          "evidence_note": "Seeded demo assessment: For Sonic, security and trust controls are treated as available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "ai-layer",
+        "name": "AILayer",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 25,
+        "source_tvl_usd": 68820461.89275603
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 20,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For AILayer, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For AILayer, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For AILayer, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For AILayer, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "bitlayer",
+        "name": "Bitlayer",
+        "category": "L2",
+        "website": "https://www.bitlayer.org",
+        "source_tvl_rank": 22,
+        "source_tvl_usd": 88257145.4792224
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 21,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Bitlayer, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "hedera",
+        "name": "Hedera",
+        "category": "L1",
+        "website": "https://hedera.com",
+        "source_tvl_rank": 18,
+        "source_tvl_usd": 109207983.90558125
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 22,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Hedera, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Hedera, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Hedera, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Hedera, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "hemi",
+        "name": "Hemi",
+        "category": "L2",
+        "website": "https://hemi.xyz",
+        "source_tvl_rank": 28,
+        "source_tvl_usd": 55433791.081922784
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 23,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Hemi, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Hemi, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For Hemi, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Hemi, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "monad",
+        "name": "Monad",
+        "category": "L1",
+        "website": "https://monad.xyz",
+        "source_tvl_rank": 11,
+        "source_tvl_usd": 486967290.04871047
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 24,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Monad, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Monad, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Monad, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Monad, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "plume",
+        "name": "Plume",
+        "category": "L1",
+        "website": "https://plume.org",
+        "source_tvl_rank": 19,
+        "source_tvl_usd": 102497322.7490807
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 25,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Plume, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Plume, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Plume, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Plume, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "rootstock",
+        "name": "Rootstock",
+        "category": "L2",
+        "website": "https://rootstock.io",
+        "source_tvl_rank": 20,
+        "source_tvl_usd": 97877850.50230648
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 26,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Rootstock, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "scroll",
+        "name": "Scroll",
+        "category": "L2",
+        "website": "https://scroll.io",
+        "source_tvl_rank": 12,
+        "source_tvl_usd": 481459219.07436305
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 27,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Scroll, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Scroll, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "State access exists, but the chain still needs a more explicit agent-facing observability layer before broader activation becomes easier.",
+          "evidence_note": "Seeded demo assessment: For Scroll, indexing infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Scroll, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "unichain",
+        "name": "Unichain",
+        "category": "L2",
+        "website": null,
+        "source_tvl_rank": 24,
+        "source_tvl_usd": 83639712.12185673
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 28,
+      "score": 3.8,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Some discovery patterns exist, but Protofire would still need to standardize agent identity and routing before the chain can market a cleaner agent story.",
+          "evidence_note": "Seeded demo assessment: For Unichain, registry infrastructure is treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Unichain, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For Unichain, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Unichain, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "ethereal",
+        "name": "Ethereal",
+        "category": "L1",
+        "website": null,
+        "source_tvl_rank": 27,
+        "source_tvl_usd": 61632148.49833762
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 29,
+      "score": 2.5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For Ethereal, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry",
+        "Indexing"
+      ]
+    },
+    {
+      "chain": {
+        "slug": "megaeth",
+        "name": "MegaETH",
+        "category": "L2",
+        "website": "https://megaeth.com",
+        "source_tvl_rank": 21,
+        "source_tvl_usd": 97057242.9519142
+      },
+      "economy": "ai-agents",
+      "economy_name": "AI Agent Economy",
+      "rank": 30,
+      "score": 2.5,
+      "modules": [
+        {
+          "slug": "registry",
+          "name": "Registry",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without a clearer registration layer, agent identity and discovery still depend on fragmented integrations instead of a canonical chain primitive.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, registry infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "payments",
+          "name": "Payments",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Programmatic settlement can work, but the chain still needs cleaner packaging before agent monetization feels turnkey.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, payment rails are treated as partially available for the AI-agent benchmark."
+        },
+        {
+          "slug": "indexing",
+          "name": "Indexing",
+          "status": "missing",
+          "weight": 25,
+          "contribution": 0,
+          "max_contribution": 2.5,
+          "rationale": "Without stronger indexing, agent builders face higher integration cost and weaker runtime visibility into chain activity.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, indexing infrastructure is treated as missing for the AI-agent benchmark."
+        },
+        {
+          "slug": "security",
+          "name": "Security",
+          "status": "partial",
+          "weight": 25,
+          "contribution": 1.3,
+          "max_contribution": 2.5,
+          "rationale": "Security foundations exist, but the chain still needs a clearer trust posture for production agent activity.",
+          "evidence_note": "Seeded demo assessment: For MegaETH, security and trust controls are treated as partially available for the AI-agent benchmark."
+        }
+      ],
+      "missing_modules": [
+        "Registry",
+        "Indexing"
+      ]
+    }
+  ]
+}

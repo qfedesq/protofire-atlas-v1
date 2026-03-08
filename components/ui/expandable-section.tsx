@@ -17,9 +17,9 @@ export function ExpandableSection({
   children,
 }: ExpandableSectionProps) {
   return (
-    <section id={id}>
-      <details className="group border-border bg-surface rounded-3xl border shadow-[var(--shadow-soft)]">
-        <summary className="list-none cursor-pointer px-6 py-5">
+    <section id={id} className="border-border/70 border-t pt-6">
+      <details className="group">
+        <summary className="list-none cursor-pointer">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">
@@ -32,7 +32,7 @@ export function ExpandableSection({
             <ChevronDown className="text-muted mt-1 h-5 w-5 shrink-0 transition group-open:rotate-180" />
           </div>
         </summary>
-        <div className="border-border/60 px-6 pt-4 pb-6">
+        <div className="mt-4">
           {description ? (
             <p className="text-muted max-w-3xl text-sm leading-6">
               {description}

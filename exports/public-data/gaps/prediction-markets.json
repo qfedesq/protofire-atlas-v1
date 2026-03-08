@@ -1,0 +1,396 @@
+{
+  "title": "Prediction Market Economy gap dataset",
+  "economy": "prediction-markets",
+  "economy_name": "Prediction Market Economy",
+  "dataset": "Top 30 EVM chains by TVL",
+  "updated_at": "2026-03-08T19:15:35.826Z",
+  "atlas_version": "V1.20",
+  "source_note": "Top 30 EVM chains by TVL from DeFiLlama snapshot 2026-03-07. Atlas publishes source-backed metrics when available and preserves the last valid snapshot otherwise.",
+  "rows": [
+    {
+      "chain": "Arbitrum",
+      "slug": "arbitrum",
+      "rank": 1,
+      "score": 10,
+      "missing_modules": [],
+      "weak_modules": []
+    },
+    {
+      "chain": "Ethereum",
+      "slug": "ethereum",
+      "rank": 2,
+      "score": 10,
+      "missing_modules": [],
+      "weak_modules": []
+    },
+    {
+      "chain": "Base",
+      "slug": "base",
+      "rank": 3,
+      "score": 7.5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "Polygon",
+      "slug": "polygon",
+      "rank": 4,
+      "score": 7.5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "Optimism",
+      "slug": "optimism",
+      "rank": 5,
+      "score": 7.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "BNB Chain",
+      "slug": "bnb-chain",
+      "rank": 6,
+      "score": 6,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "Berachain",
+      "slug": "berachain",
+      "rank": 7,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "BOB",
+      "slug": "bob",
+      "rank": 8,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Cronos",
+      "slug": "cronos",
+      "rank": 9,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Fraxtal",
+      "slug": "fraxtal",
+      "rank": 10,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Gnosis",
+      "slug": "gnosis",
+      "rank": 11,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Hemi",
+      "slug": "hemi",
+      "rank": 12,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Ink",
+      "slug": "ink",
+      "rank": 13,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Katana",
+      "slug": "katana",
+      "rank": 14,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Linea",
+      "slug": "linea",
+      "rank": 15,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Mantle",
+      "slug": "mantle",
+      "rank": 16,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Mode",
+      "slug": "mode",
+      "rank": 17,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Sonic",
+      "slug": "sonic",
+      "rank": 18,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Avalanche",
+      "slug": "avalanche",
+      "rank": 19,
+      "score": 4.3,
+      "missing_modules": [
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Monad",
+      "slug": "monad",
+      "rank": 20,
+      "score": 4,
+      "missing_modules": [
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "MegaETH",
+      "slug": "megaeth",
+      "rank": 21,
+      "score": 3.3,
+      "missing_modules": [
+        "Indexing Infrastructure",
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Oracle Layer",
+        "Market Contracts"
+      ]
+    },
+    {
+      "chain": "Unichain",
+      "slug": "unichain",
+      "rank": 22,
+      "score": 2.8,
+      "missing_modules": [
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Oracle Layer",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Plasma",
+      "slug": "plasma",
+      "rank": 23,
+      "score": 2.5,
+      "missing_modules": [
+        "Oracle Layer",
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Market Contracts",
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Scroll",
+      "slug": "scroll",
+      "rank": 24,
+      "score": 2.5,
+      "missing_modules": [
+        "Market Contracts",
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Oracle Layer",
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "AILayer",
+      "slug": "ai-layer",
+      "rank": 25,
+      "score": 1,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Ethereal",
+      "slug": "ethereal",
+      "rank": 26,
+      "score": 1,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Rootstock",
+      "slug": "rootstock",
+      "rank": 27,
+      "score": 1,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Indexing Infrastructure"
+      ],
+      "weak_modules": [
+        "Liquidity Integration"
+      ]
+    },
+    {
+      "chain": "Bitlayer",
+      "slug": "bitlayer",
+      "rank": 28,
+      "score": 0.8,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "Hedera",
+      "slug": "hedera",
+      "rank": 29,
+      "score": 0.8,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Indexing Infrastructure"
+      ]
+    },
+    {
+      "chain": "Plume",
+      "slug": "plume",
+      "rank": 30,
+      "score": 0.8,
+      "missing_modules": [
+        "Oracle Layer",
+        "Market Contracts",
+        "Liquidity Integration"
+      ],
+      "weak_modules": [
+        "Indexing Infrastructure"
+      ]
+    }
+  ]
+}

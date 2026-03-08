@@ -1,65 +1,73 @@
 # Protofire Atlas
 
-Protofire Atlas is a public infrastructure readiness intelligence app for blockchain chains, L1s, and L2s.
+Protofire Atlas is a public infrastructure readiness intelligence product for chains, L1s, and L2s.
 
-It ranks chains by readiness for specific onchain economies, exposes infrastructure gaps, and maps those gaps to deterministic Protofire deployment stacks and phased rollout plans.
+It ranks chains, explains how each score is built, shows which infrastructure is missing, and maps those gaps to deterministic Protofire deployment paths.
 
-## Current MVP scope
+## Product scope
 
-Audience:
+Atlas stays focused on:
 
-- blockchain chains, L1s, and L2s
+- public chain rankings
+- multi-economy readiness scoring
+- chain profile diagnostics
+- Protofire stack recommendations
+- deployment planning
+- internal target-account prioritization
 
-Supported economy wedges:
+Supported readiness wedges:
 
 - AI Agent Economy
 - DeFi Infrastructure Economy
 - RWA Infrastructure Economy
 - Prediction Market Economy
 
-Core product surface:
-
-- one-page public Atlas overview at `/`
-- one-page public Global Chain Ranking section at `/#global-ranking`
-- compatibility Global Chain Ranking route at `/rankings/global`
-- economy switching inside the home page
-- full ranking and direct header sorting inside the home page
-- chain profile pages at `/chains/[slug]`
-- internal assumptions editor at `/internal/admin`
-- internal target dashboard at `/internal/targets`
-- internal account intelligence pages at `/internal/account/[chain]`
-- deterministic scoring
-- gap analysis
-- peer comparison
-- shareable scorecard sections on chain profiles
-- rule-based stack recommendations
-- phased deployment plans
-- request capture for infrastructure assessments
-
 Out of scope:
 
-- auth
-- wallet connection
+- wallets
 - billing
-- live analytics
 - runtime AI
+- generalized analytics SaaS
 - marketplaces
 - provider networks
-- other customer segments
 
-## Top 30 EVM dataset
+## Current product surfaces
 
-Atlas uses a documented top-30 EVM chain benchmark derived from a DeFiLlama TVL snapshot.
+Public:
 
-Source of truth:
+- one-page global ranking at `/`
+- compatibility global ranking route at `/rankings/global`
+- chain profiles at `/chains/[slug]`
+- public data pages at `/data`, `/data/rankings`, `/data/research`, `/data/gaps`
+- public read API at `/api/public/*`
+- embeds at `/embed/*`
+- badges at `/badge/*`
 
-- provider: `DeFiLlama`
-- metric: `TVL`
-- selection universe: `EVM chains only`
-- snapshot file: [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
-- curated EVM mapping: [`data/source/defillama-evm-chain-map.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-evm-chain-map.json)
+Internal:
 
-Atlas does not claim live synchronization. The dataset is a curated reproducible snapshot.
+- admin assumptions editor at `/internal/admin`
+- target account ranking at `/internal/targets`
+- account intelligence pages at `/internal/account/[chain]`
+
+## Dataset and source model
+
+Benchmark selection remains:
+
+- top 30 EVM chains by TVL
+- selection source: DeFiLlama snapshot
+- source file: [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
+
+Atlas now also supports source-backed external metrics with provenance:
+
+- persisted snapshot: [`data/source/external-chain-metrics.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/external-chain-metrics.snapshot.json)
+- connectors: [`lib/external-data/connectors`](/Users/qfedesq/Desktop/Atlas/lib/external-data/connectors)
+
+Atlas does not claim fully real-time synchronization. It uses:
+
+- deterministic seed data
+- source-backed connector overlays where available
+- last-valid snapshot preservation
+- deterministic fallback values when a source is unavailable
 
 ## Local setup
 
@@ -74,8 +82,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
 npm run dev
-npm run data:sync
 npm run data:refresh-top30
+npm run data:sync-external
+npm run data:sync
 npm run reports:generate
 npm run version:bump
 npm run validate:data
@@ -86,139 +95,127 @@ npm run build
 npm run check
 ```
 
-`npm run check` is the main repo health command. It runs data validation, typecheck, lint, and tests.
+`npm run check` is the main repo health command.
 
-## Data update workflow
+## Data refresh workflow
 
-1. Refresh the top-30 EVM snapshot if needed:
+Refresh the benchmark only:
 
 ```bash
 npm run data:refresh-top30
 ```
 
-Or run the currently supported full refresh workflow:
+Refresh source-backed external metrics only:
+
+```bash
+npm run data:sync-external
+```
+
+Run the supported Atlas refresh workflow:
 
 ```bash
 npm run data:sync
 ```
 
-2. Review the generated snapshot in [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json).
-3. Update human-authored chain metadata in [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts) if a new chain entered the top 30.
-4. Update readiness statuses:
-   - AI Agents: [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts)
-   - DeFi: [`data/seed/economies/defi-infrastructure.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/defi-infrastructure.ts)
-   - RWA: [`data/seed/economies/rwa-infrastructure.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/rwa-infrastructure.ts)
-   - Prediction Markets: [`data/seed/economies/prediction-markets.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/prediction-markets.ts)
-5. Update official roadmap coverage and stage analysis in [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts).
-6. Review source guidance in [`docs/onchain-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/onchain-data-sources.md).
-7. Update LST market snapshot inputs when verified sources are available in [`data/seed/liquid-staking-market-snapshots.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/liquid-staking-market-snapshots.ts).
-8. Update curated ecosystem and performance inputs in [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts) when the benchmark snapshot changes.
-9. Validate and regenerate outputs:
+This currently:
+
+- refreshes the top-30 benchmark snapshot
+- refreshes the external metrics snapshot
+- regenerates reports and exports
+
+After refresh:
+
+1. review [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
+2. review [`data/source/external-chain-metrics.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/external-chain-metrics.snapshot.json)
+3. update seed metadata or readiness statuses if the benchmark changed
+4. run:
 
 ```bash
-npm run validate:data
 npm run reports:generate
 npm run check
 ```
 
-## Reports and GTM outputs
+## Public data interfaces
 
-Generated internal outputs live in [`reports`](/Users/qfedesq/Desktop/Atlas/reports):
+Public API:
 
-- [`reports/ai-agent-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/ai-agent-readiness-report.md)
-- [`reports/defi-infrastructure-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/defi-infrastructure-readiness-report.md)
-- [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
-- [`reports/target-chains-by-economy.md`](/Users/qfedesq/Desktop/Atlas/reports/target-chains-by-economy.md)
-- [`reports/high-tvl-lagging-chains.md`](/Users/qfedesq/Desktop/Atlas/reports/high-tvl-lagging-chains.md)
-- [`reports/top-ecosystem-opportunities.md`](/Users/qfedesq/Desktop/Atlas/reports/top-ecosystem-opportunities.md)
-- ranking exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
-- top-level GTM exports under [`exports`](/Users/qfedesq/Desktop/Atlas/exports)
+- `/api/public/rankings/global`
+- `/api/public/rankings/[economy]`
+- `/api/public/chains/[slug]`
+- `/api/public/research/[economy]`
+- `/api/public/gaps/[economy]`
 
-Report generation is deterministic and reuses the current dataset and scoring logic.
+Public downloads:
 
-## Launch + Reaction additions
+- `/data/global-ranking.json`
+- `/data/global-ranking.csv`
+- `/data/economy/[economy].json`
+- `/data/economy/[economy].csv`
+- `/data/gaps/[economy].json`
 
-This phase added:
+Generated public exports:
 
-- peer comparison on chain profiles
-- score-driver visibility for “what moves your score”
-- shareable scorecard snapshot panels on chain pages
-- inline request capture for “Request Infrastructure Assessment”
-- lightweight intent logging for economy selections, chain views, comparison-driven navigation, and request submits
-- a narrow internal admin route for calculation assumptions only
-- visible application versioning in the public shell
-- local repository/version discipline for the `-v1` release line
+- [`exports/public-data`](/Users/qfedesq/Desktop/Atlas/exports/public-data)
 
-## Global Ranking + Target Account additions
+Public embeds:
 
-This phase added:
+- `/embed/rankings/global`
+- `/embed/rankings/[economy]`
+- `/embed/chains/[slug]/scorecard`
+- `/embed/gaps/[module]`
 
-- a public holistic chain leaderboard at `/rankings/global`
-- curated ecosystem, adoption, and performance inputs for the fixed top-30 chain set
-- a deterministic `GlobalChainScore`
-- an internal `OpportunityScore` per chain and economy
-- an internal target dashboard at `/internal/targets`
-- internal account intelligence pages at `/internal/account/[chain]`
-- deterministic outreach brief generation
-- new GTM exports for global ranking and top target accounts
+Public badges:
 
-## Request capture and intent data
+- `/badge/chains/[slug]/global`
+- `/badge/chains/[slug]/[economy]`
 
-Assessment requests are captured from chain profile pages and stored in structured JSON.
+## Request capture and intent logging
 
-- request store: `data/runtime/assessment-requests.json`
-- intent store: `data/runtime/intent-events.json`
-- request validation + persistence: [`lib/requests/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/requests/service.ts)
-- intent logging route: [`app/api/intent/route.ts`](/Users/qfedesq/Desktop/Atlas/app/api/intent/route.ts)
+Assessment requests:
 
-These files are created on first write if they do not already exist.
+- store: `data/runtime/assessment-requests.json`
+- service: [`lib/requests/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/requests/service.ts)
+
+Intent events:
+
+- store: `data/runtime/intent-events.json`
+- route: [`app/api/intent/route.ts`](/Users/qfedesq/Desktop/Atlas/app/api/intent/route.ts)
 
 ## Admin assumptions
 
-Atlas now reads live calculation assumptions from:
+Live calculation assumptions are stored in:
 
 - [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json)
 
-This layer controls:
+The admin route controls:
 
-- per-economy module weights
-- global status score mapping
-- per-economy recommendation thresholds and partial/missing toggles
-- global ranking component weights
+- economy module weights
+- status score mapping
+- recommendation thresholds
+- global ranking weights
 - economy composite weights
-- target-account opportunity weights
+- opportunity score weights
 
-The internal route is:
+The same route also exposes `SYNC NOW`, which runs the supported Atlas refresh workflow.
 
-- `/internal/admin`
+Protection:
 
-The admin route also exposes `SYNC NOW`, which runs the currently supported
-Atlas refresh workflow:
-
-- refresh top-30 EVM benchmark snapshot
-- regenerate reports and exports
-
-It does not imply live synchronization and only persists in writable
-environments.
-
-Protection model:
-
-- `ATLAS_ADMIN_PASSWORD` in production
-- local development fallback password `atlas-admin` when `ATLAS_ADMIN_PASSWORD` is not set
-
-See [`docs/admin-assumptions.md`](/Users/qfedesq/Desktop/Atlas/docs/admin-assumptions.md) for operating guidance.
+- production: `ATLAS_ADMIN_PASSWORD`
+- local fallback: `atlas-admin`
 
 ## Versioning
 
 Canonical version source:
 
 - [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json)
-- public label helper: [`lib/config/version.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/version.ts)
 
-Increment rule:
+Public label helper:
 
-- every completed update bumps the minor version by `+0.1`
-- example: `1.0.0` → `1.1.0`
+- [`lib/config/version.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/version.ts)
+
+Rule:
+
+- every completed update bumps the version by `+0.1`
 
 Helper:
 
@@ -228,38 +225,23 @@ npm run version:bump
 
 ## Where core logic lives
 
-- dataset metadata: [`lib/config/dataset.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/dataset.ts)
-- economy config and module weights: [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts)
-- active assumptions store: [`lib/assumptions/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/store.ts)
-- active assumptions resolver: [`lib/assumptions/resolve.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/resolve.ts)
-- scoring logic: [`lib/scoring/readiness-score.ts`](/Users/qfedesq/Desktop/Atlas/lib/scoring/readiness-score.ts)
-- recommendation rules: [`lib/recommendations/rules.ts`](/Users/qfedesq/Desktop/Atlas/lib/recommendations/rules.ts)
-- recommendation engine: [`lib/recommendations/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/recommendations/engine.ts)
+- site + dataset config: [`lib/config`](/Users/qfedesq/Desktop/Atlas/lib/config)
+- domain types and validation: [`lib/domain`](/Users/qfedesq/Desktop/Atlas/lib/domain)
+- assumptions: [`lib/assumptions`](/Users/qfedesq/Desktop/Atlas/lib/assumptions)
+- scoring: [`lib/scoring/readiness-score.ts`](/Users/qfedesq/Desktop/Atlas/lib/scoring/readiness-score.ts)
+- recommendations: [`lib/recommendations`](/Users/qfedesq/Desktop/Atlas/lib/recommendations)
 - comparison logic: [`lib/comparison/peer-comparison.ts`](/Users/qfedesq/Desktop/Atlas/lib/comparison/peer-comparison.ts)
-- request capture service: [`lib/requests/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/requests/service.ts)
-- intent event store: [`lib/intent/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/intent/store.ts)
-- report generation: [`lib/reports/report-generator.ts`](/Users/qfedesq/Desktop/Atlas/lib/reports/report-generator.ts)
-- roadmap fit analysis: [`lib/roadmaps/roadmap-analysis.ts`](/Users/qfedesq/Desktop/Atlas/lib/roadmaps/roadmap-analysis.ts)
-- global ranking engine: [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts)
-- target account engine: [`lib/targets/opportunity.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/opportunity.ts)
-- outreach brief builder: [`lib/targets/outreach-brief.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/outreach-brief.ts)
-- seed-backed repository: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
-
-## Repository discipline
-
-- working release line naming convention: repository name must end with `-v1`
-- current local package/release line: `protofire-atlas-v1`
-- workflow guidance: [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-- branch used for this phase: `codex/global-ranking-target-accounts-v1-12`
+- global ranking: [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts)
+- external data: [`lib/external-data`](/Users/qfedesq/Desktop/Atlas/lib/external-data)
+- public data serialization: [`lib/public-data/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/public-data/service.ts)
+- target accounts: [`lib/targets`](/Users/qfedesq/Desktop/Atlas/lib/targets)
+- repository read model: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
 
 ## Read this first
 
 1. [`README.md`](/Users/qfedesq/Desktop/Atlas/README.md)
 2. [`docs/architecture.md`](/Users/qfedesq/Desktop/Atlas/docs/architecture.md)
-3. [`docs/global-ranking.md`](/Users/qfedesq/Desktop/Atlas/docs/global-ranking.md)
-4. [`docs/target-account-mode.md`](/Users/qfedesq/Desktop/Atlas/docs/target-account-mode.md)
-5. [`docs/gtm-phase.md`](/Users/qfedesq/Desktop/Atlas/docs/gtm-phase.md)
-6. [`docs/admin-assumptions.md`](/Users/qfedesq/Desktop/Atlas/docs/admin-assumptions.md)
-7. [`docs/developer-guide.md`](/Users/qfedesq/Desktop/Atlas/docs/developer-guide.md)
-8. [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-9. [`docs/runbook.md`](/Users/qfedesq/Desktop/Atlas/docs/runbook.md)
+3. [`docs/public-api.md`](/Users/qfedesq/Desktop/Atlas/docs/public-api.md)
+4. [`docs/public-data.md`](/Users/qfedesq/Desktop/Atlas/docs/public-data.md)
+5. [`docs/external-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/external-data-sources.md)
+6. [`docs/ranking-system.md`](/Users/qfedesq/Desktop/Atlas/docs/ranking-system.md)

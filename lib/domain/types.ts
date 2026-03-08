@@ -24,6 +24,17 @@ export const liquidStakingDiagnosticSlugs = [
   "incentive-sustainability",
   "stress-resilience",
 ] as const;
+export const externalMetricKeys = [
+  "tvlUsd",
+  "wallets",
+  "activeUsers",
+  "transactions",
+  "protocols",
+  "ecosystemProjects",
+  "averageTransactionSpeed",
+  "blockTime",
+  "throughputIndicator",
+] as const;
 export const moduleAvailabilityStatuses = [
   "missing",
   "partial",
@@ -55,6 +66,7 @@ export type ChainRoadmapSourceKind = (typeof chainRoadmapSourceKinds)[number];
 export type EconomyTypeSlug = (typeof economyTypeSlugs)[number];
 export type LiquidStakingDiagnosticSlug =
   (typeof liquidStakingDiagnosticSlugs)[number];
+export type ExternalMetricKey = (typeof externalMetricKeys)[number];
 export type ModuleAvailabilityStatus =
   (typeof moduleAvailabilityStatuses)[number];
 export type RankingsSortDirection = (typeof rankingsSortDirections)[number];
@@ -202,8 +214,10 @@ export type LiquidStakingMarketSnapshot = {
 
 export type ChainEcosystemMetricsSeed = {
   chainSlug: string;
+  tvlUsd?: number;
   wallets: number;
   activeUsers: number;
+  transactions?: number;
   protocols: number;
   ecosystemProjects: number;
   averageTransactionSpeed: number;
@@ -213,8 +227,39 @@ export type ChainEcosystemMetricsSeed = {
   sourceLabel: string;
 };
 
+export type ExternalMetricProvenance = {
+  sourceName: string;
+  sourceEndpoint: string;
+  fetchedAt: string;
+  normalizationNote: string;
+  freshness: "source-backed" | "fallback";
+};
+
+export type ExternalMetricSnapshotValue = ExternalMetricProvenance & {
+  value: number;
+};
+
+export type ExternalChainMetricsSnapshot = {
+  chainSlug: string;
+  metrics: Partial<Record<ExternalMetricKey, ExternalMetricSnapshotValue>>;
+};
+
+export type ExternalConnectorSyncStatus = {
+  connector: string;
+  status: "success" | "skipped" | "failed";
+  message: string;
+};
+
+export type ExternalMetricsSnapshot = {
+  updatedAt: string;
+  sourceNote: string;
+  connectors: ExternalConnectorSyncStatus[];
+  chains: ExternalChainMetricsSnapshot[];
+};
+
 export type ChainEcosystemMetrics = Omit<ChainEcosystemMetricsSeed, "chainSlug"> & {
   chainId: string;
+  provenance: Partial<Record<ExternalMetricKey, ExternalMetricProvenance>>;
 };
 
 export type EconomyScoringConfig = {

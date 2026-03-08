@@ -7,6 +7,11 @@ const steps = [
     args: ["run", "data:refresh-top30"],
   },
   {
+    label: "External ecosystem metrics snapshot",
+    command: "npm",
+    args: ["run", "data:sync-external"],
+  },
+  {
     label: "Reports and exports",
     command: "npm",
     args: ["run", "reports:generate"],

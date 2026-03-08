@@ -1,0 +1,396 @@
+{
+  "title": "AI Agent Economy gap dataset",
+  "economy": "ai-agents",
+  "economy_name": "AI Agent Economy",
+  "dataset": "Top 30 EVM chains by TVL",
+  "updated_at": "2026-03-08T19:15:35.826Z",
+  "atlas_version": "V1.20",
+  "source_note": "Top 30 EVM chains by TVL from DeFiLlama snapshot 2026-03-07. Atlas publishes source-backed metrics when available and preserves the last valid snapshot otherwise.",
+  "rows": [
+    {
+      "chain": "Arbitrum",
+      "slug": "arbitrum",
+      "rank": 1,
+      "score": 8.8,
+      "missing_modules": [],
+      "weak_modules": [
+        "Security"
+      ]
+    },
+    {
+      "chain": "Ethereum",
+      "slug": "ethereum",
+      "rank": 2,
+      "score": 8.8,
+      "missing_modules": [],
+      "weak_modules": [
+        "Security"
+      ]
+    },
+    {
+      "chain": "Base",
+      "slug": "base",
+      "rank": 3,
+      "score": 7.5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Optimism",
+      "slug": "optimism",
+      "rank": 4,
+      "score": 7.5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Avalanche",
+      "slug": "avalanche",
+      "rank": 5,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing"
+      ]
+    },
+    {
+      "chain": "BNB Chain",
+      "slug": "bnb-chain",
+      "rank": 6,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Cronos",
+      "slug": "cronos",
+      "rank": 7,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Gnosis",
+      "slug": "gnosis",
+      "rank": 8,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing"
+      ]
+    },
+    {
+      "chain": "Katana",
+      "slug": "katana",
+      "rank": 9,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Polygon",
+      "slug": "polygon",
+      "rank": 10,
+      "score": 6.3,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Berachain",
+      "slug": "berachain",
+      "rank": 11,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "BOB",
+      "slug": "bob",
+      "rank": 12,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Fraxtal",
+      "slug": "fraxtal",
+      "rank": 13,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Ink",
+      "slug": "ink",
+      "rank": 14,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Linea",
+      "slug": "linea",
+      "rank": 15,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Mantle",
+      "slug": "mantle",
+      "rank": 16,
+      "score": 5,
+      "missing_modules": [
+        "Security"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Indexing"
+      ]
+    },
+    {
+      "chain": "Mode",
+      "slug": "mode",
+      "rank": 17,
+      "score": 5,
+      "missing_modules": [],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Plasma",
+      "slug": "plasma",
+      "rank": 18,
+      "score": 5,
+      "missing_modules": [
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Sonic",
+      "slug": "sonic",
+      "rank": 19,
+      "score": 5,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing"
+      ]
+    },
+    {
+      "chain": "AILayer",
+      "slug": "ai-layer",
+      "rank": 20,
+      "score": 3.8,
+      "missing_modules": [
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Bitlayer",
+      "slug": "bitlayer",
+      "rank": 21,
+      "score": 3.8,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Hedera",
+      "slug": "hedera",
+      "rank": 22,
+      "score": 3.8,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Hemi",
+      "slug": "hemi",
+      "rank": 23,
+      "score": 3.8,
+      "missing_modules": [
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Monad",
+      "slug": "monad",
+      "rank": 24,
+      "score": 3.8,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Plume",
+      "slug": "plume",
+      "rank": 25,
+      "score": 3.8,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Rootstock",
+      "slug": "rootstock",
+      "rank": 26,
+      "score": 3.8,
+      "missing_modules": [
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Scroll",
+      "slug": "scroll",
+      "rank": 27,
+      "score": 3.8,
+      "missing_modules": [
+        "Registry"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Indexing",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Unichain",
+      "slug": "unichain",
+      "rank": 28,
+      "score": 3.8,
+      "missing_modules": [
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Registry",
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "Ethereal",
+      "slug": "ethereal",
+      "rank": 29,
+      "score": 2.5,
+      "missing_modules": [
+        "Registry",
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Security"
+      ]
+    },
+    {
+      "chain": "MegaETH",
+      "slug": "megaeth",
+      "rank": 30,
+      "score": 2.5,
+      "missing_modules": [
+        "Registry",
+        "Indexing"
+      ],
+      "weak_modules": [
+        "Payments",
+        "Security"
+      ]
+    }
+  ]
+}

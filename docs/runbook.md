@@ -12,37 +12,31 @@ npm install
 npm run dev
 ```
 
-Default local URL: `http://localhost:3000`
+Default URL: `http://localhost:3000`
 
-## Access internal admin
+## Admin access
 
-Production-style access:
+Production-style:
 
 ```bash
 ATLAS_ADMIN_PASSWORD=your-password npm run dev
 ```
 
-Local development fallback:
+Local fallback:
 
-- if `ATLAS_ADMIN_PASSWORD` is not set and `NODE_ENV` is not production, `/internal/admin` accepts `atlas-admin`
+- `/internal/admin` accepts `atlas-admin` when `ATLAS_ADMIN_PASSWORD` is not set and the app is not running as production
 
-## Refresh the top 30 EVM dataset
+## Refresh the benchmark
 
 ```bash
 npm run data:refresh-top30
 ```
 
-This command:
+## Refresh external source-backed metrics
 
-- fetches DeFiLlama `/chains`
-- filters the result through the curated EVM map
-- rewrites the top-30 snapshot used by Atlas
-
-After refresh:
-
-1. review [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
-2. update [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts) if a new chain entered the benchmark
-3. update any affected readiness seeds
+```bash
+npm run data:sync-external
+```
 
 ## Run the supported Atlas sync workflow
 
@@ -50,12 +44,13 @@ After refresh:
 npm run data:sync
 ```
 
-This command currently:
+This currently:
 
-- refreshes the top-30 EVM snapshot
+- refreshes the top-30 benchmark snapshot
+- refreshes the external metrics snapshot
 - regenerates reports and exports
 
-The same workflow is exposed from `/internal/admin` via `SYNC NOW`.
+The same workflow is available from `/internal/admin` through `SYNC NOW`.
 
 ## Validate seed data
 
@@ -63,30 +58,17 @@ The same workflow is exposed from `/internal/admin` via `SYNC NOW`.
 npm run validate:data
 ```
 
-Use this after any edit to:
-
-- [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
-- [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts)
-- [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts)
-- [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts)
-- any file under [`data/seed/economies`](/Users/qfedesq/Desktop/Atlas/data/seed/economies)
-- [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts)
-
-## Generate reports
+## Generate reports and exports
 
 ```bash
 npm run reports:generate
 ```
 
-Outputs:
+This updates:
 
-- [`reports/ai-agent-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/ai-agent-readiness-report.md)
-- [`reports/defi-infrastructure-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/defi-infrastructure-readiness-report.md)
-- [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
-- [`reports/top-ecosystem-opportunities.md`](/Users/qfedesq/Desktop/Atlas/reports/top-ecosystem-opportunities.md)
-- JSON exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
-- [`exports/global-chain-ranking.csv`](/Users/qfedesq/Desktop/Atlas/exports/global-chain-ranking.csv)
-- [`exports/top-target-accounts.csv`](/Users/qfedesq/Desktop/Atlas/exports/top-target-accounts.csv)
+- internal markdown reports under [`reports`](/Users/qfedesq/Desktop/Atlas/reports)
+- GTM exports under [`exports`](/Users/qfedesq/Desktop/Atlas/exports)
+- public dataset exports under [`exports/public-data`](/Users/qfedesq/Desktop/Atlas/exports/public-data)
 
 ## Typecheck
 
@@ -118,69 +100,45 @@ npm run build
 npm run check
 ```
 
-## Recommended release workflow
+## Suggested release workflow
 
 ```bash
-npm run data:refresh-top30
-npm run validate:data
+npm run data:sync
 npm run reports:generate
 npm run version:bump
 npm run check
 npm run build
 ```
 
-## Manual verification before shipping
+## Manual verification
 
-1. Open `/` and confirm the home page renders both:
-   - the global chain leaderboard
-   - the selected economy leaderboard
-2. Switch across AI Agents, DeFi, RWA, and Prediction Markets on the home page.
-3. Confirm the selected economy updates:
-   - economy description
-   - required modules
-   - deployment sequencing
-   - active sort arrows in the leaderboard headers
-   - column menu state and reset-to-default behavior
-   - leaderboard rows
-4. Sort the leaderboard from the `Chain`, `Readiness`, and module headers and confirm URL params update cleanly.
-5. Open the leaderboard column menu and confirm:
-   - sticky chain column stays visible
-   - hidden columns disappear from the table
-   - `Reset to default` restores the standard view
-6. Open one chain profile from the home leaderboard.
-7. Confirm each chain profile updates in this order:
-   - primary score
+1. Open `/` and confirm the one-page global ranking loads.
+2. Sort the global ranking and confirm the URL updates cleanly.
+3. Expand and collapse the global score tree from the header and confirm child columns appear immediately and push sibling columns right.
+4. Open one chain profile from the ranking.
+5. Confirm the public chain page reads in this order:
+   - chain header
+   - primary readiness score
    - score composition
    - improvement path
    - competitive context
-   - global position
-   - request assessment CTA
-8. Submit a test request from a chain profile and confirm:
-   - the success state appears
-   - a new record is written to `data/runtime/assessment-requests.json`
-   - a new event is written to `data/runtime/intent-events.json`
-9. Open `/internal/admin`.
-10. Confirm admin access works:
-   - with `ATLAS_ADMIN_PASSWORD` in production-like environments
-   - with the documented local fallback password in development
-11. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
-12. Open `/#global-ranking` or `/rankings/global` and confirm:
-   - the leaderboard renders
-   - sorting works for `Global Score`, `Ecosystem`, and `Adoption`
-   - all columns are visible by default
-   - optional columns can still be toggled off
-   - chain links land on the public chain profile
-13. Open `/internal/targets` and confirm:
-   - sorting works for `Opportunity Score`, `Readiness gap`, and `Ecosystem size`
-   - default columns stay minimal
-   - optional columns can be toggled on
-   - chain links open `/internal/account/[chain]`
-14. On one internal account page confirm:
-   - global rank
-   - opportunity score
-   - gap analysis
-   - recommended stack
-   - outreach brief
-15. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
-16. Regenerate reports and confirm the markdown and export files update cleanly.
-17. Confirm wording does not imply live or continuously synced data.
+   - global context
+   - CTA
+6. Confirm the chain page is flat and analytical rather than card-heavy.
+7. Submit a test infrastructure request and confirm:
+   - success state appears
+   - `data/runtime/assessment-requests.json` updates
+   - `data/runtime/intent-events.json` updates
+8. Open `/internal/admin` and confirm authentication works.
+9. Trigger `SYNC NOW` and confirm the action completes in a writable environment.
+10. Open `/api/public/rankings/global` and one `/api/public/chains/[slug]` route and confirm:
+   - `atlas_version`
+   - `updated_at`
+   - `source_note`
+11. Open `/data`, `/data/rankings`, `/data/research`, and `/data/gaps`.
+12. Open one embed and one badge route:
+   - `/embed/rankings/global`
+   - `/badge/chains/ethereum/global`
+13. Open `/internal/targets` and `/internal/account/[chain]` and confirm internal-only GTM surfaces still work.
+14. Verify the public version label matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+15. Confirm no public wording implies always-live synchronization.

@@ -1,4 +1,5 @@
 import { createGlobalRankingColumns } from "@/components/tables/ranking-column-definitions";
+import { CitationBlock } from "@/components/public/citation-block";
 import { GlobalRankingsTable } from "@/components/tables/global-rankings-table";
 import { Panel } from "@/components/ui/panel";
 import { parseGlobalRankingsQuery } from "@/lib/domain/schemas";
@@ -108,6 +109,8 @@ export default async function GlobalRankingsPage({
             : "/rankings/global";
         }}
       />
+
+      <CitationBlock />
     </div>
   );
 }

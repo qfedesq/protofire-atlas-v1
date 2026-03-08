@@ -27,7 +27,7 @@ describe("RootLayout", () => {
 
       expect(screen.getByAltText("Protofire")).toBeInTheDocument();
       expect(screen.getByText("Atlas")).toBeInTheDocument();
-      expect(screen.getByText("V1.10")).toBeInTheDocument();
+      expect(screen.getByText("V1.11")).toBeInTheDocument();
       expect(
         screen.getByRole("link", { name: "Admin" }),
       ).toHaveAttribute("href", "/internal/admin");

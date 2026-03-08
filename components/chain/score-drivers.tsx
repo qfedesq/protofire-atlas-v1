@@ -32,7 +32,7 @@ export function ScoreDriversSection({
             Closing this gap can add up to {formatScore(driver.potentialGain)}{" "}
             points under the current active assumptions.
           </p>
-          <div className="bg-surface-muted mt-5 space-y-3 rounded-2xl p-4 text-sm">
+          <div className="border-border/70 mt-5 space-y-3 border-t pt-4 text-sm">
             <div className="flex items-center justify-between gap-3">
               <span className="text-muted">Current contribution</span>
               <span className="text-foreground font-medium">

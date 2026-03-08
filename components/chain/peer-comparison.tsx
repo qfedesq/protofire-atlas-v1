@@ -51,7 +51,7 @@ export function PeerComparisonSection({
               peer.decisiveModules.map((delta) => (
                 <div
                   key={`${peer.chain.slug}:${delta.module.id}`}
-                  className="bg-surface-muted rounded-2xl p-4 text-sm"
+                  className="border-border/70 border-t pt-4 text-sm first:border-t-0 first:pt-0"
                 >
                   <p className="text-foreground font-medium">
                     {delta.module.name}

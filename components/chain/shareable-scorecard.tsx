@@ -31,20 +31,20 @@ export function ShareableScorecard({
         <ButtonLink href="#assessment">Request Infrastructure Assessment</ButtonLink>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-4">
-        <div className="bg-surface-muted rounded-2xl p-4">
+      <div className="border-border/70 grid gap-4 border-t pt-4 lg:grid-cols-4">
+        <div className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0">
           <p className="text-muted text-xs tracking-[0.14em] uppercase">Rank</p>
           <p className="text-foreground mt-2 text-3xl font-semibold">
             #{profile.rank}
           </p>
         </div>
-        <div className="bg-surface-muted rounded-2xl p-4">
+        <div className="border-border/70 border-l pl-4">
           <p className="text-muted text-xs tracking-[0.14em] uppercase">Score</p>
           <p className="text-foreground mt-2 text-3xl font-semibold">
             {formatScore(profile.readinessScore.totalScore)}
           </p>
         </div>
-        <div className="bg-surface-muted rounded-2xl p-4">
+        <div className="border-border/70 border-l pl-4">
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Missing modules
           </p>
@@ -52,7 +52,7 @@ export function ShareableScorecard({
             {profile.gapAnalysis.filter((gap) => gap.status === "missing").length}
           </p>
         </div>
-        <div className="bg-surface-muted rounded-2xl p-4">
+        <div className="border-border/70 border-l pl-4">
           <p className="text-muted text-xs tracking-[0.14em] uppercase">
             Suggested activations
           </p>
@@ -76,7 +76,7 @@ export function ShareableScorecard({
           {profile.readinessScore.moduleBreakdown.map((module) => (
             <div
               key={module.module.id}
-              className="bg-surface-muted flex items-center justify-between gap-3 rounded-2xl p-4"
+              className="border-border/70 flex items-center justify-between gap-3 border-t py-3 first:border-t-0 first:pt-0"
             >
               <span className="text-foreground text-sm font-medium">
                 {module.module.name}
@@ -101,7 +101,7 @@ export function ShareableScorecard({
             blockingModules.map((gap) => (
               <div
                 key={gap.module.id}
-                className="rounded-2xl border border-rose-200 bg-rose-50/70 p-4"
+                className="border-l-2 border-rose-400 pl-4"
               >
                 <p className="text-rose-700 text-[11px] font-semibold tracking-[0.14em] uppercase">
                   Diagnostic gap
@@ -132,7 +132,7 @@ export function ShareableScorecard({
             topRecommendations.map((recommendation) => (
               <div
                 key={recommendation.title}
-                className="rounded-2xl border border-accent/25 bg-accent/8 p-4"
+                className="border-l-2 border-accent pl-4"
               >
                 <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
                   Activation plan

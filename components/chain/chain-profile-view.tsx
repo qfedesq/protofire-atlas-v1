@@ -97,14 +97,14 @@ export function ChainProfileView({
           <p className="text-muted mt-2 text-sm">
             Weighted score for {profile.economy.shortLabel} on a 0-10 scale
           </p>
-          <div className="text-muted mt-6 grid gap-3 text-sm">
-            <div className="bg-surface-muted rounded-2xl p-4">
+          <div className="border-border/70 text-muted mt-6 divide-y border-t text-sm">
+            <div className="flex items-center justify-between gap-3 py-3">
               <p className="text-foreground font-medium">Missing modules</p>
-              <p className="mt-1">{missingModuleCount}</p>
+              <p className="text-foreground font-semibold">{missingModuleCount}</p>
             </div>
-            <div className="bg-surface-muted rounded-2xl p-4">
+            <div className="flex items-center justify-between gap-3 py-3">
               <p className="text-foreground font-medium">Partial modules</p>
-              <p className="mt-1">{partialModuleCount}</p>
+              <p className="text-foreground font-semibold">{partialModuleCount}</p>
             </div>
           </div>
         </Panel>

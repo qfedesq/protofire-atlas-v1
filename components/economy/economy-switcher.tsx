@@ -20,7 +20,7 @@ export function EconomySwitcher({
     <nav
       aria-label="Economy selector"
       className={cn(
-        "border-border/80 flex flex-wrap gap-6 border-b pb-1",
+        "border-border/80 flex flex-wrap gap-x-10 gap-y-4 border-b",
         className,
       )}
     >
@@ -31,14 +31,27 @@ export function EconomySwitcher({
           <Link
             key={economy.slug}
             href={buildHref(economy.slug)}
-            className={cn(
-              "border-b-2 px-1 py-3 text-sm font-medium transition",
-              isActive
-                ? "border-[var(--brand-orange)] text-foreground"
-                : "border-transparent text-muted hover:text-foreground",
-            )}
+            aria-current={isActive ? "page" : undefined}
+            className="group min-w-0 pb-4"
           >
-            {economy.shortLabel}
+            <span
+              className={cn(
+                "block text-base transition md:text-[1.15rem]",
+                isActive
+                  ? "text-foreground font-semibold"
+                  : "text-muted hover:text-foreground",
+              )}
+            >
+              {economy.shortLabel}
+            </span>
+            <span
+              className={cn(
+                "mt-5 block h-[3px] w-full transition",
+                isActive
+                  ? "bg-[var(--brand-orange)]"
+                  : "bg-border/80 group-hover:bg-foreground/25",
+              )}
+            />
           </Link>
         );
       })}

@@ -30,7 +30,7 @@ export function LiquidStakingDiagnosisSection({
 }) {
   return (
     <div className="space-y-4">
-      <Panel className="bg-surface-muted min-w-44 px-5 py-4 shadow-none">
+      <Panel className="min-w-44 px-5 py-4 shadow-none">
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Weighted LST score
         </p>
@@ -52,7 +52,7 @@ export function LiquidStakingDiagnosisSection({
                   {dimension.dimension.description}
                 </p>
               </div>
-              <div className="bg-surface-muted min-w-20 rounded-2xl px-4 py-3 text-right">
+              <div className="border-border/70 min-w-20 border-l pl-4 text-right">
                 <p className="text-foreground text-xl font-semibold">
                   {dimension.score}
                 </p>
@@ -62,8 +62,8 @@ export function LiquidStakingDiagnosisSection({
               </div>
             </div>
 
-            <div className="mt-5 grid gap-4 lg:grid-cols-2">
-              <div className="bg-surface-muted rounded-2xl p-4">
+            <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 lg:grid-cols-2">
+              <div>
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Rationale
                 </p>
@@ -71,7 +71,7 @@ export function LiquidStakingDiagnosisSection({
                   {dimension.rationale}
                 </p>
               </div>
-              <div className="bg-surface-muted rounded-2xl p-4">
+              <div>
                 <p className="text-muted text-xs tracking-[0.16em] uppercase">
                   Risk
                 </p>
@@ -106,7 +106,7 @@ export function LiquidStakingDiagnosisSection({
               until a verified source snapshot is added.
             </p>
 
-            <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="border-border/70 mt-4 grid gap-4 border-t pt-4 md:grid-cols-2 xl:grid-cols-3">
               <MetricCard
                 label="Native Token"
                 value={
@@ -183,11 +183,11 @@ export function LiquidStakingDiagnosisSection({
               />
             </div>
 
-            <div className="mt-4 grid gap-3 lg:grid-cols-2">
+            <div className="border-border/70 mt-4 grid gap-4 border-t pt-4 lg:grid-cols-2">
               {marketSnapshot.sources.map((source) => (
                 <div
                   key={`${source.metric}:${source.provider}`}
-                  className="bg-surface-muted rounded-2xl p-4 text-sm"
+                  className="border-border/70 border-l pl-4 text-sm"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <p className="text-foreground font-medium">{source.metric}</p>
@@ -216,7 +216,7 @@ export function LiquidStakingDiagnosisSection({
 
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-surface-muted rounded-2xl p-4">
+    <div className="border-border/70 border-l pl-4">
       <p className="text-muted text-xs tracking-[0.16em] uppercase">{label}</p>
       <p className="text-foreground mt-2 text-lg font-semibold">{value}</p>
     </div>

@@ -162,15 +162,15 @@ export default async function Home({ searchParams }: HomePageProps) {
                   </p>
                   {economy.slug === "defi-infrastructure" &&
                   module.slug === "liquid-staking" ? (
-                    <div className="bg-surface-muted mt-4 rounded-2xl p-4">
+                    <div className="border-border/70 mt-4 border-t pt-4">
                       <p className="text-muted text-xs tracking-[0.16em] uppercase">
                         7-module LST weights
                       </p>
-                      <div className="mt-3 space-y-2">
+                      <div className="border-border/60 mt-3 divide-y">
                         {liquidStakingDimensions.map((dimension) => (
                           <div
                             key={dimension.id}
-                            className="text-muted flex items-center justify-between gap-3 text-sm"
+                            className="text-muted flex items-center justify-between gap-3 py-2 text-sm first:pt-0 last:pb-0"
                           >
                             <span>{dimension.name}</span>
                             <span className="text-foreground font-medium">

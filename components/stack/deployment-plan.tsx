@@ -27,16 +27,16 @@ export function DeploymentPlanSection({ plan }: DeploymentPlanSectionProps) {
                 {phase.title}
               </h3>
               <p className="text-muted mt-1 text-sm">{phase.timelineLabel}</p>
-              <div className="border-border/70 bg-surface-muted mt-5 overflow-hidden rounded-2xl border">
+              <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 sm:grid-cols-3">
                 {phase.kpis.map((kpi) => (
                   <div
                     key={`${phase.id}-${kpi.label}`}
-                    className="border-border/70 grid gap-3 border-b px-5 py-4 last:border-b-0 sm:grid-cols-[1fr_auto]"
+                    className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0"
                   >
                     <p className="text-muted text-[11px] font-semibold tracking-[0.18em] uppercase">
                       {kpi.label}
                     </p>
-                    <p className="text-foreground text-right text-2xl font-semibold tracking-tight">
+                    <p className="text-foreground mt-3 text-2xl font-semibold tracking-tight">
                       {kpi.value}
                     </p>
                   </div>

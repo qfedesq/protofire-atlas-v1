@@ -49,13 +49,13 @@ export function RecommendedStackSection({
                   </span>
                 </p>
               </div>
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="border-border/70 mt-5 grid gap-4 border-t pt-4 sm:grid-cols-3">
                 {recommendation.kpis.map((kpi) => (
                   <div
                     key={`${recommendation.title}-${kpi.label}`}
-                    className="border-accent/20 bg-accent/8 rounded-2xl border p-4"
+                    className="border-border/70 border-l pl-4 first:border-l-0 first:pl-0"
                   >
-                    <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
+                    <p className="text-muted text-[11px] font-semibold tracking-[0.14em] uppercase">
                       {kpi.label}
                     </p>
                     <p className="text-foreground mt-3 text-xl font-semibold tracking-tight">

@@ -34,7 +34,7 @@ export function ModuleStatusGrid({
           <p className="text-muted mt-4 text-sm leading-6">
             {module.module.description}
           </p>
-          <div className="bg-surface-muted text-muted mt-5 grid gap-3 rounded-2xl p-4 text-sm">
+          <div className="border-border/70 text-muted mt-5 grid gap-3 border-t pt-4 text-sm">
             <div>
               <p className="text-foreground font-medium">Why this status</p>
               <p className="mt-1 leading-6">{module.rationale}</p>
@@ -45,7 +45,7 @@ export function ModuleStatusGrid({
             </div>
           </div>
           {module.module.slug === "liquid-staking" && liquidStakingDiagnosis ? (
-            <div className="bg-surface-muted mt-5 rounded-2xl p-4">
+            <div className="border-border/70 mt-5 border-t pt-4">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="text-muted text-xs tracking-[0.16em] uppercase">
@@ -62,11 +62,11 @@ export function ModuleStatusGrid({
                   Open diagnosis
                 </Link>
               </div>
-              <div className="mt-4 space-y-2">
+              <div className="border-border/60 mt-4 divide-y">
                 {liquidStakingDiagnosis.dimensions.map((dimension) => (
                   <div
                     key={dimension.dimension.id}
-                    className="text-muted flex items-center justify-between gap-3 text-sm"
+                    className="text-muted flex items-center justify-between gap-3 py-2 text-sm first:pt-0 last:pb-0"
                   >
                     <span>{dimension.dimension.name}</span>
                     <span className="text-foreground font-medium">

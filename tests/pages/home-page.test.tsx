@@ -1,40 +1,50 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 describe("home page", () => {
-  it("renders the one-page economy overview and ranking sections", async () => {
+  it("renders the one-page global ranking with economy breakdown columns", async () => {
     const pageModule = await import("@/app/page");
     const view = await pageModule.default({
-      searchParams: Promise.resolve({
-        economy: "defi-infrastructure",
-      }),
+      searchParams: Promise.resolve({}),
     });
 
     render(view);
 
     expect(
-      screen.getAllByText("DeFi Infrastructure Economy").length,
-    ).toBeGreaterThan(1);
-    expect(
       screen.getByText("Holistic chain leaderboard"),
     ).toBeInTheDocument();
-    expect(screen.getByText("Required modules")).toBeInTheDocument();
-    expect(screen.getByText("Deployment sequencing")).toBeInTheDocument();
-    expect(screen.getByText("7-module LST weights")).toBeInTheDocument();
-    expect(screen.getAllByText("Wallets").length).toBeGreaterThan(1);
-    expect(screen.getAllByText("Avg Tx Speed").length).toBeGreaterThan(1);
     expect(
-      screen.getAllByRole("link", { name: "Sort Chain ascending" }).length,
-    ).toBeGreaterThan(1);
+      screen.getByText(/One global ranking, with the four economy readiness models/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /AI Agents Readiness/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /DeFi Readiness/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /RWA Readiness/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", {
+        name: /Prediction Markets Readiness/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /RWA Asset Registry/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /AI Agents Registry/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Sort Chain ascending" }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Add my chain/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Sort Readiness descending" }),
-    ).toHaveAttribute(
-      "href",
-      "/?economy=defi-infrastructure&sort=totalScore&direction=desc",
-    );
+      screen.getByRole("link", { name: "Sort Global Score descending" }),
+    ).toHaveAttribute("href", "/#global-ranking");
     expect(screen.queryByText("Current ranking")).not.toBeInTheDocument();
     expect(screen.queryByText(/Dataset basis:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/30 seeded chains/i)).not.toBeInTheDocument();
@@ -43,32 +53,8 @@ describe("home page", () => {
     expect(
       screen.queryByRole("link", { name: /Open global chain ranking/i }),
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(/Scores reflect the current Atlas dataset/i),
-    ).not.toBeInTheDocument();
-    expect(screen.queryByText(/% weight/i)).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Search")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Category")).not.toBeInTheDocument();
-    expect(screen.queryByLabelText("Sort by")).not.toBeInTheDocument();
-
-    const requiredModulesSection = screen
-      .getByText("Required modules")
-      .closest("section");
-
-    if (!requiredModulesSection) {
-      throw new Error("Expected required modules panel");
-    }
-
-    const liquidStaking = within(requiredModulesSection).getByRole("heading", {
-      name: "Liquid Staking Infrastructure",
-    });
-    const lending = within(requiredModulesSection).getByRole("heading", {
-      name: "Lending Infrastructure",
-    });
-
-    expect(
-      liquidStaking.compareDocumentPosition(lending) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
+    expect(screen.queryByText("Required modules")).not.toBeInTheDocument();
+    expect(screen.queryByText("Deployment sequencing")).not.toBeInTheDocument();
+    expect(screen.queryByText("7-module LST weights")).not.toBeInTheDocument();
   });
 });

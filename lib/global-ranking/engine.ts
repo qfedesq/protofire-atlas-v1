@@ -13,6 +13,7 @@ import type {
 } from "@/lib/domain/types";
 
 type RankedRowsByEconomy = Map<EconomyTypeSlug, RankedChain[]>;
+type GlobalRankedChainDraft = Omit<GlobalRankedChain, "economyBreakdown">;
 
 function normalizeHigherBetter(value: number, values: number[]) {
   const min = Math.min(...values);
@@ -102,7 +103,7 @@ function buildEconomyCompositeScore(
 function buildGlobalScoreDrafts(
   chains: Chain[],
   rankedRowsByEconomy: RankedRowsByEconomy,
-): GlobalRankedChain[] {
+): GlobalRankedChainDraft[] {
   const metricsByChain = buildMetricsByChain(chains);
   const assumptions = getActiveAssumptions();
   const { componentWeights } = assumptions.globalRanking;
@@ -171,7 +172,7 @@ function buildGlobalScoreDrafts(
 export function buildGlobalRankedChains(
   chains: Chain[],
   rankedRowsByEconomy: RankedRowsByEconomy,
-): GlobalRankedChain[] {
+): GlobalRankedChainDraft[] {
   return buildGlobalScoreDrafts(chains, rankedRowsByEconomy)
     .sort((left, right) => {
       if (right.score.totalScore !== left.score.totalScore) {

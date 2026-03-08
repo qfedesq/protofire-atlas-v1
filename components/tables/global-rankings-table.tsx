@@ -12,6 +12,7 @@ type GlobalRankingsTableProps = {
   sort: GlobalRankingsQuery["sort"];
   direction: RankingsSortDirection;
   visibleColumnIds: string[];
+  columns?: ReturnType<typeof createGlobalRankingColumns>;
   buildSortHref: (
     sort: GlobalRankingsQuery["sort"],
     direction: RankingsSortDirection,
@@ -24,6 +25,7 @@ export function GlobalRankingsTable({
   sort,
   direction,
   visibleColumnIds,
+  columns,
   buildSortHref,
   buildColumnsHref,
 }: GlobalRankingsTableProps) {
@@ -31,7 +33,7 @@ export function GlobalRankingsTable({
     <RankingTable
       mode="global"
       rows={rows}
-      columns={createGlobalRankingColumns()}
+      columns={columns ?? createGlobalRankingColumns()}
       visibleColumnIds={visibleColumnIds}
       getRowKey={(row) => row.chain.slug}
       sort={sort}

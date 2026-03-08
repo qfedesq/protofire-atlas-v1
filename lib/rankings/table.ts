@@ -8,6 +8,10 @@ export type RankingColumnDefinition<Row, SortKey extends string> = {
   id: string;
   label: string;
   description?: string;
+  groupId?: string;
+  groupLabel?: string;
+  groupDescription?: string;
+  groupOrder?: number;
   defaultVisible: boolean;
   canHide?: boolean;
   align?: "left" | "right";

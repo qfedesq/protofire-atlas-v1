@@ -16,8 +16,17 @@ describe("global ranking page", () => {
         /This ranking combines infrastructure readiness across four economies/i,
       ),
     ).toBeInTheDocument();
-    expect(screen.getAllByText("Wallets").length).toBeGreaterThan(1);
-    expect(screen.getAllByText("Throughput").length).toBeGreaterThan(1);
+    expect(
+      screen.getByRole("columnheader", { name: /AI Agents Readiness/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", {
+        name: /DeFi Liquid Staking Infrastructure/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /RWA Asset Registry/i }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Ethereum" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Global Score descending" }),

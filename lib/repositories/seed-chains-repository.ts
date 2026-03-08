@@ -237,7 +237,31 @@ function buildSeedRepositoryDataset(): SeedRepositoryDataset {
         dataset.rankedChains,
       ]),
     ),
-  );
+  ).map((row) => ({
+    ...row,
+    economyBreakdown: Object.fromEntries(
+      economies.map((economy) => {
+        const rankedRow = economyDatasets.get(economy.slug)?.rankedChainsBySlug.get(
+          row.chain.slug,
+        );
+
+        if (!rankedRow) {
+          throw new Error(
+            `Missing ${economy.slug} readiness breakdown for ${row.chain.slug}.`,
+          );
+        }
+
+        return [
+          economy.slug,
+          {
+            economy,
+            readinessScore: rankedRow.readinessScore,
+            benchmarkRank: rankedRow.benchmarkRank,
+          },
+        ];
+      }),
+    ) as GlobalRankedChain["economyBreakdown"],
+  }));
   const targetAccounts = [...economyDatasets.values()].flatMap((dataset) =>
     buildTargetAccountRows(dataset.rankedChains, globalRankedChains),
   );

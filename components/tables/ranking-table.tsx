@@ -85,6 +85,29 @@ function ColumnVisibilityControls<Row, SortKey extends string>({
 }) {
   const defaultVisibleColumnIds = getDefaultVisibleColumnIds(columns);
   const hideableColumns = columns.filter((column) => column.canHide !== false);
+  const groupedColumns = Array.from(
+    hideableColumns.reduce((groups, column) => {
+      const groupId = column.groupId ?? "general";
+      const current = groups.get(groupId) ?? {
+        id: groupId,
+        label: column.groupLabel ?? "General",
+        description: column.groupDescription,
+        order: column.groupOrder ?? Number.MAX_SAFE_INTEGER,
+        columns: [] as RankingColumnDefinition<Row, SortKey>[],
+      };
+
+      current.columns.push(column);
+      groups.set(groupId, current);
+
+      return groups;
+    }, new Map<string, {
+      id: string;
+      label: string;
+      description?: string;
+      order: number;
+      columns: RankingColumnDefinition<Row, SortKey>[];
+    }>()),
+  ).sort((left, right) => left[1].order - right[1].order);
 
   if (hideableColumns.length === 0) {
     return null;
@@ -99,41 +122,62 @@ function ColumnVisibilityControls<Row, SortKey extends string>({
         </span>
         <ChevronDown className="text-muted h-4 w-4 transition group-open:rotate-180" />
       </summary>
-      <div className="border-border bg-surface absolute right-0 z-40 mt-3 w-72 rounded-2xl border p-4 shadow-[var(--shadow-soft)]">
+      <div className="border-border bg-surface absolute right-0 z-40 mt-3 w-80 rounded-2xl border p-4 shadow-[var(--shadow-soft)]">
         <div className="space-y-3">
-          {hideableColumns.map((column) => {
-            const nextColumnIds = toggleVisibleColumnId(
-              visibleColumnIds,
-              column.id,
-              columns,
-            );
-            const isVisible = visibleColumnIds.includes(column.id);
-
-            return (
-              <Link
-                key={column.id}
-                href={buildColumnsHref(nextColumnIds)}
-                scroll={false}
-                className="border-border/60 hover:bg-surface-muted block border-t pt-3 first:border-t-0 first:pt-0"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-foreground text-sm font-medium">
-                      {column.label}
+          {groupedColumns.map(([, group]) => (
+            <details
+              key={group.id}
+              className="group border-border/60 border-t pt-3 first:border-t-0 first:pt-0"
+              open
+            >
+              <summary className="text-foreground marker:hidden flex cursor-pointer list-none items-start justify-between gap-3 text-sm font-medium">
+                <div>
+                  <p>{group.label}</p>
+                  {group.description ? (
+                    <p className="text-muted mt-1 text-xs leading-5 font-normal">
+                      {group.description}
                     </p>
-                    {column.description ? (
-                      <p className="text-muted mt-1 text-xs leading-5">
-                        {column.description}
-                      </p>
-                    ) : null}
-                  </div>
-                  <span className="text-muted text-xs font-medium">
-                    {isVisible ? "Visible" : "Hidden"}
-                  </span>
+                  ) : null}
                 </div>
-              </Link>
-            );
-          })}
+                <ChevronDown className="text-muted mt-0.5 h-4 w-4 transition group-open:rotate-180" />
+              </summary>
+              <div className="mt-3 space-y-3">
+                {group.columns.map((column) => {
+                  const nextColumnIds = toggleVisibleColumnId(
+                    visibleColumnIds,
+                    column.id,
+                    columns,
+                  );
+                  const isVisible = visibleColumnIds.includes(column.id);
+
+                  return (
+                    <Link
+                      key={column.id}
+                      href={buildColumnsHref(nextColumnIds)}
+                      scroll={false}
+                      className="border-border/50 hover:bg-surface-muted block border-t pt-3 first:border-t-0 first:pt-0"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <p className="text-foreground text-sm font-medium">
+                            {column.label}
+                          </p>
+                          {column.description ? (
+                            <p className="text-muted mt-1 text-xs leading-5">
+                              {column.description}
+                            </p>
+                          ) : null}
+                        </div>
+                        <span className="text-muted text-xs font-medium">
+                          {isVisible ? "Visible" : "Hidden"}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </details>
+          ))}
         </div>
         <div className="border-border/60 mt-4 border-t pt-4">
           <Link

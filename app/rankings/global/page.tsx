@@ -53,7 +53,7 @@ export default async function GlobalRankingsPage({
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const query = parseGlobalRankingsQuery(resolvedSearchParams);
   const rows = repository.listGlobalRankedChains(query);
-  const columns = createGlobalRankingColumns();
+  const columns = createGlobalRankingColumns(repository.listEconomies());
   const visibleColumnIds = resolveVisibleColumnIds(
     parseVisibleColumnIds(resolvedSearchParams?.columns),
     columns,

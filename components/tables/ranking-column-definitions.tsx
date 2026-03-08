@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { StatusBadge } from "@/components/ui/status-badge";
 import type {
   EconomyType,
@@ -106,6 +107,54 @@ function GlobalChainCell({ row }: { row: GlobalRankedChain }) {
   );
 }
 
+function GlobalEconomyScoreCell({
+  row,
+  economy,
+}: {
+  row: GlobalRankedChain;
+  economy: EconomyType;
+}) {
+  const breakdown = row.economyBreakdown[economy.slug];
+
+  return (
+    <div className="space-y-1">
+      <p className="text-foreground text-xl font-semibold">
+        {formatScore(breakdown.readinessScore.totalScore)}
+      </p>
+      <p className="text-muted text-xs">Rank #{breakdown.benchmarkRank}</p>
+    </div>
+  );
+}
+
+function GlobalEconomyModuleCell({
+  row,
+  economy,
+  moduleSlug,
+}: {
+  row: GlobalRankedChain;
+  economy: EconomyType;
+  moduleSlug: string;
+}) {
+  const item = row.economyBreakdown[economy.slug].readinessScore.moduleBreakdown.find(
+    (breakdown) => breakdown.module.slug === moduleSlug,
+  );
+
+  if (!item) {
+    return null;
+  }
+
+  return (
+    <div className="space-y-1">
+      <p className="text-foreground text-sm font-medium capitalize">
+        {item.status}
+      </p>
+      <p className="text-muted text-xs">
+        {formatScore(item.weightedContribution)} pts
+      </p>
+    </div>
+  );
+}
+
 function OpportunityChainCell({
   row,
   rowIndex,
@@ -193,7 +242,9 @@ export function createEconomyRankingColumns(
   ];
 }
 
-export function createGlobalRankingColumns(): RankingColumnDefinition<
+export function createGlobalRankingColumns(
+  economies: EconomyType[] = listActiveEconomyTypes(),
+): RankingColumnDefinition<
   GlobalRankedChain,
   GlobalRankingsSortKey
 >[] {
@@ -211,6 +262,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "totalScore",
       label: "Global Score",
       description: "Holistic Atlas score across economies, ecosystem, adoption, and performance.",
+      groupId: "core-global",
+      groupLabel: "Global overview",
+      groupDescription: "Core comparative scores for the holistic chain ranking.",
+      groupOrder: 0,
       defaultVisible: true,
       align: "right",
       sortKey: "totalScore",
@@ -225,6 +280,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "economyCompositeScore",
       label: "Economy Composite",
       description: "Weighted composite of AI Agents, DeFi, RWA, and Prediction Market readiness.",
+      groupId: "core-global",
+      groupLabel: "Global overview",
+      groupDescription: "Core comparative scores for the holistic chain ranking.",
+      groupOrder: 0,
       defaultVisible: true,
       align: "right",
       sortKey: "economyCompositeScore",
@@ -235,6 +294,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "ecosystemScore",
       label: "Ecosystem Score",
       description: "Vitality score built from protocols and ecosystem project density.",
+      groupId: "core-global",
+      groupLabel: "Global overview",
+      groupDescription: "Core comparative scores for the holistic chain ranking.",
+      groupOrder: 0,
       defaultVisible: true,
       align: "right",
       sortKey: "ecosystemScore",
@@ -245,6 +308,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "adoptionScore",
       label: "Adoption Score",
       description: "Wallet and active-user signals normalized into the Atlas scale.",
+      groupId: "core-global",
+      groupLabel: "Global overview",
+      groupDescription: "Core comparative scores for the holistic chain ranking.",
+      groupOrder: 0,
       defaultVisible: true,
       align: "right",
       sortKey: "adoptionScore",
@@ -255,6 +322,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "performanceScore",
       label: "Performance Score",
       description: "Technical performance score from transaction speed, block time, and throughput.",
+      groupId: "core-global",
+      groupLabel: "Global overview",
+      groupDescription: "Core comparative scores for the holistic chain ranking.",
+      groupOrder: 0,
       defaultVisible: true,
       align: "right",
       sortKey: "performanceScore",
@@ -265,6 +336,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "wallets",
       label: "Wallets",
       description: "Seeded wallet count snapshot used by the global model.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[9rem]",
@@ -274,6 +349,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "activeUsers",
       label: "Active Users",
       description: "Seeded active-user snapshot used by the global model.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[9rem]",
@@ -283,6 +362,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "protocols",
       label: "Protocols",
       description: "Protocol count used for ecosystem activity scoring.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[8rem]",
@@ -292,6 +375,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "ecosystemProjects",
       label: "Ecosystem Projects",
       description: "Project count used for ecosystem activity scoring.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[11rem]",
@@ -301,6 +388,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "averageTransactionSpeed",
       label: "Avg Tx Speed",
       description: "Average transaction speed input for performance scoring.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[9rem]",
@@ -310,6 +401,10 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "blockTime",
       label: "Block Time",
       description: "Average block time input for performance scoring.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[8rem]",
@@ -319,12 +414,61 @@ export function createGlobalRankingColumns(): RankingColumnDefinition<
       id: "throughputIndicator",
       label: "Throughput",
       description: "Throughput indicator input for performance scoring.",
+      groupId: "ecosystem-metrics",
+      groupLabel: "Ecosystem and performance",
+      groupDescription: "Supporting signals used by the global ranking model.",
+      groupOrder: 10,
       defaultVisible: true,
       align: "right",
       widthClassName: "min-w-[8rem]",
       renderCell: (row) =>
         formatCountCompact(row.score.metrics.throughputIndicator),
     },
+    ...economies.flatMap((economy, economyIndex) => {
+      const groupOrder = economyIndex + 1;
+      const scoreColumn: RankingColumnDefinition<
+        GlobalRankedChain,
+        GlobalRankingsSortKey
+      > = {
+        id: `${economy.slug}-readiness`,
+        label: `${economy.shortLabel} Readiness`,
+        description: `${economy.name} score within the current Atlas benchmark.`,
+        groupId: economy.slug,
+        groupLabel: economy.name,
+        groupDescription:
+          "Open this economy to show its score and module-level composition.",
+        groupOrder,
+        defaultVisible: true,
+        align: "right",
+        widthClassName: "min-w-[10rem]",
+        renderCell: (row) => <GlobalEconomyScoreCell row={row} economy={economy} />,
+      };
+
+      const moduleColumns = economy.modules.map(
+        (module): RankingColumnDefinition<GlobalRankedChain, GlobalRankingsSortKey> => ({
+          id: `${economy.slug}:${module.slug}`,
+          label: `${economy.shortLabel} ${module.name}`,
+          description: `${module.name} status and contribution inside ${economy.name}.`,
+          groupId: economy.slug,
+          groupLabel: economy.name,
+          groupDescription:
+            "Open this economy to show its score and module-level composition.",
+          groupOrder,
+          defaultVisible: true,
+          align: "right",
+          widthClassName: "min-w-[11rem]",
+          renderCell: (row) => (
+            <GlobalEconomyModuleCell
+              row={row}
+              economy={economy}
+              moduleSlug={module.slug}
+            />
+          ),
+        }),
+      );
+
+      return [scoreColumn, ...moduleColumns];
+    }),
   ];
 }
 

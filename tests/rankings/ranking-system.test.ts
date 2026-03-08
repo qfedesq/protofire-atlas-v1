@@ -13,26 +13,17 @@ import {
 
 describe("ranking system", () => {
   it("keeps all global columns visible by default and a minimal opportunity view", () => {
-    const globalDefaults = getDefaultVisibleColumnIds(createGlobalRankingColumns());
+    const globalColumns = createGlobalRankingColumns();
+    const globalDefaults = getDefaultVisibleColumnIds(globalColumns);
     const opportunityDefaults = getDefaultVisibleColumnIds(
       createOpportunityRankingColumns(),
     );
 
-    expect(globalDefaults).toEqual([
-      "chain",
-      "totalScore",
-      "economyCompositeScore",
-      "ecosystemScore",
-      "adoptionScore",
-      "performanceScore",
-      "wallets",
-      "activeUsers",
-      "protocols",
-      "ecosystemProjects",
-      "averageTransactionSpeed",
-      "blockTime",
-      "throughputIndicator",
-    ]);
+    expect(globalDefaults).toEqual(globalColumns.map((column) => column.id));
+    expect(globalDefaults).toContain("ai-agents-readiness");
+    expect(globalDefaults).toContain("defi-infrastructure:liquid-staking");
+    expect(globalDefaults).toContain("rwa-infrastructure:asset-registry");
+    expect(globalDefaults).toContain("prediction-markets:oracles");
     expect(opportunityDefaults).toEqual([
       "chain",
       "opportunityScore",

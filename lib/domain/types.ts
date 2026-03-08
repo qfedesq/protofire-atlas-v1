@@ -376,6 +376,14 @@ export type GlobalRankedChain = {
   chain: Chain;
   score: GlobalChainScore;
   benchmarkRank: number;
+  economyBreakdown: Record<
+    EconomyTypeSlug,
+    {
+      economy: EconomyType;
+      readinessScore: ChainEconomyReadiness;
+      benchmarkRank: number;
+    }
+  >;
 };
 
 export type OpportunityScoreBreakdown = {

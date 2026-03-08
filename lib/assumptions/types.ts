@@ -8,6 +8,7 @@ export type ActiveStatusScores = Record<ModuleAvailabilityStatus, number>;
 
 export type EconomyAssumptionSet = {
   moduleWeights: Record<string, number>;
+  moduleDiagnosticWeights?: Record<string, Record<string, number>>;
   recommendationConfig: EconomyRecommendationConfig;
 };
 

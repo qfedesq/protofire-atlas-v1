@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import type { ActiveAssumptions } from "@/lib/assumptions/types";
 import { economyTypes } from "@/lib/config/economies";
+import { liquidStakingDiagnosticDimensions } from "@/lib/config/liquid-staking-diagnosis";
 import { economyTypeSlugs, moduleAvailabilityStatuses } from "@/lib/domain/types";
 
 const recommendationConfigSchema = z.object({
@@ -22,6 +23,9 @@ const activeAssumptionsSchema = z.object({
     z.enum(economyTypeSlugs),
     z.object({
       moduleWeights: z.record(z.string().min(1), z.number().min(0)),
+      moduleDiagnosticWeights: z
+        .record(z.string().min(1), z.record(z.string().min(1), z.number().min(0)))
+        .default({}),
       recommendationConfig: recommendationConfigSchema,
     }),
   ),
@@ -75,6 +79,45 @@ export function validateActiveAssumptions(
       throw new Error(
         `Module weights for ${economy.slug} must sum to 100. Received ${totalWeight}.`,
       );
+    }
+
+    if (economy.slug === "defi-infrastructure") {
+      const configuredDiagnostics =
+        configured.moduleDiagnosticWeights?.["liquid-staking"];
+      const diagnosticSlugs = liquidStakingDiagnosticDimensions.map(
+        (dimension) => dimension.slug,
+      );
+
+      if (!configuredDiagnostics) {
+        throw new Error(
+          "Liquid staking diagnostic weights must be configured for defi-infrastructure.",
+        );
+      }
+
+      const configuredDiagnosticSlugs = Object.keys(configuredDiagnostics).sort();
+      const expectedDiagnosticSlugs = [...diagnosticSlugs].sort();
+
+      if (
+        configuredDiagnosticSlugs.length !== expectedDiagnosticSlugs.length ||
+        configuredDiagnosticSlugs.some(
+          (slug, index) => slug !== expectedDiagnosticSlugs[index],
+        )
+      ) {
+        throw new Error(
+          "Liquid staking diagnostic weights do not match the configured 7-module diagnosis catalog.",
+        );
+      }
+
+      const diagnosticWeightTotal = Object.values(configuredDiagnostics).reduce(
+        (total, weight) => total + weight,
+        0,
+      );
+
+      if (diagnosticWeightTotal !== 100) {
+        throw new Error(
+          `Liquid staking diagnostic weights must sum to 100. Received ${diagnosticWeightTotal}.`,
+        );
+      }
     }
 
     const statusThresholds = configured.recommendationConfig;

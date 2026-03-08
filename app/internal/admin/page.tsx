@@ -1,6 +1,7 @@
 import { Panel } from "@/components/ui/panel";
 import { getAdminAccessState, isAdminAuthenticated } from "@/lib/admin/auth";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
+import { listLiquidStakingDiagnosticDimensions } from "@/lib/liquid-staking/diagnosis";
 import { formatScore } from "@/lib/utils/format";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
@@ -103,6 +104,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const assumptions = getActiveAssumptions();
   const repository = createSeedChainsRepository();
   const economies = repository.listEconomies();
+  const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
 
   return (
     <div className="space-y-6">
@@ -220,6 +222,11 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                   name="moduleWeights"
                   value={JSON.stringify(current.moduleWeights)}
                 />
+                <input
+                  type="hidden"
+                  name="moduleDiagnosticWeights"
+                  value={JSON.stringify(current.moduleDiagnosticWeights ?? {})}
+                />
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   {economy.modules.map((module) => (
@@ -244,6 +251,53 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                     </div>
                   ))}
                 </div>
+
+                {economy.slug === "defi-infrastructure" ? (
+                  <div className="space-y-4">
+                    <div>
+                      <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                        Liquid staking diagnosis
+                      </p>
+                      <h3 className="text-foreground mt-2 text-lg font-semibold">
+                        7-module LST weight model
+                      </h3>
+                      <p className="text-muted mt-2 text-sm leading-6">
+                        These weights drive the visible 7-module liquid staking
+                        diagnosis shown inside DeFi chain profiles.
+                      </p>
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                      {liquidStakingDimensions.map((dimension) => (
+                        <div key={dimension.id} className="space-y-2">
+                          <label
+                            htmlFor={`${economy.slug}-${dimension.slug}`}
+                            className="text-muted text-xs font-medium tracking-[0.16em] uppercase"
+                          >
+                            {dimension.name}
+                          </label>
+                          <input
+                            id={`${economy.slug}-${dimension.slug}`}
+                            name={`diagnostic-weight:liquid-staking:${dimension.slug}`}
+                            type="number"
+                            min="0"
+                            max="100"
+                            step="1"
+                            defaultValue={
+                              current.moduleDiagnosticWeights?.["liquid-staking"]?.[
+                                dimension.slug
+                              ] ?? dimension.defaultWeight
+                            }
+                            className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                            required
+                          />
+                          <p className="text-muted text-xs leading-5">
+                            {dimension.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : null}
 
                 <div className="grid gap-4 md:grid-cols-3">
                   <div className="space-y-2">

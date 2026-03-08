@@ -40,9 +40,11 @@ export function updateEconomyAssumptions(
   economySlug: EconomyTypeSlug,
   moduleWeights: Record<string, number>,
   recommendationConfig: ActiveAssumptions["economies"][EconomyTypeSlug]["recommendationConfig"],
+  moduleDiagnosticWeights: ActiveAssumptions["economies"][EconomyTypeSlug]["moduleDiagnosticWeights"] | undefined,
   updatedBy: string,
 ) {
   const current = getActiveAssumptions();
+  const currentEconomy = current.economies[economySlug];
 
   return saveActiveAssumptions(
     withAudit(
@@ -52,6 +54,8 @@ export function updateEconomyAssumptions(
           ...current.economies,
           [economySlug]: {
             moduleWeights,
+            moduleDiagnosticWeights:
+              moduleDiagnosticWeights ?? currentEconomy.moduleDiagnosticWeights ?? {},
             recommendationConfig,
           },
         },

@@ -3,6 +3,7 @@ import {
   economyTypes,
   moduleStatusScoreMap,
 } from "@/lib/config/economies";
+import { defaultLiquidStakingDiagnosticWeights } from "@/lib/config/liquid-staking-diagnosis";
 import type { ActiveAssumptions } from "@/lib/assumptions/types";
 
 export function buildDefaultAssumptionsSnapshot(): ActiveAssumptions {
@@ -17,6 +18,12 @@ export function buildDefaultAssumptionsSnapshot(): ActiveAssumptions {
           moduleWeights: Object.fromEntries(
             economy.modules.map((module) => [module.slug, module.weight]),
           ),
+          moduleDiagnosticWeights:
+            economy.slug === "defi-infrastructure"
+              ? {
+                  "liquid-staking": defaultLiquidStakingDiagnosticWeights,
+                }
+              : {},
           recommendationConfig: defaultRecommendationConfig,
         },
       ]),

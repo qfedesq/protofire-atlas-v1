@@ -47,14 +47,11 @@ export default function RootLayout({
                 </span>
               </Link>
               <nav className="flex items-center gap-6 text-sm text-slate-300">
-                <Link className="transition hover:text-white" href="/">
-                  Atlas overview
-                </Link>
                 <Link
                   className="transition hover:text-white"
                   href="/internal/admin"
                 >
-                  Assumptions admin
+                  Admin
                 </Link>
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium tracking-[0.18em] text-slate-200 uppercase">
                   {atlasVersion.label}
@@ -66,11 +63,7 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="border-border/80 bg-white/70 border-t backdrop-blur">
-            <div className="text-muted mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-6 text-sm lg:flex-row lg:items-center lg:justify-between lg:px-8">
-              <p>
-                Seeded MVP dataset. No live telemetry, scraping, or runtime AI
-                in product logic.
-              </p>
+            <div className="text-muted mx-auto flex w-full max-w-7xl flex-col gap-3 px-6 py-6 text-sm lg:px-8">
               <p>Built for chains evaluating infrastructure readiness by economy.</p>
             </div>
           </footer>

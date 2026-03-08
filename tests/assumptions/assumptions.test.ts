@@ -49,6 +49,7 @@ describe("active assumptions", () => {
         includePartialRecommendations: true,
         includeMissingRecommendations: true,
       },
+      undefined,
       "test",
     );
 
@@ -84,6 +85,7 @@ describe("active assumptions", () => {
         includePartialRecommendations: false,
         includeMissingRecommendations: true,
       },
+      undefined,
       "test",
     );
 
@@ -99,5 +101,52 @@ describe("active assumptions", () => {
         (module) => module.module.slug !== "indexing",
       ),
     ).toBe(true);
+  });
+
+  it("persists liquid staking diagnosis weights for DeFi admin assumptions", () => {
+    useTempAssumptionsFile();
+
+    updateEconomyAssumptions(
+      "defi-infrastructure",
+      {
+        "liquid-staking": 25,
+        lending: 20,
+        liquidity: 25,
+        oracles: 20,
+        indexing: 10,
+      },
+      {
+        thresholdScore: 0.5,
+        includePartialRecommendations: true,
+        includeMissingRecommendations: true,
+      },
+      {
+        "liquid-staking": {
+          "liquidity-exit": 25,
+          "peg-stability": 15,
+          "defi-moneyness": 15,
+          "security-governance": 15,
+          "validator-decentralization": 10,
+          "incentive-sustainability": 10,
+          "stress-resilience": 10,
+        },
+      },
+      "test",
+    );
+
+    const active = getActiveAssumptions();
+    const repository = createSeedChainsRepository();
+    const profile = repository.getChainProfileBySlug("base", "defi-infrastructure");
+
+    if (!profile?.liquidStakingDiagnosis) {
+      throw new Error("Expected DeFi liquid staking diagnosis for base");
+    }
+
+    expect(
+      active.economies["defi-infrastructure"].moduleDiagnosticWeights?.[
+        "liquid-staking"
+      ]?.["liquidity-exit"],
+    ).toBe(25);
+    expect(profile.liquidStakingDiagnosis.dimensions[0]?.weight).toBe(25);
   });
 });

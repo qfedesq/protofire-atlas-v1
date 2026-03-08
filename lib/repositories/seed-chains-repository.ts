@@ -6,6 +6,7 @@ import {
   defaultEconomySlug,
 } from "@/lib/config/economies";
 import { validateAtlasSeedDataset } from "@/lib/domain/schemas";
+import { buildLiquidStakingDiagnosis } from "@/lib/liquid-staking/diagnosis";
 import type {
   Chain,
   ChainCatalogSeed,
@@ -294,6 +295,10 @@ export class SeedChainsRepository implements ChainsRepository {
         readinessScore: rankedChain.readinessScore,
       }),
       peers: buildPeerComparison(rankedChain, dataset.rankedChains),
+      liquidStakingDiagnosis:
+        rankedChain.economy.slug === "defi-infrastructure"
+          ? buildLiquidStakingDiagnosis(rankedChain.chain.slug)
+          : undefined,
       recommendedStack,
       deploymentPlan,
     };

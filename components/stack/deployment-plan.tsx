@@ -1,18 +1,11 @@
-import { ArrowRight } from "lucide-react";
-
-import { ButtonLink } from "@/components/ui/button-link";
 import { Panel } from "@/components/ui/panel";
 import type { DeploymentPlan } from "@/lib/domain/types";
 
 type DeploymentPlanSectionProps = {
   plan: DeploymentPlan;
-  ctaHref: string;
 };
 
-export function DeploymentPlanSection({
-  plan,
-  ctaHref,
-}: DeploymentPlanSectionProps) {
+export function DeploymentPlanSection({ plan }: DeploymentPlanSectionProps) {
   return (
     <div className="space-y-4">
       {plan.phases.length === 0 ? (
@@ -49,20 +42,6 @@ export function DeploymentPlanSection({
           ))}
         </div>
       )}
-      <Panel className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <p className="text-muted text-xs tracking-[0.16em] uppercase">
-            Protofire engagement CTA
-          </p>
-          <p className="text-muted mt-2 max-w-3xl text-sm leading-6">
-            {plan.ctaText}
-          </p>
-        </div>
-        <ButtonLink href={ctaHref} className="gap-2">
-          Talk to Protofire
-          <ArrowRight className="h-4 w-4" />
-        </ButtonLink>
-      </Panel>
     </div>
   );
 }

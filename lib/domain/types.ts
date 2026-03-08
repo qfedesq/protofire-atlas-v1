@@ -9,6 +9,15 @@ export const economyTypeSlugs = [
   "rwa-infrastructure",
   "prediction-markets",
 ] as const;
+export const liquidStakingDiagnosticSlugs = [
+  "liquidity-exit",
+  "peg-stability",
+  "defi-moneyness",
+  "security-governance",
+  "validator-decentralization",
+  "incentive-sustainability",
+  "stress-resilience",
+] as const;
 export const moduleAvailabilityStatuses = [
   "missing",
   "partial",
@@ -23,6 +32,8 @@ export type ChainSourceCategory = (typeof chainSourceCategories)[number];
 export type ChainSourceMetric = (typeof chainSourceMetrics)[number];
 export type ChainSourceProvider = (typeof chainSourceProviders)[number];
 export type EconomyTypeSlug = (typeof economyTypeSlugs)[number];
+export type LiquidStakingDiagnosticSlug =
+  (typeof liquidStakingDiagnosticSlugs)[number];
 export type ModuleAvailabilityStatus =
   (typeof moduleAvailabilityStatuses)[number];
 export type RankingsSortDirection = (typeof rankingsSortDirections)[number];
@@ -90,6 +101,31 @@ export type EconomyModule = {
   name: string;
   description: string;
   weight: number;
+};
+
+export type LiquidStakingDiagnosticDimension = {
+  id: string;
+  slug: LiquidStakingDiagnosticSlug;
+  name: string;
+  description: string;
+  defaultWeight: number;
+};
+
+export type LiquidStakingDiagnosisSeed = {
+  scores: Record<LiquidStakingDiagnosticSlug, number>;
+};
+
+export type LiquidStakingDiagnosisItem = {
+  dimension: LiquidStakingDiagnosticDimension;
+  weight: number;
+  score: number;
+  rationale: string;
+  risk: string;
+};
+
+export type LiquidStakingDiagnosis = {
+  weightedScore: number;
+  dimensions: LiquidStakingDiagnosisItem[];
 };
 
 export type EconomyScoringConfig = {
@@ -248,6 +284,7 @@ export type ChainProfile = {
   chainsOutranked: number;
   scoreDrivers: ScoreDriver[];
   peers: PeerComparisonItem[];
+  liquidStakingDiagnosis?: LiquidStakingDiagnosis;
   recommendedStack: RecommendedStack;
   deploymentPlan: DeploymentPlan;
 };

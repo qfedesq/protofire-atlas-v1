@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 describe("home page", () => {
@@ -17,6 +17,7 @@ describe("home page", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Required modules")).toBeInTheDocument();
     expect(screen.getByText("Deployment sequencing")).toBeInTheDocument();
+    expect(screen.getByText("7-module LST weights")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Chain ascending" }),
     ).toBeInTheDocument();
@@ -38,5 +39,25 @@ describe("home page", () => {
     expect(screen.queryByLabelText("Search")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Category")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Sort by")).not.toBeInTheDocument();
+
+    const requiredModulesSection = screen
+      .getByText("Required modules")
+      .closest("section");
+
+    if (!requiredModulesSection) {
+      throw new Error("Expected required modules panel");
+    }
+
+    const liquidStaking = within(requiredModulesSection).getByRole("heading", {
+      name: "Liquid Staking Infrastructure",
+    });
+    const lending = within(requiredModulesSection).getByRole("heading", {
+      name: "Lending Infrastructure",
+    });
+
+    expect(
+      liquidStaking.compareDocumentPosition(lending) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 });

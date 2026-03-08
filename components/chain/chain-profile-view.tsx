@@ -2,10 +2,9 @@ import { submitAssessmentRequestAction } from "@/app/actions/assessment-request"
 import { ArrowUpRight } from "lucide-react";
 
 import { BenchmarkStrip } from "@/components/chain/benchmark-strip";
-import { GapAnalysis } from "@/components/chain/gap-analysis";
+import { CompetitiveAnalysisSection } from "@/components/chain/competitive-analysis";
+import { LiquidStakingDiagnosisSection } from "@/components/chain/liquid-staking-diagnosis";
 import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
-import { PeerComparisonSection } from "@/components/chain/peer-comparison";
-import { ScoreDriversSection } from "@/components/chain/score-drivers";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
@@ -13,7 +12,6 @@ import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { RecommendedStackSection } from "@/components/stack/recommended-stack";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { Panel } from "@/components/ui/panel";
-import { siteConfig } from "@/lib/config/site";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
@@ -131,32 +129,23 @@ export function ChainProfileView({
             {profile.economy.shortLabel} modules
           </h2>
         </div>
-        <ModuleStatusGrid readinessScore={profile.readinessScore} />
+        <ModuleStatusGrid
+          readinessScore={profile.readinessScore}
+          liquidStakingDiagnosis={profile.liquidStakingDiagnosis}
+        />
       </section>
 
-      <ExpandableSection
-        eyebrow="Gap analysis"
-        title="What is still blocking readiness"
-      >
-        <GapAnalysis
-          gaps={profile.gapAnalysis}
-          economyLabel={profile.economy.name}
+      {profile.liquidStakingDiagnosis ? (
+        <LiquidStakingDiagnosisSection
+          diagnosis={profile.liquidStakingDiagnosis}
         />
-      </ExpandableSection>
+      ) : null}
 
       <ExpandableSection
-        eyebrow="What moves your score"
-        title="Highest-upside module improvements"
+        eyebrow="Competitive analysis"
+        title="Gap analysis, score drivers, and peer comparison"
       >
-        <ScoreDriversSection drivers={profile.scoreDrivers} />
-      </ExpandableSection>
-
-      <ExpandableSection
-        eyebrow="Peer comparison"
-        title="Nearby chains in the same economy wedge"
-        description="Atlas compares the closest ranks above and below this chain to show where module gaps are still costing position."
-      >
-        <PeerComparisonSection profile={profile} />
+        <CompetitiveAnalysisSection profile={profile} />
       </ExpandableSection>
 
       <section className="space-y-4" id="suggested-activations">
@@ -180,10 +169,7 @@ export function ChainProfileView({
             Phased rollout
           </h2>
         </div>
-        <DeploymentPlanSection
-          plan={profile.deploymentPlan}
-          ctaHref={siteConfig.protofireUrl}
-        />
+        <DeploymentPlanSection plan={profile.deploymentPlan} />
       </section>
 
       <section className="space-y-4" id="assessment">
@@ -194,11 +180,6 @@ export function ChainProfileView({
           <h2 className="text-foreground mt-2 text-2xl font-semibold">
             Request infrastructure assessment
           </h2>
-          <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-            Submit a lightweight request so Protofire can review this chain,
-            validate the current readiness posture, and propose the next
-            infrastructure moves.
-          </p>
         </div>
         <Panel>
           <AssessmentRequestForm

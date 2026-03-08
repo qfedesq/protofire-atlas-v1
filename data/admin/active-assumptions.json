@@ -22,11 +22,22 @@
     },
     "defi-infrastructure": {
       "moduleWeights": {
+        "liquid-staking": 25,
         "lending": 20,
         "liquidity": 25,
         "oracles": 20,
-        "indexing": 10,
-        "liquid-staking": 25
+        "indexing": 10
+      },
+      "moduleDiagnosticWeights": {
+        "liquid-staking": {
+          "liquidity-exit": 18,
+          "peg-stability": 16,
+          "defi-moneyness": 14,
+          "security-governance": 14,
+          "validator-decentralization": 14,
+          "incentive-sustainability": 12,
+          "stress-resilience": 12
+        }
       },
       "recommendationConfig": {
         "thresholdScore": 0.5,

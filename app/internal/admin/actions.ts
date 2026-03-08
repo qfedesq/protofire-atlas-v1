@@ -49,10 +49,21 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
     string,
     number
   >;
+  const moduleDiagnosticWeights = JSON.parse(
+    asString(formData.get("moduleDiagnosticWeights")) || "{}",
+  ) as Record<string, Record<string, number>>;
 
   try {
     Object.keys(moduleWeights).forEach((moduleSlug) => {
       moduleWeights[moduleSlug] = asNumber(formData.get(`weight:${moduleSlug}`));
+    });
+
+    Object.entries(moduleDiagnosticWeights).forEach(([moduleSlug, weights]) => {
+      Object.keys(weights).forEach((dimensionSlug) => {
+        weights[dimensionSlug] = asNumber(
+          formData.get(`diagnostic-weight:${moduleSlug}:${dimensionSlug}`),
+        );
+      });
     });
 
     updateEconomyAssumptions(
@@ -65,6 +76,7 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
         includeMissingRecommendations:
           formData.get("includeMissingRecommendations") === "on",
       },
+      moduleDiagnosticWeights,
       "internal-admin",
     );
 

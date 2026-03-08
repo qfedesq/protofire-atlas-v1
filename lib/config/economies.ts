@@ -123,6 +123,13 @@ export const economyTypes: EconomyType[] = [
       "Infrastructure required for chains to support lending, liquidity, composability, and liquid staking as a competitive DeFi economy.",
     modules: [
       createModule(
+        "module-liquid-staking",
+        "liquid-staking",
+        "Liquid Staking Infrastructure",
+        "Staking derivatives, validator integrations, and reward flows that keep staked assets productive inside DeFi.",
+        25,
+      ),
+      createModule(
         "module-lending",
         "lending",
         "Lending Infrastructure",
@@ -149,13 +156,6 @@ export const economyTypes: EconomyType[] = [
         "Indexing Layer",
         "Queryable protocol, pool, and position data that improves composability and ecosystem operations.",
         10,
-      ),
-      createModule(
-        "module-liquid-staking",
-        "liquid-staking",
-        "Liquid Staking Infrastructure",
-        "Staking derivatives, validator integrations, and reward flows that keep staked assets productive inside DeFi.",
-        25,
       ),
     ],
     scoringConfig: defaultScoringConfig,

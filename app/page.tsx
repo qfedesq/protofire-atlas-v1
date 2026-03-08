@@ -2,6 +2,7 @@ import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
+import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { atlasDatasetLabel } from "@/lib/config/dataset";
 import { parseRankingsQuery } from "@/lib/domain/schemas";
 import type {
@@ -9,6 +10,10 @@ import type {
   RankingsSortDirection,
   RankingsSortKey,
 } from "@/lib/domain/types";
+import {
+  getActiveLiquidStakingDiagnosticWeights,
+  listLiquidStakingDiagnosticDimensions,
+} from "@/lib/liquid-staking/diagnosis";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
 const repository = createSeedChainsRepository();
@@ -88,6 +93,9 @@ export default async function Home({ searchParams }: HomePageProps) {
   const rows = repository.listRankedChains(query);
   const economies = repository.listEconomies();
   const economy = rows[0]?.economy ?? economies.find((item) => item.slug === query.economy);
+  const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
+  const activeLiquidStakingWeights = getActiveLiquidStakingDiagnosticWeights();
+  const activeAssumptions = getActiveAssumptions();
 
   if (!economy) {
     throw new Error(`Unknown economy: ${query.economy}`);
@@ -155,6 +163,27 @@ export default async function Home({ searchParams }: HomePageProps) {
                   <p className="text-muted mt-2 text-sm leading-6">
                     {module.description}
                   </p>
+                  {economy.slug === "defi-infrastructure" &&
+                  module.slug === "liquid-staking" ? (
+                    <div className="bg-surface-muted mt-4 rounded-2xl p-4">
+                      <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                        7-module LST weights
+                      </p>
+                      <div className="mt-3 space-y-2">
+                        {liquidStakingDimensions.map((dimension) => (
+                          <div
+                            key={dimension.id}
+                            className="text-muted flex items-center justify-between gap-3 text-sm"
+                          >
+                            <span>{dimension.name}</span>
+                            <span className="text-foreground font-medium">
+                              {activeLiquidStakingWeights[dimension.slug]}%
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </div>
@@ -194,8 +223,10 @@ export default async function Home({ searchParams }: HomePageProps) {
                 statuses on top of that fixed chain universe.
               </p>
               <p className="text-muted mt-3 text-sm leading-6">
-                Status mapping is fixed across all wedges: missing = 0, partial =
-                0.5, available = 1.
+                Active status mapping: missing ={" "}
+                {activeAssumptions.statusScores.missing}, partial ={" "}
+                {activeAssumptions.statusScores.partial}, available ={" "}
+                {activeAssumptions.statusScores.available}.
               </p>
             </Panel>
           </div>

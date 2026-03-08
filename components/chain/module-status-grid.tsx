@@ -1,12 +1,19 @@
+import Link from "next/link";
+
 import { Panel } from "@/components/ui/panel";
 import { StatusBadge } from "@/components/ui/status-badge";
-import type { ChainEconomyReadiness } from "@/lib/domain/types";
+import type {
+  ChainEconomyReadiness,
+  LiquidStakingDiagnosis,
+} from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
 
 export function ModuleStatusGrid({
   readinessScore,
+  liquidStakingDiagnosis,
 }: {
   readinessScore: ChainEconomyReadiness;
+  liquidStakingDiagnosis?: LiquidStakingDiagnosis;
 }) {
   return (
     <div className="grid gap-4 lg:grid-cols-2">
@@ -37,6 +44,39 @@ export function ModuleStatusGrid({
               <p className="mt-1 leading-6">{module.evidenceNote}</p>
             </div>
           </div>
+          {module.module.slug === "liquid-staking" && liquidStakingDiagnosis ? (
+            <div className="bg-surface-muted mt-5 rounded-2xl p-4">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                    7-module diagnosis
+                  </p>
+                  <p className="text-foreground mt-2 text-xl font-semibold">
+                    {Math.round(liquidStakingDiagnosis.weightedScore)} / 100
+                  </p>
+                </div>
+                <Link
+                  href="#liquid-staking-diagnosis"
+                  className="text-accent text-sm font-medium hover:underline"
+                >
+                  Open diagnosis
+                </Link>
+              </div>
+              <div className="mt-4 space-y-2">
+                {liquidStakingDiagnosis.dimensions.map((dimension) => (
+                  <div
+                    key={dimension.dimension.id}
+                    className="text-muted flex items-center justify-between gap-3 text-sm"
+                  >
+                    <span>{dimension.dimension.name}</span>
+                    <span className="text-foreground font-medium">
+                      {dimension.weight}%
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </Panel>
       ))}
     </div>

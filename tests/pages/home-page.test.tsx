@@ -31,11 +31,17 @@ describe("home page", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", { name: /RWA Asset Registry/i }),
+      screen.getByRole("columnheader", { name: /Performance Score/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", { name: /AI Agents Registry/i }),
-    ).toBeInTheDocument();
+      screen.queryByRole("columnheader", { name: /RWA Asset Registry/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("columnheader", { name: /AI Agents Registry/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("columnheader", { name: /Avg Tx Speed/i }),
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Chain ascending" }),
     ).toBeInTheDocument();

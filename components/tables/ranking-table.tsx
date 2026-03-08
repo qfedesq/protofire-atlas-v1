@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, ChevronDown, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import type { RankingsSortDirection } from "@/lib/domain/types";
 import {
+  getGroupDetailColumnIds,
   getDefaultVisibleColumnIds,
   resolveVisibleColumnIds,
   toggleVisibleColumnId,
@@ -130,6 +131,34 @@ function ColumnVisibilityControls<Row, SortKey extends string>({
               className="group border-border/60 border-t pt-3 first:border-t-0 first:pt-0"
               open
             >
+              {(() => {
+                const detailColumnIds = getGroupDetailColumnIds(group.id, columns);
+                const visibleDetailColumnIds = detailColumnIds.filter((columnId) =>
+                  visibleColumnIds.includes(columnId),
+                );
+                const showDetailsHref =
+                  detailColumnIds.length > 0
+                    ? buildColumnsHref(
+                        resolveVisibleColumnIds(
+                          [...visibleColumnIds, ...detailColumnIds],
+                          columns,
+                        ),
+                      )
+                    : null;
+                const hideDetailsHref =
+                  visibleDetailColumnIds.length > 0
+                    ? buildColumnsHref(
+                        resolveVisibleColumnIds(
+                          visibleColumnIds.filter(
+                            (columnId) => !detailColumnIds.includes(columnId),
+                          ),
+                          columns,
+                        ),
+                      )
+                    : null;
+
+                return (
+                  <>
               <summary className="text-foreground marker:hidden flex cursor-pointer list-none items-start justify-between gap-3 text-sm font-medium">
                 <div>
                   <p>{group.label}</p>
@@ -141,6 +170,30 @@ function ColumnVisibilityControls<Row, SortKey extends string>({
                 </div>
                 <ChevronDown className="text-muted mt-0.5 h-4 w-4 transition group-open:rotate-180" />
               </summary>
+              {detailColumnIds.length > 0 ? (
+                <div className="mt-3 flex items-center gap-4 text-xs font-medium">
+                  <Link
+                    href={showDetailsHref ?? "#"}
+                    scroll={false}
+                    className={cn(
+                      "text-accent hover:underline",
+                      showDetailsHref ? undefined : "pointer-events-none opacity-50",
+                    )}
+                  >
+                    Show details
+                  </Link>
+                  <Link
+                    href={hideDetailsHref ?? "#"}
+                    scroll={false}
+                    className={cn(
+                      "text-muted hover:text-foreground hover:underline",
+                      hideDetailsHref ? undefined : "pointer-events-none opacity-50",
+                    )}
+                  >
+                    Hide details
+                  </Link>
+                </div>
+              ) : null}
               <div className="mt-3 space-y-3">
                 {group.columns.map((column) => {
                   const nextColumnIds = toggleVisibleColumnId(
@@ -176,6 +229,9 @@ function ColumnVisibilityControls<Row, SortKey extends string>({
                   );
                 })}
               </div>
+                  </>
+                );
+              })()}
             </details>
           ))}
         </div>

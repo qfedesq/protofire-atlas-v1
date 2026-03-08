@@ -2,6 +2,8 @@ import type { ImgHTMLAttributes } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
+import { atlasVersion } from "@/lib/config/version";
+
 vi.mock("next/font/local", () => ({
   default: () => ({ variable: "font-onest" }),
 }));
@@ -27,7 +29,7 @@ describe("RootLayout", () => {
 
       expect(screen.getByAltText("Protofire")).toBeInTheDocument();
       expect(screen.getByText("Atlas")).toBeInTheDocument();
-      expect(screen.getByText("V1.15")).toBeInTheDocument();
+      expect(screen.getByText(atlasVersion.label)).toBeInTheDocument();
       expect(
         screen.getByRole("link", { name: "Global ranking" }),
       ).toHaveAttribute("href", "/#global-ranking");

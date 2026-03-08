@@ -12,6 +12,7 @@ export type RankingColumnDefinition<Row, SortKey extends string> = {
   groupLabel?: string;
   groupDescription?: string;
   groupOrder?: number;
+  groupRole?: "summary" | "detail";
   defaultVisible: boolean;
   canHide?: boolean;
   align?: "left" | "right";
@@ -106,4 +107,15 @@ export function serializeVisibleColumnIds<Row, SortKey extends string>(
   }
 
   return resolved.join(",");
+}
+
+export function getGroupDetailColumnIds<Row, SortKey extends string>(
+  groupId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+) {
+  return columns
+    .filter(
+      (column) => column.groupId === groupId && column.groupRole === "detail",
+    )
+    .map((column) => column.id);
 }

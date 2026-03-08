@@ -20,13 +20,19 @@ describe("global ranking page", () => {
       screen.getByRole("columnheader", { name: /AI Agents Readiness/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", {
+      screen.queryByRole("columnheader", {
         name: /DeFi Liquid Staking Infrastructure/i,
       }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("columnheader", { name: /RWA Asset Registry/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("columnheader", { name: /Performance Score/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", { name: /RWA Asset Registry/i }),
-    ).toBeInTheDocument();
+      screen.queryByRole("columnheader", { name: /Block Time/i }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Ethereum" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Global Score descending" }),

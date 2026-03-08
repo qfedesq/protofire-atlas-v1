@@ -131,6 +131,19 @@ export function getChildColumnIds<Row, SortKey extends string>(
     .map((column) => column.id);
 }
 
+export function getColumnTreeDepth<Row, SortKey extends string>(
+  columnId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+): number {
+  const column = columns.find((item) => item.id === columnId);
+
+  if (!column?.treeParentId) {
+    return 0;
+  }
+
+  return 1 + getColumnTreeDepth(column.treeParentId, columns);
+}
+
 export function getDescendantColumnIds<Row, SortKey extends string>(
   columnId: string,
   columns: RankingColumnDefinition<Row, SortKey>[],

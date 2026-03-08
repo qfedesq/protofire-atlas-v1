@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils/cn";
 import type { RankingsSortDirection } from "@/lib/domain/types";
 import {
   getChildColumnIds,
+  getColumnTreeDepth,
   getGroupDetailColumnIds,
   getDefaultVisibleColumnIds,
   resolveVisibleColumnIds,
@@ -45,10 +46,22 @@ function SortHeader<SortKey extends string>({
   buildColumnsHref: (columnIds: string[]) => string;
 }) {
   const childColumnIds = getChildColumnIds(column.id, columns);
+  const depth = getColumnTreeDepth(column.id, columns);
   const hasChildren = childColumnIds.length > 0;
   const hasExpandedChildren = childColumnIds.some((childColumnId) =>
     visibleColumnIds.includes(childColumnId),
   );
+  const headerLabelClasses = cn(
+    "inline-flex items-center gap-2 transition",
+    hasChildren ? "hover:text-foreground" : undefined,
+    depth > 0 ? "relative" : undefined,
+  );
+  const headerLabelStyle =
+    depth > 0
+      ? {
+          paddingLeft: `${depth * 0.9}rem`,
+        }
+      : undefined;
   const headerLabel = hasChildren ? (
     <Link
       href={buildColumnsHref(
@@ -56,8 +69,15 @@ function SortHeader<SortKey extends string>({
       )}
       scroll={false}
       aria-label={`${hasExpandedChildren ? "Collapse" : "Expand"} ${column.label}`}
-      className="hover:text-foreground inline-flex items-center gap-2 transition"
+      className={headerLabelClasses}
+      style={headerLabelStyle}
     >
+      {depth > 0 ? (
+        <span
+          aria-hidden="true"
+          className="bg-border absolute top-1/2 left-0 h-px w-2.5 -translate-y-1/2"
+        />
+      ) : null}
       <span>{column.label}</span>
       <ChevronDown
         className={cn(
@@ -67,7 +87,15 @@ function SortHeader<SortKey extends string>({
       />
     </Link>
   ) : (
-    <span>{column.label}</span>
+    <span className={headerLabelClasses} style={headerLabelStyle}>
+      {depth > 0 ? (
+        <span
+          aria-hidden="true"
+          className="bg-border absolute top-1/2 left-0 h-px w-2.5 -translate-y-1/2"
+        />
+      ) : null}
+      <span>{column.label}</span>
+    </span>
   );
 
   if (!column.sortKey) {
@@ -75,7 +103,12 @@ function SortHeader<SortKey extends string>({
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div
+      className={cn(
+        "flex items-center gap-3",
+        depth > 0 ? "justify-between" : undefined,
+      )}
+    >
       {headerLabel}
       <div className="text-muted inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase">
         <Link

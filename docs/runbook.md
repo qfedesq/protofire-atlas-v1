@@ -52,6 +52,14 @@ This currently:
 
 The same workflow is available from `/internal/admin` through `SYNC NOW`.
 
+Inside `/internal/admin/data-sources`, `SYNC NOW` only refreshes the source-backed external metrics snapshot. It does not shell out to the full CLI workflow.
+
+Persistence behavior:
+
+- local development uses file-backed mutable stores by default
+- Vercel persists mutable admin/runtime Atlas documents into Postgres through `DATABASE_URL`
+- the current runtime file path still acts as the fallback cache location
+
 ## Validate seed data
 
 ```bash
@@ -131,23 +139,29 @@ npm run build
    - `data/runtime/intent-events.json` updates
 8. Open `/internal/admin` and confirm authentication works.
 9. Open `/internal/admin/data-sources` and confirm the provenance registry renders:
-   - benchmark source rows
-   - external metric rows
-   - readiness and assumption rows
-   - roadmap and liquid-staking rows
+    - benchmark source rows
+    - external metric rows
+    - readiness and assumption rows
+    - roadmap and liquid-staking rows
 10. Trigger `SYNC NOW` and confirm the action completes in a writable environment.
-11. Open `/api/public/rankings/global` and one `/api/public/chains/[slug]` route and confirm:
-   - `atlas_version`
-   - `updated_at`
-   - `source_note`
-12. Open `/data`, `/data/rankings`, `/data/research`, and `/data/gaps`.
-13. Open one embed and one badge route:
-   - `/embed/rankings/global`
-   - `/badge/chains/ethereum/global`
-14. Open `/internal/targets` and `/internal/account/[chain]` and confirm internal-only GTM surfaces still work.
-15. Verify the public version label matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
-16. Confirm no public wording implies always-live synchronization.
-17. On one chain page, confirm these sections can expand/collapse cleanly:
+11. Confirm the same page now exposes:
+    - current provenance per metric
+    - admin edit path per metric
+    - manual dataset editors
+    - full assumptions editor
+12. Save one manual dataset override and confirm the relevant public page changes.
+13. Open `/api/public/rankings/global` and one `/api/public/chains/[slug]` route and confirm:
+    - `atlas_version`
+    - `updated_at`
+    - `source_note`
+14. Open `/data`, `/data/rankings`, `/data/research`, and `/data/gaps`.
+15. Open one embed and one badge route:
+    - `/embed/rankings/global`
+    - `/badge/chains/ethereum/global`
+16. Open `/internal/targets` and `/internal/account/[chain]` and confirm internal-only GTM surfaces still work.
+17. Verify the public version label matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+18. Confirm no public wording implies always-live synchronization.
+19. On one chain page, confirm these sections can expand/collapse cleanly:
     - score composition
     - module evidence
     - diagnosis and blockers

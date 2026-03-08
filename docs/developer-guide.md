@@ -86,11 +86,16 @@ Keep `status`, `rationale`, and `evidenceNote` explicit and deterministic.
 
 Preferred path:
 
-- use `/internal/admin`
+- use `/internal/admin/data-sources`
 
 Stored in:
 
 - [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json)
+
+Runtime-managed path:
+
+- [`lib/assumptions/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/store.ts)
+- Vercel persistence backend: [`lib/storage/persistent-json-store.ts`](/Users/qfedesq/Desktop/Atlas/lib/storage/persistent-json-store.ts)
 
 This controls:
 
@@ -105,6 +110,30 @@ Only change base definitions in code when the product model itself changes:
 
 - [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts)
 - [`lib/assumptions/defaults.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/defaults.ts)
+
+## Update manual Atlas datasets
+
+Preferred path:
+
+- use `/internal/admin/data-sources`
+
+Backing store:
+
+- [`lib/admin/manual-data.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/manual-data.ts)
+
+Datasets editable there:
+
+- readiness records
+- roadmap stage dataset
+- fallback ecosystem metrics
+- liquid staking market snapshots
+
+Rules:
+
+- only edit datasets Atlas cannot fully sync automatically
+- keep JSON valid against the existing seed schema
+- prefer official/public sources for roadmap and liquid staking notes
+- use manual overrides instead of editing seed files directly when the goal is runtime admin control
 
 ## Update recommendation logic
 
@@ -197,6 +226,13 @@ When adding a new blockchain-related metric:
 4. add or update the relevant tests
 
 Do not add hidden metrics to the model without registering their provenance.
+
+Also decide one of these explicitly:
+
+- source-backed via connector
+- manual Atlas dataset
+- admin-managed assumption
+- Atlas-derived metric
 
 ## Regenerate outputs
 

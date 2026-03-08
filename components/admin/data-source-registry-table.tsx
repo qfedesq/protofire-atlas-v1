@@ -5,6 +5,35 @@ export function DataSourceRegistryTable({
 }: {
   groups: DataSourceRegistryGroup[];
 }) {
+  function getDefaultCurrentProvenance(entry: DataSourceRegistryGroup["entries"][number]) {
+    switch (entry.originType) {
+      case "external API":
+      case "external query source":
+        return "Synced external snapshot with Atlas fallback preservation.";
+      case "internal manual/admin-managed assumption":
+        return "Active Atlas admin-managed configuration.";
+      case "internal Atlas-derived metric":
+        return "Derived inside Atlas from the active inputs and assumptions.";
+      case "seed/fallback dataset":
+        return "Atlas-managed manual or fallback dataset.";
+      default:
+        return "Atlas dataset provenance.";
+    }
+  }
+
+  function getDefaultEditScope(entry: DataSourceRegistryGroup["entries"][number]) {
+    switch (entry.originType) {
+      case "internal manual/admin-managed assumption":
+        return "Editable from this page";
+      case "seed/fallback dataset":
+        return "Editable when this dataset is manual";
+      case "internal Atlas-derived metric":
+        return "Indirect only via inputs";
+      default:
+        return "No direct edit";
+    }
+  }
+
   return (
     <div className="space-y-10">
       {groups.map((group) => (
@@ -27,6 +56,12 @@ export function DataSourceRegistryTable({
                   </th>
                   <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
                     Source category
+                  </th>
+                  <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                    Current provenance
+                  </th>
+                  <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
+                    Admin edit path
                   </th>
                   <th className="py-3 pr-4 text-xs font-semibold tracking-[0.16em] uppercase text-muted">
                     Source
@@ -64,6 +99,13 @@ export function DataSourceRegistryTable({
                     </td>
                     <td className="text-foreground py-4 pr-4">
                       {entry.sourceCategory}
+                    </td>
+                    <td className="text-muted py-4 pr-4 leading-6">
+                      {entry.currentProvenance ??
+                        getDefaultCurrentProvenance(entry)}
+                    </td>
+                    <td className="text-foreground py-4 pr-4">
+                      {entry.adminEditScope ?? getDefaultEditScope(entry)}
                     </td>
                     <td className="text-foreground py-4 pr-4">
                       {entry.sourceName}

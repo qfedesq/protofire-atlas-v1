@@ -14,6 +14,7 @@ import {
 } from "@/lib/rankings/table";
 import { createArithmeticCaptcha } from "@/lib/requests/captcha";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 const repository = createSeedChainsRepository();
 
@@ -81,6 +82,7 @@ function buildGlobalColumnsHref(
 }
 
 export default async function Home({ searchParams }: HomePageProps) {
+  await ensureAtlasPersistence();
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const globalQuery = parseGlobalRankingsQuery({
     sort: resolvedSearchParams?.globalSort,

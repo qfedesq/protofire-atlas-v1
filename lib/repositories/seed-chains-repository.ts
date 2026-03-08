@@ -1,8 +1,11 @@
 import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { buildPeerComparison, buildScoreDrivers } from "@/lib/comparison/peer-comparison";
 import { chainCatalogSeeds } from "@/data/seed/catalog";
-import { chainEconomySeedRecords } from "@/data/seed/economies";
-import { chainRoadmapSeedsBySlug, chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
+import {
+  getResolvedChainEconomySeedRecords,
+  getResolvedChainRoadmapSeeds,
+  getResolvedChainRoadmapSeedsBySlug,
+} from "@/lib/admin/manual-data";
 import { buildGlobalRankedChains } from "@/lib/global-ranking/engine";
 import {
   defaultEconomySlug,
@@ -62,8 +65,11 @@ type SeedRepositoryDataset = {
   targetAccounts: TargetAccountRow[];
 };
 
-function buildChain(seed: ChainCatalogSeed): Chain {
-  const roadmapSeed = chainRoadmapSeedsBySlug.get(seed.slug);
+function buildChain(
+  seed: ChainCatalogSeed,
+  roadmapSeedsBySlug: ReturnType<typeof getResolvedChainRoadmapSeedsBySlug>,
+): Chain {
+  const roadmapSeed = roadmapSeedsBySlug.get(seed.slug);
 
   if (!roadmapSeed) {
     throw new Error(`Missing roadmap seed for ${seed.slug}`);
@@ -211,6 +217,11 @@ function buildEconomyDataset(
 }
 
 function buildSeedRepositoryDataset(): SeedRepositoryDataset {
+  const chainRoadmapSeeds = getResolvedChainRoadmapSeeds();
+  const chainEconomySeedRecords = getResolvedChainEconomySeedRecords();
+  const chainRoadmapSeedsBySlug = new Map(
+    chainRoadmapSeeds.map((seed) => [seed.chainSlug, seed] as const),
+  );
   const validatedDataset = validateAtlasSeedDataset({
     chains: chainCatalogSeeds,
     economies: listActiveEconomyTypes(),
@@ -218,7 +229,7 @@ function buildSeedRepositoryDataset(): SeedRepositoryDataset {
   });
   validateChainRoadmapSeeds(validatedDataset.chains, chainRoadmapSeeds);
   const chains = validatedDataset.chains
-    .map((seed) => buildChain(seed))
+    .map((seed) => buildChain(seed, chainRoadmapSeedsBySlug))
     .sort((left, right) => left.name.localeCompare(right.name));
   const recordLookup = getRecordLookup(validatedDataset.records);
 

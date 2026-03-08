@@ -15,14 +15,14 @@ import type {
   ChainAdditionRequestInput,
 } from "@/lib/requests/types";
 
-export function createAssessmentRequest(input: AssessmentRequestInput) {
+export async function createAssessmentRequest(input: AssessmentRequestInput) {
   const parsed = parseAssessmentRequestInput(input);
 
   if (parsed.website.length > 0) {
     throw new Error("Spam protection triggered.");
   }
 
-  const request = appendAssessmentRequest({
+  const request = await appendAssessmentRequest({
     id: randomUUID(),
     createdAt: new Date().toISOString(),
     name: parsed.name,
@@ -33,7 +33,7 @@ export function createAssessmentRequest(input: AssessmentRequestInput) {
     notes: parsed.notes,
   });
 
-  appendIntentEvent({
+  await appendIntentEvent({
     type: "assessment_request_submitted",
     economy: parsed.selectedEconomy,
     chainSlug: parsed.selectedChain,
@@ -43,7 +43,7 @@ export function createAssessmentRequest(input: AssessmentRequestInput) {
   return request;
 }
 
-export function createChainAdditionRequest(input: ChainAdditionRequestInput) {
+export async function createChainAdditionRequest(input: ChainAdditionRequestInput) {
   const parsed = parseChainAdditionRequestInput(input);
 
   if (parsed.website.length > 0) {
@@ -54,14 +54,14 @@ export function createChainAdditionRequest(input: ChainAdditionRequestInput) {
     throw new Error("Captcha validation failed.");
   }
 
-  const request = appendChainAdditionRequest({
+  const request = await appendChainAdditionRequest({
     id: randomUUID(),
     createdAt: new Date().toISOString(),
     chainWebsite: parsed.chainWebsite,
     selectedEconomy: parsed.selectedEconomy,
   });
 
-  appendIntentEvent({
+  await appendIntentEvent({
     type: "chain_addition_request_submitted",
     economy: parsed.selectedEconomy,
     context: "ranking-add-chain",

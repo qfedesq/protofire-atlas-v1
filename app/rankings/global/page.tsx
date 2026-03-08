@@ -13,6 +13,7 @@ import {
   serializeVisibleColumnIds,
 } from "@/lib/rankings/table";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 const repository = createSeedChainsRepository();
 
@@ -51,6 +52,7 @@ function buildSortHref(
 export default async function GlobalRankingsPage({
   searchParams,
 }: GlobalRankingsPageProps) {
+  await ensureAtlasPersistence();
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const query = parseGlobalRankingsQuery(resolvedSearchParams);
   const rows = repository.listGlobalRankedChains(query);

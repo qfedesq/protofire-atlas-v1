@@ -2,11 +2,13 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { listEconomyTypes } from "@/lib/config/economies";
 import { getPublicResearchPayload } from "@/lib/public-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext<"/api/public/research/[economy]">,
 ) {
+  await ensureAtlasPersistence();
   const { economy } = await params;
   const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
 

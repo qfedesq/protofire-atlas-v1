@@ -28,6 +28,7 @@ import type {
   EconomyType,
   ExternalMetricsSnapshot,
   GlobalRankingsQuery,
+  LiquidStakingMarketSnapshotSeed,
   RankingsQuery,
   RankingsSortKey,
   TargetAccountsQuery,
@@ -361,6 +362,40 @@ const chainEcosystemMetricsSeedsSchema = z
     );
   });
 
+const liquidStakingMetricSourceSchema = z.object({
+  metric: z.string().min(1),
+  provider: z.string().min(1),
+  url: z.string().url(),
+  snapshotDate: z.string().min(1),
+  status: z.enum(["captured", "pending", "not-applicable"]),
+  note: z.string().min(1),
+});
+
+const liquidStakingMarketSnapshotSeedSchema = z.object({
+  chainSlug: z.string().min(1),
+  nativeTokenSymbol: z.string().min(1).nullable().optional(),
+  marketCapUsd: z.number().nonnegative().nullable().optional(),
+  percentStaked: z.number().nonnegative().nullable().optional(),
+  stakingApyPercent: z.number().nonnegative().nullable().optional(),
+  stakersCount: z.number().int().nonnegative().nullable().optional(),
+  lstProtocolCount: z.number().int().nonnegative().nullable().optional(),
+  lstToStakedPercent: z.number().nonnegative().nullable().optional(),
+  sources: z.array(liquidStakingMetricSourceSchema).min(1),
+});
+
+const liquidStakingMarketSnapshotSeedsSchema = z
+  .array(liquidStakingMarketSnapshotSeedSchema)
+  .min(1)
+  .superRefine((records, ctx) => {
+    addUniqueFieldIssue(
+      records,
+      (record) => record.chainSlug,
+      "chainSlug",
+      ctx,
+      "Duplicate chain liquid staking snapshot record",
+    );
+  });
+
 const externalMetricProvenanceSchema = z.object({
   sourceName: z.string().min(1),
   sourceEndpoint: z.string().min(1),
@@ -471,6 +506,12 @@ export function parseChainEcosystemMetricsSeeds(
   input: unknown,
 ): ChainEcosystemMetricsSeed[] {
   return chainEcosystemMetricsSeedsSchema.parse(input);
+}
+
+export function parseLiquidStakingMarketSnapshotSeeds(
+  input: unknown,
+): LiquidStakingMarketSnapshotSeed[] {
+  return liquidStakingMarketSnapshotSeedsSchema.parse(input);
 }
 
 export function parseExternalMetricsSnapshot(
@@ -589,6 +630,24 @@ export function validateChainEcosystemMetricsSeeds(
   });
 
   return parsedMetrics;
+}
+
+export function validateLiquidStakingMarketSnapshotSeeds(
+  chains: ChainCatalogSeed[],
+  records: LiquidStakingMarketSnapshotSeed[],
+) {
+  const parsedChains = parseChainCatalogSeeds(chains);
+  const parsedRecords = parseLiquidStakingMarketSnapshotSeeds(records);
+
+  parsedRecords.forEach((record) => {
+    if (!parsedChains.some((chain) => chain.slug === record.chainSlug)) {
+      throw new Error(
+        `Unknown chain slug "${record.chainSlug}" in liquid staking snapshot seed.`,
+      );
+    }
+  });
+
+  return parsedRecords;
 }
 
 export function parseEconomySelection(

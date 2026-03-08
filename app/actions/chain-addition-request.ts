@@ -19,7 +19,7 @@ export async function submitChainAdditionRequestAction(
   const chainWebsite = asString(formData.get("chainWebsite"));
 
   try {
-    createChainAdditionRequest({
+    await createChainAdditionRequest({
       chainWebsite,
       selectedEconomy: asString(
         formData.get("selectedEconomy"),

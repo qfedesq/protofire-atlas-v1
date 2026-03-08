@@ -5,7 +5,7 @@ import { appendIntentEvent } from "@/lib/intent/store";
 export async function POST(request: Request) {
   const payload = await request.json();
 
-  appendIntentEvent({
+  await appendIntentEvent({
     type: payload.type,
     economy: payload.economy,
     chainSlug: payload.chainSlug,

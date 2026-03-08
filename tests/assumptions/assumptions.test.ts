@@ -29,10 +29,10 @@ function useTempAssumptionsFile() {
 }
 
 describe("active assumptions", () => {
-  it("persists updated weights and status mappings", () => {
+  it("persists updated weights and status mappings", async () => {
     useTempAssumptionsFile();
 
-    updateStatusScores(
+    await updateStatusScores(
       {
         missing: 0,
         partial: 0.4,
@@ -41,7 +41,7 @@ describe("active assumptions", () => {
       "test",
     );
 
-    updateEconomyAssumptions(
+    await updateEconomyAssumptions(
       "ai-agents",
       {
         registry: 30,
@@ -74,10 +74,10 @@ describe("active assumptions", () => {
     );
   });
 
-  it("changes recommendation behavior when partial modules are disabled", () => {
+  it("changes recommendation behavior when partial modules are disabled", async () => {
     useTempAssumptionsFile();
 
-    updateEconomyAssumptions(
+    await updateEconomyAssumptions(
       "ai-agents",
       {
         registry: 25,
@@ -108,10 +108,10 @@ describe("active assumptions", () => {
     ).toBe(true);
   });
 
-  it("persists liquid staking diagnosis weights for DeFi admin assumptions", () => {
+  it("persists liquid staking diagnosis weights for DeFi admin assumptions", async () => {
     useTempAssumptionsFile();
 
-    updateEconomyAssumptions(
+    await updateEconomyAssumptions(
       "defi-infrastructure",
       {
         "liquid-staking": 25,
@@ -155,10 +155,10 @@ describe("active assumptions", () => {
     expect(profile.liquidStakingDiagnosis.dimensions[0]?.weight).toBe(25);
   });
 
-  it("persists global ranking and opportunity weights", () => {
+  it("persists global ranking and opportunity weights", async () => {
     useTempAssumptionsFile();
 
-    updateGlobalRankingAssumptions(
+    await updateGlobalRankingAssumptions(
       {
         economyScore: 40,
         ecosystem: 25,
@@ -173,7 +173,7 @@ describe("active assumptions", () => {
       },
       "test",
     );
-    updateOpportunityScoringAssumptions(
+    await updateOpportunityScoringAssumptions(
       {
         tvlTier: 25,
         readinessGap: 35,
@@ -197,10 +197,10 @@ describe("active assumptions", () => {
     expect(targetRows[0]?.opportunity.totalScore).toBeGreaterThan(0);
   });
 
-  it("rejects invalid global ranking weights", () => {
+  it("rejects invalid global ranking weights", async () => {
     useTempAssumptionsFile();
 
-    expect(() =>
+    await expect(
       updateGlobalRankingAssumptions(
         {
           economyScore: 50,
@@ -216,6 +216,6 @@ describe("active assumptions", () => {
         },
         "test",
       ),
-    ).toThrow(/Global ranking weights must sum to 100/);
+    ).rejects.toThrow(/Global ranking weights must sum to 100/);
   });
 });

@@ -1,9 +1,12 @@
-import activeAssumptions from "@/data/admin/active-assumptions.json";
-import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
-import { chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
-import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
-import externalMetricsSnapshot from "@/data/source/external-chain-metrics.snapshot.json";
+import {
+  getManualDataOverrides,
+  getResolvedChainEcosystemMetricsSeeds,
+  getResolvedChainRoadmapSeeds,
+  getResolvedLiquidStakingMarketSnapshotSeeds,
+} from "@/lib/admin/manual-data";
+import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { atlasDatasetSnapshot } from "@/lib/config/dataset";
+import { readExternalMetricsSnapshot } from "@/lib/external-data/service";
 import { externalMetricsSourceNote } from "@/lib/external-data/config";
 
 export type DataSourceOriginType =
@@ -20,6 +23,8 @@ export type DataSourceRegistryEntry = {
   sourceName: string;
   sourceReference: string;
   originType: DataSourceOriginType;
+  currentProvenance?: string;
+  adminEditScope?: string;
   refreshBehavior: string;
   lastUpdated: string;
   notes?: string;
@@ -31,17 +36,31 @@ export type DataSourceRegistryGroup = {
   entries: DataSourceRegistryEntry[];
 };
 
-const externalUpdatedAt = externalMetricsSnapshot.updatedAt;
-const assumptionsUpdatedAt = activeAssumptions.updatedAt;
-const chainSeedUpdatedAt = `${atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
-const ecosystemSeedUpdatedAt = `${chainEcosystemMetricsSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
-const roadmapUpdatedAt = `${chainRoadmapSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
-const liquidStakingUpdatedAt =
-  liquidStakingMarketSnapshotSeeds[0]?.sources[0]?.snapshotDate != null
-    ? `${liquidStakingMarketSnapshotSeeds[0].sources[0].snapshotDate}T00:00:00.000Z`
-    : chainSeedUpdatedAt;
-
 export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
+  const externalMetricsSnapshot = readExternalMetricsSnapshot();
+  const activeAssumptions = getActiveAssumptions();
+  const manualOverrides = getManualDataOverrides();
+  const chainEcosystemMetricsSeeds = getResolvedChainEcosystemMetricsSeeds();
+  const chainRoadmapSeeds = getResolvedChainRoadmapSeeds();
+  const liquidStakingMarketSnapshotSeeds =
+    getResolvedLiquidStakingMarketSnapshotSeeds();
+  const externalUpdatedAt = externalMetricsSnapshot.updatedAt;
+  const assumptionsUpdatedAt = activeAssumptions.updatedAt;
+  const chainSeedUpdatedAt = `${atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
+  const ecosystemSeedUpdatedAt =
+    manualOverrides.ecosystemMetricSeeds?.updatedAt ??
+    `${chainEcosystemMetricsSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
+  const roadmapUpdatedAt =
+    manualOverrides.roadmaps?.updatedAt ??
+    `${chainRoadmapSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
+  const liquidStakingUpdatedAt =
+    manualOverrides.liquidStakingMarketSnapshots?.updatedAt ??
+    (liquidStakingMarketSnapshotSeeds[0]?.sources[0]?.snapshotDate != null
+      ? `${liquidStakingMarketSnapshotSeeds[0].sources[0].snapshotDate}T00:00:00.000Z`
+      : chainSeedUpdatedAt);
+  const readinessUpdatedAt =
+    manualOverrides.readinessRecords?.updatedAt ?? chainSeedUpdatedAt;
+
   return [
     {
       title: "Benchmark and external ecosystem metrics",
@@ -57,6 +76,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "data/source/defillama-top-30-evm-chains.snapshot.json",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Synced DeFiLlama snapshot committed into the Atlas benchmark dataset.",
+          adminEditScope: "No direct edit",
           refreshBehavior:
             "Refreshed through the Atlas snapshot workflow and then versioned in the repository.",
           lastUpdated: chainSeedUpdatedAt,
@@ -69,6 +91,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "DeFiLlama connector with Atlas fallback snapshot",
           sourceReference: "lib/external-data/connectors/defillama.ts -> https://api.llama.fi/v2/chains",
           originType: "external API",
+          currentProvenance:
+            "Current Atlas value comes from the source-backed external snapshot when available, otherwise from the curated fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW into the external metrics snapshot. Atlas preserves the last valid snapshot when the connector fails.",
           lastUpdated: externalUpdatedAt,
@@ -82,6 +107,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "DeFiLlama protocols connector with Atlas fallback snapshot",
           sourceReference: "lib/external-data/connectors/defillama.ts -> https://api.llama.fi/protocols",
           originType: "external API",
+          currentProvenance:
+            "Current Atlas value comes from the synced external snapshot with fallback to the Atlas ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW into the external metrics snapshot. Falls back to the current Atlas ecosystem seed when unavailable.",
           lastUpdated: externalUpdatedAt,
@@ -96,6 +124,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/dune.ts, lib/external-data/connectors/token-terminal.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from source-backed snapshot rows when a connector returns valid data; otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when connector credentials are available; otherwise Atlas keeps the curated fallback seed.",
           lastUpdated: externalUpdatedAt,
@@ -110,6 +141,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from synced external query rows when available, otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when source configuration is available; otherwise Atlas keeps the last valid external snapshot or curated fallback.",
           lastUpdated: externalUpdatedAt,
@@ -124,6 +158,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from synced external query rows when available, otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when source configuration is available; otherwise Atlas preserves the current snapshot or seed fallback.",
           lastUpdated: externalUpdatedAt,
@@ -138,6 +175,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts, lib/external-data/connectors/token-terminal.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from synced external query rows when available. Atlas leaves it unset instead of fabricating a fallback value.",
+          adminEditScope: "No direct edit",
           refreshBehavior:
             "Refreshed via SYNC NOW; Atlas leaves the field unset when no verified source row is available.",
           lastUpdated: externalUpdatedAt,
@@ -151,6 +191,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Dune preferred connector with Atlas curated fallback snapshot",
           sourceReference: "lib/external-data/connectors/dune.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from the synced external snapshot when a Dune row exists, otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when a Dune query is configured; otherwise Atlas uses the curated seed snapshot.",
           lastUpdated: externalUpdatedAt,
@@ -165,6 +208,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from synced external rows when available, otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when a source returns valid rows; otherwise Atlas uses the curated seed snapshot.",
           lastUpdated: externalUpdatedAt,
@@ -178,6 +224,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
+          currentProvenance:
+            "Current Atlas value comes from synced external rows when available, otherwise from the Atlas fallback ecosystem seed.",
+          adminEditScope: "Fallback only via ecosystem seed override",
           refreshBehavior:
             "Refreshed via SYNC NOW when valid source rows are available; otherwise Atlas uses the curated seed snapshot.",
           lastUpdated: externalUpdatedAt,
@@ -197,9 +246,12 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Atlas seed economy records",
           sourceReference: "data/seed/economies/*.ts",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from the manual readiness dataset used to compute every public readiness score.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Edited manually in the seed dataset and recomputed on read across profiles, rankings, and public APIs.",
-          lastUpdated: chainSeedUpdatedAt,
+          lastUpdated: readinessUpdatedAt,
           notes: "These are the core deterministic readiness inputs per chain, economy, and module.",
         },
         {
@@ -210,6 +262,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Atlas admin assumptions",
           sourceReference: "data/admin/active-assumptions.json -> economies[*].moduleWeights",
           originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
           lastUpdated: assumptionsUpdatedAt,
@@ -222,6 +277,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Atlas admin assumptions",
           sourceReference: "data/admin/active-assumptions.json -> statusScores",
           originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
           lastUpdated: assumptionsUpdatedAt,
@@ -235,6 +293,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "data/admin/active-assumptions.json -> economies[*].recommendationConfig",
           originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
           lastUpdated: assumptionsUpdatedAt,
@@ -248,6 +309,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "data/admin/active-assumptions.json -> globalRanking.economyCompositeWeights",
           originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
           lastUpdated: assumptionsUpdatedAt,
@@ -261,6 +325,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "data/admin/active-assumptions.json -> globalRanking.componentWeights",
           originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
           lastUpdated: assumptionsUpdatedAt,
@@ -273,10 +340,29 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Atlas derived global ranking model",
           sourceReference: "lib/global-ranking/engine.ts",
           originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Computed inside Atlas from readiness, ecosystem, adoption, and performance inputs under the active assumptions.",
+          adminEditScope: "Indirect only via inputs and assumptions",
           refreshBehavior:
             "Recomputed on read from the active assumptions and the latest available external metrics snapshot.",
           lastUpdated: assumptionsUpdatedAt,
           notes: "Global score itself is derived; Atlas never treats it as a direct external metric.",
+        },
+        {
+          metricName: "Opportunity score weights",
+          description:
+            "Internal GTM weights used to calculate opportunity score across TVL tier, readiness gap, stack fit, and ecosystem signal.",
+          sourceCategory: "Internal target scoring",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> opportunityScoring.weights",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and applied immediately after save.",
+          lastUpdated: assumptionsUpdatedAt,
         },
       ],
     },
@@ -293,6 +379,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Official roadmap, updates, docs, or Atlas fallback review",
           sourceReference: "data/seed/chain-roadmaps.ts",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from a manual roadmap dataset curated from official sources or Atlas fallback review.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated manually when Atlas refreshes official roadmap coverage or when no public roadmap can be verified.",
           lastUpdated: roadmapUpdatedAt,
@@ -306,6 +395,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "CoinGecko or chain-specific source by network",
           sourceReference: "data/seed/liquid-staking-market-snapshots.ts",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from manual chain-level LST source snapshots captured into the Atlas dataset.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated manually from verified source snapshots and versioned in the repository.",
           lastUpdated: liquidStakingUpdatedAt,
@@ -318,6 +410,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Staking Rewards, chain validator docs, or official staking dashboards",
           sourceReference: "data/seed/liquid-staking-market-snapshots.ts",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from manual chain-level LST source snapshots captured into the Atlas dataset.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated manually from verified source snapshots. Fields remain explicit when a source is pending or not applicable.",
           lastUpdated: liquidStakingUpdatedAt,
@@ -330,6 +425,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "DeFiLlama plus Atlas derived metric",
           sourceReference: "data/seed/liquid-staking-market-snapshots.ts",
           originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Derived inside Atlas from captured LST source snapshots and current staking base inputs.",
+          adminEditScope: "Indirect only via LST market snapshot editor",
           refreshBehavior:
             "Updated when verified liquid staking source snapshots are refreshed for a chain.",
           lastUpdated: liquidStakingUpdatedAt,
@@ -344,6 +442,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceReference:
             "lib/liquid-staking/diagnosis.ts and data/admin/active-assumptions.json -> moduleDiagnosticWeights",
           originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Computed inside Atlas from the 7-module LST diagnosis scores and the active diagnostic weights.",
+          adminEditScope: "Indirect via assumptions editor",
           refreshBehavior:
             "Recomputed from the seeded seven-dimension scores and active diagnostic weights.",
           lastUpdated: assumptionsUpdatedAt,
@@ -356,6 +457,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: chainEcosystemMetricsSeeds[0]?.sourceLabel ?? "Atlas curated snapshot",
           sourceReference: "data/seed/chain-ecosystem-metrics.ts",
           originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from the manual fallback ecosystem dataset whenever an external source row is missing.",
+          adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated manually and used automatically whenever external connectors cannot provide a valid row.",
           lastUpdated: ecosystemSeedUpdatedAt,

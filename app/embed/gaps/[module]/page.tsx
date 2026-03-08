@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 
 import { listEconomyTypes } from "@/lib/config/economies";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 const repository = createSeedChainsRepository();
 
 export default async function EmbedModuleGapPage({
   params,
 }: PageProps<"/embed/gaps/[module]">) {
+  await ensureAtlasPersistence();
   const { module } = await params;
   const matches = listEconomyTypes()
     .flatMap((economy) =>

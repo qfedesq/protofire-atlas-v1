@@ -16,6 +16,7 @@ import {
   serializeVisibleColumnIds,
 } from "@/lib/rankings/table";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 const repository = createSeedChainsRepository();
 
@@ -52,6 +53,7 @@ function buildSortHref(
 }
 
 export default async function TargetsPage({ searchParams }: TargetsPageProps) {
+  await ensureAtlasPersistence();
   const authenticated = await isAdminAuthenticated();
 
   if (!authenticated) {

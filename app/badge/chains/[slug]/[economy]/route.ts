@@ -3,11 +3,13 @@ import type { NextRequest } from "next/server";
 import { listEconomyTypes } from "@/lib/config/economies";
 import { buildBadgeSvg } from "@/lib/badges/svg";
 import { getPublicChainPayload } from "@/lib/public-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext<"/badge/chains/[slug]/[economy]">,
 ) {
+  await ensureAtlasPersistence();
   const { slug, economy } = await params;
   const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
   const payload = getPublicChainPayload(slug);

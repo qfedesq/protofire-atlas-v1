@@ -1,8 +1,10 @@
 import Link from "next/link";
 
 import { getPublicGlobalRankingPayload } from "@/lib/public-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
-export default function EmbedGlobalRankingPage() {
+export default async function EmbedGlobalRankingPage() {
+  await ensureAtlasPersistence();
   const payload = getPublicGlobalRankingPayload();
 
   return (

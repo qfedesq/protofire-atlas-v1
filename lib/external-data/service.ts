@@ -10,7 +10,11 @@ import { artemisConnector } from "./connectors/artemis";
 import { defiLlamaConnector } from "./connectors/defillama";
 import { duneConnector } from "./connectors/dune";
 import { tokenTerminalConnector } from "./connectors/token-terminal";
-import { saveExternalMetricsSnapshot, getExternalMetricsSnapshot } from "./store";
+import {
+  saveExternalMetricsSnapshot,
+  getExternalMetricsSnapshot,
+  initializeExternalMetricsSnapshotStore,
+} from "./store";
 import { mergeSnapshotRows } from "./utils";
 
 function buildChainMetrics(
@@ -67,6 +71,7 @@ export function readExternalMetricsSnapshot() {
 }
 
 export async function syncExternalMetricsSnapshot() {
+  await initializeExternalMetricsSnapshotStore();
   const fallbackSnapshot = buildFallbackExternalMetricsSnapshot();
   const currentSnapshot = getExternalMetricsSnapshot();
   let nextSnapshot = mergeSnapshotRows(

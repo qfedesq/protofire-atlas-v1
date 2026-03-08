@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 import { SiteShell } from "@/components/layout/site-shell";
 import { siteConfig } from "@/lib/config/site";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 import "./globals.css";
 
@@ -29,11 +30,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  await ensureAtlasPersistence();
+
   return (
     <html lang="en">
       <body className={`${onest.variable} antialiased`}>

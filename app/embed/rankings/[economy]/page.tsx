@@ -3,10 +3,12 @@ import { notFound } from "next/navigation";
 
 import { listEconomyTypes } from "@/lib/config/economies";
 import { getPublicEconomyRankingPayload } from "@/lib/public-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 export default async function EmbedEconomyRankingPage({
   params,
 }: PageProps<"/embed/rankings/[economy]">) {
+  await ensureAtlasPersistence();
   const { economy } = await params;
   const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
 

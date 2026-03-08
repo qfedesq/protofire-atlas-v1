@@ -3,6 +3,11 @@
 import { redirect } from "next/navigation";
 
 import { createAdminSession, clearAdminSession } from "@/lib/admin/auth";
+import {
+  manualDatasetKeys,
+  resetManualDatasetOverride,
+  saveManualDatasetOverride,
+} from "@/lib/admin/manual-data";
 import { runAtlasSyncNow } from "@/lib/admin/sync";
 import {
   updateEconomyAssumptions,
@@ -20,6 +25,24 @@ function asNumber(value: FormDataEntryValue | null) {
   return Number(asString(value));
 }
 
+function asRedirectPath(value: FormDataEntryValue | null) {
+  const redirectTo = asString(value);
+
+  return redirectTo.startsWith("/internal/admin")
+    ? redirectTo
+    : "/internal/admin";
+}
+
+function getDatasetKey(value: FormDataEntryValue | null) {
+  const key = asString(value);
+
+  if (!manualDatasetKeys.includes(key as (typeof manualDatasetKeys)[number])) {
+    throw new Error(`Unknown manual dataset "${key}".`);
+  }
+
+  return key as (typeof manualDatasetKeys)[number];
+}
+
 export async function loginAdminAction(formData: FormData) {
   const password = asString(formData.get("password"));
   const authenticated = await createAdminSession(password);
@@ -33,17 +56,29 @@ export async function logoutAdminAction() {
 }
 
 export async function syncAtlasDataNowAction() {
+  const redirectTo = "/internal/admin";
   try {
-    runAtlasSyncNow();
-    redirect("/internal/admin?saved=sync-now");
+    await runAtlasSyncNow();
+    redirect(`${redirectTo}?saved=sync-now`);
   } catch {
-    redirect("/internal/admin?error=sync-now");
+    redirect(`${redirectTo}?error=sync-now`);
+  }
+}
+
+export async function syncAtlasDataNowRedirectableAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+  try {
+    await runAtlasSyncNow();
+    redirect(`${redirectTo}?saved=sync-now`);
+  } catch {
+    redirect(`${redirectTo}?error=sync-now`);
   }
 }
 
 export async function updateStatusScoresAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
   try {
-    updateStatusScores(
+    await updateStatusScores(
       {
         missing: asNumber(formData.get("missing")),
         partial: asNumber(formData.get("partial")),
@@ -52,13 +87,14 @@ export async function updateStatusScoresAction(formData: FormData) {
       "internal-admin",
     );
 
-    redirect("/internal/admin?saved=status-scores");
+    redirect(`${redirectTo}?saved=status-scores`);
   } catch {
-    redirect("/internal/admin?error=status-scores");
+    redirect(`${redirectTo}?error=status-scores`);
   }
 }
 
 export async function updateEconomyAssumptionsAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
   const economySlug = asString(formData.get("economy")) as EconomyTypeSlug;
   const moduleWeights = JSON.parse(asString(formData.get("moduleWeights"))) as Record<
     string,
@@ -81,7 +117,7 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
       });
     });
 
-    updateEconomyAssumptions(
+    await updateEconomyAssumptions(
       economySlug,
       moduleWeights,
       {
@@ -95,15 +131,16 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
       "internal-admin",
     );
 
-    redirect(`/internal/admin?saved=${economySlug}`);
+    redirect(`${redirectTo}?saved=${economySlug}`);
   } catch {
-    redirect(`/internal/admin?error=${economySlug}`);
+    redirect(`${redirectTo}?error=${economySlug}`);
   }
 }
 
 export async function updateGlobalRankingAssumptionsAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
   try {
-    updateGlobalRankingAssumptions(
+    await updateGlobalRankingAssumptions(
       {
         economyScore: asNumber(formData.get("economyScoreWeight")),
         ecosystem: asNumber(formData.get("ecosystemWeight")),
@@ -119,17 +156,18 @@ export async function updateGlobalRankingAssumptionsAction(formData: FormData) {
       "internal-admin",
     );
 
-    redirect("/internal/admin?saved=global-ranking");
+    redirect(`${redirectTo}?saved=global-ranking`);
   } catch {
-    redirect("/internal/admin?error=global-ranking");
+    redirect(`${redirectTo}?error=global-ranking`);
   }
 }
 
 export async function updateOpportunityScoringAssumptionsAction(
   formData: FormData,
 ) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
   try {
-    updateOpportunityScoringAssumptions(
+    await updateOpportunityScoringAssumptions(
       {
         tvlTier: asNumber(formData.get("tvlTier")),
         readinessGap: asNumber(formData.get("readinessGap")),
@@ -139,8 +177,35 @@ export async function updateOpportunityScoringAssumptionsAction(
       "internal-admin",
     );
 
-    redirect("/internal/admin?saved=opportunity-scoring");
+    redirect(`${redirectTo}?saved=opportunity-scoring`);
   } catch {
-    redirect("/internal/admin?error=opportunity-scoring");
+    redirect(`${redirectTo}?error=opportunity-scoring`);
+  }
+}
+
+export async function updateManualDatasetAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+
+  try {
+    const dataset = getDatasetKey(formData.get("dataset"));
+    const payload = JSON.parse(asString(formData.get("payload")));
+
+    await saveManualDatasetOverride(dataset, payload, "internal-admin");
+    redirect(`${redirectTo}?saved=manual-dataset:${dataset}`);
+  } catch {
+    redirect(`${redirectTo}?error=manual-dataset:${asString(formData.get("dataset"))}`);
+  }
+}
+
+export async function resetManualDatasetAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+
+  try {
+    const dataset = getDatasetKey(formData.get("dataset"));
+
+    await resetManualDatasetOverride(dataset);
+    redirect(`${redirectTo}?saved=manual-reset:${dataset}`);
+  } catch {
+    redirect(`${redirectTo}?error=manual-reset:${asString(formData.get("dataset"))}`);
   }
 }

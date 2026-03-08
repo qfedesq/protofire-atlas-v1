@@ -30,7 +30,7 @@ afterEach(() => {
 describe("assessment request service", () => {
   const validIssuedAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
 
-  it("stores validated requests and emits an intent event", () => {
+  it("stores validated requests and emits an intent event", async () => {
     const tempDirectory = mkdtempSync(join(tmpdir(), "atlas-requests-"));
     process.env.ATLAS_REQUESTS_FILE = join(
       tempDirectory,
@@ -38,7 +38,7 @@ describe("assessment request service", () => {
     );
     process.env.ATLAS_INTENT_FILE = join(tempDirectory, "intent-events.json");
 
-    createAssessmentRequest({
+    await createAssessmentRequest({
       name: "Jane Founder",
       workEmail: "jane@chain.io",
       companyOrChain: "Chain Labs",
@@ -63,8 +63,8 @@ describe("assessment request service", () => {
     });
   });
 
-  it("rejects honeypot submissions", () => {
-    expect(() =>
+  it("rejects honeypot submissions", async () => {
+    await expect(
       createAssessmentRequest({
         name: "Spam Bot",
         workEmail: "spam@example.com",
@@ -74,10 +74,10 @@ describe("assessment request service", () => {
         notes: "",
         website: "https://spam.invalid",
       }),
-    ).toThrow("Spam protection triggered.");
+    ).rejects.toThrow("Spam protection triggered.");
   });
 
-  it("stores validated add-my-chain requests and emits an intent event", () => {
+  it("stores validated add-my-chain requests and emits an intent event", async () => {
     const tempDirectory = mkdtempSync(join(tmpdir(), "atlas-chain-additions-"));
     const captcha = createArithmeticCaptcha({
       firstNumber: 4,
@@ -92,7 +92,7 @@ describe("assessment request service", () => {
     );
     process.env.ATLAS_INTENT_FILE = join(tempDirectory, "intent-events.json");
 
-    createChainAdditionRequest({
+    await createChainAdditionRequest({
       chainWebsite: "https://newchain.xyz",
       selectedEconomy: "defi-infrastructure",
       captchaAnswer: "9",
@@ -115,7 +115,7 @@ describe("assessment request service", () => {
     });
   });
 
-  it("rejects add-my-chain requests with invalid captcha answers", () => {
+  it("rejects add-my-chain requests with invalid captcha answers", async () => {
     const captcha = createArithmeticCaptcha({
       firstNumber: 7,
       secondNumber: 2,
@@ -123,7 +123,7 @@ describe("assessment request service", () => {
       issuedAt: validIssuedAt,
     });
 
-    expect(() =>
+    await expect(
       createChainAdditionRequest({
         chainWebsite: "https://badcaptcha.xyz",
         selectedEconomy: "ai-agents",
@@ -131,10 +131,10 @@ describe("assessment request service", () => {
         captchaToken: captcha.token,
         website: "",
       }),
-    ).toThrow("Captcha validation failed.");
+    ).rejects.toThrow("Captcha validation failed.");
   });
 
-  it("rejects add-my-chain honeypot submissions", () => {
+  it("rejects add-my-chain honeypot submissions", async () => {
     const captcha = createArithmeticCaptcha({
       firstNumber: 3,
       secondNumber: 3,
@@ -142,7 +142,7 @@ describe("assessment request service", () => {
       issuedAt: validIssuedAt,
     });
 
-    expect(() =>
+    await expect(
       createChainAdditionRequest({
         chainWebsite: "https://spamchain.xyz",
         selectedEconomy: "rwa-infrastructure",
@@ -150,6 +150,6 @@ describe("assessment request service", () => {
         captchaToken: captcha.token,
         website: "https://spam.invalid",
       }),
-    ).toThrow("Spam protection triggered.");
+    ).rejects.toThrow("Spam protection triggered.");
   });
 });

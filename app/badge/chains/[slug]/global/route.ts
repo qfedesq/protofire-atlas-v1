@@ -2,11 +2,13 @@ import type { NextRequest } from "next/server";
 
 import { buildBadgeSvg } from "@/lib/badges/svg";
 import { getPublicChainPayload } from "@/lib/public-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 export async function GET(
   _request: NextRequest,
   { params }: RouteContext<"/badge/chains/[slug]/global">,
 ) {
+  await ensureAtlasPersistence();
   const { slug } = await params;
   const payload = getPublicChainPayload(slug);
 

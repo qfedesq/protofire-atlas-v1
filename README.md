@@ -46,6 +46,7 @@ Public:
 Internal:
 
 - admin assumptions editor at `/internal/admin`
+- data source registry and manual dataset editor at `/internal/admin/data-sources`
 - target account ranking at `/internal/targets`
 - account intelligence pages at `/internal/account/[chain]`
 
@@ -68,6 +69,7 @@ Atlas does not claim fully real-time synchronization. It uses:
 - source-backed connector overlays where available
 - last-valid snapshot preservation
 - deterministic fallback values when a source is unavailable
+- runtime-managed admin overrides for manual datasets and assumptions
 
 ## Local setup
 
@@ -196,7 +198,20 @@ The admin route controls:
 - economy composite weights
 - opportunity score weights
 
-The same route also exposes `SYNC NOW`, which runs the supported Atlas refresh workflow.
+`/internal/admin/data-sources` now also exposes:
+
+- metric provenance registry
+- sync controls for external source-backed metrics
+- manual dataset editors for non-automatic Atlas data
+- the full scoring math editor
+
+`SYNC NOW` on the admin pages refreshes the external metrics snapshot in-process. The CLI `npm run data:sync` remains the broader local workflow for refresh plus output generation.
+
+Persistence:
+
+- local development defaults to JSON files in the repo or runtime-managed paths
+- Vercel runtime automatically uses the connected Postgres database when `DATABASE_URL` is available
+- mutable Atlas documents are stored in the `atlas_documents` table and mirrored to the current runtime file path as a fallback cache
 
 Protection:
 

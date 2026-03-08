@@ -10,6 +10,7 @@ import { isAdminAuthenticated } from "@/lib/admin/auth";
 import { parseEconomySelection } from "@/lib/domain/schemas";
 import { formatScore } from "@/lib/utils/format";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 const repository = createSeedChainsRepository();
 
@@ -22,6 +23,7 @@ export default async function AccountIntelligencePage({
   params,
   searchParams,
 }: AccountPageProps) {
+  await ensureAtlasPersistence();
   const authenticated = await isAdminAuthenticated();
 
   if (!authenticated) {

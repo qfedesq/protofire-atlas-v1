@@ -13,7 +13,7 @@ export async function submitAssessmentRequestAction(formData: FormData) {
   const selectedEconomy = asString(formData.get("selectedEconomy"));
 
   try {
-    createAssessmentRequest({
+    await createAssessmentRequest({
       name: asString(formData.get("name")),
       workEmail: asString(formData.get("workEmail")),
       companyOrChain: asString(formData.get("companyOrChain")),

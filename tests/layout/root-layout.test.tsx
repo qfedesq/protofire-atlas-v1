@@ -21,11 +21,11 @@ describe("RootLayout", () => {
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 
     try {
-      render(
-        layoutModule.default({
-          children: <div>Atlas content</div>,
-        }),
-      );
+      const view = await layoutModule.default({
+        children: <div>Atlas content</div>,
+      });
+
+      render(view);
 
       expect(screen.getByAltText("Protofire")).toBeInTheDocument();
       expect(screen.getByText("Atlas")).toBeInTheDocument();

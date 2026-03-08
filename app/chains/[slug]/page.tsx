@@ -6,6 +6,7 @@ import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { siteConfig } from "@/lib/config/site";
 import { parseEconomySelection } from "@/lib/domain/schemas";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 type ChainProfilePageProps = {
   params: Promise<{ slug: string }>;
@@ -21,6 +22,7 @@ function getSingleSearchParam(
 }
 
 export async function generateStaticParams() {
+  await ensureAtlasPersistence();
   return repository.listChains().map((chain) => ({
     slug: chain.slug,
   }));
@@ -30,6 +32,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: ChainProfilePageProps): Promise<Metadata> {
+  await ensureAtlasPersistence();
   const { slug } = await params;
   const economySlug = parseEconomySelection(
     searchParams ? await searchParams : undefined,
@@ -62,6 +65,7 @@ export default async function ChainProfilePage({
   params,
   searchParams,
 }: ChainProfilePageProps) {
+  await ensureAtlasPersistence();
   const { slug } = await params;
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const economySlug = parseEconomySelection(resolvedSearchParams);

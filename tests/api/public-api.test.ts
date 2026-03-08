@@ -6,7 +6,7 @@ import { GET as getPublicGlobalRanking } from "@/app/api/public/rankings/global/
 
 describe("public API", () => {
   it("returns the public global ranking payload", async () => {
-    const response = getPublicGlobalRanking();
+    const response = await getPublicGlobalRanking();
     const payload = await response.json();
 
     expect(response.status).toBe(200);

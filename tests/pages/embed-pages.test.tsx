@@ -4,8 +4,9 @@ import { describe, expect, it } from "vitest";
 describe("embed pages", () => {
   it("renders the global ranking embed", async () => {
     const pageModule = await import("@/app/embed/rankings/global/page");
+    const view = await pageModule.default();
 
-    render(pageModule.default());
+    render(view);
 
     expect(screen.getByText("Global Chain Ranking")).toBeInTheDocument();
     expect(screen.getByText("Ethereum")).toBeInTheDocument();

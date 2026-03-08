@@ -1,6 +1,8 @@
 import { syncExternalMetricsSnapshot } from "@/lib/external-data/service";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
 async function main() {
+  await ensureAtlasPersistence();
   const snapshot = await syncExternalMetricsSnapshot();
 
   console.log(

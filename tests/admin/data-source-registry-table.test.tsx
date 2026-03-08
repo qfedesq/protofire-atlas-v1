@@ -16,5 +16,11 @@ describe("DataSourceRegistryTable", () => {
     expect(screen.getByText("Global LST health score")).toBeInTheDocument();
     expect(screen.getAllByText("seed/fallback dataset").length).toBeGreaterThan(0);
     expect(screen.getAllByText("internal manual/admin-managed assumption").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Current provenance").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Admin edit path").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Editable from this page").length).toBeGreaterThan(0);
+    expect(
+      screen.getByText(/Current Atlas value comes from the source-backed external snapshot/i),
+    ).toBeInTheDocument();
   });
 });

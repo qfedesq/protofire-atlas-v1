@@ -1,5 +1,5 @@
 import { chainCatalogSeeds } from "@/data/seed/catalog";
-import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
+import { getResolvedChainEcosystemMetricsSeeds } from "@/lib/admin/manual-data";
 import { validateChainEcosystemMetricsSeeds } from "@/lib/domain/schemas";
 import type {
   ChainCatalogSeed,
@@ -44,10 +44,9 @@ function addOptionalMetric(
 
 function buildFallbackChainMetrics(
   chain: ChainCatalogSeed,
+  ecosystemMetricsBySlug: Map<string, ReturnType<typeof validateChainEcosystemMetricsSeeds>[number]>,
 ): ExternalChainMetricsSnapshot {
-  const seed = validateChainEcosystemMetricsSeeds(chainCatalogSeeds, chainEcosystemMetricsSeeds).find(
-    (item) => item.chainSlug === chain.slug,
-  );
+  const seed = ecosystemMetricsBySlug.get(chain.slug);
 
   if (!seed) {
     throw new Error(`Missing fallback ecosystem metrics for ${chain.slug}.`);
@@ -130,6 +129,12 @@ function buildFallbackChainMetrics(
 export function buildFallbackExternalMetricsSnapshot(): ExternalMetricsSnapshot {
   const lastSnapshotDate =
     chainCatalogSeeds[0]?.sourceSnapshotDate ?? "2026-03-07";
+  const ecosystemMetricsBySlug = new Map(
+    validateChainEcosystemMetricsSeeds(
+      chainCatalogSeeds,
+      getResolvedChainEcosystemMetricsSeeds(),
+    ).map((record) => [record.chainSlug, record] as const),
+  );
 
   return {
     updatedAt: `${lastSnapshotDate}T00:00:00.000Z`,
@@ -142,6 +147,8 @@ export function buildFallbackExternalMetricsSnapshot(): ExternalMetricsSnapshot 
           "Loaded the curated Atlas ecosystem snapshot as the fallback baseline.",
       },
     ],
-    chains: chainCatalogSeeds.map((chain) => buildFallbackChainMetrics(chain)),
+    chains: chainCatalogSeeds.map((chain) =>
+      buildFallbackChainMetrics(chain, ecosystemMetricsBySlug),
+    ),
   };
 }

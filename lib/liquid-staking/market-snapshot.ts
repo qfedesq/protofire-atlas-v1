@@ -1,21 +1,26 @@
-import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
 import type {
   Chain,
   LiquidStakingDiagnosis,
   LiquidStakingMarketSnapshot,
 } from "@/lib/domain/types";
+import { getResolvedLiquidStakingMarketSnapshotSeeds } from "@/lib/admin/manual-data";
 
 const snapshotDate = "2026-03-07";
 
-const snapshotSeedByChain = new Map(
-  liquidStakingMarketSnapshotSeeds.map((snapshot) => [snapshot.chainSlug, snapshot]),
-);
+function getSnapshotSeedByChain() {
+  return new Map(
+    getResolvedLiquidStakingMarketSnapshotSeeds().map((snapshot) => [
+      snapshot.chainSlug,
+      snapshot,
+    ]),
+  );
+}
 
 export function buildLiquidStakingMarketSnapshot(
   chain: Chain,
   diagnosis: LiquidStakingDiagnosis,
 ): LiquidStakingMarketSnapshot | undefined {
-  const seed = snapshotSeedByChain.get(chain.slug);
+  const seed = getSnapshotSeedByChain().get(chain.slug);
 
   if (!seed) {
     return undefined;

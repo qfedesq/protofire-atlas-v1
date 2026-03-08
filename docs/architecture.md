@@ -21,6 +21,7 @@ The repository stays seed-first, but now supports connector overlays with proven
   - curated chain metadata, readiness seeds, roadmap coverage, and fallback ecosystem metrics
 - `data/admin/`
   - active assumptions editable through `/internal/admin`
+  - manual dataset overrides editable through `/internal/admin/data-sources`
 - `data/runtime/`
   - request and intent files created at runtime
 - `lib/domain/`
@@ -58,9 +59,12 @@ The repository stays seed-first, but now supports connector overlays with proven
 
 1. Benchmark selection comes from [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json).
 2. Curated seed data under [`data/seed`](/Users/qfedesq/Desktop/Atlas/data/seed) defines readiness statuses, chain metadata, roadmaps, and fallback ecosystem metrics.
-3. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) overlays editable scoring and recommendation assumptions.
-4. [`data/source/external-chain-metrics.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/external-chain-metrics.snapshot.json) stores the latest valid source-backed external metrics snapshot.
-5. [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) resolves all of that into public and internal read models.
+3. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) is the committed default for editable scoring and recommendation assumptions.
+4. Runtime-managed assumption and manual dataset overlays are handled through [`lib/assumptions/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/store.ts) and [`lib/admin/manual-data.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/manual-data.ts).
+   - local development reads and writes JSON files
+   - Vercel runtime persists these mutable documents into Postgres via [`lib/storage/persistent-json-store.ts`](/Users/qfedesq/Desktop/Atlas/lib/storage/persistent-json-store.ts)
+5. [`data/source/external-chain-metrics.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/external-chain-metrics.snapshot.json) is the committed default for the latest valid source-backed external metrics snapshot.
+6. [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) resolves all of that into public and internal read models.
 
 ## External data flow
 
@@ -75,6 +79,7 @@ The repository stays seed-first, but now supports connector overlays with proven
    - fetched timestamp
    - normalization note
    - freshness
+5. Internal admin `SYNC NOW` runs the in-process external snapshot refresh through [`lib/admin/sync.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/sync.ts) instead of shelling out to `npm run data:sync`.
 
 ## Scoring flow
 
@@ -208,6 +213,12 @@ This registry is the operational map of:
 - admin-managed assumptions
 - seeded fallback datasets
 - supplemental roadmap and liquid-staking inputs
+
+The same page also exposes:
+
+- sync controls for source-backed external metrics
+- manual dataset editors for non-automatic Atlas data
+- the full assumptions editor for all score-driving math
 
 ## Internal-only flows
 

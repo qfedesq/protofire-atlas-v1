@@ -1,50 +1,68 @@
-import { join } from "node:path";
-
 import type {
   AssessmentRequest,
   ChainAdditionRequest,
 } from "@/lib/requests/types";
-import { readJsonFile, writeJsonFile } from "@/lib/storage/json-file";
+import { createPersistentJsonStore } from "@/lib/storage/persistent-json-store";
+import { getRuntimeManagedFilePath } from "@/lib/storage/runtime-path";
 
 function getAssessmentRequestsFilePath() {
-  return (
-    process.env.ATLAS_REQUESTS_FILE ??
-    join(process.cwd(), "data", "runtime", "assessment-requests.json")
+  return getRuntimeManagedFilePath(
+    "ATLAS_REQUESTS_FILE",
+    "data/runtime/assessment-requests.json",
   );
 }
 
 function getChainAdditionRequestsFilePath() {
-  return (
-    process.env.ATLAS_CHAIN_ADDITION_REQUESTS_FILE ??
-    join(process.cwd(), "data", "runtime", "chain-addition-requests.json")
+  return getRuntimeManagedFilePath(
+    "ATLAS_CHAIN_ADDITION_REQUESTS_FILE",
+    "data/runtime/chain-addition-requests.json",
   );
 }
 
-export function listAssessmentRequests() {
-  return readJsonFile<AssessmentRequest[]>(getAssessmentRequestsFilePath(), []);
+const assessmentRequestsStore = createPersistentJsonStore<AssessmentRequest[]>({
+  key: "assessment-requests",
+  getFilePath: getAssessmentRequestsFilePath,
+  fallback: [],
+  validate: (input) => (Array.isArray(input) ? (input as AssessmentRequest[]) : []),
+});
+
+const chainAdditionRequestsStore = createPersistentJsonStore<ChainAdditionRequest[]>({
+  key: "chain-addition-requests",
+  getFilePath: getChainAdditionRequestsFilePath,
+  fallback: [],
+  validate: (input) =>
+    Array.isArray(input) ? (input as ChainAdditionRequest[]) : [],
+});
+
+export async function initializeRequestsStores() {
+  return Promise.all([
+    assessmentRequestsStore.initialize(),
+    chainAdditionRequestsStore.initialize(),
+  ]);
 }
 
-export function appendAssessmentRequest(request: AssessmentRequest) {
+export function listAssessmentRequests() {
+  return assessmentRequestsStore.getSnapshot();
+}
+
+export async function appendAssessmentRequest(request: AssessmentRequest) {
   const requests = listAssessmentRequests();
   const next = [request, ...requests];
 
-  writeJsonFile(getAssessmentRequestsFilePath(), next);
+  await assessmentRequestsStore.save(next);
 
   return request;
 }
 
 export function listChainAdditionRequests() {
-  return readJsonFile<ChainAdditionRequest[]>(
-    getChainAdditionRequestsFilePath(),
-    [],
-  );
+  return chainAdditionRequestsStore.getSnapshot();
 }
 
-export function appendChainAdditionRequest(request: ChainAdditionRequest) {
+export async function appendChainAdditionRequest(request: ChainAdditionRequest) {
   const requests = listChainAdditionRequests();
   const next = [request, ...requests];
 
-  writeJsonFile(getChainAdditionRequestsFilePath(), next);
+  await chainAdditionRequestsStore.save(next);
 
   return request;
 }

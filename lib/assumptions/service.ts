@@ -5,7 +5,11 @@ import type {
   OpportunityScoringWeights,
 } from "@/lib/domain/types";
 import { validateStatusScoreKey } from "@/lib/assumptions/schemas";
-import { getActiveAssumptions, saveActiveAssumptions } from "@/lib/assumptions/store";
+import {
+  getActiveAssumptions,
+  initializeActiveAssumptionsStore,
+  saveActiveAssumptions,
+} from "@/lib/assumptions/store";
 import type { ActiveAssumptions } from "@/lib/assumptions/types";
 
 function withAudit(
@@ -19,10 +23,11 @@ function withAudit(
   };
 }
 
-export function updateStatusScores(
+export async function updateStatusScores(
   entries: Record<string, number>,
   updatedBy: string,
 ) {
+  await initializeActiveAssumptionsStore();
   const current = getActiveAssumptions();
   const nextStatusScores = { ...current.statusScores };
 
@@ -41,13 +46,14 @@ export function updateStatusScores(
   );
 }
 
-export function updateEconomyAssumptions(
+export async function updateEconomyAssumptions(
   economySlug: EconomyTypeSlug,
   moduleWeights: Record<string, number>,
   recommendationConfig: ActiveAssumptions["economies"][EconomyTypeSlug]["recommendationConfig"],
   moduleDiagnosticWeights: ActiveAssumptions["economies"][EconomyTypeSlug]["moduleDiagnosticWeights"] | undefined,
   updatedBy: string,
 ) {
+  await initializeActiveAssumptionsStore();
   const current = getActiveAssumptions();
   const currentEconomy = current.economies[economySlug];
 
@@ -70,11 +76,12 @@ export function updateEconomyAssumptions(
   );
 }
 
-export function updateGlobalRankingAssumptions(
+export async function updateGlobalRankingAssumptions(
   componentWeights: GlobalRankingComponentWeights,
   economyCompositeWeights: EconomyCompositeWeights,
   updatedBy: string,
 ) {
+  await initializeActiveAssumptionsStore();
   const current = getActiveAssumptions();
 
   return saveActiveAssumptions(
@@ -91,10 +98,11 @@ export function updateGlobalRankingAssumptions(
   );
 }
 
-export function updateOpportunityScoringAssumptions(
+export async function updateOpportunityScoringAssumptions(
   weights: OpportunityScoringWeights,
   updatedBy: string,
 ) {
+  await initializeActiveAssumptionsStore();
   const current = getActiveAssumptions();
 
   return saveActiveAssumptions(

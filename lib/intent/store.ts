@@ -1,22 +1,36 @@
 import { randomUUID } from "node:crypto";
-import { join } from "node:path";
 
 import { parseIntentEvent } from "@/lib/intent/schemas";
 import type { IntentEvent, IntentEventType } from "@/lib/intent/types";
-import { readJsonFile, writeJsonFile } from "@/lib/storage/json-file";
+import { createPersistentJsonStore } from "@/lib/storage/persistent-json-store";
+import { getRuntimeManagedFilePath } from "@/lib/storage/runtime-path";
 
 function getIntentEventsFilePath() {
-  return (
-    process.env.ATLAS_INTENT_FILE ??
-    join(process.cwd(), "data", "runtime", "intent-events.json")
+  return getRuntimeManagedFilePath(
+    "ATLAS_INTENT_FILE",
+    "data/runtime/intent-events.json",
   );
 }
 
-export function listIntentEvents() {
-  return readJsonFile<IntentEvent[]>(getIntentEventsFilePath(), []);
+const intentEventsStore = createPersistentJsonStore<IntentEvent[]>({
+  key: "intent-events",
+  getFilePath: getIntentEventsFilePath,
+  fallback: [],
+  validate: (input) =>
+    Array.isArray(input)
+      ? input.map((event) => parseIntentEvent(event))
+      : [],
+});
+
+export async function initializeIntentEventsStore() {
+  return intentEventsStore.initialize();
 }
 
-export function appendIntentEvent(
+export function listIntentEvents() {
+  return intentEventsStore.getSnapshot();
+}
+
+export async function appendIntentEvent(
   input: Omit<IntentEvent, "id" | "createdAt"> & { type: IntentEventType },
 ) {
   const event = parseIntentEvent({
@@ -27,7 +41,7 @@ export function appendIntentEvent(
   const events = listIntentEvents();
   const next = [event, ...events];
 
-  writeJsonFile(getIntentEventsFilePath(), next);
+  await intentEventsStore.save(next);
 
   return event;
 }

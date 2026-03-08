@@ -1,17 +1,12 @@
-import { spawnSync } from "node:child_process";
+import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
+import { syncExternalMetricsSnapshot } from "@/lib/external-data/service";
 
-export function runAtlasSyncNow() {
-  const result = spawnSync("npm", ["run", "data:sync"], {
-    cwd: process.cwd(),
-    env: process.env,
-    encoding: "utf-8",
-  });
-
-  if (result.status !== 0) {
-    throw new Error(result.stderr || result.stdout || "Atlas sync failed.");
-  }
+export async function runAtlasSyncNow() {
+  await ensureAtlasPersistence();
+  const snapshot = await syncExternalMetricsSnapshot();
 
   return {
-    completedAt: new Date().toISOString(),
+    completedAt: snapshot.updatedAt,
+    connectors: snapshot.connectors,
   };
 }

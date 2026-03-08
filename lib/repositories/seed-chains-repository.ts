@@ -7,6 +7,7 @@ import {
 } from "@/lib/config/economies";
 import { validateAtlasSeedDataset } from "@/lib/domain/schemas";
 import { buildLiquidStakingDiagnosis } from "@/lib/liquid-staking/diagnosis";
+import { buildLiquidStakingMarketSnapshot } from "@/lib/liquid-staking/market-snapshot";
 import type {
   Chain,
   ChainCatalogSeed,
@@ -281,6 +282,11 @@ export class SeedChainsRepository implements ChainsRepository {
       recommendedStack,
     );
 
+    const liquidStakingDiagnosis =
+      rankedChain.economy.slug === "defi-infrastructure"
+        ? buildLiquidStakingDiagnosis(rankedChain.chain.slug)
+        : undefined;
+
     return {
       chain: rankedChain.chain,
       economy: rankedChain.economy,
@@ -295,9 +301,13 @@ export class SeedChainsRepository implements ChainsRepository {
         readinessScore: rankedChain.readinessScore,
       }),
       peers: buildPeerComparison(rankedChain, dataset.rankedChains),
-      liquidStakingDiagnosis:
-        rankedChain.economy.slug === "defi-infrastructure"
-          ? buildLiquidStakingDiagnosis(rankedChain.chain.slug)
+      liquidStakingDiagnosis,
+      liquidStakingMarketSnapshot:
+        liquidStakingDiagnosis && rankedChain.economy.slug === "defi-infrastructure"
+          ? buildLiquidStakingMarketSnapshot(
+              rankedChain.chain,
+              liquidStakingDiagnosis,
+            )
           : undefined,
       recommendedStack,
       deploymentPlan,

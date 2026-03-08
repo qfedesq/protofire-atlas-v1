@@ -138,6 +138,7 @@ export function ChainProfileView({
       {profile.liquidStakingDiagnosis ? (
         <LiquidStakingDiagnosisSection
           diagnosis={profile.liquidStakingDiagnosis}
+          marketSnapshot={profile.liquidStakingMarketSnapshot}
         />
       ) : null}
 

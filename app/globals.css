@@ -70,10 +70,9 @@ body {
   background:
     linear-gradient(
       115deg,
-      rgba(8, 9, 10, 0.98) 0%,
-      rgba(13, 19, 34, 0.98) 46%,
-      rgba(19, 31, 62, 0.98) 72%,
-      rgba(135, 71, 255, 0.78) 100%
+      rgba(255, 141, 0, 0.98) 0%,
+      rgba(255, 123, 0, 0.98) 54%,
+      rgba(204, 87, 0, 0.96) 100%
     );
   border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 50px rgba(8, 9, 10, 0.18);
@@ -85,12 +84,12 @@ body {
   background:
     radial-gradient(
       circle at top right,
-      rgba(135, 71, 255, 0.24),
-      transparent 24%
+      rgba(255, 255, 255, 0.14),
+      transparent 22%
     ),
-    radial-gradient(circle at 0% 100%, rgba(0, 255, 74, 0.12), transparent 20%),
-    radial-gradient(circle at 84% 20%, rgba(0, 128, 255, 0.2), transparent 26%),
-    linear-gradient(135deg, #08090a 0%, #0d1322 52%, #131f3e 100%);
+    radial-gradient(circle at 0% 100%, rgba(255, 208, 128, 0.18), transparent 22%),
+    radial-gradient(circle at 84% 20%, rgba(255, 183, 77, 0.16), transparent 24%),
+    linear-gradient(135deg, #ff8d00 0%, #ff7b00 50%, #cc5700 100%);
   border-color: rgba(241, 246, 255, 0.12);
   box-shadow: 0 28px 70px rgba(8, 9, 10, 0.22);
 }

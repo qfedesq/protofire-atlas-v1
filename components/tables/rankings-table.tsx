@@ -42,6 +42,7 @@ function SortableHeader({
       <div className="flex items-center gap-1">
         <Link
           href={buildSortHref(sortKey, "asc")}
+          scroll={false}
           aria-label={`Sort ${label} ascending`}
           className={`rounded-full border p-1 ${
             sort === sortKey && direction === "asc"
@@ -53,6 +54,7 @@ function SortableHeader({
         </Link>
         <Link
           href={buildSortHref(sortKey, "desc")}
+          scroll={false}
           aria-label={`Sort ${label} descending`}
           className={`rounded-full border p-1 ${
             sort === sortKey && direction === "desc"

@@ -128,6 +128,41 @@ export type LiquidStakingDiagnosis = {
   dimensions: LiquidStakingDiagnosisItem[];
 };
 
+export type LiquidStakingMetricSource = {
+  metric: string;
+  provider: string;
+  url: string;
+  snapshotDate: string;
+  status: "captured" | "pending";
+  note: string;
+};
+
+export type LiquidStakingMarketSnapshotSeed = {
+  chainSlug: string;
+  nativeTokenSymbol?: string | null;
+  marketCapUsd?: number | null;
+  percentStaked?: number | null;
+  stakingApyPercent?: number | null;
+  stakersCount?: number | null;
+  lstProtocolCount?: number | null;
+  lstToStakedPercent?: number | null;
+  sources: LiquidStakingMetricSource[];
+};
+
+export type LiquidStakingMarketSnapshot = {
+  nativeTokenSymbol?: string | null;
+  marketCapUsd?: number | null;
+  percentStaked?: number | null;
+  stakingApyPercent?: number | null;
+  stakersCount?: number | null;
+  globalLstHealthScore: number;
+  lstProtocolCount?: number | null;
+  lstToStakedPercent?: number | null;
+  defiTvlUsd: number;
+  snapshotDate: string;
+  sources: LiquidStakingMetricSource[];
+};
+
 export type EconomyScoringConfig = {
   maximumScore: number;
   statusScores: Record<ModuleAvailabilityStatus, number>;
@@ -285,6 +320,7 @@ export type ChainProfile = {
   scoreDrivers: ScoreDriver[];
   peers: PeerComparisonItem[];
   liquidStakingDiagnosis?: LiquidStakingDiagnosis;
+  liquidStakingMarketSnapshot?: LiquidStakingMarketSnapshot;
   recommendedStack: RecommendedStack;
   deploymentPlan: DeploymentPlan;
 };

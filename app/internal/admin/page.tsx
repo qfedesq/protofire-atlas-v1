@@ -92,7 +92,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           />
           <button
             type="submit"
-            className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition"
+            className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
           >
             Open assumptions
           </button>
@@ -130,7 +130,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           <form action={logoutAdminAction}>
             <button
               type="submit"
-              className="border-border text-foreground hover:border-accent hover:text-accent inline-flex rounded-full border px-5 py-3 text-sm font-semibold transition"
+              className="border-border text-foreground hover:border-accent hover:text-accent inline-flex rounded-xl border px-5 py-3 text-sm font-semibold transition"
             >
               Log out
             </button>
@@ -184,7 +184,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
           <div className="md:col-span-3">
             <button
               type="submit"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
             >
               Save status mapping
             </button>
@@ -371,7 +371,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
 
                   <button
                     type="submit"
-                    className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition"
+                    className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
                   >
                     Save {economy.shortLabel} assumptions
                   </button>

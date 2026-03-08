@@ -1,5 +1,7 @@
+import { submitChainAdditionRequestAction } from "@/app/actions/chain-addition-request";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
+import { AddChainRequestForm } from "@/components/requests/add-chain-request-form";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
@@ -10,6 +12,7 @@ import type {
   RankingsSortDirection,
   RankingsSortKey,
 } from "@/lib/domain/types";
+import { createArithmeticCaptcha } from "@/lib/requests/captcha";
 import {
   getActiveLiquidStakingDiagnosticWeights,
   listLiquidStakingDiagnosticDimensions,
@@ -96,6 +99,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
   const activeLiquidStakingWeights = getActiveLiquidStakingDiagnosticWeights();
   const activeAssumptions = getActiveAssumptions();
+  const chainAdditionCaptcha = createArithmeticCaptcha();
 
   if (!economy) {
     throw new Error(`Unknown economy: ${query.economy}`);
@@ -111,7 +115,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <section className="space-y-4">
         <Panel>
-          <p className="bg-white text-foreground inline-flex rounded-full border border-slate-200 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="bg-white text-foreground inline-flex rounded-xl border border-slate-200 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
             Public Atlas MVP
           </p>
           <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-5xl">
@@ -242,6 +246,17 @@ export default async function Home({ searchParams }: HomePageProps) {
           buildSortHref={(sortKey, sortDirection) =>
             buildSortHref(query, sortKey, sortDirection)
           }
+        />
+        <AddChainRequestForm
+          selectedEconomy={economy.slug}
+          initialState={{
+            status: "idle",
+            message: "",
+            chainWebsite: "",
+            captchaPrompt: chainAdditionCaptcha.prompt,
+            captchaToken: chainAdditionCaptcha.token,
+          }}
+          action={submitChainAdditionRequestAction}
         />
       </section>
     </div>

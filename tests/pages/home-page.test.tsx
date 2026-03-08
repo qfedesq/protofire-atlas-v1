@@ -22,6 +22,9 @@ describe("home page", () => {
       screen.getByRole("link", { name: "Sort Chain ascending" }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("button", { name: /Add my chain/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole("link", { name: "Sort Readiness descending" }),
     ).toHaveAttribute(
       "href",

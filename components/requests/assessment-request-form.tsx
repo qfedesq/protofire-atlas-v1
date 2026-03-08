@@ -113,7 +113,7 @@ export function AssessmentRequestForm({
       <div className="lg:col-span-2">
         <button
           type="submit"
-          className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition"
+          className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
         >
           Request Infrastructure Assessment
         </button>

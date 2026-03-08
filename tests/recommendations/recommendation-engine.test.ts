@@ -173,6 +173,11 @@ describe("recommendation engine", () => {
       "Weeks 3-4",
       "Weeks 5-6",
     ]);
+    expect(stack.deploymentPhases[0]?.kpis).toEqual([
+      { label: "Target Atlas lift", value: "+3.0 pts" },
+      { label: "Modules closed", value: "1" },
+      { label: "Target state", value: "Missing -> available" },
+    ]);
     expect(plan.ctaText).toContain("Prediction Markets");
   });
 });

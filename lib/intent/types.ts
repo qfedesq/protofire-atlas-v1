@@ -4,7 +4,8 @@ export type IntentEventType =
   | "economy_selected"
   | "chain_profile_viewed"
   | "peer_comparison_navigation"
-  | "assessment_request_submitted";
+  | "assessment_request_submitted"
+  | "chain_addition_request_submitted";
 
 export type IntentEvent = {
   id: string;

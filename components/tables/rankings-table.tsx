@@ -45,7 +45,7 @@ function SortableHeader({
           href={buildSortHref(sortKey, "asc")}
           scroll={false}
           aria-label={`Sort ${label} ascending`}
-          className={`rounded-full border p-1 ${
+          className={`rounded-lg border p-1 ${
             sort === sortKey && direction === "asc"
               ? "border-accent bg-accent/10 text-accent"
               : "border-transparent text-muted hover:border-border hover:text-foreground"
@@ -57,7 +57,7 @@ function SortableHeader({
           href={buildSortHref(sortKey, "desc")}
           scroll={false}
           aria-label={`Sort ${label} descending`}
-          className={`rounded-full border p-1 ${
+          className={`rounded-lg border p-1 ${
             sort === sortKey && direction === "desc"
               ? "border-accent bg-accent/10 text-accent"
               : "border-transparent text-muted hover:border-border hover:text-foreground"
@@ -154,9 +154,12 @@ export function RankingsTable({
                     </p>
                     <p className="text-foreground mt-2 text-sm font-medium">
                       Offer fit:{" "}
-                      <span className="text-accent font-semibold">
+                      <Link
+                        href={`/chains/${row.chain.slug}?economy=${row.economy.slug}#suggested-activations`}
+                        className="text-accent font-semibold hover:underline"
+                      >
                         {roadmapFit.offerFitLabel}
-                      </span>
+                      </Link>
                     </p>
                     <p className="text-muted mt-2 text-sm font-medium">
                       Roadmap stage:{" "}

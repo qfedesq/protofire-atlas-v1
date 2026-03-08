@@ -15,7 +15,7 @@ export default function NotFound() {
       </p>
       <Link
         href="/"
-        className="bg-accent text-accent-foreground hover:bg-accent/90 mt-6 inline-flex rounded-full px-5 py-3 text-sm font-semibold transition"
+        className="bg-accent text-accent-foreground hover:bg-accent/90 mt-6 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
       >
         Back to Atlas
       </Link>

@@ -2,6 +2,7 @@ import type {
   Chain,
   DeploymentPlan,
   DeploymentPhase,
+  DeploymentPhaseKpi,
   EconomyType,
   GapAnalysisItem,
   ModuleBreakdown,
@@ -17,6 +18,49 @@ const timelineSteps = [
   "Weeks 7-8",
   "Weeks 9-10",
 ] as const;
+
+function buildTargetStateLabel(recommendations: RecommendationItem[]) {
+  const hasMissing = recommendations.some(
+    (recommendation) => recommendation.currentStatus === "missing",
+  );
+  const hasPartial = recommendations.some(
+    (recommendation) => recommendation.currentStatus === "partial",
+  );
+
+  if (hasMissing && hasPartial) {
+    return "Missing + partial -> available";
+  }
+
+  if (hasMissing) {
+    return "Missing -> available";
+  }
+
+  return "Partial -> available";
+}
+
+function buildDeploymentPhaseKpis(
+  recommendations: RecommendationItem[],
+): DeploymentPhaseKpi[] {
+  const totalLift = recommendations.reduce(
+    (sum, recommendation) => sum + recommendation.potentialScoreLift,
+    0,
+  );
+
+  return [
+    {
+      label: "Target Atlas lift",
+      value: `+${formatScore(totalLift)} pts`,
+    },
+    {
+      label: "Modules closed",
+      value: String(recommendations.length),
+    },
+    {
+      label: "Target state",
+      value: buildTargetStateLabel(recommendations),
+    },
+  ];
+}
 
 function hasGap(
   module: ModuleBreakdown,
@@ -122,22 +166,24 @@ function buildDeploymentPhases(
     ),
   );
 
-  return activeTemplates.map((template, index) => ({
-    id: `${economy.slug}-phase-${index + 1}`,
-    key: template.key,
-    label: `Phase ${index + 1}`,
-    title: template.name,
-    timelineLabel:
-      timelineSteps[index] ??
-      `Weeks ${index * 2 + 1}-${index * 2 + 2}`,
-    objective: template.objective,
-    tasks: recommendations
-      .filter(
-        (recommendation) =>
-          recommendation.deploymentPhaseKey === template.key,
-      )
-      .map((recommendation) => recommendation.title),
-  }));
+  return activeTemplates.map((template, index) => {
+    const phaseRecommendations = recommendations.filter(
+      (recommendation) => recommendation.deploymentPhaseKey === template.key,
+    );
+
+    return {
+      id: `${economy.slug}-phase-${index + 1}`,
+      key: template.key,
+      label: `Phase ${index + 1}`,
+      title: template.name,
+      timelineLabel:
+        timelineSteps[index] ??
+        `Weeks ${index * 2 + 1}-${index * 2 + 2}`,
+      objective: template.objective,
+      kpis: buildDeploymentPhaseKpis(phaseRecommendations),
+      tasks: phaseRecommendations.map((recommendation) => recommendation.title),
+    };
+  });
 }
 
 function buildNarrativeSummary(

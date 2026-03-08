@@ -79,7 +79,7 @@ export function ChainProfileView({
                 href={profile.chain.website}
                 target="_blank"
                 rel="noreferrer"
-                className="border-border text-foreground hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition"
+                className="border-border text-foreground hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm transition"
               >
                 Chain website
                 <ArrowUpRight className="h-4 w-4" />

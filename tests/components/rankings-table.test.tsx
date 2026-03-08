@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { RankingsTable } from "@/components/tables/rankings-table";
@@ -39,6 +39,23 @@ describe("RankingsTable", () => {
     expect(screen.getAllByText(/Roadmap stage:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Offer fit:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText("More details").length).toBeGreaterThan(0);
+    const arbitrumCell = screen
+      .getByRole("link", { name: "Arbitrum" })
+      .closest("td");
+
+    if (!arbitrumCell) {
+      throw new Error("Expected Arbitrum table cell");
+    }
+
+    expect(
+      within(arbitrumCell)
+        .getAllByRole("link")
+        .some((link) =>
+          link.getAttribute("href")?.includes(
+            "/chains/arbitrum?economy=ai-agents#suggested-activations",
+          ),
+        ),
+    ).toBe(true);
     expect(
       screen.getByRole("link", { name: "Sort Chain ascending" }),
     ).toHaveAttribute("href", "/?economy=ai-agents&sort=name&direction=asc");

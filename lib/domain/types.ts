@@ -280,6 +280,11 @@ export type RecommendationKpi = {
   value: string;
 };
 
+export type DeploymentPhaseKpi = {
+  label: string;
+  value: string;
+};
+
 export type DeploymentPhase = {
   id: string;
   key: string;
@@ -287,6 +292,7 @@ export type DeploymentPhase = {
   title: string;
   timelineLabel: string;
   objective: string;
+  kpis: DeploymentPhaseKpi[];
   tasks: string[];
 };
 

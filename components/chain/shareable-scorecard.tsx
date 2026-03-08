@@ -91,7 +91,7 @@ export function ShareableScorecard({
             Missing infrastructure
           </p>
           {blockingModules.length === 0 ? (
-            <Panel className="bg-surface-muted shadow-none">
+            <Panel className="border-rose-200 bg-rose-50/70 shadow-none">
               <p className="text-muted text-sm leading-6">
                 No missing infrastructure modules remain in the current Atlas
                 model.
@@ -99,7 +99,13 @@ export function ShareableScorecard({
             </Panel>
           ) : (
             blockingModules.map((gap) => (
-              <div key={gap.module.id} className="bg-surface-muted rounded-2xl p-4">
+              <div
+                key={gap.module.id}
+                className="rounded-2xl border border-rose-200 bg-rose-50/70 p-4"
+              >
+                <p className="text-rose-700 text-[11px] font-semibold tracking-[0.14em] uppercase">
+                  Diagnostic gap
+                </p>
                 <p className="text-foreground text-sm font-medium">
                   {gap.module.name}
                 </p>
@@ -116,7 +122,7 @@ export function ShareableScorecard({
             Protofire recommended stack
           </p>
           {topRecommendations.length === 0 ? (
-            <Panel className="bg-surface-muted shadow-none">
+            <Panel className="border-accent/25 bg-accent/8 shadow-none">
               <p className="text-muted text-sm leading-6">
                 Current posture is strong enough that Protofire can focus on
                 optimization and packaging instead of foundational rollout.
@@ -126,11 +132,19 @@ export function ShareableScorecard({
             topRecommendations.map((recommendation) => (
               <div
                 key={recommendation.title}
-                className="bg-surface-muted rounded-2xl p-4"
+                className="rounded-2xl border border-accent/25 bg-accent/8 p-4"
               >
+                <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
+                  Activation plan
+                </p>
                 <p className="text-foreground text-sm font-medium">
                   {recommendation.title}
                 </p>
+                {recommendation.kpis[0] ? (
+                  <p className="text-foreground mt-2 text-sm font-semibold">
+                    {recommendation.kpis[0].label}: {recommendation.kpis[0].value}
+                  </p>
+                ) : null}
                 <p className="text-muted mt-2 text-sm leading-6">
                   {recommendation.directChainImpact}
                 </p>

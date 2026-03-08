@@ -45,6 +45,9 @@ describe("ChainProfileView", () => {
       screen.getByRole("link", { name: "Open suggested activations" }),
     ).toHaveAttribute("href", "#suggested-activations");
     expect(screen.getAllByText("Atlas score lift").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Target Atlas lift").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Diagnostic gap").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Activation plan").length).toBeGreaterThan(0);
     expect(
       screen
         .getByText("Roadmap fit, gaps, score drivers, peers, and stack")

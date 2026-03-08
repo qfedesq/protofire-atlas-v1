@@ -10,6 +10,7 @@ const intentEventSchema = z.object({
     "chain_profile_viewed",
     "peer_comparison_navigation",
     "assessment_request_submitted",
+    "chain_addition_request_submitted",
   ]),
   createdAt: z.string().min(1),
   economy: z.enum(economyTypeSlugs).optional(),

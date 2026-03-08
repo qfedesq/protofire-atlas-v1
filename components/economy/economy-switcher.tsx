@@ -20,7 +20,7 @@ export function EconomySwitcher({
     <nav
       aria-label="Economy selector"
       className={cn(
-        "border-border bg-white/75 flex flex-wrap gap-2 rounded-2xl border p-2 backdrop-blur-sm",
+        "border-border/80 flex flex-wrap gap-6 border-b pb-1",
         className,
       )}
     >
@@ -32,10 +32,10 @@ export function EconomySwitcher({
             key={economy.slug}
             href={buildHref(economy.slug)}
             className={cn(
-              "rounded-xl px-4 py-3 text-sm font-medium transition",
+              "border-b-2 px-1 py-3 text-sm font-medium transition",
               isActive
-                ? "bg-[var(--brand-black)] text-white shadow-[0_12px_30px_rgba(8,9,10,0.16)]"
-                : "text-muted hover:bg-surface hover:text-foreground",
+                ? "border-[var(--brand-orange)] text-foreground"
+                : "border-transparent text-muted hover:text-foreground",
             )}
           >
             {economy.shortLabel}

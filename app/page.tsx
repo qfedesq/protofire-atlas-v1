@@ -4,8 +4,6 @@ import { IntentBeacon } from "@/components/intent/intent-beacon";
 import { AddChainRequestForm } from "@/components/requests/add-chain-request-form";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { Panel } from "@/components/ui/panel";
-import { getActiveAssumptions } from "@/lib/assumptions/store";
-import { atlasDatasetLabel } from "@/lib/config/dataset";
 import { parseRankingsQuery } from "@/lib/domain/schemas";
 import type {
   RankingsQuery,
@@ -98,7 +96,6 @@ export default async function Home({ searchParams }: HomePageProps) {
   const economy = rows[0]?.economy ?? economies.find((item) => item.slug === query.economy);
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
   const activeLiquidStakingWeights = getActiveLiquidStakingDiagnosticWeights();
-  const activeAssumptions = getActiveAssumptions();
   const chainAdditionCaptcha = createArithmeticCaptcha();
 
   if (!economy) {
@@ -115,15 +112,14 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <section className="space-y-4">
         <Panel>
-          <p className="bg-white text-foreground inline-flex rounded-xl border border-slate-200 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="text-foreground inline-flex text-xs font-medium tracking-[0.2em] uppercase">
             Public Atlas MVP
           </p>
           <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-5xl">
             Rank chains by readiness for specific onchain economies.
           </h1>
-          <p className="text-muted mt-4 max-w-3xl text-base leading-7">
-            Compare infrastructure readiness, expose missing modules, and map
-            each gap to a deterministic Protofire deployment stack.
+          <p className="text-muted mt-4 max-w-6xl text-base leading-7 lg:max-w-none lg:whitespace-nowrap">
+            Compare infrastructure readiness, expose missing modules, and map each gap to a deterministic Protofire deployment stack.
           </p>
         </Panel>
 
@@ -147,7 +143,7 @@ export default async function Home({ searchParams }: HomePageProps) {
           </p>
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[1.1fr_1.3fr]">
+        <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
           <Panel>
             <p className="text-muted text-xs tracking-[0.16em] uppercase">
               Required modules
@@ -213,22 +209,6 @@ export default async function Home({ searchParams }: HomePageProps) {
                   </div>
                 ))}
               </div>
-            </Panel>
-
-            <Panel>
-              <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                Scoring baseline
-              </p>
-              <p className="text-muted mt-3 text-sm leading-6">
-                {atlasDatasetLabel}. Rankings are derived from curated readiness
-                statuses on top of that fixed chain universe.
-              </p>
-              <p className="text-muted mt-3 text-sm leading-6">
-                Active status mapping: missing ={" "}
-                {activeAssumptions.statusScores.missing}, partial ={" "}
-                {activeAssumptions.statusScores.partial}, available ={" "}
-                {activeAssumptions.statusScores.available}.
-              </p>
             </Panel>
           </div>
         </div>

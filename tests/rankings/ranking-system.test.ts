@@ -26,10 +26,6 @@ describe("ranking system", () => {
       "ecosystemScore",
       "adoptionScore",
       "performanceScore",
-      "wallets",
-      "activeUsers",
-      "protocols",
-      "ecosystemProjects",
       "ai-agents-readiness",
       "defi-infrastructure-readiness",
       "rwa-infrastructure-readiness",
@@ -39,6 +35,10 @@ describe("ranking system", () => {
     expect(globalDefaults).not.toContain("defi-infrastructure:liquid-staking");
     expect(globalDefaults).not.toContain("rwa-infrastructure:asset-registry");
     expect(globalDefaults).not.toContain("prediction-markets:oracles");
+    expect(globalDefaults).not.toContain("wallets");
+    expect(globalDefaults).not.toContain("activeUsers");
+    expect(globalDefaults).not.toContain("protocols");
+    expect(globalDefaults).not.toContain("ecosystemProjects");
     expect(globalDefaults).not.toContain("averageTransactionSpeed");
     expect(globalDefaults).not.toContain("blockTime");
     expect(globalDefaults).not.toContain("throughputIndicator");

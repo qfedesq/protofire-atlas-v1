@@ -13,6 +13,8 @@ export type RankingColumnDefinition<Row, SortKey extends string> = {
   groupDescription?: string;
   groupOrder?: number;
   groupRole?: "summary" | "detail";
+  treeParentId?: string;
+  treeDefaultExpanded?: boolean;
   defaultVisible: boolean;
   canHide?: boolean;
   align?: "left" | "right";
@@ -118,4 +120,75 @@ export function getGroupDetailColumnIds<Row, SortKey extends string>(
       (column) => column.groupId === groupId && column.groupRole === "detail",
     )
     .map((column) => column.id);
+}
+
+export function getChildColumnIds<Row, SortKey extends string>(
+  columnId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+) {
+  return columns
+    .filter((column) => column.treeParentId === columnId)
+    .map((column) => column.id);
+}
+
+export function getDescendantColumnIds<Row, SortKey extends string>(
+  columnId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+): string[] {
+  const childColumnIds = getChildColumnIds(columnId, columns);
+
+  return childColumnIds.flatMap((childColumnId) => [
+    childColumnId,
+    ...getDescendantColumnIds(childColumnId, columns),
+  ]);
+}
+
+export function getBranchExpansionColumnIds<Row, SortKey extends string>(
+  columnId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+): string[] {
+  const childColumnIds = getChildColumnIds(columnId, columns);
+
+  return childColumnIds.flatMap((childColumnId) => {
+    const childColumn = columns.find((column) => column.id === childColumnId);
+
+    if (!childColumn) {
+      return [];
+    }
+
+    return childColumn.treeDefaultExpanded
+      ? [
+          childColumnId,
+          ...getBranchExpansionColumnIds(childColumnId, columns),
+        ]
+      : [childColumnId];
+  });
+}
+
+export function toggleColumnBranchVisibility<Row, SortKey extends string>(
+  visibleIds: string[],
+  columnId: string,
+  columns: RankingColumnDefinition<Row, SortKey>[],
+) {
+  const descendantColumnIds = getDescendantColumnIds(columnId, columns);
+
+  if (descendantColumnIds.length === 0) {
+    return visibleIds;
+  }
+
+  const hasVisibleDescendants = descendantColumnIds.some((descendantId) =>
+    visibleIds.includes(descendantId),
+  );
+
+  if (hasVisibleDescendants) {
+    return resolveVisibleColumnIds(
+      visibleIds.filter((visibleId) => !descendantColumnIds.includes(visibleId)),
+      columns,
+    );
+  }
+
+  return resolveVisibleColumnIds(
+    [...visibleIds, ...getBranchExpansionColumnIds(columnId, columns)],
+    columns,
+  );
 }

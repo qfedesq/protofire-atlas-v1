@@ -34,6 +34,9 @@ describe("home page", () => {
       screen.getByRole("columnheader", { name: /Performance Score/i }),
     ).toBeInTheDocument();
     expect(
+      screen.getByRole("link", { name: /Collapse Global Score/i }),
+    ).toBeInTheDocument();
+    expect(
       screen.queryByRole("columnheader", { name: /RWA Asset Registry/i }),
     ).not.toBeInTheDocument();
     expect(
@@ -48,6 +51,7 @@ describe("home page", () => {
     expect(
       screen.getByRole("button", { name: /Add my chain/i }),
     ).toBeInTheDocument();
+    expect(screen.queryByText("Columns")).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Sort Global Score descending" }),
     ).toHaveAttribute("href", "/#global-ranking");

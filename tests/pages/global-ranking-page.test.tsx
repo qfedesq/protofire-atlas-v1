@@ -37,6 +37,7 @@ describe("global ranking page", () => {
     expect(
       screen.getByRole("link", { name: "Sort Global Score descending" }),
     ).toBeInTheDocument();
+    expect(screen.queryByText("Columns")).not.toBeInTheDocument();
     expect(
       screen.queryByText(/Atlas uses a curated snapshot and active scoring assumptions/i),
     ).not.toBeInTheDocument();

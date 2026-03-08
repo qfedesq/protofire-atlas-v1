@@ -155,6 +155,25 @@ function GlobalEconomyModuleCell({
   );
 }
 
+function getGlobalEconomyDisplayModules(economy: EconomyType) {
+  if (economy.slug !== "defi-infrastructure") {
+    return economy.modules;
+  }
+
+  const desiredOrder = [
+    "liquid-staking",
+    "lending",
+    "oracles",
+    "indexing",
+    "liquidity",
+  ];
+
+  return [...economy.modules].sort(
+    (left, right) =>
+      desiredOrder.indexOf(left.slug) - desiredOrder.indexOf(right.slug),
+  );
+}
+
 function OpportunityChainCell({
   row,
   rowIndex,
@@ -285,6 +304,8 @@ export function createGlobalRankingColumns(
       groupDescription: "Core comparative scores for the holistic chain ranking.",
       groupOrder: 0,
       groupRole: "summary",
+      treeParentId: "totalScore",
+      treeDefaultExpanded: true,
       defaultVisible: true,
       align: "right",
       sortKey: "economyCompositeScore",
@@ -300,6 +321,7 @@ export function createGlobalRankingColumns(
       groupDescription: "Core comparative scores for the holistic chain ranking.",
       groupOrder: 0,
       groupRole: "summary",
+      treeParentId: "totalScore",
       defaultVisible: true,
       align: "right",
       sortKey: "ecosystemScore",
@@ -315,6 +337,7 @@ export function createGlobalRankingColumns(
       groupDescription: "Core comparative scores for the holistic chain ranking.",
       groupOrder: 0,
       groupRole: "summary",
+      treeParentId: "totalScore",
       defaultVisible: true,
       align: "right",
       sortKey: "adoptionScore",
@@ -331,6 +354,7 @@ export function createGlobalRankingColumns(
         "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
       groupOrder: 15,
       groupRole: "summary",
+      treeParentId: "totalScore",
       defaultVisible: true,
       align: "right",
       sortKey: "performanceScore",
@@ -346,7 +370,8 @@ export function createGlobalRankingColumns(
       groupDescription: "Open this section to show or hide the underlying adoption metrics.",
       groupOrder: 10,
       groupRole: "detail",
-      defaultVisible: true,
+      treeParentId: "adoptionScore",
+      defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[9rem]",
       renderCell: (row) => formatCountCompact(row.score.metrics.wallets),
@@ -360,7 +385,8 @@ export function createGlobalRankingColumns(
       groupDescription: "Open this section to show or hide the underlying adoption metrics.",
       groupOrder: 10,
       groupRole: "detail",
-      defaultVisible: true,
+      treeParentId: "adoptionScore",
+      defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[9rem]",
       renderCell: (row) => formatCountCompact(row.score.metrics.activeUsers),
@@ -375,7 +401,8 @@ export function createGlobalRankingColumns(
         "Open this section to show or hide the underlying ecosystem activity metrics.",
       groupOrder: 12,
       groupRole: "detail",
-      defaultVisible: true,
+      treeParentId: "ecosystemScore",
+      defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[8rem]",
       renderCell: (row) => formatCountCompact(row.score.metrics.protocols),
@@ -390,7 +417,8 @@ export function createGlobalRankingColumns(
         "Open this section to show or hide the underlying ecosystem activity metrics.",
       groupOrder: 12,
       groupRole: "detail",
-      defaultVisible: true,
+      treeParentId: "ecosystemScore",
+      defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[11rem]",
       renderCell: (row) => formatCountCompact(row.score.metrics.ecosystemProjects),
@@ -405,6 +433,7 @@ export function createGlobalRankingColumns(
         "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
       groupOrder: 15,
       groupRole: "detail",
+      treeParentId: "performanceScore",
       defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[9rem]",
@@ -420,6 +449,7 @@ export function createGlobalRankingColumns(
         "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
       groupOrder: 15,
       groupRole: "detail",
+      treeParentId: "performanceScore",
       defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[8rem]",
@@ -435,6 +465,7 @@ export function createGlobalRankingColumns(
         "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
       groupOrder: 15,
       groupRole: "detail",
+      treeParentId: "performanceScore",
       defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[8rem]",
@@ -456,13 +487,14 @@ export function createGlobalRankingColumns(
           "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
         groupOrder,
         groupRole: "summary",
+        treeParentId: "economyCompositeScore",
         defaultVisible: true,
         align: "right",
         widthClassName: "min-w-[10rem]",
         renderCell: (row) => <GlobalEconomyScoreCell row={row} economy={economy} />,
       };
 
-      const moduleColumns = economy.modules.map(
+      const moduleColumns = getGlobalEconomyDisplayModules(economy).map(
         (module): RankingColumnDefinition<GlobalRankedChain, GlobalRankingsSortKey> => ({
           id: `${economy.slug}:${module.slug}`,
           label: `${economy.shortLabel} ${module.name}`,
@@ -473,6 +505,7 @@ export function createGlobalRankingColumns(
             "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
           groupOrder,
           groupRole: "detail",
+          treeParentId: `${economy.slug}-readiness`,
           defaultVisible: false,
           align: "right",
           widthClassName: "min-w-[11rem]",

@@ -4,9 +4,11 @@ import { ArrowDown, ArrowUp, ChevronDown, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import type { RankingsSortDirection } from "@/lib/domain/types";
 import {
+  getChildColumnIds,
   getGroupDetailColumnIds,
   getDefaultVisibleColumnIds,
   resolveVisibleColumnIds,
+  toggleColumnBranchVisibility,
   toggleVisibleColumnId,
   type RankingColumnDefinition,
   type RankingMode,
@@ -27,22 +29,54 @@ type RankingTableProps<Row, SortKey extends string> = {
 
 function SortHeader<SortKey extends string>({
   column,
+  columns,
+  visibleColumnIds,
   sort,
   direction,
   buildSortHref,
+  buildColumnsHref,
 }: {
   column: RankingColumnDefinition<unknown, SortKey>;
+  columns: RankingColumnDefinition<unknown, SortKey>[];
+  visibleColumnIds: string[];
   sort: SortKey;
   direction: RankingsSortDirection;
   buildSortHref: (sort: SortKey, direction: RankingsSortDirection) => string;
+  buildColumnsHref: (columnIds: string[]) => string;
 }) {
+  const childColumnIds = getChildColumnIds(column.id, columns);
+  const hasChildren = childColumnIds.length > 0;
+  const hasExpandedChildren = childColumnIds.some((childColumnId) =>
+    visibleColumnIds.includes(childColumnId),
+  );
+  const headerLabel = hasChildren ? (
+    <Link
+      href={buildColumnsHref(
+        toggleColumnBranchVisibility(visibleColumnIds, column.id, columns),
+      )}
+      scroll={false}
+      aria-label={`${hasExpandedChildren ? "Collapse" : "Expand"} ${column.label}`}
+      className="hover:text-foreground inline-flex items-center gap-2 transition"
+    >
+      <span>{column.label}</span>
+      <ChevronDown
+        className={cn(
+          "h-3.5 w-3.5 transition",
+          hasExpandedChildren ? "rotate-180 text-accent" : "text-muted",
+        )}
+      />
+    </Link>
+  ) : (
+    <span>{column.label}</span>
+  );
+
   if (!column.sortKey) {
-    return <span>{column.label}</span>;
+    return headerLabel;
   }
 
   return (
     <div className="flex items-center gap-3">
-      <span>{column.label}</span>
+      {headerLabel}
       <div className="text-muted inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.16em] uppercase">
         <Link
           href={buildSortHref(column.sortKey, "asc")}
@@ -279,13 +313,15 @@ export function RankingTable<Row, SortKey extends string>({
       className="border-border bg-surface rounded-3xl border shadow-[var(--shadow-soft)]"
       data-ranking-mode={mode}
     >
-      <div className="border-border/70 flex items-center justify-end border-b px-5 py-4">
-        <ColumnVisibilityControls
-          columns={columns}
-          visibleColumnIds={visibleColumns.map((column) => column.id)}
-          buildColumnsHref={buildColumnsHref}
-        />
-      </div>
+      {mode !== "global" ? (
+        <div className="border-border/70 flex items-center justify-end border-b px-5 py-4">
+          <ColumnVisibilityControls
+            columns={columns}
+            visibleColumnIds={visibleColumns.map((column) => column.id)}
+            buildColumnsHref={buildColumnsHref}
+          />
+        </div>
+      ) : null}
       <div className="overflow-x-auto">
         <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
           <thead>
@@ -305,9 +341,16 @@ export function RankingTable<Row, SortKey extends string>({
                   >
                     <SortHeader
                       column={column as RankingColumnDefinition<unknown, SortKey>}
+                      columns={
+                        columns as RankingColumnDefinition<unknown, SortKey>[]
+                      }
+                      visibleColumnIds={visibleColumns.map(
+                        (visibleColumn) => visibleColumn.id,
+                      )}
                       sort={sort}
                       direction={direction}
                       buildSortHref={buildSortHref}
+                      buildColumnsHref={buildColumnsHref}
                     />
                   </th>
                 );

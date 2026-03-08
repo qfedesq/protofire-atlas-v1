@@ -60,7 +60,7 @@ Examples:
 
 - `1.0.0` → public label `V1.0`
 - `1.1.0` → public label `V1.1`
-- `1.3.0` → public label `V1.3`
+- `1.4.0` → public label `V1.4`
 
 Helper command:
 

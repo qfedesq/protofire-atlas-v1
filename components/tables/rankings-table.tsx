@@ -84,102 +84,104 @@ export function RankingsTable({
   }
 
   return (
-    <div className="border-border bg-surface overflow-x-auto rounded-3xl border shadow-[var(--shadow-soft)]">
-      <table className="min-w-full text-left text-sm">
-        <thead className="border-border border-b">
-          <tr className="text-muted">
-            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
-              Rank
-            </th>
-            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
-              <SortableHeader
-                label="Chain"
-                sortKey="name"
-                sort={sort}
-                direction={direction}
-                buildSortHref={buildSortHref}
-              />
-            </th>
-            <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
-              <SortableHeader
-                label="Readiness"
-                sortKey="totalScore"
-                sort={sort}
-                direction={direction}
-                buildSortHref={buildSortHref}
-              />
-            </th>
-            {economy.modules.map((module) => (
-              <th
-                key={module.id}
-                className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]"
-              >
+    <div className="border-border bg-surface rounded-3xl border shadow-[var(--shadow-soft)]">
+      <div className="overflow-x-auto lg:overflow-visible">
+        <table className="min-w-full text-left text-sm">
+          <thead className="border-border border-b">
+            <tr className="text-muted">
+              <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
+                Rank
+              </th>
+              <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
                 <SortableHeader
-                  label={module.name}
-                  sortKey={module.slug}
+                  label="Chain"
+                  sortKey="name"
                   sort={sort}
                   direction={direction}
                   buildSortHref={buildSortHref}
                 />
               </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr
-              key={`${row.economy.slug}:${row.chain.id}`}
-              className="border-border/60 border-t align-top transition hover:bg-slate-50/70"
-            >
-              <td className="text-muted px-5 py-4 font-medium">
-                #{row.benchmarkRank}
-              </td>
-              <td className="px-5 py-4">
-                <Link
-                  href={`/chains/${row.chain.slug}?economy=${row.economy.slug}`}
-                  className="text-foreground hover:text-accent text-base font-semibold transition"
+              <th className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]">
+                <SortableHeader
+                  label="Readiness"
+                  sortKey="totalScore"
+                  sort={sort}
+                  direction={direction}
+                  buildSortHref={buildSortHref}
+                />
+              </th>
+              {economy.modules.map((module) => (
+                <th
+                  key={module.id}
+                  className="border-border bg-surface-muted sticky top-0 z-20 border-b px-5 py-4 font-medium shadow-[0_1px_0_0_var(--border)]"
                 >
-                  {row.chain.name}
-                </Link>
-                <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
-                  {row.chain.category} • source TVL rank #{row.chain.sourceRank}
-                </p>
-                <p className="text-muted mt-2 text-xs leading-5">
-                  {row.chain.sourceProvider} snapshot {row.chain.sourceSnapshotDate} •{" "}
-                  {formatCurrencyCompact(row.chain.sourceTvlUsd)}
-                </p>
-                <p className="text-muted mt-2 max-w-xs text-sm leading-6">
-                  {row.chain.shortDescription}
-                </p>
-              </td>
-              <td className="px-5 py-4">
-                <div className="text-foreground text-2xl font-semibold">
-                  {formatScore(row.readinessScore.totalScore)}
-                </div>
-                <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
-                  / 10.0
-                </p>
-                <p className="text-muted mt-2 text-xs leading-5">
-                  Gap to leader: {formatScore(row.leaderGap)}
-                </p>
-              </td>
-              {row.readinessScore.moduleBreakdown.map((module) => (
-                <td key={module.module.id} className="px-5 py-4">
-                  <div className="space-y-2">
-                    <StatusBadge status={module.status} />
-                    <div className="text-foreground text-sm font-semibold">
-                      {formatScore(module.weightedContribution)}
-                    </div>
-                    <p className="text-muted text-xs leading-5">
-                      {module.module.weight}% weight
-                    </p>
-                  </div>
-                </td>
+                  <SortableHeader
+                    label={module.name}
+                    sortKey={module.slug}
+                    sort={sort}
+                    direction={direction}
+                    buildSortHref={buildSortHref}
+                  />
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {rows.map((row) => (
+              <tr
+                key={`${row.economy.slug}:${row.chain.id}`}
+                className="border-border/60 border-t align-top transition hover:bg-slate-50/70"
+              >
+                <td className="text-muted px-5 py-4 font-medium">
+                  #{row.benchmarkRank}
+                </td>
+                <td className="px-5 py-4">
+                  <Link
+                    href={`/chains/${row.chain.slug}?economy=${row.economy.slug}`}
+                    className="text-foreground hover:text-accent text-base font-semibold transition"
+                  >
+                    {row.chain.name}
+                  </Link>
+                  <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
+                    {row.chain.category} • source TVL rank #{row.chain.sourceRank}
+                  </p>
+                  <p className="text-muted mt-2 text-xs leading-5">
+                    {row.chain.sourceProvider} snapshot {row.chain.sourceSnapshotDate} •{" "}
+                    {formatCurrencyCompact(row.chain.sourceTvlUsd)}
+                  </p>
+                  <p className="text-muted mt-2 max-w-xs text-sm leading-6">
+                    {row.chain.shortDescription}
+                  </p>
+                </td>
+                <td className="px-5 py-4">
+                  <div className="text-foreground text-2xl font-semibold">
+                    {formatScore(row.readinessScore.totalScore)}
+                  </div>
+                  <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
+                    / 10.0
+                  </p>
+                  <p className="text-muted mt-2 text-xs leading-5">
+                    Gap to leader: {formatScore(row.leaderGap)}
+                  </p>
+                </td>
+                {row.readinessScore.moduleBreakdown.map((module) => (
+                  <td key={module.module.id} className="px-5 py-4">
+                    <div className="space-y-2">
+                      <StatusBadge status={module.status} />
+                      <div className="text-foreground text-sm font-semibold">
+                        {formatScore(module.weightedContribution)}
+                      </div>
+                      <p className="text-muted text-xs leading-5">
+                        {module.module.weight}% weight
+                      </p>
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

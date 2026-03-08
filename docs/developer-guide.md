@@ -202,7 +202,7 @@ Public label source:
 Bump rule:
 
 - every completed update increments by `+0.1`
-- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`
+- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`
 
 Helper:
 

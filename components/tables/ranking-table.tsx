@@ -69,6 +69,7 @@ function SortHeader<SortKey extends string>({
       )}
       scroll={false}
       aria-label={`${hasExpandedChildren ? "Collapse" : "Expand"} ${column.label}`}
+      aria-expanded={hasExpandedChildren}
       className={headerLabelClasses}
       style={headerLabelStyle}
     >
@@ -361,12 +362,35 @@ export function RankingTable<Row, SortKey extends string>({
             <tr className="text-muted">
               {visibleColumns.map((column, columnIndex) => {
                 const isSticky = columnIndex === 0;
+                const hasChildren =
+                  mode === "global" &&
+                  getChildColumnIds(column.id, columns).length > 0;
+                const treeDepth =
+                  mode === "global"
+                    ? getColumnTreeDepth(column.id, columns)
+                    : 0;
+                const isReadinessMaster =
+                  mode === "global" &&
+                  column.treeParentId === "economyCompositeScore";
+                const isRootMaster =
+                  mode === "global" && column.id === "totalScore";
+                const isPrimaryBranchHeader =
+                  mode === "global" && hasChildren && treeDepth === 1;
+                const isSecondaryBranchHeader =
+                  mode === "global" && hasChildren && treeDepth >= 2;
 
                 return (
                   <th
                     key={column.id}
                     className={cn(
-                      "border-border bg-surface-muted sticky top-0 border-b px-5 py-4 text-xs font-semibold tracking-[0.16em] uppercase",
+                      "border-border sticky top-0 border-b px-5 py-4 text-xs font-semibold tracking-[0.16em] uppercase",
+                      isRootMaster
+                        ? "bg-slate-300/95 text-slate-950"
+                        : isPrimaryBranchHeader
+                          ? "bg-slate-200/95 text-slate-900"
+                          : isReadinessMaster || isSecondaryBranchHeader
+                            ? "bg-slate-100/95 text-slate-900"
+                          : "bg-surface-muted",
                       column.align === "right" ? "text-right" : "text-left",
                       column.widthClassName,
                       isSticky ? "left-0 z-40 shadow-[1px_0_0_0_var(--border)]" : "z-30",

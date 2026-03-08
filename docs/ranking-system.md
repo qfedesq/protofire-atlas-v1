@@ -62,7 +62,7 @@ This keeps the anchor context visible during horizontal scroll without forcing t
 
 ## Column visibility
 
-Column visibility is URL-driven, not client-only state.
+Column visibility stays URL-driven, but the global ranking no longer uses a standalone column menu.
 
 Behavior:
 
@@ -70,19 +70,36 @@ Behavior:
 - missing `columns` falls back to the mode default
 - non-hideable columns are always restored
 - invalid column ids are dropped
-- `Reset to default` removes custom visibility back to the mode baseline
+- the global ranking exposes visibility through the header tree itself
+- economy and opportunity rankings can still use explicit column controls when needed
 
 Why this choice:
 
 - preserves shareable URLs
 - avoids hidden client state
 - keeps ranking pages server-rendered
+- lets the public global ranking behave like a score tree instead of a spreadsheet settings panel
 
 ## Mode defaults
 
 Global ranking default:
 
-- all global columns visible
+- Chain
+- Global Score
+- Economy Composite
+- AI Agents Readiness
+- DeFi Readiness
+- RWA Readiness
+- Prediction Markets Readiness
+- Ecosystem Score
+- Adoption Score
+- Performance Score
+
+Global ranking detail columns stay hidden by default and expand directly from the header tree:
+
+- `Economy Composite` opens the four economy readiness scores
+- each economy readiness score opens its own module columns
+- `Ecosystem Score`, `Adoption Score`, and `Performance Score` open their underlying metrics
 
 Opportunity ranking default:
 
@@ -113,9 +130,9 @@ Rules:
 
 - table container scrolls horizontally on smaller widths
 - sticky chain column remains visible
-- default columns stay fully expanded for the public global ranking
+- default columns stay compact for the public global ranking
 - default columns stay minimal for the internal opportunity ranking
-- advanced columns stay available through the column menu
+- advanced columns stay available through the score-tree headers or, in internal tables, through the column menu
 
 ## Extending the ranking system
 

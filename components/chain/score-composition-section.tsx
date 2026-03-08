@@ -20,9 +20,8 @@ export function ScoreCompositionSection({
           Why the current score lands at {formatScore(profile.readinessScore.totalScore)}
         </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          Atlas turns module status into weighted contribution. This shows which
-          modules are already carrying the score and which ones are still
-          suppressing it.
+          Atlas turns module status into weighted contribution. This shows what
+          is already supporting the score and what is still holding it back.
         </p>
       </div>
 
@@ -51,11 +50,14 @@ export function ScoreCompositionSection({
                   <StatusBadge status={module.status} />
                 </div>
                 <div className="text-right">
-                  <p className="text-foreground text-2xl font-semibold">
+                  <p className="text-muted text-[11px] tracking-[0.14em] uppercase">
+                    Contribution
+                  </p>
+                  <p className="text-foreground mt-2 text-2xl font-semibold">
                     {formatScore(module.weightedContribution)}
                   </p>
-                  <p className="text-muted text-xs tracking-[0.14em] uppercase">
-                    of {formatScore(maxContribution)} • {module.module.weight}% weight
+                  <p className="text-muted mt-1 text-xs">
+                    Max {formatScore(maxContribution)}
                   </p>
                 </div>
               </div>

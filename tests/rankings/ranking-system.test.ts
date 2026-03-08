@@ -9,6 +9,7 @@ import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repos
 import {
   getDefaultVisibleColumnIds,
   resolveVisibleColumnIds,
+  toggleColumnBranchVisibility,
 } from "@/lib/rankings/table";
 
 describe("ranking system", () => {
@@ -23,13 +24,13 @@ describe("ranking system", () => {
       "chain",
       "totalScore",
       "economyCompositeScore",
-      "ecosystemScore",
-      "adoptionScore",
-      "performanceScore",
       "ai-agents-readiness",
       "defi-infrastructure-readiness",
       "rwa-infrastructure-readiness",
       "prediction-markets-readiness",
+      "ecosystemScore",
+      "adoptionScore",
+      "performanceScore",
     ]);
     expect(globalDefaults).toContain("ai-agents-readiness");
     expect(globalDefaults).not.toContain("defi-infrastructure:liquid-staking");
@@ -49,6 +50,47 @@ describe("ranking system", () => {
       "priority",
       "readinessGap",
       "recommendedStack",
+    ]);
+  });
+
+  it("inserts child columns immediately after each global master branch", () => {
+    const columns = createGlobalRankingColumns();
+    const defaults = getDefaultVisibleColumnIds(columns);
+
+    const withAiModules = toggleColumnBranchVisibility(
+      defaults,
+      "ai-agents-readiness",
+      columns,
+    );
+
+    expect(withAiModules).toEqual([
+      "chain",
+      "totalScore",
+      "economyCompositeScore",
+      "ai-agents-readiness",
+      "ai-agents:registry",
+      "ai-agents:payments",
+      "ai-agents:indexing",
+      "ai-agents:security",
+      "defi-infrastructure-readiness",
+      "rwa-infrastructure-readiness",
+      "prediction-markets-readiness",
+      "ecosystemScore",
+      "adoptionScore",
+      "performanceScore",
+    ]);
+
+    const withPerformanceMetrics = toggleColumnBranchVisibility(
+      defaults,
+      "performanceScore",
+      columns,
+    );
+
+    expect(withPerformanceMetrics.slice(-4)).toEqual([
+      "performanceScore",
+      "averageTransactionSpeed",
+      "blockTime",
+      "throughputIndicator",
     ]);
   });
 

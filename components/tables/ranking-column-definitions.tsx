@@ -267,59 +267,133 @@ export function createGlobalRankingColumns(
   GlobalRankedChain,
   GlobalRankingsSortKey
 >[] {
-  return [
-    {
-      id: "chain",
-      label: "Chain",
-      defaultVisible: true,
-      canHide: false,
-      widthClassName: "min-w-[21rem]",
-      sortKey: "name",
-      renderCell: (row) => <GlobalChainCell row={row} />,
-    },
-    {
-      id: "totalScore",
-      label: "Global Score",
-      description: "Holistic Atlas score across economies, ecosystem, adoption, and performance.",
-      groupId: "core-global",
-      groupLabel: "Global overview",
-      groupDescription: "Core comparative scores for the holistic chain ranking.",
-      groupOrder: 0,
-      defaultVisible: true,
-      align: "right",
-      sortKey: "totalScore",
-      widthClassName: "min-w-[9rem]",
-      renderCell: (row) => (
-        <span className="text-foreground text-2xl font-semibold">
-          {formatScore(row.score.totalScore)}
-        </span>
-      ),
-    },
-    {
-      id: "economyCompositeScore",
-      label: "Economy Composite",
-      description: "Weighted composite of AI Agents, DeFi, RWA, and Prediction Market readiness.",
-      groupId: "core-global",
-      groupLabel: "Global overview",
-      groupDescription: "Core comparative scores for the holistic chain ranking.",
-      groupOrder: 0,
+  const chainColumn: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  > = {
+    id: "chain",
+    label: "Chain",
+    defaultVisible: true,
+    canHide: false,
+    widthClassName: "min-w-[21rem]",
+    sortKey: "name",
+    renderCell: (row) => <GlobalChainCell row={row} />,
+  };
+
+  const globalScoreColumn: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  > = {
+    id: "totalScore",
+    label: "Global Score",
+    description:
+      "Holistic Atlas score across economies, ecosystem, adoption, and performance.",
+    groupId: "core-global",
+    groupLabel: "Global overview",
+    groupDescription: "Core comparative scores for the holistic chain ranking.",
+    groupOrder: 0,
+    defaultVisible: true,
+    align: "right",
+    sortKey: "totalScore",
+    widthClassName: "min-w-[9rem]",
+    renderCell: (row) => (
+      <span className="text-foreground text-2xl font-semibold">
+        {formatScore(row.score.totalScore)}
+      </span>
+    ),
+  };
+
+  const economyCompositeColumn: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  > = {
+    id: "economyCompositeScore",
+    label: "Economy Composite",
+    description:
+      "Weighted composite of AI Agents, DeFi, RWA, and Prediction Market readiness.",
+    groupId: "core-global",
+    groupLabel: "Global overview",
+    groupDescription: "Core comparative scores for the holistic chain ranking.",
+    groupOrder: 0,
+    groupRole: "summary",
+    treeParentId: "totalScore",
+    treeDefaultExpanded: true,
+    defaultVisible: true,
+    align: "right",
+    sortKey: "economyCompositeScore",
+    widthClassName: "min-w-[10rem]",
+    renderCell: (row) => formatScore(row.score.economyCompositeScore),
+  };
+
+  const readinessColumns = economies.flatMap((economy, economyIndex) => {
+    const groupOrder = economyIndex + 1;
+    const scoreColumn: RankingColumnDefinition<
+      GlobalRankedChain,
+      GlobalRankingsSortKey
+    > = {
+      id: `${economy.slug}-readiness`,
+      label: `${economy.shortLabel} Readiness`,
+      description: `${economy.name} score within the current Atlas benchmark.`,
+      groupId: economy.slug,
+      groupLabel: economy.name,
+      groupDescription:
+        "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
+      groupOrder,
       groupRole: "summary",
-      treeParentId: "totalScore",
-      treeDefaultExpanded: true,
+      treeParentId: "economyCompositeScore",
       defaultVisible: true,
       align: "right",
-      sortKey: "economyCompositeScore",
       widthClassName: "min-w-[10rem]",
-      renderCell: (row) => formatScore(row.score.economyCompositeScore),
-    },
+      renderCell: (row) => (
+        <GlobalEconomyScoreCell row={row} economy={economy} />
+      ),
+    };
+
+    const moduleColumns = getGlobalEconomyDisplayModules(economy).map(
+      (module): RankingColumnDefinition<
+        GlobalRankedChain,
+        GlobalRankingsSortKey
+      > => ({
+        id: `${economy.slug}:${module.slug}`,
+        label: `${economy.shortLabel} ${module.name}`,
+        description: `${module.name} status and contribution inside ${economy.name}.`,
+        groupId: economy.slug,
+        groupLabel: economy.name,
+        groupDescription:
+          "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
+        groupOrder,
+        groupRole: "detail",
+        treeParentId: `${economy.slug}-readiness`,
+        defaultVisible: false,
+        align: "right",
+        widthClassName: "min-w-[11rem]",
+        renderCell: (row) => (
+          <GlobalEconomyModuleCell
+            row={row}
+            economy={economy}
+            moduleSlug={module.slug}
+          />
+        ),
+      }),
+    );
+
+    return [scoreColumn, ...moduleColumns];
+  });
+
+  const ecosystemBranch: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  >[] = [
     {
       id: "ecosystemScore",
       label: "Ecosystem Score",
-      description: "Vitality score built from protocols and ecosystem project density.",
-      groupId: "core-global",
-      groupLabel: "Global overview",
-      groupDescription: "Core comparative scores for the holistic chain ranking.",
-      groupOrder: 0,
+      description:
+        "Vitality score built from protocols and ecosystem project density.",
+      groupId: "ecosystem-signals",
+      groupLabel: "Ecosystem activity signals",
+      groupDescription:
+        "Open this section to show or hide the underlying ecosystem activity metrics.",
+      groupOrder: 12,
       groupRole: "summary",
       treeParentId: "totalScore",
       defaultVisible: true,
@@ -327,69 +401,6 @@ export function createGlobalRankingColumns(
       sortKey: "ecosystemScore",
       widthClassName: "min-w-[9rem]",
       renderCell: (row) => formatScore(row.score.ecosystemScore),
-    },
-    {
-      id: "adoptionScore",
-      label: "Adoption Score",
-      description: "Wallet and active-user signals normalized into the Atlas scale.",
-      groupId: "core-global",
-      groupLabel: "Global overview",
-      groupDescription: "Core comparative scores for the holistic chain ranking.",
-      groupOrder: 0,
-      groupRole: "summary",
-      treeParentId: "totalScore",
-      defaultVisible: true,
-      align: "right",
-      sortKey: "adoptionScore",
-      widthClassName: "min-w-[9rem]",
-      renderCell: (row) => formatScore(row.score.adoptionScore),
-    },
-    {
-      id: "performanceScore",
-      label: "Performance Score",
-      description: "Technical performance score from transaction speed, block time, and throughput.",
-      groupId: "technical-performance",
-      groupLabel: "Technical performance",
-      groupDescription:
-        "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
-      groupOrder: 15,
-      groupRole: "summary",
-      treeParentId: "totalScore",
-      defaultVisible: true,
-      align: "right",
-      sortKey: "performanceScore",
-      widthClassName: "min-w-[9rem]",
-      renderCell: (row) => formatScore(row.score.performanceScore),
-    },
-    {
-      id: "wallets",
-      label: "Wallets",
-      description: "Seeded wallet count snapshot used by the global model.",
-      groupId: "adoption-signals",
-      groupLabel: "Adoption signals",
-      groupDescription: "Open this section to show or hide the underlying adoption metrics.",
-      groupOrder: 10,
-      groupRole: "detail",
-      treeParentId: "adoptionScore",
-      defaultVisible: false,
-      align: "right",
-      widthClassName: "min-w-[9rem]",
-      renderCell: (row) => formatCountCompact(row.score.metrics.wallets),
-    },
-    {
-      id: "activeUsers",
-      label: "Active Users",
-      description: "Seeded active-user snapshot used by the global model.",
-      groupId: "adoption-signals",
-      groupLabel: "Adoption signals",
-      groupDescription: "Open this section to show or hide the underlying adoption metrics.",
-      groupOrder: 10,
-      groupRole: "detail",
-      treeParentId: "adoptionScore",
-      defaultVisible: false,
-      align: "right",
-      widthClassName: "min-w-[9rem]",
-      renderCell: (row) => formatCountCompact(row.score.metrics.activeUsers),
     },
     {
       id: "protocols",
@@ -421,12 +432,94 @@ export function createGlobalRankingColumns(
       defaultVisible: false,
       align: "right",
       widthClassName: "min-w-[11rem]",
-      renderCell: (row) => formatCountCompact(row.score.metrics.ecosystemProjects),
+      renderCell: (row) =>
+        formatCountCompact(row.score.metrics.ecosystemProjects),
+    },
+  ];
+
+  const adoptionBranch: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  >[] = [
+    {
+      id: "adoptionScore",
+      label: "Adoption Score",
+      description:
+        "Wallet and active-user signals normalized into the Atlas scale.",
+      groupId: "adoption-signals",
+      groupLabel: "Adoption signals",
+      groupDescription:
+        "Open this section to show or hide the underlying adoption metrics.",
+      groupOrder: 10,
+      groupRole: "summary",
+      treeParentId: "totalScore",
+      defaultVisible: true,
+      align: "right",
+      sortKey: "adoptionScore",
+      widthClassName: "min-w-[9rem]",
+      renderCell: (row) => formatScore(row.score.adoptionScore),
+    },
+    {
+      id: "wallets",
+      label: "Wallets",
+      description: "Seeded wallet count snapshot used by the global model.",
+      groupId: "adoption-signals",
+      groupLabel: "Adoption signals",
+      groupDescription:
+        "Open this section to show or hide the underlying adoption metrics.",
+      groupOrder: 10,
+      groupRole: "detail",
+      treeParentId: "adoptionScore",
+      defaultVisible: false,
+      align: "right",
+      widthClassName: "min-w-[9rem]",
+      renderCell: (row) => formatCountCompact(row.score.metrics.wallets),
+    },
+    {
+      id: "activeUsers",
+      label: "Active Users",
+      description: "Seeded active-user snapshot used by the global model.",
+      groupId: "adoption-signals",
+      groupLabel: "Adoption signals",
+      groupDescription:
+        "Open this section to show or hide the underlying adoption metrics.",
+      groupOrder: 10,
+      groupRole: "detail",
+      treeParentId: "adoptionScore",
+      defaultVisible: false,
+      align: "right",
+      widthClassName: "min-w-[9rem]",
+      renderCell: (row) => formatCountCompact(row.score.metrics.activeUsers),
+    },
+  ];
+
+  const performanceBranch: RankingColumnDefinition<
+    GlobalRankedChain,
+    GlobalRankingsSortKey
+  >[] = [
+    {
+      id: "performanceScore",
+      label: "Performance Score",
+      description:
+        "Technical performance score from transaction speed, block time, and throughput.",
+      groupId: "technical-performance",
+      groupLabel: "Technical performance",
+      groupDescription:
+        "Performance Score is visible by default. Open this section to show or hide its underlying metrics.",
+      groupOrder: 15,
+      groupRole: "summary",
+      treeParentId: "totalScore",
+      defaultVisible: true,
+      align: "right",
+      sortKey: "performanceScore",
+      widthClassName: "min-w-[9rem]",
+      renderCell: (row) => formatScore(row.score.performanceScore),
     },
     {
       id: "averageTransactionSpeed",
       label: "Avg Tx Speed",
-      description: "Average transaction speed input for performance scoring.",
+      description:
+        "Average transaction speed input for performance scoring.",
       groupId: "technical-performance",
       groupLabel: "Technical performance",
       groupDescription:
@@ -458,7 +551,8 @@ export function createGlobalRankingColumns(
     {
       id: "throughputIndicator",
       label: "Throughput",
-      description: "Throughput indicator input for performance scoring.",
+      description:
+        "Throughput indicator input for performance scoring.",
       groupId: "technical-performance",
       groupLabel: "Technical performance",
       groupDescription:
@@ -472,55 +566,16 @@ export function createGlobalRankingColumns(
       renderCell: (row) =>
         formatCountCompact(row.score.metrics.throughputIndicator),
     },
-    ...economies.flatMap((economy, economyIndex) => {
-      const groupOrder = economyIndex + 1;
-      const scoreColumn: RankingColumnDefinition<
-        GlobalRankedChain,
-        GlobalRankingsSortKey
-      > = {
-        id: `${economy.slug}-readiness`,
-        label: `${economy.shortLabel} Readiness`,
-        description: `${economy.name} score within the current Atlas benchmark.`,
-        groupId: economy.slug,
-        groupLabel: economy.name,
-        groupDescription:
-          "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
-        groupOrder,
-        groupRole: "summary",
-        treeParentId: "economyCompositeScore",
-        defaultVisible: true,
-        align: "right",
-        widthClassName: "min-w-[10rem]",
-        renderCell: (row) => <GlobalEconomyScoreCell row={row} economy={economy} />,
-      };
+  ];
 
-      const moduleColumns = getGlobalEconomyDisplayModules(economy).map(
-        (module): RankingColumnDefinition<GlobalRankedChain, GlobalRankingsSortKey> => ({
-          id: `${economy.slug}:${module.slug}`,
-          label: `${economy.shortLabel} ${module.name}`,
-          description: `${module.name} status and contribution inside ${economy.name}.`,
-          groupId: economy.slug,
-          groupLabel: economy.name,
-          groupDescription:
-            "Readiness is visible by default. Open this economy to show or hide the module-level composition.",
-          groupOrder,
-          groupRole: "detail",
-          treeParentId: `${economy.slug}-readiness`,
-          defaultVisible: false,
-          align: "right",
-          widthClassName: "min-w-[11rem]",
-          renderCell: (row) => (
-            <GlobalEconomyModuleCell
-              row={row}
-              economy={economy}
-              moduleSlug={module.slug}
-            />
-          ),
-        }),
-      );
-
-      return [scoreColumn, ...moduleColumns];
-    }),
+  return [
+    chainColumn,
+    globalScoreColumn,
+    economyCompositeColumn,
+    ...readinessColumns,
+    ...ecosystemBranch,
+    ...adoptionBranch,
+    ...performanceBranch,
   ];
 }
 

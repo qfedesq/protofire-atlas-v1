@@ -18,6 +18,12 @@ export function ImprovementPathSection({
     (sum, recommendation) => sum + recommendation.potentialScoreLift,
     0,
   );
+  const missingModuleCount = profile.gapAnalysis.filter(
+    (gap) => gap.status === "missing",
+  ).length;
+  const partialModuleCount = profile.gapAnalysis.filter(
+    (gap) => gap.status === "partial",
+  ).length;
 
   return (
     <section className="space-y-6" id="suggested-activations">
@@ -30,12 +36,12 @@ export function ImprovementPathSection({
         </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
           Atlas turns open gaps into a deterministic Protofire activation path.
-          This section shows what is missing, what moves the score fastest, and
-          how the rollout should sequence.
+          Read this section in order: blockers first, the recommended
+          Protofire stack second, then the rollout sequence.
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="grid gap-4 xl:grid-cols-3">
         <Panel className="space-y-3">
           <p className="text-muted text-xs tracking-[0.16em] uppercase">
             Roadmap fit
@@ -57,10 +63,33 @@ export function ImprovementPathSection({
             Protofire modules under the active assumptions.
           </p>
         </Panel>
+        <Panel className="space-y-3">
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Score blockers
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+            <div>
+              <p className="text-muted text-sm">Missing modules</p>
+              <p className="text-foreground mt-2 text-4xl font-semibold tracking-tight">
+                {missingModuleCount}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted text-sm">Partial modules</p>
+              <p className="text-foreground mt-2 text-4xl font-semibold tracking-tight">
+                {partialModuleCount}
+              </p>
+            </div>
+          </div>
+          <p className="text-muted text-sm leading-6">
+            These are the remaining blockers keeping the current score below its
+            reachable ceiling in this wedge.
+          </p>
+        </Panel>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <div className="space-y-6">
+      <div className="grid gap-6 2xl:grid-cols-[0.9fr_1.1fr]">
+        <div className="space-y-4">
           <div className="space-y-4">
             <div>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">
@@ -75,21 +104,9 @@ export function ImprovementPathSection({
               economyLabel={profile.economy.name}
             />
           </div>
-
-          <div className="space-y-4">
-            <div>
-              <p className="text-accent text-xs tracking-[0.16em] uppercase">
-                Score drivers
-              </p>
-              <h3 className="text-foreground mt-2 text-xl font-semibold">
-                Highest-upside improvements
-              </h3>
-            </div>
-            <ScoreDriversSection drivers={profile.scoreDrivers} />
-          </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="space-y-4">
             <div>
               <p className="text-accent text-xs tracking-[0.16em] uppercase">
@@ -101,19 +118,31 @@ export function ImprovementPathSection({
             </div>
             <RecommendedStackSection stack={profile.recommendedStack} />
           </div>
-
-          <div className="space-y-4">
-            <div>
-              <p className="text-accent text-xs tracking-[0.16em] uppercase">
-                Deployment plan
-              </p>
-              <h3 className="text-foreground mt-2 text-xl font-semibold">
-                Sequenced rollout
-              </h3>
-            </div>
-            <DeploymentPlanSection plan={profile.deploymentPlan} />
-          </div>
         </div>
+      </div>
+
+      <div className="space-y-4">
+        <div>
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Score drivers
+          </p>
+          <h3 className="text-foreground mt-2 text-xl font-semibold">
+            Highest-upside improvements
+          </h3>
+        </div>
+        <ScoreDriversSection drivers={profile.scoreDrivers} />
+      </div>
+
+      <div className="space-y-4">
+        <div>
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Deployment plan
+          </p>
+          <h3 className="text-foreground mt-2 text-xl font-semibold">
+            Sequenced rollout
+          </h3>
+        </div>
+        <DeploymentPlanSection plan={profile.deploymentPlan} />
       </div>
     </section>
   );

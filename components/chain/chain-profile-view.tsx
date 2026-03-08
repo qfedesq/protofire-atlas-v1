@@ -14,7 +14,6 @@ import { ExpandableSection } from "@/components/ui/expandable-section";
 import { Panel } from "@/components/ui/panel";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
-import { BenchmarkStrip } from "@/components/chain/benchmark-strip";
 
 export function ChainProfileView({
   profile,
@@ -31,33 +30,41 @@ export function ChainProfileView({
   const partialModuleCount = profile.gapAnalysis.filter(
     (gap) => gap.status === "partial",
   ).length;
+  const totalPotentialLift = profile.recommendedStack.recommendedModules.reduce(
+    (sum, recommendation) => sum + recommendation.potentialScoreLift,
+    0,
+  );
 
   return (
     <div className="space-y-8">
       <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Economy wedge
-          </p>
-          <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-tight">
-            {profile.economy.name}
-          </h2>
-          <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
-            Switch the same chain across economy wedges to compare how readiness,
-            gaps, and deployment sequencing change by market.
-          </p>
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="text-accent text-xs tracking-[0.16em] uppercase">
+              Economy wedge
+            </p>
+            <h2 className="text-foreground mt-2 text-3xl font-semibold tracking-tight">
+              {profile.economy.name}
+            </h2>
+            <p className="text-muted mt-3 max-w-3xl text-sm leading-6">
+              Switch the same chain across economy wedges to compare how
+              readiness, gaps, and deployment sequencing change by market.
+            </p>
+          </div>
+          <div className="lg:min-w-[32rem]">
+            <EconomySwitcher
+              economies={economies}
+              selectedEconomy={profile.economy.slug}
+              buildHref={(economySlug) =>
+                `/chains/${profile.chain.slug}?economy=${economySlug}`
+              }
+            />
+          </div>
         </div>
-        <EconomySwitcher
-          economies={economies}
-          selectedEconomy={profile.economy.slug}
-          buildHref={(economySlug) =>
-            `/chains/${profile.chain.slug}?economy=${economySlug}`
-          }
-        />
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-[1.7fr_0.9fr]">
-        <Panel>
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_minmax(22rem,0.75fr)]">
+        <Panel className="space-y-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-muted text-xs tracking-[0.18em] uppercase">
@@ -88,39 +95,75 @@ export function ChainProfileView({
               </a>
             ) : null}
           </div>
+
+          <div className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-3">
+            <div>
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Current rank
+              </p>
+              <p className="text-foreground mt-2 text-2xl font-semibold">
+                #{profile.rank}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Missing modules
+              </p>
+              <p className="text-foreground mt-2 text-2xl font-semibold">
+                {missingModuleCount}
+              </p>
+            </div>
+            <div>
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Immediate score upside
+              </p>
+              <p className="text-foreground mt-2 text-2xl font-semibold">
+                +{formatScore(totalPotentialLift)}
+              </p>
+            </div>
+          </div>
         </Panel>
-        <Panel>
+        <Panel className="space-y-5">
           <p className="text-accent text-xs tracking-[0.16em] uppercase">
             Primary score
           </p>
-          <h2 className="text-foreground mt-2 text-xl font-semibold">
-            {profile.economy.shortLabel} score
-          </h2>
-          <p className="text-foreground mt-4 text-6xl font-semibold tracking-tight">
-            {formatScore(profile.readinessScore.totalScore)}
-            <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
+          <div className="space-y-2">
+            <h2 className="text-foreground text-xl font-semibold">
+              {profile.economy.shortLabel} score
+            </h2>
+            <p className="text-foreground text-6xl font-semibold tracking-tight">
+              {formatScore(profile.readinessScore.totalScore)}
+              <span className="text-muted ml-2 text-2xl font-medium">/ 10</span>
+            </p>
+            <p className="text-foreground text-lg font-medium">
+              Rank #{profile.rank} in the current {profile.economy.shortLabel} benchmark
+            </p>
+          </div>
+          <p className="text-muted text-sm leading-6">
+            This is the main score to watch. It measures how ready{" "}
+            {profile.chain.name} is to support the selected economy under the
+            active Atlas model, and it is the benchmark Protofire can improve
+            directly through infrastructure activation.
           </p>
-          <p className="text-muted mt-3 text-sm leading-6">
-            {profile.chain.name} currently ranks #{profile.rank} in the{" "}
-            {profile.economy.name} benchmark. The score below reflects the
-            weighted module posture under the active Atlas assumptions.
-          </p>
-          <div className="border-border/70 text-muted mt-6 divide-y border-t text-sm">
-            <div className="flex items-center justify-between gap-3 py-3">
-              <p className="text-foreground font-medium">Missing modules</p>
-              <p className="text-foreground font-semibold">{missingModuleCount}</p>
+          <div className="border-border/70 grid gap-4 border-t pt-4 sm:grid-cols-2">
+            <div>
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Partial modules
+              </p>
+              <p className="text-foreground mt-2 text-2xl font-semibold">
+                {partialModuleCount}
+              </p>
             </div>
-            <div className="flex items-center justify-between gap-3 py-3">
-              <p className="text-foreground font-medium">Partial modules</p>
-              <p className="text-foreground font-semibold">{partialModuleCount}</p>
+            <div>
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Next activation focus
+              </p>
+              <p className="text-foreground mt-2 text-2xl font-semibold">
+                {profile.recommendedStack.recommendedModules[0]?.module.name ??
+                  "No immediate gap"}
+              </p>
             </div>
           </div>
-          <BenchmarkStrip
-            rank={profile.rank}
-            leader={profile.leader}
-            leaderGap={profile.leaderGap}
-            chainsOutranked={profile.chainsOutranked}
-          />
         </Panel>
       </section>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronDown } from "lucide-react";
 
 import { StatusBadge } from "@/components/ui/status-badge";
 import type {
@@ -148,42 +148,46 @@ export function RankingsTable({
                     >
                       {row.chain.name}
                     </Link>
-                    <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
-                      {row.chain.category} • source TVL rank #{row.chain.sourceRank}
-                    </p>
-                    <p className="text-muted mt-2 text-xs leading-5">
-                      {row.chain.sourceProvider} snapshot {row.chain.sourceSnapshotDate} •{" "}
+                    <p className="text-foreground mt-2 text-sm font-medium">
+                      {row.chain.category} • source TVL rank #{row.chain.sourceRank} ·{" "}
                       {formatCurrencyCompact(row.chain.sourceTvlUsd)}
                     </p>
-                    <p className="text-muted mt-2 max-w-xs text-sm leading-6">
-                      {row.chain.shortDescription}
+                    <p className="text-foreground mt-2 text-sm font-medium">
+                      Offer fit:{" "}
+                      <span className="text-accent font-semibold">
+                        {roadmapFit.offerFitLabel}
+                      </span>
                     </p>
-                    <div className="mt-3 space-y-1 text-xs leading-5">
-                      <p className="text-muted">
-                        Roadmap stage:{" "}
-                        <span className="text-foreground font-medium">
-                          {row.chain.roadmap.stageLabel}
-                        </span>
-                      </p>
-                      <p className="text-muted">
-                        Offer fit:{" "}
-                        <span className="text-foreground font-medium">
-                          {roadmapFit.offerFitLabel}
-                        </span>
-                      </p>
-                      {row.chain.roadmap.sourceUrl ? (
-                        <a
-                          href={row.chain.roadmap.sourceUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-accent inline-flex font-medium hover:underline"
-                        >
-                          {row.chain.roadmap.sourceLabel}
-                        </a>
-                      ) : (
-                        <p className="text-muted">{row.chain.roadmap.sourceLabel}</p>
-                      )}
-                    </div>
+                    <p className="text-muted mt-2 text-sm font-medium">
+                      Roadmap stage:{" "}
+                      <span className="text-foreground font-medium">
+                        {row.chain.roadmap.stageLabel}
+                      </span>
+                    </p>
+                    <details className="group mt-3 max-w-md">
+                      <summary className="text-accent flex cursor-pointer list-none items-center gap-2 text-sm font-semibold">
+                        More details
+                        <ChevronDown className="h-4 w-4 transition group-open:rotate-180" />
+                      </summary>
+                      <div className="border-border/60 bg-surface-muted mt-3 space-y-3 rounded-2xl border p-4 text-sm leading-6">
+                        <p className="text-muted">
+                          &ldquo;{row.chain.shortDescription}&rdquo;
+                        </p>
+                        <p className="text-muted">{row.chain.roadmap.stageSummary}</p>
+                        {row.chain.roadmap.sourceUrl ? (
+                          <a
+                            href={row.chain.roadmap.sourceUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-accent inline-flex font-medium hover:underline"
+                          >
+                            {row.chain.roadmap.sourceLabel}
+                          </a>
+                        ) : (
+                          <p className="text-muted">{row.chain.roadmap.sourceLabel}</p>
+                        )}
+                      </div>
+                    </details>
                   </td>
                   <td className="px-5 py-4">
                     <div className="text-foreground text-2xl font-semibold">

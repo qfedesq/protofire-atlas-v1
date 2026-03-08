@@ -111,7 +111,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <section className="space-y-4">
         <Panel>
-          <p className="bg-surface-muted text-foreground inline-flex rounded-full px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="bg-white text-foreground inline-flex rounded-full border border-slate-200 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
             Public Atlas MVP
           </p>
           <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-5xl">

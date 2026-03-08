@@ -4,7 +4,7 @@ import { atlasVersion } from "@/lib/config/version";
 
 describe("atlas version", () => {
   it("derives the public label from package metadata", () => {
-    expect(atlasVersion.semver).toBe("1.7.0");
-    expect(atlasVersion.label).toBe("V1.7");
+    expect(atlasVersion.semver).toBe("1.8.0");
+    expect(atlasVersion.label).toBe("V1.8");
   });
 });

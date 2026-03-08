@@ -38,6 +38,7 @@ describe("RankingsTable", () => {
     expect(screen.getByText(/source TVL rank #5/i)).toBeInTheDocument();
     expect(screen.getAllByText(/Roadmap stage:/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Offer fit:/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("More details").length).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Sort Chain ascending" }),
     ).toHaveAttribute("href", "/?economy=ai-agents&sort=name&direction=asc");
@@ -55,6 +56,7 @@ describe("RankingsTable", () => {
     expect(rankHeader).toHaveClass("top-0");
     expect(screen.queryByText(/Gap to leader:/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/% weight/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/DeFiLlama snapshot 2026-03-07/i)).not.toBeInTheDocument();
   });
 
   it("renders an empty state when no rows match", () => {

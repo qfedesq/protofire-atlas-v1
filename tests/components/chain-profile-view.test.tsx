@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { ChainProfileView } from "@/components/chain/chain-profile-view";
@@ -44,10 +44,14 @@ describe("ChainProfileView", () => {
     expect(
       screen.getByRole("link", { name: "Open suggested activations" }),
     ).toHaveAttribute("href", "#suggested-activations");
+    expect(screen.getAllByText("Atlas score lift").length).toBeGreaterThan(0);
     expect(
       screen
         .getByText("Roadmap fit, gaps, score drivers, peers, and stack")
         .closest("details"),
+    ).not.toHaveAttribute("open");
+    expect(
+      screen.getByText("AI Agents modules").closest("details"),
     ).not.toHaveAttribute("open");
   });
 
@@ -68,25 +72,17 @@ describe("ChainProfileView", () => {
     );
 
     expect(screen.getAllByText("Liquid Staking Infrastructure").length).toBeGreaterThan(0);
-    expect(
-      screen.getByRole("heading", { name: "7-module diagnosis" }),
-    ).toBeInTheDocument();
+    expect(screen.getAllByText("7-module diagnosis").length).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Open diagnosis" }),
     ).toHaveAttribute("href", "#liquid-staking-diagnosis");
-    const diagnosisSection = screen
-      .getByRole("heading", { name: "7-module diagnosis" })
-      .closest("section");
-
-    if (!diagnosisSection) {
-      throw new Error("Expected liquid staking diagnosis section");
-    }
-
     expect(
-      within(diagnosisSection).getAllByText("Liquidity & Exit").length,
-    ).toBeGreaterThan(0);
-    expect(
-      within(diagnosisSection).getAllByText("Stress Resilience").length,
-    ).toBeGreaterThan(0);
+      screen.getAllByText("7-module diagnosis")[0]?.closest("details"),
+    ).not.toHaveAttribute("open");
+    expect(screen.getByText("LST market snapshot").closest("details")).not.toHaveAttribute(
+      "open",
+    );
+    expect(screen.getAllByText("Liquidity & Exit").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Stress Resilience").length).toBeGreaterThan(0);
   });
 });

@@ -119,26 +119,29 @@ export function ChainProfileView({
 
       <ShareableScorecard profile={profile} />
 
-      <section className="space-y-4">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Module-by-module status
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            {profile.economy.shortLabel} modules
-          </h2>
-        </div>
+      <ExpandableSection
+        id="module-status"
+        eyebrow="Module-by-module status"
+        title={`${profile.economy.shortLabel} modules`}
+      >
         <ModuleStatusGrid
           readinessScore={profile.readinessScore}
           liquidStakingDiagnosis={profile.liquidStakingDiagnosis}
         />
-      </section>
+      </ExpandableSection>
 
       {profile.liquidStakingDiagnosis ? (
-        <LiquidStakingDiagnosisSection
-          diagnosis={profile.liquidStakingDiagnosis}
-          marketSnapshot={profile.liquidStakingMarketSnapshot}
-        />
+        <ExpandableSection
+          id="liquid-staking-diagnosis"
+          eyebrow="Liquid staking"
+          title="7-module diagnosis"
+          description="Atlas uses a dedicated seven-part lens for liquid staking to make exit quality, peg behavior, DeFi utility, validator risk, and stress handling visible chain by chain."
+        >
+          <LiquidStakingDiagnosisSection
+            diagnosis={profile.liquidStakingDiagnosis}
+            marketSnapshot={profile.liquidStakingMarketSnapshot}
+          />
+        </ExpandableSection>
       ) : null}
 
       <ExpandableSection

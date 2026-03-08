@@ -209,8 +209,12 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
       "bnb-chain",
       "BNB",
       {
-        marketCapUsd: 84_551_751_572,
+        marketCapUsd: 84_373_859_356,
+        percentStaked: 19.3,
+        stakingApyPercent: 7.11,
+        stakersCount: 20_000,
         lstProtocolCount: 14,
+        lstToStakedPercent: 4,
       },
       {
         marketCapUsd: {
@@ -220,28 +224,34 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
           note: "CoinGecko BNB market cap snapshot captured on 2026-03-07.",
         },
         percentStaked: {
-          provider: "Official validator source pending",
-          url: "https://www.bnbchain.org/en",
-          status: "pending",
-          note: "BNB staking ratio still needs a stable official validator or staking source for a reproducible snapshot.",
+          provider: "Atlas derived from BNB Chain + CoinGecko",
+          url: "https://www.bnbchain.org/en/staking",
+          status: "captured",
+          note: "Derived from the official BNB Chain staking dashboard total of 26,316,700.4613 BNB staked against the current CoinGecko circulating supply proxy. Current snapshot: 19.3%.",
         },
         stakingApyPercent: {
-          provider: "Official validator source pending",
-          url: "https://www.bnbchain.org/en",
-          status: "pending",
-          note: "BNB staking APY still needs a stable official validator or staking source for a reproducible snapshot.",
+          provider: "BNB Chain staking dashboard",
+          url: "https://www.bnbchain.org/en/staking",
+          status: "captured",
+          note: "The official BNB Chain staking dashboard currently lists up to 7.11% APY.",
         },
         stakersCount: {
-          provider: "Official validator source pending",
-          url: "https://www.bnbchain.org/en",
-          status: "pending",
-          note: "BNB staking participation count still needs a stable official validator or staking source for a reproducible snapshot.",
+          provider: "BNB Chain docs",
+          url: "https://docs.bnbchain.org/bnb-smart-chain/staking/overview/",
+          status: "captured",
+          note: "BNB Chain docs state more than 20K delegators currently participate in staking. Atlas uses a conservative floor of 20,000 for the snapshot.",
         },
         lstProtocolCount: {
           provider: "DeFiLlama",
           url: "https://api.llama.fi/protocols",
           status: "captured",
           note: "DeFiLlama currently tracks 14 liquid staking protocols on Binance.",
+        },
+        lstToStakedPercent: {
+          provider: "Atlas derived from official BNB Chain liquid staking page",
+          url: "https://www.bnbchain.org/en/bnb-liquid-staking",
+          status: "captured",
+          note: "Derived from the official BNB Chain liquid staking provider balances currently listed on the public liquid staking page over the official BNB staked base. Current snapshot rounds to 4.0%.",
         },
       },
     ),
@@ -373,7 +383,39 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
         },
       },
     ),
-    createSnapshot("mantle", "MNT"),
+    createSnapshot(
+      "mantle",
+      "MNT",
+      {
+        marketCapUsd: 2_202_078_627,
+      },
+      {
+        marketCapUsd: {
+          provider: "CoinGecko",
+          url: "https://api.coingecko.com/api/v3/coins/mantle",
+          status: "captured",
+          note: "CoinGecko MNT market cap snapshot captured on 2026-03-07.",
+        },
+        percentStaked: {
+          provider: "Mantle official sources pending normalization",
+          url: "https://www.mantle.xyz",
+          status: "pending",
+          note: "Mantle liquid staking is currently centered on mETH. Atlas still needs a clean chain-level source for a reproducible native-token staking ratio snapshot.",
+        },
+        stakingApyPercent: {
+          provider: "Mantle official sources pending normalization",
+          url: "https://www.mantle.xyz",
+          status: "pending",
+          note: "Mantle exposes liquid staking through mETH, but Atlas still needs a stable public source for a chain-level staking APY snapshot.",
+        },
+        stakersCount: {
+          provider: "Mantle official sources pending normalization",
+          url: "https://www.mantle.xyz",
+          status: "pending",
+          note: "Atlas still needs a reproducible official source for Mantle staking participation counts.",
+        },
+      },
+    ),
     createSnapshot("ink"),
     createSnapshot("monad"),
     createSnapshot(
@@ -390,7 +432,46 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
       ethBasedL2SourceOverrides("Scroll", 0, 0),
     ),
     createSnapshot("cronos", "CRO"),
-    createSnapshot("berachain", "BERA"),
+    createSnapshot(
+      "berachain",
+      "BERA",
+      {
+        marketCapUsd: 121_397_602,
+        stakersCount: 69,
+      },
+      {
+        marketCapUsd: {
+          provider: "CoinGecko",
+          url: "https://api.coingecko.com/api/v3/coins/berachain-bera",
+          status: "captured",
+          note: "CoinGecko BERA market cap snapshot captured on 2026-03-07.",
+        },
+        percentStaked: {
+          provider: "Berachain official source pending normalization",
+          url: "https://docs.berachain.com/validators/overview/node-architecture",
+          status: "pending",
+          note: "Berachain exposes validator deposits and staking pools, but Atlas still needs a clean chain-level staking ratio snapshot.",
+        },
+        stakingApyPercent: {
+          provider: "Berachain official source pending normalization",
+          url: "https://docs.berachain.com/validators/overview/node-architecture",
+          status: "pending",
+          note: "Berachain rewards are documented through validator block rewards and pool mechanics. Atlas still needs a stable public APR surface for a snapshot.",
+        },
+        stakersCount: {
+          provider: "Berachain validator docs",
+          url: "https://docs.berachain.com/validators/overview/node-architecture",
+          status: "captured",
+          note: "Berachain docs currently cap the active validator set at 69. Atlas uses that as the closest public participation proxy.",
+        },
+        lstProtocolCount: {
+          provider: "Berachain validator docs",
+          url: "https://docs.berachain.com/validators/overview/node-architecture",
+          status: "pending",
+          note: "Berachain docs confirm staking pools and stBERA support, but Atlas still needs a stable public protocol-count snapshot.",
+        },
+      },
+    ),
     createSnapshot(
       "optimism",
       "ETH",
@@ -420,7 +501,51 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
     ),
     createSnapshot("hedera", "HBAR"),
     createSnapshot("plume", "PLUME"),
-    createSnapshot("rootstock", "RBTC"),
+    createSnapshot(
+      "rootstock",
+      "RBTC",
+      {
+        marketCapUsd: 4_279_571_896,
+      },
+      {
+        marketCapUsd: {
+          provider: "CoinGecko",
+          url: "https://api.coingecko.com/api/v3/coins/rootstock",
+          status: "captured",
+          note: "CoinGecko RBTC market cap snapshot captured on 2026-03-07.",
+        },
+        percentStaked: {
+          provider: "Rootstock official docs",
+          url: "https://rootstock.io",
+          status: "not-applicable",
+          note: "Rootstock is secured through Bitcoin merge mining rather than a PoS validator staking set, so a native percent-staked metric does not apply.",
+        },
+        stakingApyPercent: {
+          provider: "Rootstock official docs",
+          url: "https://rootstock.io",
+          status: "not-applicable",
+          note: "Rootstock does not expose a native staking APY because security comes from merge mining, not validator staking rewards.",
+        },
+        stakersCount: {
+          provider: "Rootstock official docs",
+          url: "https://rootstock.io",
+          status: "not-applicable",
+          note: "Rootstock does not maintain a native staker or validator set comparable to PoS networks.",
+        },
+        lstProtocolCount: {
+          provider: "Rootstock official docs",
+          url: "https://rootstock.io",
+          status: "not-applicable",
+          note: "Rootstock's security model is merge-mined and does not create a native liquid staking market for RBTC.",
+        },
+        lstToStakedPercent: {
+          provider: "Rootstock official docs",
+          url: "https://rootstock.io",
+          status: "not-applicable",
+          note: "Because Rootstock has no native staked validator base, Atlas does not compute an LST-over-staked ratio for RBTC.",
+        },
+      },
+    ),
     createSnapshot("megaeth"),
     createSnapshot("bitlayer"),
     createSnapshot("bob"),
@@ -429,6 +554,39 @@ export const liquidStakingMarketSnapshotSeeds: LiquidStakingMarketSnapshotSeed[]
     createSnapshot("mode", "ETH"),
     createSnapshot("ethereal"),
     createSnapshot("hemi"),
-    createSnapshot("sonic", "S"),
+    createSnapshot(
+      "sonic",
+      "S",
+      {
+        marketCapUsd: 145_293_221,
+        stakingApyPercent: 6,
+      },
+      {
+        marketCapUsd: {
+          provider: "CoinGecko",
+          url: "https://api.coingecko.com/api/v3/coins/sonic-3",
+          status: "captured",
+          note: "CoinGecko Sonic market cap snapshot captured on 2026-03-07.",
+        },
+        percentStaked: {
+          provider: "Sonic official source pending normalization",
+          url: "https://docs.soniclabs.com/sonic/tokenomics/staking",
+          status: "pending",
+          note: "Sonic docs explain staking incentives and bootstrap economics, but Atlas still needs a stable current percent-staked surface.",
+        },
+        stakingApyPercent: {
+          provider: "Sonic tokenomics docs",
+          url: "https://docs.soniclabs.com/sonic/tokenomics/staking",
+          status: "captured",
+          note: "Sonic docs state validator staking APR is around 6% during the bootstrap phase.",
+        },
+        stakersCount: {
+          provider: "Sonic official source pending normalization",
+          url: "https://docs.soniclabs.com/sonic/node-deployment/validator-node",
+          status: "pending",
+          note: "Atlas still needs a clean public validator or staker count snapshot for Sonic.",
+        },
+      },
+    ),
     createSnapshot("fraxtal"),
   ];

@@ -122,6 +122,13 @@ describe("recommendation engine", () => {
     expect(stack.recommendedModules[4]?.directChainImpact).toContain(
       "retain staked capital",
     );
+    expect(stack.recommendedModules[0]?.currentStatus).toBe("missing");
+    expect(stack.recommendedModules[0]?.potentialScoreLift).toBe(2);
+    expect(stack.recommendedModules[0]?.kpis).toEqual([
+      { label: "Atlas score lift", value: "+2.0 pts" },
+      { label: "Gap closure", value: "Missing -> available" },
+      { label: "Delivery window", value: "Phase 1 · Weeks 1-2" },
+    ]);
   });
 
   it("groups active phases into deterministic deployment phases with two-week timelines", () => {

@@ -154,7 +154,7 @@ export type LiquidStakingMetricSource = {
   provider: string;
   url: string;
   snapshotDate: string;
-  status: "captured" | "pending";
+  status: "captured" | "pending" | "not-applicable";
   note: string;
 };
 
@@ -270,6 +270,14 @@ export type RecommendationItem = {
   directChainImpact: string;
   deploymentPhaseKey: string;
   narrativeSummary: string;
+  currentStatus: Exclude<ModuleAvailabilityStatus, "available">;
+  potentialScoreLift: number;
+  kpis: RecommendationKpi[];
+};
+
+export type RecommendationKpi = {
+  label: string;
+  value: string;
 };
 
 export type DeploymentPhase = {

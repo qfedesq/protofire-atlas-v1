@@ -63,7 +63,39 @@ Atlas now includes captured market-snapshot values for:
 - Linea
 - Avalanche
 - Polygon
-- BNB Chain (partial coverage: market cap and `# of LSTs`)
+- BNB Chain
+  - captured: market cap, `% staked`, staking APY, delegator-count proxy, `# of LSTs`
+  - derived with primary sources: `LST / Staked %`
+- Mantle
+  - captured: market cap
+  - pending: native-token staking ratio, APY, and participation counts
+- Berachain
+  - captured: market cap, validator-set participation proxy
+  - pending: chain-level staking ratio and APR normalization
+- Sonic
+  - captured: market cap, bootstrap staking APR
+  - pending: chain-level staking ratio and participation counts
+- Rootstock
+  - captured: market cap
+  - not applicable: PoS staking ratio, staking APY, staker count, and LST-over-staked ratio because Rootstock is merge-mined rather than validator-staked
+
+## Current primary sources by network
+
+- BNB Chain
+  - staking dashboard: `https://www.bnbchain.org/en/staking`
+  - staking docs: `https://docs.bnbchain.org/bnb-smart-chain/staking/overview/`
+  - liquid staking page: `https://www.bnbchain.org/en/bnb-liquid-staking`
+- Mantle
+  - market cap: `https://api.coingecko.com/api/v3/coins/mantle`
+  - official liquid staking surface: Mantle `mETH` official pages and docs
+- Berachain
+  - validator architecture and staking pools: `https://docs.berachain.com/validators/overview/node-architecture`
+- Sonic
+  - staking tokenomics: `https://docs.soniclabs.com/sonic/tokenomics/staking`
+  - validator deployment docs: `https://docs.soniclabs.com/sonic/node-deployment/validator-node`
+- Rootstock
+  - official network docs: `https://rootstock.io`
+  - rationale: Rootstock security is merge-mined, so PoS staking metrics do not apply
 
 ## Storage
 
@@ -78,4 +110,4 @@ Atlas now includes captured market-snapshot values for:
 
 Atlas does not claim that these fields are live.
 This layer is a dated snapshot structure with explicit source references.
-Only captured fields are rendered as values today; the rest remain marked as `Pending source`.
+Only captured fields are rendered as values today; the rest remain marked as `Pending source` or `Not applicable`.

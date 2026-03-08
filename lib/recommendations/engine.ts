@@ -8,6 +8,7 @@ import type {
   RecommendedStack,
   RecommendationItem,
 } from "@/lib/domain/types";
+import { formatScore } from "@/lib/utils/format";
 
 const timelineSteps = [
   "Weeks 1-2",
@@ -21,6 +22,29 @@ function hasGap(
   module: ModuleBreakdown,
 ): module is ModuleBreakdown & { status: GapAnalysisItem["status"] } {
   return module.status !== "available";
+}
+
+function shouldRecommendModule(
+  economy: EconomyType,
+  module: ModuleBreakdown,
+): module is ModuleBreakdown & { status: GapAnalysisItem["status"] } {
+  const moduleScore = economy.scoringConfig.statusScores[module.status];
+
+  if (module.status === "missing") {
+    return (
+      economy.recommendationConfig.includeMissingRecommendations &&
+      moduleScore <= economy.recommendationConfig.thresholdScore
+    );
+  }
+
+  if (module.status === "partial") {
+    return (
+      economy.recommendationConfig.includePartialRecommendations &&
+      moduleScore <= economy.recommendationConfig.thresholdScore
+    );
+  }
+
+  return false;
 }
 
 export function buildGapAnalysis(
@@ -45,25 +69,7 @@ function buildRecommendationItems(
   moduleBreakdown: ModuleBreakdown[],
 ): RecommendationItem[] {
   return moduleBreakdown
-    .filter((module) => {
-      const moduleScore = economy.scoringConfig.statusScores[module.status];
-
-      if (module.status === "missing") {
-        return (
-          economy.recommendationConfig.includeMissingRecommendations &&
-          moduleScore <= economy.recommendationConfig.thresholdScore
-        );
-      }
-
-      if (module.status === "partial") {
-        return (
-          economy.recommendationConfig.includePartialRecommendations &&
-          moduleScore <= economy.recommendationConfig.thresholdScore
-        );
-      }
-
-      return false;
-    })
+    .filter((module) => shouldRecommendModule(economy, module))
     .map((module) => {
       const rule = economy.recommendationRules[module.module.slug]!;
       const isMissing = module.status === "missing";
@@ -78,6 +84,11 @@ function buildRecommendationItems(
           : rule.partialChainImpact,
         deploymentPhaseKey: rule.deploymentPhaseKey,
         narrativeSummary: isMissing ? rule.missingSummary : rule.partialSummary,
+        currentStatus: module.status,
+        potentialScoreLift:
+          (module.module.weight * economy.scoringConfig.maximumScore) / 100 -
+          module.weightedContribution,
+        kpis: [],
       };
     })
     .sort((left, right) => {
@@ -154,8 +165,37 @@ export function buildRecommendedStack(
   economy: EconomyType,
   moduleBreakdown: ModuleBreakdown[],
 ): RecommendedStack {
-  const recommendedModules = buildRecommendationItems(economy, moduleBreakdown);
-  const deploymentPhases = buildDeploymentPhases(economy, recommendedModules);
+  const recommendationDrafts = buildRecommendationItems(economy, moduleBreakdown);
+  const deploymentPhases = buildDeploymentPhases(economy, recommendationDrafts);
+  const phaseByKey = new Map(
+    deploymentPhases.map((phase) => [phase.key, phase] as const),
+  );
+  const recommendedModules = recommendationDrafts.map((recommendation) => {
+    const phase = phaseByKey.get(recommendation.deploymentPhaseKey);
+
+    return {
+      ...recommendation,
+      kpis: [
+        {
+          label: "Atlas score lift",
+          value: `+${formatScore(recommendation.potentialScoreLift)} pts`,
+        },
+        {
+          label: "Gap closure",
+          value:
+            recommendation.currentStatus === "missing"
+              ? "Missing -> available"
+              : "Partial -> available",
+        },
+        {
+          label: "Delivery window",
+          value: phase
+            ? `${phase.label} · ${phase.timelineLabel}`
+            : recommendation.deploymentPhaseKey,
+        },
+      ],
+    };
+  });
 
   return {
     chainId: chain.id,

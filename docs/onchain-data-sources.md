@@ -47,7 +47,29 @@ Current captured coverage:
 - Linea
 - Avalanche
 - Polygon
-- BNB Chain (partial)
+- BNB Chain
+- Mantle (market-cap capture only)
+- Berachain (market-cap + validator-set proxy)
+- Sonic (market-cap + bootstrap APR)
+- Rootstock (PoS staking metrics marked not applicable)
+
+Network-specific primary references currently used for the LST snapshot:
+
+- BNB Chain
+  - [BNB Chain staking dashboard](https://www.bnbchain.org/en/staking)
+  - [BNB Chain staking docs](https://docs.bnbchain.org/bnb-smart-chain/staking/overview/)
+  - [BNB Chain liquid staking page](https://www.bnbchain.org/en/bnb-liquid-staking)
+- Mantle
+  - [CoinGecko Mantle market snapshot](https://api.coingecko.com/api/v3/coins/mantle)
+  - Mantle official `mETH` surfaces for liquid staking context
+- Berachain
+  - [Berachain validator architecture docs](https://docs.berachain.com/validators/overview/node-architecture)
+- Sonic
+  - [Sonic staking tokenomics docs](https://docs.soniclabs.com/sonic/tokenomics/staking)
+  - [Sonic validator deployment docs](https://docs.soniclabs.com/sonic/node-deployment/validator-node)
+- Rootstock
+  - [Rootstock official docs](https://rootstock.io)
+  - Atlas marks PoS staking metrics as `not applicable` because Rootstock is secured by merge mining, not a validator-staking set
 
 ## Official roadmap sources
 

@@ -49,6 +49,21 @@ export function RecommendedStackSection({
                   </span>
                 </p>
               </div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {recommendation.kpis.map((kpi) => (
+                  <div
+                    key={`${recommendation.title}-${kpi.label}`}
+                    className="border-accent/20 bg-accent/8 rounded-2xl border p-4"
+                  >
+                    <p className="text-accent text-[11px] font-semibold tracking-[0.14em] uppercase">
+                      {kpi.label}
+                    </p>
+                    <p className="text-foreground mt-3 text-xl font-semibold tracking-tight">
+                      {kpi.value}
+                    </p>
+                  </div>
+                ))}
+              </div>
               <div className="text-muted mt-5 space-y-4 text-sm leading-6">
                 <div>
                   <p className="text-foreground font-medium">Why it matters</p>

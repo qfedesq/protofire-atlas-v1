@@ -74,24 +74,24 @@
   },
   "globalRanking": {
     "componentWeights": {
-      "economyScore": 50,
+      "economyScore": 55,
       "ecosystem": 20,
-      "adoption": 20,
+      "adoption": 15,
       "performance": 10
     },
     "economyCompositeWeights": {
-      "ai-agents": 25,
-      "defi-infrastructure": 25,
-      "rwa-infrastructure": 25,
-      "prediction-markets": 25
+      "ai-agents": 20,
+      "defi-infrastructure": 40,
+      "rwa-infrastructure": 20,
+      "prediction-markets": 20
     }
   },
   "opportunityScoring": {
     "weights": {
-      "tvlTier": 30,
-      "readinessGap": 30,
+      "tvlTier": 35,
+      "readinessGap": 20,
       "stackFit": 25,
-      "ecosystemSignal": 15
+      "ecosystemSignal": 20
     }
   }
 }

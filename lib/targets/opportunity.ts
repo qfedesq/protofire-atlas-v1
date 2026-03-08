@@ -104,8 +104,9 @@ export function buildTargetAccountRows(
   );
   const tvlValues = economyRankings.map((row) => Math.log10(row.chain.sourceTvlUsd + 1));
 
-  return economyRankings.map((row) => {
-    const globalPosition = globalBySlug.get(row.chain.slug);
+  return economyRankings
+    .map((row) => {
+      const globalPosition = globalBySlug.get(row.chain.slug);
 
     if (!globalPosition) {
       throw new Error(`Missing global position for ${row.chain.slug}.`);
@@ -142,29 +143,30 @@ export function buildTargetAccountRows(
       stackFitScore * (weights.stackFit / 100) +
       ecosystemSignalScore * (weights.ecosystemSignal / 100);
 
-    return {
-      chain: row.chain,
-      economy: row.economy,
-      readinessRank: row.benchmarkRank,
-      readinessScore: row.readinessScore,
-      readinessGap,
-      globalRank: globalPosition.benchmarkRank,
-      globalScore: globalPosition.score,
-      opportunity: {
-        chainId: row.chain.id,
-        economyType: row.economy.slug,
-        totalScore,
-        breakdown: {
-          tvlTierScore,
-          readinessGapScore,
-          stackFitScore,
-          ecosystemSignalScore,
+      return {
+        chain: row.chain,
+        economy: row.economy,
+        readinessRank: row.benchmarkRank,
+        readinessScore: row.readinessScore,
+        readinessGap,
+        globalRank: globalPosition.benchmarkRank,
+        globalScore: globalPosition.score,
+        opportunity: {
+          chainId: row.chain.id,
+          economyType: row.economy.slug,
+          totalScore,
+          breakdown: {
+            tvlTierScore,
+            readinessGapScore,
+            stackFitScore,
+            ecosystemSignalScore,
+          },
+          computedAt: globalPosition.score.computedAt,
         },
-        computedAt: globalPosition.score.computedAt,
-      },
-      priority: getPriorityLabel(totalScore),
-      missingModules,
-      recommendedStack,
-    };
-  });
+        priority: getPriorityLabel(totalScore),
+        missingModules,
+        recommendedStack,
+      };
+    })
+    .filter((row) => row.recommendedStack.recommendedModules.length > 0);
 }

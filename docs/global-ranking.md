@@ -54,17 +54,17 @@ Normalization rules:
 
 Global ranking component weights:
 
-- economy score: `50`
+- economy score: `55`
 - ecosystem: `20`
-- adoption: `20`
+- adoption: `15`
 - performance: `10`
 
 Economy composite weights:
 
-- AI Agents: `25`
-- DeFi Infrastructure: `25`
-- RWA Infrastructure: `25`
-- Prediction Markets: `25`
+- AI Agents: `20`
+- DeFi Infrastructure: `40`
+- RWA Infrastructure: `20`
+- Prediction Markets: `20`
 
 ## Editable assumptions
 

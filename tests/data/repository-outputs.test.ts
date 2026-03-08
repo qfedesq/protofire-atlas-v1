@@ -69,10 +69,13 @@ describe("seed repository outputs", () => {
     });
     const profile = repository.getTargetAccountProfile("base");
 
-    expect(rows).toHaveLength(120);
+    expect(rows).toHaveLength(117);
     expect(rows[0]?.opportunity.totalScore).toBeGreaterThanOrEqual(
       rows[1]?.opportunity.totalScore ?? 0,
     );
+    expect(
+      rows.every((row) => row.recommendedStack.recommendedModules.length > 0),
+    ).toBe(true);
     expect(profile?.profile.globalPosition.benchmarkRank).toBeGreaterThan(0);
     expect(profile?.outreachBrief.economyName).toBeTruthy();
   });

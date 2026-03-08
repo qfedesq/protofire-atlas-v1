@@ -27,7 +27,7 @@ describe("RootLayout", () => {
 
       expect(screen.getByAltText("Protofire")).toBeInTheDocument();
       expect(screen.getByText("Atlas")).toBeInTheDocument();
-      expect(screen.getByText("V1.12")).toBeInTheDocument();
+      expect(screen.getByText("V1.13")).toBeInTheDocument();
       expect(
         screen.getByRole("link", { name: "Global ranking" }),
       ).toHaveAttribute("href", "/rankings/global");

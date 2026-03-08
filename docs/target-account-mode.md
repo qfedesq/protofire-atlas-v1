@@ -36,10 +36,10 @@ All sub-scores are normalized to `0-10`.
 
 ## Defaults
 
-- TVL tier: `30`
-- readiness gap: `30`
+- TVL tier: `35`
+- readiness gap: `20`
 - stack fit: `25`
-- ecosystem signal: `15`
+- ecosystem signal: `20`
 
 ## Priority labels
 

@@ -84,6 +84,39 @@ Reason:
 - liquidity matters materially
 - indexing is important operationally but less foundational than resolution and market creation
 
+Global Chain Ranking:
+
+- Economy composite `55`
+- Ecosystem activity `20`
+- Adoption `15`
+- Technical performance `10`
+
+Economy composite split:
+
+- AI Agent Economy `20`
+- DeFi Infrastructure `40`
+- RWA Infrastructure `20`
+- Prediction Market Economy `20`
+
+Reason:
+
+- the holistic leaderboard should stay readiness-led
+- DeFi gets extra weight because it is the strongest broad-market infrastructure signal across the current top-30 EVM benchmark
+- adoption and performance still matter, but they are secondary to current infrastructure posture
+
+Target Account Mode:
+
+- TVL tier `35`
+- Readiness gap `20`
+- Stack fit `25`
+- Ecosystem signal `20`
+
+Reason:
+
+- commercial prioritization should not over-reward low-scale chains just because they have large gaps
+- TVL and ecosystem signal now push the shortlist toward chains with real market relevance
+- readiness gap and stack fit still keep the score anchored to what Protofire can materially improve
+
 ## Calibration workflow
 
 The current weights were calibrated by:
@@ -101,7 +134,8 @@ Calibration stayed deliberately narrow. Atlas does not use opaque or statistical
    - module weights
    - global status scores
 2. Keep total module weight at `100`.
-3. Run:
+3. Keep global ranking component weights, economy-composite weights, and opportunity weights at `100`.
+4. Run:
 
 ```bash
 npm run validate:data
@@ -109,7 +143,7 @@ npm run test
 npm run reports:generate
 ```
 
-4. Inspect the resulting top and bottom rankings before shipping the change.
+5. Inspect the resulting top and bottom rankings before shipping the change.
 
 ## Where scoring lives
 

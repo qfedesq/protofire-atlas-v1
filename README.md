@@ -212,7 +212,7 @@ npm run version:bump
 - working release line naming convention: repository name must end with `-v1`
 - current local package/release line: `protofire-atlas-v1`
 - workflow guidance: [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-- branch used for this phase: `codex/roadmap-fit-v1-6`
+- branch used for this phase: `codex/lst-snapshot-v1-7`
 
 ## Read this first
 

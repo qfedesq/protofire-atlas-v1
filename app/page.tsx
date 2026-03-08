@@ -110,14 +110,14 @@ export default async function Home({ searchParams }: HomePageProps) {
       />
 
       <section className="space-y-4">
-        <Panel className="protofire-dark-panel text-white">
-          <p className="text-foreground inline-flex rounded-full bg-white/88 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase shadow-[0_12px_30px_rgba(8,9,10,0.12)]">
+        <Panel>
+          <p className="bg-surface-muted text-foreground inline-flex rounded-full px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase">
             Public Atlas MVP
           </p>
           <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-5xl">
             Rank chains by readiness for specific onchain economies.
           </h1>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-slate-200">
+          <p className="text-muted mt-4 max-w-3xl text-base leading-7">
             Compare infrastructure readiness, expose missing modules, and map
             each gap to a deterministic Protofire deployment stack.
           </p>

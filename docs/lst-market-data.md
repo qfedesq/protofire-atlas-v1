@@ -24,26 +24,46 @@ This layer is intentionally narrow:
 ## Current source plan
 
 - `marketCapUsd`
-  - Source basis: DeFiLlama chain and market data surfaces
-  - Reference: `https://api-docs.defillama.com/`
+  - Source basis: CoinGecko coin market snapshots for the native asset
+  - Example references:
+    - `https://api.coingecko.com/api/v3/coins/ethereum`
+    - `https://api.coingecko.com/api/v3/coins/binancecoin`
+    - `https://api.coingecko.com/api/v3/coins/avalanche-2`
+    - `https://api.coingecko.com/api/v3/coins/polygon-ecosystem-token`
 - `percentStaked`
-  - Source basis: Staking Rewards API coverage where available
-  - Reference: `https://api-docs.stakingrewards.com/`
+  - Source basis: Staking Rewards public asset snapshots when coverage is available
+  - Example references:
+    - `https://r.jina.ai/http://stakingrewards.com/asset/ethereum-2-0`
+    - `https://r.jina.ai/http://stakingrewards.com/asset/avalanche`
+    - `https://r.jina.ai/http://stakingrewards.com/asset/matic-network`
 - `stakingApyPercent`
-  - Source basis: Staking Rewards API coverage where available
-  - Reference: `https://api-docs.stakingrewards.com/`
+  - Source basis: Staking Rewards public asset snapshots when coverage is available
 - `stakersCount`
-  - Source basis: chain-specific validator/staking explorers
-  - Ethereum reference: `https://docs.beaconcha.in/`
+  - Source basis: public validator participation counts when clean staker counts are unavailable
+  - Current note: Atlas is using validator counts as the closest public participation proxy on the first captured networks
 - `lstProtocolCount`
   - Source basis: DeFiLlama liquid staking protocol category snapshot
-  - Reference: `https://defillama.com/protocols/Liquid%20Staking`
+  - Reference: `https://api.llama.fi/protocols`
 - `lstToStakedPercent`
-  - Atlas derived metric once LST market value and staked market value are both captured
+  - Atlas derived metric from current liquid staking TVL divided by current staking market cap
 - `defiTvlUsd`
   - Already seeded from the Top 30 EVM chain snapshot
 - `globalLstHealthScore`
   - Atlas derived metric from the current 7-module liquid staking diagnosis
+
+## Current captured coverage
+
+Atlas now includes captured market-snapshot values for:
+
+- Ethereum
+- Base
+- Arbitrum
+- Optimism
+- Scroll
+- Linea
+- Avalanche
+- Polygon
+- BNB Chain (partial coverage: market cap and `# of LSTs`)
 
 ## Storage
 
@@ -57,5 +77,5 @@ This layer is intentionally narrow:
 ## Intentional limitation
 
 Atlas does not claim that these fields are live.
-This layer is a prepared snapshot structure with explicit source references.
+This layer is a dated snapshot structure with explicit source references.
 Only captured fields are rendered as values today; the rest remain marked as `Pending source`.

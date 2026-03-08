@@ -37,6 +37,18 @@ Editable seed file:
 
 - [`data/seed/liquid-staking-market-snapshots.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/liquid-staking-market-snapshots.ts)
 
+Current captured coverage:
+
+- Ethereum
+- Base
+- Arbitrum
+- Optimism
+- Scroll
+- Linea
+- Avalanche
+- Polygon
+- BNB Chain (partial)
+
 ## Official roadmap sources
 
 Atlas now keeps a separate roadmap seed for every chain:

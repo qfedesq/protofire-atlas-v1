@@ -15,12 +15,12 @@ The local package/release line already uses:
 ## Current local status
 
 - git repository is already initialized
-- remote `origin` is not configured in this workspace
-- current working branch for this phase: `codex/launch-reaction-phase`
+- remote `origin` points to `https://github.com/qfedesq/protofire-atlas-v1.git`
+- branch used for this phase: `codex/roadmap-fit-v1-6`
 
 ## Manual GitHub setup
 
-If GitHub creation is done manually, run:
+If you need to recreate the GitHub remote manually, run:
 
 ```bash
 gh repo create protofire-atlas-v1 --private --source=. --remote=origin --push
@@ -60,7 +60,7 @@ Examples:
 
 - `1.0.0` → public label `V1.0`
 - `1.1.0` → public label `V1.1`
-- `1.5.0` → public label `V1.5`
+- `1.6.0` → public label `V1.6`
 
 Helper command:
 

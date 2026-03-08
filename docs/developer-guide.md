@@ -34,6 +34,21 @@ That workflow:
 
 If a new chain enters the top 30, add or update its human-authored metadata in [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts).
 
+## Update roadmap coverage
+
+Atlas keeps roadmap coverage separate from readiness statuses.
+
+- official roadmap and update coverage: [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts)
+- roadmap fit logic used in the UI: [`lib/roadmaps/roadmap-analysis.ts`](/Users/qfedesq/Desktop/Atlas/lib/roadmaps/roadmap-analysis.ts)
+- source review reference: [`docs/onchain-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/onchain-data-sources.md)
+
+Rules:
+
+- prefer official roadmap pages
+- if no roadmap page is verifiable, use an official updates or docs source only when it still helps stage the chain honestly
+- otherwise keep `No public roadmap verified`
+- do not add runtime AI analysis; Atlas uses curated stage notes plus deterministic score-driver logic
+
 ## Edit module statuses
 
 AI Agents:
@@ -202,7 +217,7 @@ Public label source:
 Bump rule:
 
 - every completed update increments by `+0.1`
-- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`
+- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`, `1.6.0`
 
 Helper:
 

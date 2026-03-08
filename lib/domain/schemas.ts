@@ -8,6 +8,7 @@ import {
 import {
   chainCategories,
   chainRecordStatuses,
+  chainRoadmapSourceKinds,
   chainSourceCategories,
   chainSourceMetrics,
   chainSourceProviders,
@@ -19,6 +20,7 @@ import type {
   AtlasSeedDataset,
   ChainCatalogSeed,
   ChainEconomySeedRecord,
+  ChainRoadmapSeed,
   EconomyType,
   RankingsQuery,
   RankingsSortKey,
@@ -300,6 +302,30 @@ const chainEconomySeedRecordSchema = z.object({
   moduleStatuses: z.record(z.string().min(1), moduleStatusSeedSchema),
 });
 
+const chainRoadmapSeedSchema = z.object({
+  chainSlug: z.string().min(1),
+  sourceKind: z.enum(chainRoadmapSourceKinds),
+  sourceLabel: z.string().min(1),
+  sourceUrl: z.string().url().optional(),
+  snapshotDate: z.string().min(1),
+  stageLabel: z.string().min(1),
+  stageSummary: z.string().min(1),
+  atlasFitSummary: z.string().min(1),
+});
+
+const chainRoadmapSeedsSchema = z
+  .array(chainRoadmapSeedSchema)
+  .min(1)
+  .superRefine((roadmaps, ctx) => {
+    addUniqueFieldIssue(
+      roadmaps,
+      (roadmap) => roadmap.chainSlug,
+      "chainSlug",
+      ctx,
+      "Duplicate chain roadmap record",
+    );
+  });
+
 const chainEconomySeedRecordsSchema = z
   .array(chainEconomySeedRecordSchema)
   .min(1)
@@ -357,6 +383,35 @@ export function parseChainEconomySeedRecords(
   input: unknown,
 ): ChainEconomySeedRecord[] {
   return chainEconomySeedRecordsSchema.parse(input);
+}
+
+export function parseChainRoadmapSeeds(input: unknown): ChainRoadmapSeed[] {
+  return chainRoadmapSeedsSchema.parse(input);
+}
+
+export function validateChainRoadmapSeeds(
+  chains: ChainCatalogSeed[],
+  roadmaps: ChainRoadmapSeed[],
+) {
+  const parsedChains = parseChainCatalogSeeds(chains);
+  const parsedRoadmaps = parseChainRoadmapSeeds(roadmaps);
+  const roadmapBySlug = new Map(
+    parsedRoadmaps.map((roadmap) => [roadmap.chainSlug, roadmap] as const),
+  );
+
+  parsedChains.forEach((chain) => {
+    if (!roadmapBySlug.has(chain.slug)) {
+      throw new Error(`Missing roadmap record for ${chain.slug}.`);
+    }
+  });
+
+  parsedRoadmaps.forEach((roadmap) => {
+    if (!parsedChains.some((chain) => chain.slug === roadmap.chainSlug)) {
+      throw new Error(`Unknown chain slug "${roadmap.chainSlug}" in roadmap seed.`);
+    }
+  });
+
+  return parsedRoadmaps;
 }
 
 export function validateAtlasSeedDataset(

@@ -27,6 +27,14 @@ describe("recommendation engine", () => {
     category: "L2",
     shortDescription: "Used for recommendation tests.",
     status: "active",
+    roadmap: {
+      sourceKind: "not-public",
+      sourceLabel: "No public roadmap verified",
+      snapshotDate: "2026-03-07",
+      stageLabel: "Foundation buildout",
+      stageSummary: "Test-only roadmap stage.",
+      atlasFitSummary: "Test-only Atlas fit summary.",
+    },
   };
 
   it("builds AI-agent gap analysis from missing and partial modules", () => {

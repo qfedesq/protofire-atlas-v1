@@ -62,6 +62,19 @@ Used only as the AI-agent seed source in [`data/seed/chains.ts`](/Users/qfedesq/
 - all `ChainCatalogSeed` fields
 - `modules`
 
+### ChainRoadmapSeed
+
+Stored in [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts).
+
+- `chainSlug`
+- `sourceKind`
+- `sourceLabel`
+- `sourceUrl`
+- `snapshotDate`
+- `stageLabel`
+- `stageSummary`
+- `atlasFitSummary`
+
 ### EconomyType
 
 - `id`
@@ -150,6 +163,8 @@ Created on first write under `data/runtime/`:
 - `benchmarkRank`
 - `leaderGap`
 
+`chain` now includes `roadmap`, which is used to render official roadmap coverage, current stage, and the current Atlas offer fit.
+
 ### GapAnalysisItem
 
 - `module`
@@ -194,6 +209,8 @@ Created on first write under `data/runtime/`:
 - `chainsOutranked`
 - `scoreDrivers`
 - `peers`
+- `liquidStakingDiagnosis`
+- `liquidStakingMarketSnapshot`
 - `recommendedStack`
 - `deploymentPlan`
 

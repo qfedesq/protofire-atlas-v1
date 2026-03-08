@@ -12,7 +12,7 @@ export function RecommendedStackSection({
 
   return (
     <div className="space-y-4">
-      <Panel className="bg-surface-muted shadow-none">
+      <Panel className="shadow-none">
         <p className="text-muted text-xs tracking-[0.16em] uppercase">
           Recommended Protofire stack
         </p>

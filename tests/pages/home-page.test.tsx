@@ -36,6 +36,7 @@ describe("home page", () => {
     expect(
       screen.queryByText(/Scores reflect the current Atlas dataset/i),
     ).not.toBeInTheDocument();
+    expect(screen.queryByText(/% weight/i)).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Search")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Category")).not.toBeInTheDocument();
     expect(screen.queryByLabelText("Sort by")).not.toBeInTheDocument();

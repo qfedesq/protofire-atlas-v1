@@ -3,6 +3,12 @@ export const chainRecordStatuses = ["active", "inactive"] as const;
 export const chainSourceCategories = ["EVM"] as const;
 export const chainSourceMetrics = ["TVL"] as const;
 export const chainSourceProviders = ["DeFiLlama"] as const;
+export const chainRoadmapSourceKinds = [
+  "official-roadmap",
+  "official-updates",
+  "official-docs",
+  "not-public",
+] as const;
 export const economyTypeSlugs = [
   "ai-agents",
   "defi-infrastructure",
@@ -31,6 +37,7 @@ export type ChainRecordStatus = (typeof chainRecordStatuses)[number];
 export type ChainSourceCategory = (typeof chainSourceCategories)[number];
 export type ChainSourceMetric = (typeof chainSourceMetrics)[number];
 export type ChainSourceProvider = (typeof chainSourceProviders)[number];
+export type ChainRoadmapSourceKind = (typeof chainRoadmapSourceKinds)[number];
 export type EconomyTypeSlug = (typeof economyTypeSlugs)[number];
 export type LiquidStakingDiagnosticSlug =
   (typeof liquidStakingDiagnosticSlugs)[number];
@@ -58,6 +65,7 @@ export type Chain = {
   website?: string;
   shortDescription: string;
   status: ChainRecordStatus;
+  roadmap: ChainRoadmap;
 };
 
 export type ChainCatalogSeed = {
@@ -77,6 +85,19 @@ export type ChainCatalogSeed = {
   shortDescription: string;
   status: ChainRecordStatus;
 };
+
+export type ChainRoadmapSeed = {
+  chainSlug: string;
+  sourceKind: ChainRoadmapSourceKind;
+  sourceLabel: string;
+  sourceUrl?: string;
+  snapshotDate: string;
+  stageLabel: string;
+  stageSummary: string;
+  atlasFitSummary: string;
+};
+
+export type ChainRoadmap = Omit<ChainRoadmapSeed, "chainSlug">;
 
 export type ModuleStatusSeed = {
   status: ModuleAvailabilityStatus;

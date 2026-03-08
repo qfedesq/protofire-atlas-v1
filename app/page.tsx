@@ -111,7 +111,7 @@ export default async function Home({ searchParams }: HomePageProps) {
 
       <section className="space-y-4">
         <Panel className="protofire-dark-panel text-white">
-          <p className="text-xs tracking-[0.2em] text-slate-300 uppercase">
+          <p className="text-foreground inline-flex rounded-full bg-white/88 px-4 py-2 text-xs font-medium tracking-[0.2em] uppercase shadow-[0_12px_30px_rgba(8,9,10,0.12)]">
             Public Atlas MVP
           </p>
           <h1 className="mt-4 max-w-5xl text-4xl font-semibold tracking-tight md:text-5xl">
@@ -154,12 +154,9 @@ export default async function Home({ searchParams }: HomePageProps) {
                   key={module.id}
                   className="border-border/70 border-t pt-4 first:border-t-0 first:pt-0"
                 >
-                  <div className="flex items-center justify-between gap-3">
-                    <h3 className="text-foreground text-lg font-semibold">
-                      {module.name}
-                    </h3>
-                    <p className="text-muted text-sm">{module.weight}% weight</p>
-                  </div>
+                  <h3 className="text-foreground text-lg font-semibold">
+                    {module.name}
+                  </h3>
                   <p className="text-muted mt-2 text-sm leading-6">
                     {module.description}
                   </p>

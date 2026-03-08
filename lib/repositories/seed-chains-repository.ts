@@ -2,10 +2,14 @@ import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { buildPeerComparison, buildScoreDrivers } from "@/lib/comparison/peer-comparison";
 import { chainCatalogSeeds } from "@/data/seed/catalog";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
+import { chainRoadmapSeedsBySlug, chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
 import {
   defaultEconomySlug,
 } from "@/lib/config/economies";
-import { validateAtlasSeedDataset } from "@/lib/domain/schemas";
+import {
+  validateAtlasSeedDataset,
+  validateChainRoadmapSeeds,
+} from "@/lib/domain/schemas";
 import { buildLiquidStakingDiagnosis } from "@/lib/liquid-staking/diagnosis";
 import { buildLiquidStakingMarketSnapshot } from "@/lib/liquid-staking/market-snapshot";
 import type {
@@ -45,6 +49,12 @@ type SeedRepositoryDataset = {
 };
 
 function buildChain(seed: ChainCatalogSeed): Chain {
+  const roadmapSeed = chainRoadmapSeedsBySlug.get(seed.slug);
+
+  if (!roadmapSeed) {
+    throw new Error(`Missing roadmap seed for ${seed.slug}`);
+  }
+
   return {
     id: seed.id,
     slug: seed.slug,
@@ -61,6 +71,15 @@ function buildChain(seed: ChainCatalogSeed): Chain {
     website: seed.website,
     shortDescription: seed.shortDescription,
     status: seed.status,
+    roadmap: {
+      sourceKind: roadmapSeed.sourceKind,
+      sourceLabel: roadmapSeed.sourceLabel,
+      sourceUrl: roadmapSeed.sourceUrl,
+      snapshotDate: roadmapSeed.snapshotDate,
+      stageLabel: roadmapSeed.stageLabel,
+      stageSummary: roadmapSeed.stageSummary,
+      atlasFitSummary: roadmapSeed.atlasFitSummary,
+    },
   };
 }
 
@@ -183,6 +202,7 @@ function buildSeedRepositoryDataset(): SeedRepositoryDataset {
     economies: listActiveEconomyTypes(),
     records: chainEconomySeedRecords,
   });
+  validateChainRoadmapSeeds(validatedDataset.chains, chainRoadmapSeeds);
   const chains = validatedDataset.chains
     .map((seed) => buildChain(seed))
     .sort((left, right) => left.name.localeCompare(right.name));

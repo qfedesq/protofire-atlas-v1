@@ -98,7 +98,10 @@ npm run data:refresh-top30
    - DeFi: [`data/seed/economies/defi-infrastructure.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/defi-infrastructure.ts)
    - RWA: [`data/seed/economies/rwa-infrastructure.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/rwa-infrastructure.ts)
    - Prediction Markets: [`data/seed/economies/prediction-markets.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/prediction-markets.ts)
-5. Validate and regenerate outputs:
+5. Update official roadmap coverage and stage analysis in [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts).
+6. Review source guidance in [`docs/onchain-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/onchain-data-sources.md).
+7. Update LST market snapshot inputs when verified sources are available in [`data/seed/liquid-staking-market-snapshots.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/liquid-staking-market-snapshots.ts).
+8. Validate and regenerate outputs:
 
 ```bash
 npm run validate:data
@@ -201,6 +204,7 @@ npm run version:bump
 - request capture service: [`lib/requests/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/requests/service.ts)
 - intent event store: [`lib/intent/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/intent/store.ts)
 - report generation: [`lib/reports/report-generator.ts`](/Users/qfedesq/Desktop/Atlas/lib/reports/report-generator.ts)
+- roadmap fit analysis: [`lib/roadmaps/roadmap-analysis.ts`](/Users/qfedesq/Desktop/Atlas/lib/roadmaps/roadmap-analysis.ts)
 - seed-backed repository: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
 
 ## Repository discipline
@@ -208,7 +212,7 @@ npm run version:bump
 - working release line naming convention: repository name must end with `-v1`
 - current local package/release line: `protofire-atlas-v1`
 - workflow guidance: [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-- current branch for this phase: `codex/launch-reaction-phase`
+- branch used for this phase: `codex/roadmap-fit-v1-6`
 
 ## Read this first
 

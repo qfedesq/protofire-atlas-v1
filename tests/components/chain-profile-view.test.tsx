@@ -5,7 +5,7 @@ import { ChainProfileView } from "@/components/chain/chain-profile-view";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
 describe("ChainProfileView", () => {
-  it("renders readiness sections, unified competitive analysis, and recommended stack", () => {
+  it("renders readiness sections, roadmap fit, unified competitive analysis, and recommended stack", () => {
     const repository = createSeedChainsRepository();
     const profile = repository.getChainProfileBySlug("base", "ai-agents");
 
@@ -29,10 +29,10 @@ describe("ChainProfileView", () => {
     ).toBeGreaterThan(0);
     expect(screen.getByText("AI Agents modules")).toBeInTheDocument();
     expect(
-      screen.getByText("What is still blocking readiness"),
+      screen.getByText("Current stage and best score lever"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Gap analysis, score drivers, and peer comparison"),
+      screen.getByText("Roadmap fit, gaps, score drivers, peers, and stack"),
     ).toBeInTheDocument();
     expect(
       screen.getByText("Request infrastructure assessment"),
@@ -46,7 +46,7 @@ describe("ChainProfileView", () => {
     ).toHaveAttribute("href", "#suggested-activations");
     expect(
       screen
-        .getByText("Gap analysis, score drivers, and peer comparison")
+        .getByText("Roadmap fit, gaps, score drivers, peers, and stack")
         .closest("details"),
     ).not.toHaveAttribute("open");
   });

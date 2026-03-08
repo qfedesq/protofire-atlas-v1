@@ -38,6 +38,14 @@ describe("readiness scoring", () => {
       category: "L2",
       shortDescription: "Used for deterministic scoring tests.",
       status: "active",
+      roadmap: {
+        sourceKind: "not-public",
+        sourceLabel: "No public roadmap verified",
+        snapshotDate: "2026-03-07",
+        stageLabel: "Foundation buildout",
+        stageSummary: "Test-only roadmap stage.",
+        atlasFitSummary: "Test-only Atlas fit summary.",
+      },
     };
     const economy = getEconomyTypeBySlug("defi-infrastructure");
 

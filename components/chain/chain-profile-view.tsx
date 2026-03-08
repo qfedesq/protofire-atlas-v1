@@ -9,7 +9,6 @@ import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
-import { RecommendedStackSection } from "@/components/stack/recommended-stack";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { Panel } from "@/components/ui/panel";
 import type { ChainProfile, EconomyType } from "@/lib/domain/types";
@@ -143,23 +142,12 @@ export function ChainProfileView({
       ) : null}
 
       <ExpandableSection
+        id="suggested-activations"
         eyebrow="Competitive analysis"
-        title="Gap analysis, score drivers, and peer comparison"
+        title="Roadmap fit, gaps, score drivers, peers, and stack"
       >
         <CompetitiveAnalysisSection profile={profile} />
       </ExpandableSection>
-
-      <section className="space-y-4" id="suggested-activations">
-        <div>
-          <p className="text-accent text-xs tracking-[0.16em] uppercase">
-            Stack recommendation
-          </p>
-          <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            Deterministic Protofire activation stack
-          </h2>
-        </div>
-        <RecommendedStackSection stack={profile.recommendedStack} />
-      </section>
 
       <section className="space-y-4">
         <div>

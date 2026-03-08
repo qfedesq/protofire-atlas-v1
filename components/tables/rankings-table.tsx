@@ -8,6 +8,7 @@ import type {
   RankingsSortDirection,
   RankingsSortKey,
 } from "@/lib/domain/types";
+import { buildRoadmapFitInsight } from "@/lib/roadmaps/roadmap-analysis";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
 type RankingsTableProps = {
@@ -129,58 +130,82 @@ export function RankingsTable({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr
-                key={`${row.economy.slug}:${row.chain.id}`}
-                className="border-border/60 border-t align-top transition hover:bg-slate-50/70"
-              >
-                <td className="text-muted px-5 py-4 font-medium">
-                  #{row.benchmarkRank}
-                </td>
-                <td className="px-5 py-4">
-                  <Link
-                    href={`/chains/${row.chain.slug}?economy=${row.economy.slug}`}
-                    className="text-foreground hover:text-accent text-base font-semibold transition"
-                  >
-                    {row.chain.name}
-                  </Link>
-                  <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
-                    {row.chain.category} • source TVL rank #{row.chain.sourceRank}
-                  </p>
-                  <p className="text-muted mt-2 text-xs leading-5">
-                    {row.chain.sourceProvider} snapshot {row.chain.sourceSnapshotDate} •{" "}
-                    {formatCurrencyCompact(row.chain.sourceTvlUsd)}
-                  </p>
-                  <p className="text-muted mt-2 max-w-xs text-sm leading-6">
-                    {row.chain.shortDescription}
-                  </p>
-                </td>
-                <td className="px-5 py-4">
-                  <div className="text-foreground text-2xl font-semibold">
-                    {formatScore(row.readinessScore.totalScore)}
-                  </div>
-                  <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
-                    / 10.0
-                  </p>
-                  <p className="text-muted mt-2 text-xs leading-5">
-                    Gap to leader: {formatScore(row.leaderGap)}
-                  </p>
-                </td>
-                {row.readinessScore.moduleBreakdown.map((module) => (
-                  <td key={module.module.id} className="px-5 py-4">
-                    <div className="space-y-2">
-                      <StatusBadge status={module.status} />
-                      <div className="text-foreground text-sm font-semibold">
-                        {formatScore(module.weightedContribution)}
-                      </div>
-                      <p className="text-muted text-xs leading-5">
-                        {module.module.weight}% weight
+            {rows.map((row) => {
+              const roadmapFit = buildRoadmapFitInsight(row);
+
+              return (
+                <tr
+                  key={`${row.economy.slug}:${row.chain.id}`}
+                  className="border-border/60 border-t align-top transition hover:bg-slate-50/70"
+                >
+                  <td className="text-muted px-5 py-4 font-medium">
+                    #{row.benchmarkRank}
+                  </td>
+                  <td className="px-5 py-4">
+                    <Link
+                      href={`/chains/${row.chain.slug}?economy=${row.economy.slug}`}
+                      className="text-foreground hover:text-accent text-base font-semibold transition"
+                    >
+                      {row.chain.name}
+                    </Link>
+                    <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
+                      {row.chain.category} • source TVL rank #{row.chain.sourceRank}
+                    </p>
+                    <p className="text-muted mt-2 text-xs leading-5">
+                      {row.chain.sourceProvider} snapshot {row.chain.sourceSnapshotDate} •{" "}
+                      {formatCurrencyCompact(row.chain.sourceTvlUsd)}
+                    </p>
+                    <p className="text-muted mt-2 max-w-xs text-sm leading-6">
+                      {row.chain.shortDescription}
+                    </p>
+                    <div className="mt-3 space-y-1 text-xs leading-5">
+                      <p className="text-muted">
+                        Roadmap stage:{" "}
+                        <span className="text-foreground font-medium">
+                          {row.chain.roadmap.stageLabel}
+                        </span>
                       </p>
+                      <p className="text-muted">
+                        Offer fit:{" "}
+                        <span className="text-foreground font-medium">
+                          {roadmapFit.offerFitLabel}
+                        </span>
+                      </p>
+                      {row.chain.roadmap.sourceUrl ? (
+                        <a
+                          href={row.chain.roadmap.sourceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-accent inline-flex font-medium hover:underline"
+                        >
+                          {row.chain.roadmap.sourceLabel}
+                        </a>
+                      ) : (
+                        <p className="text-muted">{row.chain.roadmap.sourceLabel}</p>
+                      )}
                     </div>
                   </td>
-                ))}
-              </tr>
-            ))}
+                  <td className="px-5 py-4">
+                    <div className="text-foreground text-2xl font-semibold">
+                      {formatScore(row.readinessScore.totalScore)}
+                    </div>
+                    <p className="text-muted mt-1 text-xs tracking-[0.14em] uppercase">
+                      / 10.0
+                    </p>
+                  </td>
+                  {row.readinessScore.moduleBreakdown.map((module) => (
+                    <td key={module.module.id} className="px-5 py-4">
+                      <div className="space-y-2">
+                        <StatusBadge status={module.status} />
+                        <div className="text-foreground text-sm font-semibold">
+                          {formatScore(module.weightedContribution)}
+                        </div>
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

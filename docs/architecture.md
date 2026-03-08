@@ -13,7 +13,7 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 - `data/source/`
   - documented DeFiLlama source snapshot and curated EVM chain mapping
 - `data/seed/`
-  - editable chain metadata and economy readiness seeds
+  - editable chain metadata, roadmap seeds, and economy readiness seeds
 - `data/admin/`
   - persisted active calculation assumptions owned by Protofire management
 - `data/runtime/`
@@ -50,17 +50,18 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 1. [`scripts/refresh-top-30-evm-chains.sh`](/Users/qfedesq/Desktop/Atlas/scripts/refresh-top-30-evm-chains.sh) fetches DeFiLlama `/chains`.
 2. [`scripts/refresh-top-30-evm-chains.mjs`](/Users/qfedesq/Desktop/Atlas/scripts/refresh-top-30-evm-chains.mjs) filters that result through [`data/source/defillama-evm-chain-map.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-evm-chain-map.json), sorts by TVL, and writes [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json).
 3. [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts) adds human-authored chain descriptions and websites.
-4. [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts) derives the AI-agent seed set from the snapshot plus AI readiness statuses.
-5. [`data/seed/economies/index.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/index.ts) assembles per-economy readiness records for AI, DeFi, RWA, and Prediction Markets.
-6. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) stores the live module weights, status mappings, and recommendation thresholds used by the public app.
-7. [`validateAtlasSeedDataset`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts) validates:
+4. [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts) stores official roadmap or official-source coverage plus the current curated stage analysis per chain.
+5. [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts) derives the AI-agent seed set from the snapshot plus AI readiness statuses.
+6. [`data/seed/economies/index.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/index.ts) assembles per-economy readiness records for AI, DeFi, RWA, and Prediction Markets.
+7. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) stores the live module weights, status mappings, and recommendation thresholds used by the public app.
+8. [`validateAtlasSeedDataset`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts) validates:
    - unique chains
    - sequential source ranks
    - unique economy definitions
    - complete chain-by-economy coverage
    - module completeness per economy
    - weight totals per economy
-8. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) combines seed data with the active assumption layer and exposes ranked rows plus chain profiles.
+9. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) combines seed data with the active assumption layer and exposes ranked rows plus chain profiles.
 
 ## Scoring flow
 
@@ -89,6 +90,13 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
    - score-driver upside for the selected chain
 2. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) attaches those derived outputs to the chain profile read model.
 3. [`components/chain/peer-comparison.tsx`](/Users/qfedesq/Desktop/Atlas/components/chain/peer-comparison.tsx) and [`components/chain/score-drivers.tsx`](/Users/qfedesq/Desktop/Atlas/components/chain/score-drivers.tsx) render the public comparative pressure on the chain page.
+
+## Roadmap fit flow
+
+1. [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts) stores the current official roadmap or official-source coverage plus the chain stage summary.
+2. [`lib/roadmaps/roadmap-analysis.ts`](/Users/qfedesq/Desktop/Atlas/lib/roadmaps/roadmap-analysis.ts) combines that stage summary with the current economy score drivers.
+3. The rankings table uses that output to show the current roadmap stage and the best score lever for the selected economy.
+4. The chain profile renders the same logic inside the `Competitive analysis` section so roadmap context and stack recommendation stay in one place.
 
 ## Request capture flow
 

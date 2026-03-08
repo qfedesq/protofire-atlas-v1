@@ -28,6 +28,7 @@ describe("seed repository outputs", () => {
     expect(aiProfile?.leader).toBe("Arbitrum");
     expect(aiProfile?.leaderGap).toBe(0);
     expect(aiProfile?.chain.sourceRank).toBe(5);
+    expect(aiProfile?.chain.roadmap.stageLabel).toBeTruthy();
 
     expect(defiProfile?.economy.slug).toBe("defi-infrastructure");
     expect(defiProfile?.readinessScore.moduleBreakdown).toHaveLength(5);

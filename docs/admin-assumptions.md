@@ -10,6 +10,9 @@ Editable:
 - global status score mapping
 - per-economy recommendation threshold
 - partial/missing recommendation toggles
+- global ranking component weights
+- economy composite weights inside the global ranking
+- opportunity-score weights for Target Account Mode
 
 Not editable:
 
@@ -41,6 +44,47 @@ Rules:
 - total weight must remain `100`
 
 Changing weights changes the public ranking immediately on subsequent requests.
+
+## Global ranking weights
+
+Atlas exposes two additional weight groups for the public holistic leaderboard.
+
+Component weights:
+
+- `economyScore`
+- `ecosystem`
+- `adoption`
+- `performance`
+
+Economy composite weights:
+
+- `ai-agents`
+- `defi-infrastructure`
+- `rwa-infrastructure`
+- `prediction-markets`
+
+Rules:
+
+- each weight must be non-negative
+- each weight set must sum to `100`
+
+These values drive `/rankings/global` and the `Global position` section inside chain profiles.
+
+## Opportunity score weights
+
+Target Account Mode exposes one internal-only weight group:
+
+- `tvlTier`
+- `readinessGap`
+- `stackFit`
+- `ecosystemSignal`
+
+Rules:
+
+- each weight must be non-negative
+- total weight must remain `100`
+
+These values drive `/internal/targets` and `/internal/account/[chain]`.
 
 ## Status mappings
 

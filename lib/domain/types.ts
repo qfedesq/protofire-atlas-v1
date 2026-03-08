@@ -31,6 +31,20 @@ export const moduleAvailabilityStatuses = [
 ] as const;
 export const rankingsSortDirections = ["asc", "desc"] as const;
 export const rankingsBaseSortKeys = ["totalScore", "name"] as const;
+export const globalRankingsSortKeys = [
+  "totalScore",
+  "economyCompositeScore",
+  "ecosystemScore",
+  "adoptionScore",
+  "performanceScore",
+  "name",
+] as const;
+export const targetAccountSortKeys = [
+  "opportunityScore",
+  "readinessGap",
+  "ecosystemScore",
+  "name",
+] as const;
 
 export type ChainCategory = (typeof chainCategories)[number];
 export type ChainRecordStatus = (typeof chainRecordStatuses)[number];
@@ -45,6 +59,8 @@ export type ModuleAvailabilityStatus =
   (typeof moduleAvailabilityStatuses)[number];
 export type RankingsSortDirection = (typeof rankingsSortDirections)[number];
 export type RankingsBaseSortKey = (typeof rankingsBaseSortKeys)[number];
+export type GlobalRankingsSortKey = (typeof globalRankingsSortKeys)[number];
+export type TargetAccountSortKey = (typeof targetAccountSortKeys)[number];
 export type EconomyModuleSlug = string;
 export type RankingsSortKey = RankingsBaseSortKey | EconomyModuleSlug;
 export type RankingsCategoryFilter = "All" | ChainCategory;
@@ -184,6 +200,23 @@ export type LiquidStakingMarketSnapshot = {
   sources: LiquidStakingMetricSource[];
 };
 
+export type ChainEcosystemMetricsSeed = {
+  chainSlug: string;
+  wallets: number;
+  activeUsers: number;
+  protocols: number;
+  ecosystemProjects: number;
+  averageTransactionSpeed: number;
+  blockTime: number;
+  throughputIndicator: number;
+  snapshotDate: string;
+  sourceLabel: string;
+};
+
+export type ChainEcosystemMetrics = Omit<ChainEcosystemMetricsSeed, "chainSlug"> & {
+  chainId: string;
+};
+
 export type EconomyScoringConfig = {
   maximumScore: number;
   statusScores: Record<ModuleAvailabilityStatus, number>;
@@ -311,6 +344,82 @@ export type DeploymentPlan = {
   ctaText: string;
 };
 
+export type GlobalRankingComponentWeights = {
+  economyScore: number;
+  ecosystem: number;
+  adoption: number;
+  performance: number;
+};
+
+export type EconomyCompositeWeights = Record<EconomyTypeSlug, number>;
+
+export type OpportunityScoringWeights = {
+  tvlTier: number;
+  readinessGap: number;
+  stackFit: number;
+  ecosystemSignal: number;
+};
+
+export type GlobalChainScore = {
+  chainId: string;
+  chainSlug: string;
+  economyCompositeScore: number;
+  ecosystemScore: number;
+  adoptionScore: number;
+  performanceScore: number;
+  totalScore: number;
+  computedAt: string;
+  metrics: ChainEcosystemMetrics;
+};
+
+export type GlobalRankedChain = {
+  chain: Chain;
+  score: GlobalChainScore;
+  benchmarkRank: number;
+};
+
+export type OpportunityScoreBreakdown = {
+  tvlTierScore: number;
+  readinessGapScore: number;
+  stackFitScore: number;
+  ecosystemSignalScore: number;
+};
+
+export type OpportunityScore = {
+  chainId: string;
+  economyType: EconomyTypeSlug;
+  totalScore: number;
+  breakdown: OpportunityScoreBreakdown;
+  computedAt: string;
+};
+
+export type OpportunityPriority = "High" | "Medium" | "Monitor";
+
+export type TargetAccountRow = {
+  chain: Chain;
+  economy: EconomyType;
+  readinessRank: number;
+  readinessScore: ChainEconomyReadiness;
+  readinessGap: number;
+  globalRank: number;
+  globalScore: GlobalChainScore;
+  opportunity: OpportunityScore;
+  priority: OpportunityPriority;
+  missingModules: GapAnalysisItem[];
+  recommendedStack: RecommendedStack;
+};
+
+export type OutreachBrief = {
+  chainName: string;
+  economyName: string;
+  globalRank: number;
+  economyRank: number;
+  keyGaps: string[];
+  peerSummary: string;
+  protofireOpportunity: string;
+  suggestedOutreachAngle: string;
+};
+
 export type ScoreDriver = {
   module: EconomyModule;
   status: Exclude<ModuleAvailabilityStatus, "available">;
@@ -347,6 +456,7 @@ export type ChainProfile = {
   chain: Chain;
   economy: EconomyType;
   readinessScore: ChainEconomyReadiness;
+  globalPosition: GlobalRankedChain;
   gapAnalysis: GapAnalysisItem[];
   rank: number;
   leader: string;
@@ -369,6 +479,16 @@ export type RankingsQuery = {
   limit?: number;
 };
 
+export type GlobalRankingsQuery = {
+  sort: GlobalRankingsSortKey;
+  direction: RankingsSortDirection;
+};
+
+export type TargetAccountsQuery = {
+  sort: TargetAccountSortKey;
+  direction: RankingsSortDirection;
+};
+
 export type RankingsSortOption = {
   value: RankingsSortKey;
   label: string;
@@ -378,4 +498,11 @@ export type AtlasSeedDataset = {
   chains: ChainCatalogSeed[];
   economies: EconomyType[];
   records: ChainEconomySeedRecord[];
+};
+
+export type TargetAccountProfile = {
+  profile: ChainProfile;
+  opportunity: TargetAccountRow;
+  recommendedEconomy: EconomyType;
+  outreachBrief: OutreachBrief;
 };

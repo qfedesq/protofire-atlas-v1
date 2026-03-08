@@ -1,8 +1,24 @@
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { ChainProfileView } from "@/components/chain/chain-profile-view";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+
+vi.mock("next/link", () => ({
+  default: ({
+    href,
+    children,
+    ...props
+  }: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    children: ReactNode;
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}));
 
 describe("ChainProfileView", () => {
   it("renders readiness sections, roadmap fit, unified competitive analysis, and recommended stack", () => {

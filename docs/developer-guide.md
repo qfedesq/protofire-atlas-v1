@@ -49,6 +49,16 @@ Rules:
 - otherwise keep `No public roadmap verified`
 - do not add runtime AI analysis; Atlas uses curated stage notes plus deterministic score-driver logic
 
+## Update ecosystem and performance metrics
+
+Global ranking depends on one curated metrics record per seeded chain.
+
+- metrics seed: [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts)
+- validator: [`validateChainEcosystemMetricsSeeds`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts)
+- scoring engine: [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts)
+
+Keep these metrics deterministic and snapshot-based. Do not imply live synchronization.
+
 ## Edit module statuses
 
 AI Agents:
@@ -76,6 +86,12 @@ Preferred path:
 - only edit [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts) when changing the base economy model itself
 
 Admin-managed values are stored in [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json).
+
+The admin route now also manages:
+
+- global ranking component weights
+- economy composite weights
+- target-account opportunity weights
 
 If you need to update the base defaults in code:
 
@@ -127,6 +143,15 @@ Nearby-peer logic and score-driver derivation live in:
 
 Do not move comparison heuristics into components. Keep them deterministic and testable.
 
+## Update target-account logic
+
+Opportunity scoring and account prioritization live in:
+
+- [`lib/targets/opportunity.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/opportunity.ts)
+- [`lib/targets/outreach-brief.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/outreach-brief.ts)
+
+Keep this layer internal-only and deterministic.
+
 ## Retrieve stored requests and intent signals
 
 By default, Atlas writes runtime files under `data/runtime/`:
@@ -152,6 +177,7 @@ Outputs now include:
 - markdown reports in [`reports`](/Users/qfedesq/Desktop/Atlas/reports)
 - JSON ranking exports in [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
 - CSV ranking exports in [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+- top-level GTM CSV exports in [`exports`](/Users/qfedesq/Desktop/Atlas/exports)
 
 ## Regenerate internal reports
 
@@ -168,7 +194,10 @@ Outputs:
 - [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
 - [`reports/target-chains-by-economy.md`](/Users/qfedesq/Desktop/Atlas/reports/target-chains-by-economy.md)
 - [`reports/high-tvl-lagging-chains.md`](/Users/qfedesq/Desktop/Atlas/reports/high-tvl-lagging-chains.md)
+- [`reports/top-ecosystem-opportunities.md`](/Users/qfedesq/Desktop/Atlas/reports/top-ecosystem-opportunities.md)
 - JSON and CSV exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+- [`exports/global-chain-ranking.csv`](/Users/qfedesq/Desktop/Atlas/exports/global-chain-ranking.csv)
+- [`exports/top-target-accounts.csv`](/Users/qfedesq/Desktop/Atlas/exports/top-target-accounts.csv)
 
 ## Add a new economy or module
 
@@ -190,6 +219,9 @@ Editable:
 - global status scores
 - recommendation threshold
 - partial/missing recommendation toggles
+- global ranking component weights
+- economy composite weights
+- opportunity-score weights
 
 Not editable through admin:
 
@@ -217,7 +249,7 @@ Public label source:
 Bump rule:
 
 - every completed update increments by `+0.1`
-- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`, `1.6.0`, `1.7.0`, `1.8.0`, `1.9.0`, `1.10.0`, `1.11.0`
+- package version form: `1.0.0`, `1.1.0`, `1.2.0`, `1.3.0`, `1.4.0`, `1.5.0`, `1.6.0`, `1.7.0`, `1.8.0`, `1.9.0`, `1.10.0`, `1.11.0`, `1.12.0`
 
 Helper:
 

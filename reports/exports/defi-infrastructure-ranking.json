@@ -6,6 +6,10 @@
     "readinessRank": 1,
     "totalScore": 10,
     "modules": {
+      "liquid-staking": {
+        "status": "available",
+        "weightedContribution": 2.5
+      },
       "lending": {
         "status": "available",
         "weightedContribution": 2
@@ -21,10 +25,6 @@
       "indexing": {
         "status": "available",
         "weightedContribution": 1
-      },
-      "liquid-staking": {
-        "status": "available",
-        "weightedContribution": 2.5
       }
     }
   },
@@ -35,6 +35,10 @@
     "readinessRank": 2,
     "totalScore": 8.8,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "available",
         "weightedContribution": 2
@@ -50,10 +54,6 @@
       "indexing": {
         "status": "available",
         "weightedContribution": 1
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -64,6 +64,10 @@
     "readinessRank": 3,
     "totalScore": 7.8,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -79,10 +83,6 @@
       "indexing": {
         "status": "available",
         "weightedContribution": 1
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -93,6 +93,10 @@
     "readinessRank": 4,
     "totalScore": 7.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "available",
         "weightedContribution": 2
@@ -108,10 +112,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -122,6 +122,10 @@
     "readinessRank": 5,
     "totalScore": 7.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -137,10 +141,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -151,6 +151,10 @@
     "readinessRank": 6,
     "totalScore": 7.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "available",
         "weightedContribution": 2
@@ -166,10 +170,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -180,6 +180,10 @@
     "readinessRank": 7,
     "totalScore": 7.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -195,10 +199,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -209,6 +209,10 @@
     "readinessRank": 8,
     "totalScore": 6.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -224,10 +228,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -238,6 +238,10 @@
     "readinessRank": 9,
     "totalScore": 6.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -253,10 +257,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -267,6 +267,10 @@
     "readinessRank": 10,
     "totalScore": 6.3,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -282,10 +286,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -296,6 +296,10 @@
     "readinessRank": 11,
     "totalScore": 5,
     "modules": {
+      "liquid-staking": {
+        "status": "partial",
+        "weightedContribution": 1.3
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -311,10 +315,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "partial",
-        "weightedContribution": 1.3
       }
     }
   },
@@ -325,6 +325,10 @@
     "readinessRank": 12,
     "totalScore": 4,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -340,10 +344,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -354,6 +354,10 @@
     "readinessRank": 13,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -369,10 +373,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -383,6 +383,10 @@
     "readinessRank": 14,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -398,10 +402,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -412,6 +412,10 @@
     "readinessRank": 15,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -427,10 +431,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -441,6 +441,10 @@
     "readinessRank": 16,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -456,10 +460,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -470,6 +470,10 @@
     "readinessRank": 17,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -485,10 +489,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -499,6 +499,10 @@
     "readinessRank": 18,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -514,10 +518,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -528,6 +528,10 @@
     "readinessRank": 19,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -543,10 +547,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -557,6 +557,10 @@
     "readinessRank": 20,
     "totalScore": 3.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -572,10 +576,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -586,6 +586,10 @@
     "readinessRank": 21,
     "totalScore": 3.3,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -599,10 +603,6 @@
         "weightedContribution": 1
       },
       "indexing": {
-        "status": "missing",
-        "weightedContribution": 0
-      },
-      "liquid-staking": {
         "status": "missing",
         "weightedContribution": 0
       }
@@ -615,6 +615,10 @@
     "readinessRank": 22,
     "totalScore": 3.3,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "partial",
         "weightedContribution": 1
@@ -628,10 +632,6 @@
         "weightedContribution": 1
       },
       "indexing": {
-        "status": "missing",
-        "weightedContribution": 0
-      },
-      "liquid-staking": {
         "status": "missing",
         "weightedContribution": 0
       }
@@ -644,6 +644,10 @@
     "readinessRank": 23,
     "totalScore": 2.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -659,10 +663,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -673,6 +673,10 @@
     "readinessRank": 24,
     "totalScore": 2.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -688,10 +692,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -702,6 +702,10 @@
     "readinessRank": 25,
     "totalScore": 2.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -717,10 +721,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -731,6 +731,10 @@
     "readinessRank": 26,
     "totalScore": 2.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -746,10 +750,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -760,6 +760,10 @@
     "readinessRank": 27,
     "totalScore": 2.3,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -773,10 +777,6 @@
         "weightedContribution": 1
       },
       "indexing": {
-        "status": "missing",
-        "weightedContribution": 0
-      },
-      "liquid-staking": {
         "status": "missing",
         "weightedContribution": 0
       }
@@ -789,6 +789,10 @@
     "readinessRank": 28,
     "totalScore": 1.8,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -804,10 +808,6 @@
       "indexing": {
         "status": "partial",
         "weightedContribution": 0.5
-      },
-      "liquid-staking": {
-        "status": "missing",
-        "weightedContribution": 0
       }
     }
   },
@@ -818,6 +818,10 @@
     "readinessRank": 29,
     "totalScore": 1.3,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -831,10 +835,6 @@
         "weightedContribution": 0
       },
       "indexing": {
-        "status": "missing",
-        "weightedContribution": 0
-      },
-      "liquid-staking": {
         "status": "missing",
         "weightedContribution": 0
       }
@@ -847,6 +847,10 @@
     "readinessRank": 30,
     "totalScore": 1.3,
     "modules": {
+      "liquid-staking": {
+        "status": "missing",
+        "weightedContribution": 0
+      },
       "lending": {
         "status": "missing",
         "weightedContribution": 0
@@ -860,10 +864,6 @@
         "weightedContribution": 0
       },
       "indexing": {
-        "status": "missing",
-        "weightedContribution": 0
-      },
-      "liquid-staking": {
         "status": "missing",
         "weightedContribution": 0
       }

@@ -42,3 +42,11 @@ export function getActiveEconomyTypeBySlug(slug: EconomyType["slug"]) {
     applyAssumptionsToEconomy(economyTypes[0]!, getActiveAssumptions())
   );
 }
+
+export function getActiveGlobalRankingAssumptions() {
+  return getActiveAssumptions().globalRanking;
+}
+
+export function getActiveOpportunityScoringAssumptions() {
+  return getActiveAssumptions().opportunityScoring;
+}

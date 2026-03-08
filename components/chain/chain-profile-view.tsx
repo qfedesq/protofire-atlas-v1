@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { BenchmarkStrip } from "@/components/chain/benchmark-strip";
 import { CompetitiveAnalysisSection } from "@/components/chain/competitive-analysis";
+import { GlobalPositionSection } from "@/components/chain/global-position-section";
 import { LiquidStakingDiagnosisSection } from "@/components/chain/liquid-staking-diagnosis";
 import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
@@ -116,6 +117,8 @@ export function ChainProfileView({
         leaderGap={profile.leaderGap}
         chainsOutranked={profile.chainsOutranked}
       />
+
+      <GlobalPositionSection position={profile.globalPosition} />
 
       <ShareableScorecard profile={profile} />
 

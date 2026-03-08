@@ -4,8 +4,11 @@ import {
   buildEconomyRankingExport,
   buildEconomyRankingExportCsv,
   buildEconomyReportMarkdown,
+  buildGlobalChainRankingExportCsv,
   buildHighTvlLaggingChainsReportMarkdown,
   buildLiquidStakingLandscapeReportMarkdown,
+  buildTopEcosystemOpportunitiesReportMarkdown,
+  buildTopTargetAccountsExportCsv,
   buildTargetChainsByEconomyReportMarkdown,
 } from "@/lib/reports/report-generator";
 
@@ -46,10 +49,25 @@ describe("report generator", () => {
   it("builds GTM target and lagging-chain reports", () => {
     const targetReport = buildTargetChainsByEconomyReportMarkdown();
     const laggingReport = buildHighTvlLaggingChainsReportMarkdown();
+    const ecosystemReport = buildTopEcosystemOpportunitiesReportMarkdown();
 
     expect(targetReport).toContain("# Target chains by economy");
     expect(targetReport).toContain("## AI Agent Economy");
     expect(laggingReport).toContain("# High-TVL lagging chains");
     expect(laggingReport).toContain("## DeFi Infrastructure Economy");
+    expect(ecosystemReport).toContain("# Top ecosystem opportunities");
+    expect(ecosystemReport).toContain("## Top commercial opportunities");
+  });
+
+  it("builds global and target-account CSV exports", () => {
+    const globalCsv = buildGlobalChainRankingExportCsv();
+    const targetCsv = buildTopTargetAccountsExportCsv();
+
+    expect(globalCsv).toContain(
+      "chain,slug,source_rank,global_rank,global_score,economy_composite_score",
+    );
+    expect(targetCsv).toContain(
+      "chain,economy,opportunity_score,global_rank,readiness_rank,priority",
+    );
   });
 });

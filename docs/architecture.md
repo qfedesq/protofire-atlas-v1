@@ -6,14 +6,14 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 
 - `app/`
   - route entrypoints only
-  - `/` and `/chains/[slug]`
+  - `/`, `/rankings/global`, `/chains/[slug]`, `/internal/admin`, `/internal/targets`, `/internal/account/[chain]`
 - `components/`
   - presentational UI and page composition
   - no scoring or recommendation rules
 - `data/source/`
   - documented DeFiLlama source snapshot and curated EVM chain mapping
 - `data/seed/`
-  - editable chain metadata, roadmap seeds, and economy readiness seeds
+  - editable chain metadata, roadmap seeds, economy readiness seeds, and ecosystem/performance metrics
 - `data/admin/`
   - persisted active calculation assumptions owned by Protofire management
 - `data/runtime/`
@@ -28,8 +28,12 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
   - nearby-peer selection and score-driver derivation
 - `lib/scoring/`
   - deterministic readiness calculations
+- `lib/global-ranking/`
+  - deterministic holistic chain ranking
 - `lib/recommendations/`
   - deterministic recommendation rules and deployment sequencing
+- `lib/targets/`
+  - deterministic opportunity scoring and outreach brief generation
 - `lib/requests/`
   - request validation and storage
 - `lib/intent/`
@@ -53,15 +57,17 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 4. [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts) stores official roadmap or official-source coverage plus the current curated stage analysis per chain.
 5. [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts) derives the AI-agent seed set from the snapshot plus AI readiness statuses.
 6. [`data/seed/economies/index.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/economies/index.ts) assembles per-economy readiness records for AI, DeFi, RWA, and Prediction Markets.
-7. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) stores the live module weights, status mappings, and recommendation thresholds used by the public app.
-8. [`validateAtlasSeedDataset`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts) validates:
+7. [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts) stores curated ecosystem, adoption, and performance inputs for the global ranking.
+8. [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json) stores the live module weights, status mappings, global ranking weights, and opportunity-scoring weights used by the app.
+9. [`validateAtlasSeedDataset`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts) validates:
    - unique chains
    - sequential source ranks
    - unique economy definitions
    - complete chain-by-economy coverage
    - module completeness per economy
    - weight totals per economy
-9. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) combines seed data with the active assumption layer and exposes ranked rows plus chain profiles.
+10. [`validateChainEcosystemMetricsSeeds`](/Users/qfedesq/Desktop/Atlas/lib/domain/schemas.ts) validates one ecosystem metrics record per seeded chain.
+11. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) combines seed data with the active assumption layer and exposes economy rankings, the global ranking, target accounts, and chain profiles.
 
 ## Scoring flow
 
@@ -81,6 +87,25 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
    - expected result
    - direct chain impact
 4. [`buildDeploymentPlan`](/Users/qfedesq/Desktop/Atlas/lib/recommendations/engine.ts) groups recommendations into economy-specific phases with deterministic timeline labels.
+
+## Global ranking flow
+
+1. [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts) stores the curated chain-level ecosystem metrics used for the holistic leaderboard.
+2. [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts) combines:
+   - weighted economy composite score
+   - ecosystem activity score
+   - adoption score
+   - technical performance score
+3. Global ranking weights and the economy-composite blend are read from the active assumptions layer.
+4. [`app/rankings/global/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/rankings/global/page.tsx) renders the public holistic leaderboard.
+
+## Target account flow
+
+1. [`lib/targets/opportunity.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/opportunity.ts) converts each chain-economy pair into an opportunity score using TVL, readiness gap, stack fit, and ecosystem signal.
+2. [`SeedChainsRepository`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts) exposes the sorted internal opportunity list and account-level profile lookup.
+3. [`lib/targets/outreach-brief.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/outreach-brief.ts) generates a deterministic outreach brief from the selected opportunity and current peer context.
+4. [`app/internal/targets/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/internal/targets/page.tsx) renders the internal commercial-priority table.
+5. [`app/internal/account/[chain]/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/internal/account/[chain]/page.tsx) renders the account-intelligence view for one chain.
 
 ## Comparison flow
 
@@ -116,6 +141,10 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
 2. [`lib/admin/auth.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/auth.ts) protects that route with an environment-variable password and an HttpOnly cookie.
 3. [`app/internal/admin/actions.ts`](/Users/qfedesq/Desktop/Atlas/app/internal/admin/actions.ts) writes validated updates through [`lib/assumptions/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/service.ts).
 4. Public scoring and recommendations consume the updated assumption set automatically on subsequent requests.
+5. The same active assumptions file now controls:
+   - global ranking component weights
+   - economy composite weights inside the global ranking
+   - opportunity-score weights for Target Account Mode
 
 ## Report flow
 
@@ -126,8 +155,12 @@ Protofire Atlas is a seed-first Next.js App Router application with explicit bou
    - Liquid staking landscape
    - target chains by economy
    - high-TVL lagging chains
+   - top ecosystem opportunities
 3. It also generates JSON and CSV ranking exports per economy.
-4. [`scripts/generate-reports.ts`](/Users/qfedesq/Desktop/Atlas/scripts/generate-reports.ts) writes those outputs into [`reports`](/Users/qfedesq/Desktop/Atlas/reports).
+4. It generates additional top-level CSV exports for:
+   - global chain ranking
+   - top target accounts
+5. [`scripts/generate-reports.ts`](/Users/qfedesq/Desktop/Atlas/scripts/generate-reports.ts) writes those outputs into [`reports`](/Users/qfedesq/Desktop/Atlas/reports) and [`exports`](/Users/qfedesq/Desktop/Atlas/exports).
 
 ## Rendering flow
 
@@ -139,12 +172,25 @@ Home page:
 - drives leaderboard sorting directly from table header links instead of a separate filter panel
 - emits a lightweight intent beacon for the active economy selection
 
+Global ranking page:
+
+- parses global sorting params at `/rankings/global`
+- resolves the holistic leaderboard from the repository
+- renders the chain-level composite of readiness, ecosystem activity, adoption, and performance
+
 Chain profile page:
 
 - parses `economy` from search params
 - resolves one chain profile for the selected economy
 - renders source rank and TVL snapshot metadata alongside readiness, gaps, peers, score drivers, stack recommendations, assessment CTA, and the phased plan
+- adds a `Global position` section so the chain can be read inside the broader ecosystem context
 - emits intent beacons for profile views and peer-comparison driven navigation
+
+Internal target pages:
+
+- use the same admin password guard as `/internal/admin`
+- `/internal/targets` renders the internal GTM priority table
+- `/internal/account/[chain]` renders the account-intelligence view and deterministic outreach brief
 
 Layout:
 
@@ -153,8 +199,8 @@ Layout:
 
 ## Why this structure
 
-- It keeps the public product surface narrow: one page for comparison, one route for chain detail.
+- It keeps the public product surface narrow: one page for economy comparison, one route for chain detail, and one focused global leaderboard.
 - It preserves the multi-economy model without duplicating routes for each wedge.
 - It keeps chain selection reproducible without pretending the product is live.
 - It keeps data population inside explicit seed files instead of hidden services.
-- It keeps scoring and recommendations reusable across wedges without duplicating page logic.
+- It keeps scoring, global ranking, and GTM intelligence reusable without duplicating page logic.

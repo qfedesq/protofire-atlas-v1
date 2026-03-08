@@ -75,6 +75,21 @@ Stored in [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed
 - `stageSummary`
 - `atlasFitSummary`
 
+### ChainEcosystemMetricsSeed
+
+Stored in [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts).
+
+- `chainSlug`
+- `wallets`
+- `activeUsers`
+- `protocols`
+- `ecosystemProjects`
+- `averageTransactionSpeed`
+- `blockTime`
+- `throughputIndicator`
+- `snapshotDate`
+- `sourceLabel`
+
 ### EconomyType
 
 - `id`
@@ -116,11 +131,23 @@ Stored in [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/da
 - `updatedBy`
 - `statusScores`
 - `economies`
+- `globalRanking`
+- `opportunityScoring`
 
 ### EconomyAssumptionSet
 
 - `moduleWeights`
+- `moduleDiagnosticWeights`
 - `recommendationConfig`
+
+### GlobalRankingAssumptionSet
+
+- `componentWeights`
+- `economyCompositeWeights`
+
+### OpportunityScoringAssumptionSet
+
+- `weights`
 
 ### Runtime stores
 
@@ -154,6 +181,24 @@ Created on first write under `data/runtime/`:
 - `economyType`
 - `totalScore`
 - `moduleBreakdown`
+
+### GlobalChainScore
+
+- `chainId`
+- `chainSlug`
+- `economyCompositeScore`
+- `ecosystemScore`
+- `adoptionScore`
+- `performanceScore`
+- `totalScore`
+- `computedAt`
+- `metrics`
+
+### GlobalRankedChain
+
+- `chain`
+- `score`
+- `benchmarkRank`
 
 ### RankedChain
 
@@ -202,6 +247,7 @@ Created on first write under `data/runtime/`:
 - `chain`
 - `economy`
 - `readinessScore`
+- `globalPosition`
 - `gapAnalysis`
 - `rank`
 - `leader`
@@ -214,9 +260,31 @@ Created on first write under `data/runtime/`:
 - `recommendedStack`
 - `deploymentPlan`
 
+### TargetAccountRow
+
+- `chain`
+- `economy`
+- `readinessRank`
+- `readinessScore`
+- `readinessGap`
+- `globalRank`
+- `globalScore`
+- `opportunity`
+- `priority`
+- `missingModules`
+- `recommendedStack`
+
+### TargetAccountProfile
+
+- `profile`
+- `opportunity`
+- `recommendedEconomy`
+- `outreachBrief`
+
 ## Generated outputs
 
 The repo also generates deterministic GTM artifacts from the derived model:
 
 - markdown reports under [`reports`](/Users/qfedesq/Desktop/Atlas/reports)
 - JSON and CSV ranking exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+- GTM CSV exports under [`exports`](/Users/qfedesq/Desktop/Atlas/exports)

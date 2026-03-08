@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { submitChainAdditionRequestAction } from "@/app/actions/chain-addition-request";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
@@ -215,9 +217,17 @@ export default async function Home({ searchParams }: HomePageProps) {
       </section>
 
       <section className="space-y-4" id="ranking">
-        <p className="text-accent text-xs tracking-[0.16em] uppercase">
-          Top 30 EVM chains by TVL
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-accent text-xs tracking-[0.16em] uppercase">
+            Top 30 EVM chains by TVL
+          </p>
+          <Link
+            href="/rankings/global"
+            className="text-accent text-sm font-medium hover:underline"
+          >
+            Open global chain ranking
+          </Link>
+        </div>
         <RankingsTable
           economy={economy}
           rows={rows}

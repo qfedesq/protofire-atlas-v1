@@ -5,7 +5,12 @@ import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildDefaultAssumptionsSnapshot } from "@/lib/assumptions/defaults";
-import { updateEconomyAssumptions, updateStatusScores } from "@/lib/assumptions/service";
+import {
+  updateEconomyAssumptions,
+  updateGlobalRankingAssumptions,
+  updateOpportunityScoringAssumptions,
+  updateStatusScores,
+} from "@/lib/assumptions/service";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 import { writeJsonFile } from "@/lib/storage/json-file";
@@ -148,5 +153,69 @@ describe("active assumptions", () => {
       ]?.["liquidity-exit"],
     ).toBe(25);
     expect(profile.liquidStakingDiagnosis.dimensions[0]?.weight).toBe(25);
+  });
+
+  it("persists global ranking and opportunity weights", () => {
+    useTempAssumptionsFile();
+
+    updateGlobalRankingAssumptions(
+      {
+        economyScore: 40,
+        ecosystem: 25,
+        adoption: 20,
+        performance: 15,
+      },
+      {
+        "ai-agents": 20,
+        "defi-infrastructure": 40,
+        "rwa-infrastructure": 20,
+        "prediction-markets": 20,
+      },
+      "test",
+    );
+    updateOpportunityScoringAssumptions(
+      {
+        tvlTier: 25,
+        readinessGap: 35,
+        stackFit: 25,
+        ecosystemSignal: 15,
+      },
+      "test",
+    );
+
+    const active = getActiveAssumptions();
+    const repository = createSeedChainsRepository();
+    const globalRows = repository.listGlobalRankedChains();
+    const targetRows = repository.listTargetAccounts();
+
+    expect(active.globalRanking.componentWeights.economyScore).toBe(40);
+    expect(
+      active.globalRanking.economyCompositeWeights["defi-infrastructure"],
+    ).toBe(40);
+    expect(active.opportunityScoring.weights.readinessGap).toBe(35);
+    expect(globalRows[0]?.score.totalScore).toBeGreaterThan(0);
+    expect(targetRows[0]?.opportunity.totalScore).toBeGreaterThan(0);
+  });
+
+  it("rejects invalid global ranking weights", () => {
+    useTempAssumptionsFile();
+
+    expect(() =>
+      updateGlobalRankingAssumptions(
+        {
+          economyScore: 50,
+          ecosystem: 20,
+          adoption: 20,
+          performance: 20,
+        },
+        {
+          "ai-agents": 25,
+          "defi-infrastructure": 25,
+          "rwa-infrastructure": 25,
+          "prediction-markets": 25,
+        },
+        "test",
+      ),
+    ).toThrow(/Global ranking weights must sum to 100/);
   });
 });

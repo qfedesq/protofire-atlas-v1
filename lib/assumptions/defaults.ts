@@ -28,5 +28,27 @@ export function buildDefaultAssumptionsSnapshot(): ActiveAssumptions {
         },
       ]),
     ) as ActiveAssumptions["economies"],
+    globalRanking: {
+      componentWeights: {
+        economyScore: 50,
+        ecosystem: 20,
+        adoption: 20,
+        performance: 10,
+      },
+      economyCompositeWeights: {
+        "ai-agents": 25,
+        "defi-infrastructure": 25,
+        "rwa-infrastructure": 25,
+        "prediction-markets": 25,
+      },
+    },
+    opportunityScoring: {
+      weights: {
+        tvlTier: 30,
+        readinessGap: 30,
+        stackFit: 25,
+        ecosystemSignal: 15,
+      },
+    },
   };
 }

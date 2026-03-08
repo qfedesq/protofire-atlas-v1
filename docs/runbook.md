@@ -55,6 +55,7 @@ Use this after any edit to:
 - [`data/source/defillama-top-30-evm-chains.snapshot.json`](/Users/qfedesq/Desktop/Atlas/data/source/defillama-top-30-evm-chains.snapshot.json)
 - [`data/seed/chains.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chains.ts)
 - [`data/seed/chain-metadata.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-metadata.ts)
+- [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts)
 - any file under [`data/seed/economies`](/Users/qfedesq/Desktop/Atlas/data/seed/economies)
 - [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts)
 
@@ -69,7 +70,10 @@ Outputs:
 - [`reports/ai-agent-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/ai-agent-readiness-report.md)
 - [`reports/defi-infrastructure-readiness-report.md`](/Users/qfedesq/Desktop/Atlas/reports/defi-infrastructure-readiness-report.md)
 - [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
+- [`reports/top-ecosystem-opportunities.md`](/Users/qfedesq/Desktop/Atlas/reports/top-ecosystem-opportunities.md)
 - JSON exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+- [`exports/global-chain-ranking.csv`](/Users/qfedesq/Desktop/Atlas/exports/global-chain-ranking.csv)
+- [`exports/top-target-accounts.csv`](/Users/qfedesq/Desktop/Atlas/exports/top-target-accounts.csv)
 
 ## Typecheck
 
@@ -135,6 +139,7 @@ npm run build
    - stack recommendation
     - deployment plan
    - request assessment CTA
+   - global position section
 7. Submit a test request from a chain profile and confirm:
    - the success state appears
    - a new record is written to `data/runtime/assessment-requests.json`
@@ -144,6 +149,19 @@ npm run build
    - with `ATLAS_ADMIN_PASSWORD` in production-like environments
    - with the documented local fallback password in development
 10. Change one economy weight set in admin, save it, and confirm rankings or recommendation behavior change on a hard refresh.
-11. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
-12. Regenerate reports and confirm the markdown and export files update cleanly.
-13. Confirm wording does not imply live or continuously synced data.
+11. Open `/rankings/global` and confirm:
+   - the leaderboard renders
+   - sorting works for `Global Score`, `Ecosystem`, and `Adoption`
+   - chain links land on the public chain profile
+12. Open `/internal/targets` and confirm:
+   - sorting works for `Opportunity Score`, `Readiness gap`, and `Ecosystem size`
+   - chain links open `/internal/account/[chain]`
+13. On one internal account page confirm:
+   - global rank
+   - opportunity score
+   - gap analysis
+   - recommended stack
+   - outreach brief
+14. Verify the current public version badge in the upper-right shell matches [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json).
+15. Regenerate reports and confirm the markdown and export files update cleanly.
+16. Confirm wording does not imply live or continuously synced data.

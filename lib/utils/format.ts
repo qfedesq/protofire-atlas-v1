@@ -13,6 +13,15 @@ const compactCurrencyFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 
+const compactNumberFormatter = new Intl.NumberFormat("en-US", {
+  notation: "compact",
+  maximumFractionDigits: 1,
+});
+
 export function formatCurrencyCompact(value: number) {
   return compactCurrencyFormatter.format(value);
+}
+
+export function formatCountCompact(value: number) {
+  return compactNumberFormatter.format(value);
 }

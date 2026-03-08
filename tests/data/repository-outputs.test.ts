@@ -46,4 +46,34 @@ describe("seed repository outputs", () => {
     expect(aiRows[0]?.chain.slug).not.toBeUndefined();
     expect(rwaRows[0]?.chain.slug).not.toBeUndefined();
   });
+
+  it("builds a stable global ranking across the seeded chain set", () => {
+    const repository = createSeedChainsRepository();
+    const rows = repository.listGlobalRankedChains({
+      sort: "totalScore",
+      direction: "desc",
+    });
+
+    expect(rows).toHaveLength(30);
+    expect(rows[0]?.benchmarkRank).toBe(1);
+    expect(rows[0]?.score.totalScore).toBeGreaterThanOrEqual(
+      rows[1]?.score.totalScore ?? 0,
+    );
+  });
+
+  it("builds internal target-account rows and profile snapshots", () => {
+    const repository = createSeedChainsRepository();
+    const rows = repository.listTargetAccounts({
+      sort: "opportunityScore",
+      direction: "desc",
+    });
+    const profile = repository.getTargetAccountProfile("base");
+
+    expect(rows).toHaveLength(120);
+    expect(rows[0]?.opportunity.totalScore).toBeGreaterThanOrEqual(
+      rows[1]?.opportunity.totalScore ?? 0,
+    );
+    expect(profile?.profile.globalPosition.benchmarkRank).toBeGreaterThan(0);
+    expect(profile?.outreachBrief.economyName).toBeTruthy();
+  });
 });

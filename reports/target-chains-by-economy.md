@@ -13,11 +13,11 @@
 
 ## DeFi Infrastructure Economy
 
-- BNB Chain: source rank #2, readiness #6 (7.3), primary gap Oracle Infrastructure.
-- Base: source rank #3, readiness #5 (7.3), primary gap Lending Infrastructure.
-- Plasma: source rank #4, readiness #12 (4.0), primary gap Lending Infrastructure.
+- BNB Chain: source rank #2, readiness #6 (7.3), primary gap Liquid Staking Infrastructure.
+- Base: source rank #3, readiness #5 (7.3), primary gap Liquid Staking Infrastructure.
+- Plasma: source rank #4, readiness #12 (4.0), primary gap Liquid Staking Infrastructure.
 - Arbitrum: source rank #5, readiness #2 (8.8), primary gap Liquid Staking Infrastructure.
-- Avalanche: source rank #6, readiness #4 (7.3), primary gap Oracle Infrastructure.
+- Avalanche: source rank #6, readiness #4 (7.3), primary gap Liquid Staking Infrastructure.
 
 ## RWA Infrastructure Economy
 

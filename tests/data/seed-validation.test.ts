@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
 
 import { chainCatalogSeeds } from "@/data/seed/catalog";
+import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
 import { economyTypes } from "@/lib/config/economies";
-import { validateAtlasSeedDataset } from "@/lib/domain/schemas";
+import {
+  validateAtlasSeedDataset,
+  validateChainEcosystemMetricsSeeds,
+} from "@/lib/domain/schemas";
 
 describe("seed data validation", () => {
   it("accepts the current multi-economy seeded benchmark dataset", () => {
@@ -55,5 +59,14 @@ describe("seed data validation", () => {
         records: invalidRecords,
       }),
     ).toThrow(/do not match the configured module catalog/i);
+  });
+
+  it("accepts one ecosystem metrics record per seeded chain", () => {
+    const parsedMetrics = validateChainEcosystemMetricsSeeds(
+      chainCatalogSeeds,
+      chainEcosystemMetricsSeeds,
+    );
+
+    expect(parsedMetrics).toHaveLength(30);
   });
 });

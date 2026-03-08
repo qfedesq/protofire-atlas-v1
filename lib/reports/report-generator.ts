@@ -3,7 +3,12 @@ import {
   atlasDatasetSnapshot,
 } from "@/lib/config/dataset";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
-import type { EconomyTypeSlug, RankedChain } from "@/lib/domain/types";
+import type {
+  EconomyTypeSlug,
+  GlobalRankedChain,
+  RankedChain,
+  TargetAccountRow,
+} from "@/lib/domain/types";
 import { formatScore } from "@/lib/utils/format";
 
 const repository = createSeedChainsRepository();
@@ -28,6 +33,14 @@ function getEconomy(economySlug: EconomyTypeSlug) {
   }
 
   return economy;
+}
+
+function getGlobalRankedRows() {
+  return repository.listGlobalRankedChains();
+}
+
+function getTargetAccountRows() {
+  return repository.listTargetAccounts();
 }
 
 function formatRankingLine(row: RankedChain) {
@@ -385,5 +398,116 @@ export function buildHighTvlLaggingChainsReportMarkdown() {
         "",
       ];
     }),
+  ].join("\n");
+}
+
+export function buildGlobalChainRankingExportCsv() {
+  const rows = getGlobalRankedRows();
+  const headers = [
+    "chain",
+    "slug",
+    "source_rank",
+    "global_rank",
+    "global_score",
+    "economy_composite_score",
+    "ecosystem_score",
+    "adoption_score",
+    "performance_score",
+  ];
+  const lines = rows.map((row) => [
+    row.chain.name,
+    row.chain.slug,
+    String(row.chain.sourceRank),
+    String(row.benchmarkRank),
+    formatScore(row.score.totalScore),
+    formatScore(row.score.economyCompositeScore),
+    formatScore(row.score.ecosystemScore),
+    formatScore(row.score.adoptionScore),
+    formatScore(row.score.performanceScore),
+  ]);
+
+  return [headers.join(","), ...lines.map((line) => line.join(","))].join("\n");
+}
+
+export function buildTopTargetAccountsExportCsv() {
+  const rows = getTargetAccountRows();
+  const headers = [
+    "chain",
+    "economy",
+    "opportunity_score",
+    "global_rank",
+    "readiness_rank",
+    "priority",
+    "readiness_gap",
+    "missing_modules",
+    "recommended_stack",
+  ];
+  const lines = rows.map((row) => [
+    row.chain.name,
+    row.economy.slug,
+    formatScore(row.opportunity.totalScore),
+    String(row.globalRank),
+    String(row.readinessRank),
+    row.priority,
+    formatScore(row.readinessGap),
+    row.missingModules.map((gap) => gap.module.slug).join("|"),
+    row.recommendedStack.recommendedModules
+      .map((recommendation) => recommendation.module.slug)
+      .join("|"),
+  ]);
+
+  return [headers.join(","), ...lines.map((line) => line.join(","))].join("\n");
+}
+
+function buildTargetSummary(row: TargetAccountRow) {
+  return `- ${row.chain.name} (${row.economy.shortLabel}): opportunity ${formatScore(row.opportunity.totalScore)}, readiness #${row.readinessRank}, global #${row.globalRank}, gaps ${row.missingModules
+    .slice(0, 2)
+    .map((gap) => gap.module.name.toLowerCase())
+    .join(", ")}.`;
+}
+
+function buildGlobalSummaryLine(row: GlobalRankedChain) {
+  return `- #${row.benchmarkRank} ${row.chain.name} (${formatScore(row.score.totalScore)})`;
+}
+
+export function buildTopEcosystemOpportunitiesReportMarkdown() {
+  const globalRows = getGlobalRankedRows();
+  const targetRows = getTargetAccountRows();
+  const topTargets = targetRows.slice(0, 10);
+  const byEconomy = new Map<EconomyTypeSlug, TargetAccountRow[]>();
+
+  targetRows.forEach((row) => {
+    const current = byEconomy.get(row.economy.slug) ?? [];
+    current.push(row);
+    byEconomy.set(row.economy.slug, current);
+  });
+
+  return [
+    "# Top ecosystem opportunities",
+    "",
+    `- Dataset: ${atlasDatasetLabel}`,
+    `- Snapshot date: ${atlasDatasetSnapshot.snapshotDate}`,
+    "",
+    "## Global chain leaders",
+    "",
+    ...globalRows.slice(0, 10).map(buildGlobalSummaryLine),
+    "",
+    "## Top commercial opportunities",
+    "",
+    ...topTargets.map(buildTargetSummary),
+    "",
+    ...(["ai-agents", "defi-infrastructure", "rwa-infrastructure", "prediction-markets"] as EconomyTypeSlug[]).flatMap(
+      (economySlug) => {
+        const economy = getEconomy(economySlug);
+        const rows = (byEconomy.get(economySlug) ?? []).slice(0, 5);
+
+        return [
+          `## ${economy.name}`,
+          "",
+          ...rows.map(buildTargetSummary),
+          "",
+        ];
+      },
+    ),
   ].join("\n");
 }

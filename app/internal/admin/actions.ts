@@ -3,7 +3,12 @@
 import { redirect } from "next/navigation";
 
 import { createAdminSession, clearAdminSession } from "@/lib/admin/auth";
-import { updateEconomyAssumptions, updateStatusScores } from "@/lib/assumptions/service";
+import {
+  updateEconomyAssumptions,
+  updateGlobalRankingAssumptions,
+  updateOpportunityScoringAssumptions,
+  updateStatusScores,
+} from "@/lib/assumptions/service";
 import type { EconomyTypeSlug } from "@/lib/domain/types";
 
 function asString(value: FormDataEntryValue | null) {
@@ -83,5 +88,49 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
     redirect(`/internal/admin?saved=${economySlug}`);
   } catch {
     redirect(`/internal/admin?error=${economySlug}`);
+  }
+}
+
+export async function updateGlobalRankingAssumptionsAction(formData: FormData) {
+  try {
+    updateGlobalRankingAssumptions(
+      {
+        economyScore: asNumber(formData.get("economyScoreWeight")),
+        ecosystem: asNumber(formData.get("ecosystemWeight")),
+        adoption: asNumber(formData.get("adoptionWeight")),
+        performance: asNumber(formData.get("performanceWeight")),
+      },
+      {
+        "ai-agents": asNumber(formData.get("ai-agents")),
+        "defi-infrastructure": asNumber(formData.get("defi-infrastructure")),
+        "rwa-infrastructure": asNumber(formData.get("rwa-infrastructure")),
+        "prediction-markets": asNumber(formData.get("prediction-markets")),
+      },
+      "internal-admin",
+    );
+
+    redirect("/internal/admin?saved=global-ranking");
+  } catch {
+    redirect("/internal/admin?error=global-ranking");
+  }
+}
+
+export async function updateOpportunityScoringAssumptionsAction(
+  formData: FormData,
+) {
+  try {
+    updateOpportunityScoringAssumptions(
+      {
+        tvlTier: asNumber(formData.get("tvlTier")),
+        readinessGap: asNumber(formData.get("readinessGap")),
+        stackFit: asNumber(formData.get("stackFit")),
+        ecosystemSignal: asNumber(formData.get("ecosystemSignal")),
+      },
+      "internal-admin",
+    );
+
+    redirect("/internal/admin?saved=opportunity-scoring");
+  } catch {
+    redirect("/internal/admin?error=opportunity-scoring");
   }
 }

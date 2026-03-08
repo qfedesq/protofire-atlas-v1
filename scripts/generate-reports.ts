@@ -5,16 +5,21 @@ import {
   buildEconomyRankingExport,
   buildEconomyRankingExportCsv,
   buildEconomyReportMarkdown,
+  buildGlobalChainRankingExportCsv,
   buildHighTvlLaggingChainsReportMarkdown,
   buildLiquidStakingLandscapeReportMarkdown,
+  buildTopEcosystemOpportunitiesReportMarkdown,
+  buildTopTargetAccountsExportCsv,
   buildTargetChainsByEconomyReportMarkdown,
 } from "@/lib/reports/report-generator";
 
 const workspaceRoot = process.cwd();
 const reportsDirectory = join(workspaceRoot, "reports");
 const exportsDirectory = join(reportsDirectory, "exports");
+const topLevelExportsDirectory = join(workspaceRoot, "exports");
 
 mkdirSync(exportsDirectory, { recursive: true });
+mkdirSync(topLevelExportsDirectory, { recursive: true });
 
 const reportFiles = [
   {
@@ -36,6 +41,10 @@ const reportFiles = [
   {
     path: join(reportsDirectory, "high-tvl-lagging-chains.md"),
     content: buildHighTvlLaggingChainsReportMarkdown(),
+  },
+  {
+    path: join(reportsDirectory, "top-ecosystem-opportunities.md"),
+    content: buildTopEcosystemOpportunitiesReportMarkdown(),
   },
 ];
 
@@ -75,6 +84,14 @@ const exportFiles = [
   {
     path: join(exportsDirectory, "prediction-markets-ranking.csv"),
     content: buildEconomyRankingExportCsv("prediction-markets"),
+  },
+  {
+    path: join(topLevelExportsDirectory, "global-chain-ranking.csv"),
+    content: buildGlobalChainRankingExportCsv(),
+  },
+  {
+    path: join(topLevelExportsDirectory, "top-target-accounts.csv"),
+    content: buildTopTargetAccountsExportCsv(),
   },
 ];
 

@@ -20,10 +20,13 @@ Supported economy wedges:
 Core product surface:
 
 - one-page public Atlas overview at `/`
+- public Global Chain Ranking at `/rankings/global`
 - economy switching inside the home page
 - full ranking and direct header sorting inside the home page
 - chain profile pages at `/chains/[slug]`
 - internal assumptions editor at `/internal/admin`
+- internal target dashboard at `/internal/targets`
+- internal account intelligence pages at `/internal/account/[chain]`
 - deterministic scoring
 - gap analysis
 - peer comparison
@@ -101,7 +104,8 @@ npm run data:refresh-top30
 5. Update official roadmap coverage and stage analysis in [`data/seed/chain-roadmaps.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-roadmaps.ts).
 6. Review source guidance in [`docs/onchain-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/onchain-data-sources.md).
 7. Update LST market snapshot inputs when verified sources are available in [`data/seed/liquid-staking-market-snapshots.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/liquid-staking-market-snapshots.ts).
-8. Validate and regenerate outputs:
+8. Update curated ecosystem and performance inputs in [`data/seed/chain-ecosystem-metrics.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-ecosystem-metrics.ts) when the benchmark snapshot changes.
+9. Validate and regenerate outputs:
 
 ```bash
 npm run validate:data
@@ -118,7 +122,9 @@ Generated internal outputs live in [`reports`](/Users/qfedesq/Desktop/Atlas/repo
 - [`reports/liquid-staking-landscape-report.md`](/Users/qfedesq/Desktop/Atlas/reports/liquid-staking-landscape-report.md)
 - [`reports/target-chains-by-economy.md`](/Users/qfedesq/Desktop/Atlas/reports/target-chains-by-economy.md)
 - [`reports/high-tvl-lagging-chains.md`](/Users/qfedesq/Desktop/Atlas/reports/high-tvl-lagging-chains.md)
+- [`reports/top-ecosystem-opportunities.md`](/Users/qfedesq/Desktop/Atlas/reports/top-ecosystem-opportunities.md)
 - ranking exports under [`reports/exports`](/Users/qfedesq/Desktop/Atlas/reports/exports)
+- top-level GTM exports under [`exports`](/Users/qfedesq/Desktop/Atlas/exports)
 
 Report generation is deterministic and reuses the current dataset and scoring logic.
 
@@ -134,6 +140,19 @@ This phase added:
 - a narrow internal admin route for calculation assumptions only
 - visible application versioning in the public shell
 - local repository/version discipline for the `-v1` release line
+
+## Global Ranking + Target Account additions
+
+This phase added:
+
+- a public holistic chain leaderboard at `/rankings/global`
+- curated ecosystem, adoption, and performance inputs for the fixed top-30 chain set
+- a deterministic `GlobalChainScore`
+- an internal `OpportunityScore` per chain and economy
+- an internal target dashboard at `/internal/targets`
+- internal account intelligence pages at `/internal/account/[chain]`
+- deterministic outreach brief generation
+- new GTM exports for global ranking and top target accounts
 
 ## Request capture and intent data
 
@@ -157,6 +176,9 @@ This layer controls:
 - per-economy module weights
 - global status score mapping
 - per-economy recommendation thresholds and partial/missing toggles
+- global ranking component weights
+- economy composite weights
+- target-account opportunity weights
 
 The internal route is:
 
@@ -175,10 +197,6 @@ Canonical version source:
 
 - [`package.json`](/Users/qfedesq/Desktop/Atlas/package.json)
 - public label helper: [`lib/config/version.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/version.ts)
-
-Current baseline:
-
-- `1.0.0` → visible as `V1.0`
 
 Increment rule:
 
@@ -205,6 +223,9 @@ npm run version:bump
 - intent event store: [`lib/intent/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/intent/store.ts)
 - report generation: [`lib/reports/report-generator.ts`](/Users/qfedesq/Desktop/Atlas/lib/reports/report-generator.ts)
 - roadmap fit analysis: [`lib/roadmaps/roadmap-analysis.ts`](/Users/qfedesq/Desktop/Atlas/lib/roadmaps/roadmap-analysis.ts)
+- global ranking engine: [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts)
+- target account engine: [`lib/targets/opportunity.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/opportunity.ts)
+- outreach brief builder: [`lib/targets/outreach-brief.ts`](/Users/qfedesq/Desktop/Atlas/lib/targets/outreach-brief.ts)
 - seed-backed repository: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
 
 ## Repository discipline
@@ -212,14 +233,16 @@ npm run version:bump
 - working release line naming convention: repository name must end with `-v1`
 - current local package/release line: `protofire-atlas-v1`
 - workflow guidance: [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-- branch used for this phase: `codex/profile-kpis-v1-8`
+- branch used for this phase: `codex/global-ranking-target-accounts-v1-12`
 
 ## Read this first
 
 1. [`README.md`](/Users/qfedesq/Desktop/Atlas/README.md)
 2. [`docs/architecture.md`](/Users/qfedesq/Desktop/Atlas/docs/architecture.md)
-3. [`docs/gtm-phase.md`](/Users/qfedesq/Desktop/Atlas/docs/gtm-phase.md)
-4. [`docs/admin-assumptions.md`](/Users/qfedesq/Desktop/Atlas/docs/admin-assumptions.md)
-5. [`docs/developer-guide.md`](/Users/qfedesq/Desktop/Atlas/docs/developer-guide.md)
-6. [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
-7. [`docs/runbook.md`](/Users/qfedesq/Desktop/Atlas/docs/runbook.md)
+3. [`docs/global-ranking.md`](/Users/qfedesq/Desktop/Atlas/docs/global-ranking.md)
+4. [`docs/target-account-mode.md`](/Users/qfedesq/Desktop/Atlas/docs/target-account-mode.md)
+5. [`docs/gtm-phase.md`](/Users/qfedesq/Desktop/Atlas/docs/gtm-phase.md)
+6. [`docs/admin-assumptions.md`](/Users/qfedesq/Desktop/Atlas/docs/admin-assumptions.md)
+7. [`docs/developer-guide.md`](/Users/qfedesq/Desktop/Atlas/docs/developer-guide.md)
+8. [`docs/repository-setup.md`](/Users/qfedesq/Desktop/Atlas/docs/repository-setup.md)
+9. [`docs/runbook.md`](/Users/qfedesq/Desktop/Atlas/docs/runbook.md)

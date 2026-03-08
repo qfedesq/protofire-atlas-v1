@@ -10,7 +10,7 @@
 
 ## DeFi Infrastructure Economy
 
-- Ink: source rank #10, readiness #16 (3.8), major gaps lending infrastructure, liquidity layer.
+- Ink: source rank #10, readiness #16 (3.8), major gaps liquid staking infrastructure, lending infrastructure.
 
 ## RWA Infrastructure Economy
 

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Panel } from "@/components/ui/panel";
 import { getAdminAccessState, isAdminAuthenticated } from "@/lib/admin/auth";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
@@ -9,6 +11,8 @@ import {
   loginAdminAction,
   logoutAdminAction,
   updateEconomyAssumptionsAction,
+  updateGlobalRankingAssumptionsAction,
+  updateOpportunityScoringAssumptionsAction,
   updateStatusScoresAction,
 } from "./actions";
 
@@ -105,6 +109,7 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const repository = createSeedChainsRepository();
   const economies = repository.listEconomies();
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
+  const globalPreview = repository.listGlobalRankedChains().slice(0, 5);
 
   return (
     <div className="space-y-6">
@@ -126,6 +131,14 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               This page is the narrow management surface for weights, status
               mappings, and recommendation thresholds only.
             </p>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+              <Link
+                href="/internal/targets"
+                className="text-accent font-medium hover:underline"
+              >
+                Open target accounts
+              </Link>
+            </div>
           </div>
           <form action={logoutAdminAction}>
             <button
@@ -187,6 +200,197 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
             >
               Save status mapping
+            </button>
+          </div>
+        </form>
+      </Panel>
+
+      <Panel className="space-y-5">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Global ranking
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Global Chain Ranking weights
+          </h2>
+          <p className="text-muted mt-3 text-sm leading-6">
+            These weights control how Atlas blends economy readiness,
+            ecosystem vitality, adoption, and technical performance on
+            <code> /rankings/global</code>.
+          </p>
+        </div>
+
+        <form action={updateGlobalRankingAssumptionsAction} className="space-y-5">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Economy score
+              </label>
+              <input
+                name="economyScoreWeight"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.globalRanking.componentWeights.economyScore}
+                className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Ecosystem
+              </label>
+              <input
+                name="ecosystemWeight"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.globalRanking.componentWeights.ecosystem}
+                className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Adoption
+              </label>
+              <input
+                name="adoptionWeight"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.globalRanking.componentWeights.adoption}
+                className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Performance
+              </label>
+              <input
+                name="performanceWeight"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.globalRanking.componentWeights.performance}
+                className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Economy composite
+              </p>
+              <h3 className="text-foreground mt-2 text-lg font-semibold">
+                Composite economy weights
+              </h3>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {economies.map((economy) => (
+                <div key={economy.slug} className="space-y-2">
+                  <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                    {economy.shortLabel}
+                  </label>
+                  <input
+                    name={economy.slug}
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    defaultValue={
+                      assumptions.globalRanking.economyCompositeWeights[economy.slug]
+                    }
+                    className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                    required
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div className="bg-surface-muted rounded-2xl p-4">
+              <p className="text-muted text-xs tracking-[0.14em] uppercase">
+                Current global preview
+              </p>
+              <div className="mt-3 space-y-2 text-sm">
+                {globalPreview.map((row) => (
+                  <div
+                    key={row.chain.slug}
+                    className="flex items-center justify-between gap-3"
+                  >
+                    <span className="text-foreground">
+                      #{row.benchmarkRank} {row.chain.name}
+                    </span>
+                    <span className="text-muted">
+                      {formatScore(row.score.totalScore)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+            >
+              Save global ranking weights
+            </button>
+          </div>
+        </form>
+      </Panel>
+
+      <Panel className="space-y-4">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Target account mode
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Opportunity score weights
+          </h2>
+          <p className="text-muted mt-3 text-sm leading-6">
+            These weights drive the internal commercial-priority model on
+            <code> /internal/targets</code>.
+          </p>
+        </div>
+
+        <form
+          action={updateOpportunityScoringAssumptionsAction}
+          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+        >
+          {Object.entries(assumptions.opportunityScoring.weights).map(
+            ([key, value]) => (
+              <div key={key} className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  {key}
+                </label>
+                <input
+                  name={key}
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={value}
+                  className="border-border text-foreground focus:border-accent w-full rounded-2xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+            ),
+          )}
+          <div className="md:col-span-2 xl:col-span-4">
+            <button
+              type="submit"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+            >
+              Save opportunity weights
             </button>
           </div>
         </form>

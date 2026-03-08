@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { parseRankingsQuery } from "@/lib/domain/schemas";
+import {
+  parseGlobalRankingsQuery,
+  parseRankingsQuery,
+  parseTargetAccountsQuery,
+} from "@/lib/domain/schemas";
 
 describe("rankings query parsing", () => {
   it("uses safe defaults when params are missing", () => {
@@ -40,5 +44,26 @@ describe("rankings query parsing", () => {
     });
 
     expect(query.sort).toBe("totalScore");
+  });
+
+  it("parses global ranking query params with safe defaults", () => {
+    const query = parseGlobalRankingsQuery({
+      sort: ["ecosystemScore"],
+      direction: ["asc"],
+    });
+
+    expect(query).toEqual({
+      sort: "ecosystemScore",
+      direction: "asc",
+    });
+  });
+
+  it("parses target-account query params with safe defaults", () => {
+    const query = parseTargetAccountsQuery(undefined);
+
+    expect(query).toEqual({
+      sort: "opportunityScore",
+      direction: "desc",
+    });
   });
 });

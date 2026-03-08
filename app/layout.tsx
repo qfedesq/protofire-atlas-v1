@@ -49,6 +49,12 @@ export default function RootLayout({
               <nav className="flex items-center gap-6 text-sm text-slate-300">
                 <Link
                   className="transition hover:text-white"
+                  href="/rankings/global"
+                >
+                  Global ranking
+                </Link>
+                <Link
+                  className="transition hover:text-white"
                   href="/internal/admin"
                 >
                   Admin

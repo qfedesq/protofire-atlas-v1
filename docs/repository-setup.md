@@ -16,7 +16,7 @@ The local package/release line already uses:
 
 - git repository is already initialized
 - remote `origin` points to `https://github.com/qfedesq/protofire-atlas-v1.git`
-- branch used for this phase: `codex/profile-kpis-v1-8`
+- branch used for this phase: `codex/global-ranking-target-accounts-v1-12`
 
 ## Manual GitHub setup
 
@@ -60,7 +60,7 @@ Examples:
 
 - `1.0.0` → public label `V1.0`
 - `1.1.0` → public label `V1.1`
-- `1.11.0` → public label `V1.11`
+- `1.12.0` → public label `V1.12`
 
 Helper command:
 

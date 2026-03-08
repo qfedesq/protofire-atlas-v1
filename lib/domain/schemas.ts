@@ -13,17 +13,22 @@ import {
   chainSourceMetrics,
   chainSourceProviders,
   economyTypeSlugs,
+  globalRankingsSortKeys,
   moduleAvailabilityStatuses,
   rankingsSortDirections,
+  targetAccountSortKeys,
 } from "@/lib/domain/types";
 import type {
   AtlasSeedDataset,
   ChainCatalogSeed,
+  ChainEcosystemMetricsSeed,
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
   EconomyType,
+  GlobalRankingsQuery,
   RankingsQuery,
   RankingsSortKey,
+  TargetAccountsQuery,
 } from "@/lib/domain/types";
 
 function addUniqueFieldIssue<Item>(
@@ -326,6 +331,32 @@ const chainRoadmapSeedsSchema = z
     );
   });
 
+const chainEcosystemMetricsSeedSchema = z.object({
+  chainSlug: z.string().min(1),
+  wallets: z.number().int().nonnegative(),
+  activeUsers: z.number().int().nonnegative(),
+  protocols: z.number().int().nonnegative(),
+  ecosystemProjects: z.number().int().nonnegative(),
+  averageTransactionSpeed: z.number().positive(),
+  blockTime: z.number().positive(),
+  throughputIndicator: z.number().positive(),
+  snapshotDate: z.string().min(1),
+  sourceLabel: z.string().min(1),
+});
+
+const chainEcosystemMetricsSeedsSchema = z
+  .array(chainEcosystemMetricsSeedSchema)
+  .min(1)
+  .superRefine((records, ctx) => {
+    addUniqueFieldIssue(
+      records,
+      (record) => record.chainSlug,
+      "chainSlug",
+      ctx,
+      "Duplicate chain ecosystem metrics record",
+    );
+  });
+
 const chainEconomySeedRecordsSchema = z
   .array(chainEconomySeedRecordSchema)
   .min(1)
@@ -348,6 +379,16 @@ const rankingsBaseSearchSchema = z.object({
 
 const economySelectionSchema = z.object({
   economy: z.enum(economyTypeSlugs).default(defaultEconomySlug),
+});
+
+const globalRankingsSearchSchema = z.object({
+  sort: z.enum(globalRankingsSortKeys).default("totalScore"),
+  direction: z.enum(rankingsSortDirections).default("desc"),
+});
+
+const targetAccountsSearchSchema = z.object({
+  sort: z.enum(targetAccountSortKeys).default("opportunityScore"),
+  direction: z.enum(rankingsSortDirections).default("desc"),
 });
 
 type SearchParamValue = string | string[] | undefined;
@@ -387,6 +428,12 @@ export function parseChainEconomySeedRecords(
 
 export function parseChainRoadmapSeeds(input: unknown): ChainRoadmapSeed[] {
   return chainRoadmapSeedsSchema.parse(input);
+}
+
+export function parseChainEcosystemMetricsSeeds(
+  input: unknown,
+): ChainEcosystemMetricsSeed[] {
+  return chainEcosystemMetricsSeedsSchema.parse(input);
 }
 
 export function validateChainRoadmapSeeds(
@@ -474,6 +521,33 @@ export function validateAtlasSeedDataset(
   };
 }
 
+export function validateChainEcosystemMetricsSeeds(
+  chains: ChainCatalogSeed[],
+  metrics: ChainEcosystemMetricsSeed[],
+) {
+  const parsedChains = parseChainCatalogSeeds(chains);
+  const parsedMetrics = parseChainEcosystemMetricsSeeds(metrics);
+  const metricBySlug = new Map(
+    parsedMetrics.map((record) => [record.chainSlug, record] as const),
+  );
+
+  parsedChains.forEach((chain) => {
+    if (!metricBySlug.has(chain.slug)) {
+      throw new Error(`Missing ecosystem metrics record for ${chain.slug}.`);
+    }
+  });
+
+  parsedMetrics.forEach((record) => {
+    if (!parsedChains.some((chain) => chain.slug === record.chainSlug)) {
+      throw new Error(
+        `Unknown chain slug "${record.chainSlug}" in ecosystem metrics seed.`,
+      );
+    }
+  });
+
+  return parsedMetrics;
+}
+
 export function parseEconomySelection(
   searchParams: SearchParamRecord,
 ) {
@@ -499,4 +573,22 @@ export function parseRankingsQuery(
     ...base,
     sort: parseSortKey(searchParams?.sort, economy),
   };
+}
+
+export function parseGlobalRankingsQuery(
+  searchParams: SearchParamRecord,
+): GlobalRankingsQuery {
+  return globalRankingsSearchSchema.parse({
+    sort: firstValue(searchParams?.sort),
+    direction: firstValue(searchParams?.direction),
+  });
+}
+
+export function parseTargetAccountsQuery(
+  searchParams: SearchParamRecord,
+): TargetAccountsQuery {
+  return targetAccountsSearchSchema.parse({
+    sort: firstValue(searchParams?.sort),
+    direction: firstValue(searchParams?.direction),
+  });
 }

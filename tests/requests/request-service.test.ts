@@ -28,6 +28,8 @@ afterEach(() => {
 });
 
 describe("assessment request service", () => {
+  const validIssuedAt = new Date(Date.now() + 30 * 60 * 1000).toISOString();
+
   it("stores validated requests and emits an intent event", () => {
     const tempDirectory = mkdtempSync(join(tmpdir(), "atlas-requests-"));
     process.env.ATLAS_REQUESTS_FILE = join(
@@ -81,7 +83,7 @@ describe("assessment request service", () => {
       firstNumber: 4,
       secondNumber: 5,
       operator: "+",
-      issuedAt: "2026-03-08T12:00:00.000Z",
+      issuedAt: validIssuedAt,
     });
 
     process.env.ATLAS_CHAIN_ADDITION_REQUESTS_FILE = join(
@@ -118,7 +120,7 @@ describe("assessment request service", () => {
       firstNumber: 7,
       secondNumber: 2,
       operator: "-",
-      issuedAt: "2026-03-08T12:00:00.000Z",
+      issuedAt: validIssuedAt,
     });
 
     expect(() =>
@@ -137,7 +139,7 @@ describe("assessment request service", () => {
       firstNumber: 3,
       secondNumber: 3,
       operator: "+",
-      issuedAt: "2026-03-08T12:00:00.000Z",
+      issuedAt: validIssuedAt,
     });
 
     expect(() =>

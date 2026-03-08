@@ -1,4 +1,9 @@
-import type { EconomyTypeSlug } from "@/lib/domain/types";
+import type {
+  EconomyCompositeWeights,
+  EconomyTypeSlug,
+  GlobalRankingComponentWeights,
+  OpportunityScoringWeights,
+} from "@/lib/domain/types";
 import { validateStatusScoreKey } from "@/lib/assumptions/schemas";
 import { getActiveAssumptions, saveActiveAssumptions } from "@/lib/assumptions/store";
 import type { ActiveAssumptions } from "@/lib/assumptions/types";
@@ -58,6 +63,46 @@ export function updateEconomyAssumptions(
               moduleDiagnosticWeights ?? currentEconomy.moduleDiagnosticWeights ?? {},
             recommendationConfig,
           },
+        },
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export function updateGlobalRankingAssumptions(
+  componentWeights: GlobalRankingComponentWeights,
+  economyCompositeWeights: EconomyCompositeWeights,
+  updatedBy: string,
+) {
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        globalRanking: {
+          componentWeights,
+          economyCompositeWeights,
+        },
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export function updateOpportunityScoringAssumptions(
+  weights: OpportunityScoringWeights,
+  updatedBy: string,
+) {
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        opportunityScoring: {
+          weights,
         },
       },
       updatedBy,

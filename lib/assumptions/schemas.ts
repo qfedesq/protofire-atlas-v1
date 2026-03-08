@@ -5,6 +5,20 @@ import { economyTypes } from "@/lib/config/economies";
 import { liquidStakingDiagnosticDimensions } from "@/lib/config/liquid-staking-diagnosis";
 import { economyTypeSlugs, moduleAvailabilityStatuses } from "@/lib/domain/types";
 
+const globalRankingWeightsSchema = z.object({
+  economyScore: z.number().min(0),
+  ecosystem: z.number().min(0),
+  adoption: z.number().min(0),
+  performance: z.number().min(0),
+});
+
+const opportunityScoringWeightsSchema = z.object({
+  tvlTier: z.number().min(0),
+  readinessGap: z.number().min(0),
+  stackFit: z.number().min(0),
+  ecosystemSignal: z.number().min(0),
+});
+
 const recommendationConfigSchema = z.object({
   thresholdScore: z.number().min(0).max(1),
   includePartialRecommendations: z.boolean(),
@@ -29,6 +43,13 @@ const activeAssumptionsSchema = z.object({
       recommendationConfig: recommendationConfigSchema,
     }),
   ),
+  globalRanking: z.object({
+    componentWeights: globalRankingWeightsSchema,
+    economyCompositeWeights: z.record(z.enum(economyTypeSlugs), z.number().min(0)),
+  }),
+  opportunityScoring: z.object({
+    weights: opportunityScoringWeightsSchema,
+  }),
 });
 
 function assertOrderedStatusScores(statusScores: ActiveAssumptions["statusScores"]) {
@@ -44,12 +65,35 @@ function assertOrderedStatusScores(statusScores: ActiveAssumptions["statusScores
   }
 }
 
+function assertWeightsSumToHundred(
+  weights: Record<string, number>,
+  label: string,
+) {
+  const total = Object.values(weights).reduce((sum, value) => sum + value, 0);
+
+  if (total !== 100) {
+    throw new Error(`${label} must sum to 100. Received ${total}.`);
+  }
+}
+
 export function validateActiveAssumptions(
   input: unknown,
 ): ActiveAssumptions {
   const parsed = activeAssumptionsSchema.parse(input);
 
   assertOrderedStatusScores(parsed.statusScores);
+  assertWeightsSumToHundred(
+    parsed.globalRanking.componentWeights,
+    "Global ranking weights",
+  );
+  assertWeightsSumToHundred(
+    parsed.globalRanking.economyCompositeWeights,
+    "Economy composite weights",
+  );
+  assertWeightsSumToHundred(
+    parsed.opportunityScoring.weights,
+    "Opportunity scoring weights",
+  );
 
   economyTypes.forEach((economy) => {
     const configured = parsed.economies[economy.slug];
@@ -70,16 +114,10 @@ export function validateActiveAssumptions(
       );
     }
 
-    const totalWeight = Object.values(configured.moduleWeights).reduce(
-      (total, weight) => total + weight,
-      0,
+    assertWeightsSumToHundred(
+      configured.moduleWeights,
+      `Module weights for ${economy.slug}`,
     );
-
-    if (totalWeight !== 100) {
-      throw new Error(
-        `Module weights for ${economy.slug} must sum to 100. Received ${totalWeight}.`,
-      );
-    }
 
     if (economy.slug === "defi-infrastructure") {
       const configuredDiagnostics =
@@ -108,16 +146,10 @@ export function validateActiveAssumptions(
         );
       }
 
-      const diagnosticWeightTotal = Object.values(configuredDiagnostics).reduce(
-        (total, weight) => total + weight,
-        0,
+      assertWeightsSumToHundred(
+        configuredDiagnostics,
+        "Liquid staking diagnostic weights",
       );
-
-      if (diagnosticWeightTotal !== 100) {
-        throw new Error(
-          `Liquid staking diagnostic weights must sum to 100. Received ${diagnosticWeightTotal}.`,
-        );
-      }
     }
 
     const statusThresholds = configured.recommendationConfig;

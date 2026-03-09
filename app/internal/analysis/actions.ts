@@ -11,6 +11,7 @@ import { createBuyerPersona } from "@/lib/personas/service";
 import { getBuyerPersonaById } from "@/lib/personas/store";
 import { generateProposalsForPersona } from "@/lib/proposals/engine";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
+import { appendReturnToParams } from "@/lib/utils/return-to";
 
 function asString(value: FormDataEntryValue | null) {
   return typeof value === "string" ? value : "";
@@ -28,7 +29,7 @@ export async function runChainTechnicalAnalysisAction(formData: FormData) {
   }
 
   if (!chainSlug) {
-    redirect(`${returnTo}?analysis=error`);
+    redirect(appendReturnToParams(returnTo, { analysis: "error" }));
   }
 
   const analysis = await runChainTechnicalAnalysis({
@@ -74,7 +75,13 @@ export async function createBuyerPersonaAction(formData: FormData) {
     internalUser.email ?? internalUser.subject,
   );
 
-  redirect(`${returnTo}?persona=success#internal-appendix`);
+  redirect(
+    appendReturnToParams(
+      returnTo,
+      { persona: "success" },
+      "internal-appendix",
+    ),
+  );
 }
 
 export async function generateChainProposalsAction(formData: FormData) {
@@ -92,7 +99,13 @@ export async function generateChainProposalsAction(formData: FormData) {
   const persona = getBuyerPersonaById(personaId);
 
   if (!chainSlug || !persona || persona.chainSlug !== chainSlug) {
-    redirect(`${returnTo}?proposal=error#internal-appendix`);
+    redirect(
+      appendReturnToParams(
+        returnTo,
+        { proposal: "error" },
+        "internal-appendix",
+      ),
+    );
   }
 
   await generateProposalsForPersona(
@@ -101,5 +114,11 @@ export async function generateChainProposalsAction(formData: FormData) {
     internalUser.email ?? internalUser.subject,
   );
 
-  redirect(`${returnTo}?proposal=success#internal-appendix`);
+  redirect(
+    appendReturnToParams(
+      returnTo,
+      { proposal: "success" },
+      "internal-appendix",
+    ),
+  );
 }

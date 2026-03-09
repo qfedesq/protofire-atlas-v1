@@ -9,6 +9,7 @@ import { buildFallbackExternalMetricsSnapshot } from "./baseline";
 import { artemisConnector } from "./connectors/artemis";
 import { defiLlamaConnector } from "./connectors/defillama";
 import { duneConnector } from "./connectors/dune";
+import { growThePieConnector } from "./connectors/growthepie";
 import { tokenTerminalConnector } from "./connectors/token-terminal";
 import {
   saveExternalMetricsSnapshot,
@@ -85,6 +86,7 @@ export async function syncExternalMetricsSnapshot() {
   );
   const connectors = [
     defiLlamaConnector,
+    growThePieConnector,
     duneConnector,
     artemisConnector,
     tokenTerminalConnector,

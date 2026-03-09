@@ -158,9 +158,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           description:
             "Active user signal used in adoption scoring and public global context.",
           sourceCategory: "Adoption",
-          sourceName: "Artemis / Dune preferred connectors with Atlas fallback snapshot",
+          sourceName: "growthepie / Artemis / Dune preferred connectors with Atlas fallback snapshot",
           sourceReference:
-            "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
+            "lib/external-data/connectors/growthepie.ts, lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
           currentProvenance:
             "Current Atlas value comes from synced external query rows when available, otherwise from the Atlas fallback ecosystem seed.",
@@ -168,16 +168,16 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           refreshBehavior:
             "Refreshed via SYNC NOW when source configuration is available; otherwise Atlas preserves the current snapshot or seed fallback.",
           lastUpdated: externalUpdatedAt,
-          notes: "Atlas normalizes daily_active_users and similar aliases into a common activeUsers field.",
+          notes: "Atlas normalizes daily_active_users and growthepie DAA exports into a common activeUsers field.",
         },
         {
           metricName: "Transactions",
           description:
             "Optional usage signal shown in global context when captured by the external metrics snapshot.",
           sourceCategory: "Technical signals",
-          sourceName: "Artemis / Dune / Token Terminal preferred connectors",
+          sourceName: "growthepie / Artemis / Dune / Token Terminal preferred connectors",
           sourceReference:
-            "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts, lib/external-data/connectors/token-terminal.ts",
+            "lib/external-data/connectors/growthepie.ts, lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts, lib/external-data/connectors/token-terminal.ts",
           originType: "external query source",
           currentProvenance:
             "Current Atlas value comes from synced external query rows when available. Atlas leaves it unset instead of fabricating a fallback value.",
@@ -224,9 +224,9 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           description:
             "TPS-like performance proxy used in global ranking and global context.",
           sourceCategory: "Technical signals",
-          sourceName: "Artemis / Dune preferred connectors with Atlas curated fallback snapshot",
+          sourceName: "growthepie / Artemis / Dune preferred connectors with Atlas curated fallback snapshot",
           sourceReference:
-            "lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
+            "lib/external-data/connectors/growthepie.ts, lib/external-data/connectors/artemis.ts, lib/external-data/connectors/dune.ts",
           originType: "external query source",
           currentProvenance:
             "Current Atlas value comes from synced external rows when available, otherwise from the Atlas fallback ecosystem seed.",
@@ -234,6 +234,8 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           refreshBehavior:
             "Refreshed via SYNC NOW when valid source rows are available; otherwise Atlas uses the curated seed snapshot.",
           lastUpdated: externalUpdatedAt,
+          notes:
+            "growthepie contributes a public gas-per-second throughput proxy for supported L2 networks.",
         },
       ],
     },

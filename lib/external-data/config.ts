@@ -21,3 +21,7 @@ export const tokenTerminalChainMetricsUrl =
   process.env.TOKEN_TERMINAL_CHAIN_METRICS_URL?.trim() ?? "";
 export const tokenTerminalApiKey =
   process.env.TOKEN_TERMINAL_API_KEY?.trim() ?? "";
+
+export const growThePieMetricsBaseUrl =
+  process.env.GROWTHEPIE_METRICS_BASE_URL?.trim() ??
+  "https://api.growthepie.com/v1/export";

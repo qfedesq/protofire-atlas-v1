@@ -7,6 +7,9 @@ import {
 } from "@/lib/config/economies";
 import {
   capabilitySupportLevels,
+  chainCapabilityExecutionEnvironments,
+  chainCapabilityGasModels,
+  chainCapabilityValidatorModels,
   chainAnalysisStatuses,
   chainCategories,
   chainRecordStatuses,
@@ -16,6 +19,7 @@ import {
   chainSourceProviders,
   chainTechnicalCapabilityKeys,
   dataConfidenceLevels,
+  ecosystemMaturityLevels,
   economyTypeSlugs,
   externalMetricKeys,
   globalRankingsSortKeys,
@@ -26,7 +30,9 @@ import {
 } from "@/lib/domain/types";
 import type {
   AtlasSeedDataset,
+  BuyerPersonaRecord,
   ChainCatalogSeed,
+  ChainCapabilityProfileSeed,
   ChainEcosystemMetricsSeed,
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
@@ -36,6 +42,7 @@ import type {
   ExternalMetricsSnapshot,
   GlobalRankingsQuery,
   LiquidStakingMarketSnapshotSeed,
+  ProposalDocument,
   RankingsQuery,
   RankingsSortKey,
   TargetAccountsQuery,
@@ -169,6 +176,7 @@ const economyTypeSchema = z
     slug: z.enum(economyTypeSlugs),
     name: z.string().min(1),
     shortLabel: z.string().min(1),
+    isActive: z.boolean(),
     description: z.string().min(1),
     modules: z.array(economyModuleSchema).min(1),
     scoringConfig: z.object({
@@ -435,6 +443,62 @@ const chainTechnicalProfileSeedsSchema = z
     );
   });
 
+const chainCapabilityProfileSourceReferencesSchema = z.object({
+  isEvm: z.string().min(1),
+  smartContractSupport: z.string().min(1),
+  tokenStandardSupport: z.string().min(1),
+  oracleSupport: z.string().min(1),
+  indexingInfrastructure: z.string().min(1),
+  eventDrivenArchitecture: z.string().min(1),
+  crossChainSupport: z.string().min(1),
+  validatorModel: z.string().min(1),
+  stakingSupport: z.string().min(1),
+  liquidStakingSupport: z.string().min(1),
+  lendingProtocolFeasibility: z.string().min(1),
+  liquidityProtocolFeasibility: z.string().min(1),
+  paymentRailsSupport: z.string().min(1),
+  gasModel: z.string().min(1),
+  executionEnvironment: z.string().min(1),
+  ecosystemMaturity: z.string().min(1),
+});
+
+const chainCapabilityProfileSeedSchema = z.object({
+  chainSlug: z.string().min(1),
+  isEvm: z.boolean(),
+  smartContractSupport: z.enum(capabilitySupportLevels),
+  tokenStandardSupport: z.enum(capabilitySupportLevels),
+  oracleSupport: z.enum(capabilitySupportLevels),
+  indexingInfrastructure: z.enum(capabilitySupportLevels),
+  eventDrivenArchitecture: z.enum(capabilitySupportLevels),
+  crossChainSupport: z.enum(capabilitySupportLevels),
+  validatorModel: z.enum(chainCapabilityValidatorModels),
+  stakingSupport: z.enum(capabilitySupportLevels),
+  liquidStakingSupport: z.enum(capabilitySupportLevels),
+  lendingProtocolFeasibility: z.enum(capabilitySupportLevels),
+  liquidityProtocolFeasibility: z.enum(capabilitySupportLevels),
+  paymentRailsSupport: z.enum(capabilitySupportLevels),
+  gasModel: z.enum(chainCapabilityGasModels),
+  executionEnvironment: z.enum(chainCapabilityExecutionEnvironments),
+  ecosystemMaturity: z.enum(ecosystemMaturityLevels),
+  confidenceLevel: z.enum(dataConfidenceLevels),
+  notes: z.array(z.string()),
+  sourceReferences: chainCapabilityProfileSourceReferencesSchema,
+  lastUpdated: z.string().min(1),
+});
+
+const chainCapabilityProfileSeedsSchema = z
+  .array(chainCapabilityProfileSeedSchema)
+  .min(1)
+  .superRefine((records, ctx) => {
+    addUniqueFieldIssue(
+      records,
+      (record) => record.chainSlug,
+      "chainSlug",
+      ctx,
+      "Duplicate chain capability profile record",
+    );
+  });
+
 const externalMetricProvenanceSchema = z.object({
   sourceName: z.string().min(1),
   sourceEndpoint: z.string().min(1),
@@ -483,6 +547,77 @@ const wedgeApplicabilitySchema = z.object({
   manualReviewRecommended: z.boolean(),
 });
 
+const chainCapabilityProfileSchema = chainCapabilityProfileSeedSchema.extend({
+  chainId: z.string().min(1),
+});
+
+const buyerPersonaStructuredOutputSchema = z.object({
+  empathyMap: z.object({
+    hear: z.array(z.string()),
+    fearTop3: z.array(z.string()).length(3),
+    wantTop3: z.array(z.string()).length(3),
+    needTop3: z.array(z.string()).length(3),
+    painsTop3: z.array(z.string()).length(3),
+    expectedGainsTop3: z.array(z.string()).length(3),
+  }),
+  successMetrics: z.object({
+    topKpis: z.array(z.string()).length(3),
+    organizationOkrs: z.array(z.string()).min(1),
+  }),
+  leanCanvas: z.object({
+    problem: z.string().min(1),
+    solution: z.string().min(1),
+    valueProposition: z.string().min(1),
+    competitors: z.string().min(1),
+    strategy: z.string().min(1),
+    growthDrivers: z.string().min(1),
+  }),
+  sourceSummary: z.array(z.string()).min(1),
+});
+
+const buyerPersonaRecordSchema = z.object({
+  id: z.string().min(1),
+  organization: z.string().min(1),
+  chainId: z.string().min(1),
+  chainSlug: z.string().min(1),
+  chainUrl: z.string().url(),
+  protocolUrl: z.string().url().optional(),
+  personName: z.string().min(1),
+  personTitle: z.string().min(1),
+  linkedinProfile: z.string().url().optional(),
+  twitterHandle: z.string().min(1).optional(),
+  githubProfile: z.string().url().optional(),
+  markdownPath: z.string().min(1),
+  markdownContent: z.string().min(1),
+  structuredData: buyerPersonaStructuredOutputSchema,
+  modelName: z.string().min(1),
+  executionMode: z.enum(["live", "mock"]),
+  sourceNotes: z.array(z.string()).min(1),
+  createdAt: z.string().min(1),
+  updatedAt: z.string().min(1),
+  generatedBy: z.string().min(1),
+});
+
+const proposalDocumentSchema = z.object({
+  proposalId: z.string().min(1),
+  chainId: z.string().min(1),
+  chainSlug: z.string().min(1),
+  wedgeId: z.enum(economyTypeSlugs),
+  personaId: z.string().min(1),
+  personaName: z.string().min(1),
+  offerId: z.string().min(1),
+  offerName: z.string().min(1),
+  conversionProbability: z.number().min(0).max(100),
+  strategicFit: z.number().min(0).max(100),
+  roiEstimation: z.string().min(1),
+  riskReduction: z.string().min(1),
+  expectedChainOutcome: z.string().min(1),
+  proposalSummary: z.string().min(1),
+  markdownContent: z.string().min(1),
+  createdAt: z.string().min(1),
+  createdBy: z.string().min(1),
+});
+
 const chainTechnicalAnalysisSchema = z.object({
   id: z.string().min(1),
   chainId: z.string().min(1),
@@ -490,7 +625,7 @@ const chainTechnicalAnalysisSchema = z.object({
   triggeredBy: z.string().min(1),
   modelName: z.string().min(1),
   executionMode: z.enum(["live", "mock"]),
-  analysisType: z.literal("gpt-5.4-technical-analysis"),
+  analysisType: z.literal("gpt-5.4-strategic-analysis"),
   status: z.enum(chainAnalysisStatuses),
   inputSnapshot: z.object({
     chain: z.object({
@@ -516,6 +651,7 @@ const chainTechnicalAnalysisSchema = z.object({
       assessedAt: z.string().min(1),
       notes: z.array(z.string()),
     }),
+    capabilityProfile: chainCapabilityProfileSchema,
     globalPosition: z.object({
       benchmarkRank: z.number().int().positive(),
       score: z.object({
@@ -550,6 +686,36 @@ const chainTechnicalAnalysisSchema = z.object({
         }),
       }),
     ),
+    personas: z.array(
+      z.object({
+        id: z.string().min(1),
+        organization: z.string().min(1),
+        personaName: z.string().min(1),
+        personaTitle: z.string().min(1),
+        chainSlug: z.string().min(1),
+        protocolUrl: z.string().url().optional(),
+        linkedinProfile: z.string().url().optional(),
+        twitterHandle: z.string().min(1).optional(),
+        fears: z.array(z.string()),
+        wants: z.array(z.string()),
+        needs: z.array(z.string()),
+        pains: z.array(z.string()),
+        expectedGains: z.array(z.string()),
+        topKpis: z.array(z.string()),
+      }),
+    ),
+    offers: z.array(
+      z.object({
+        offerId: z.string().min(1),
+        name: z.string().min(1),
+        problemSolved: z.string().min(1),
+        expectedImpact: z.string().min(1),
+        targetPersonas: z.array(z.string()),
+        roiEstimate: z.string().min(1),
+        technicalRequirements: z.array(z.string()),
+        applicableWedges: z.array(z.enum(economyTypeSlugs)),
+      }),
+    ),
     assumptionsVersion: z.string().min(1),
     sourceSnapshotDate: z.string().min(1),
   }),
@@ -562,6 +728,26 @@ const chainTechnicalAnalysisSchema = z.object({
       strongestOpportunities: z.array(z.string()),
       confidenceNotes: z.array(z.string()),
       manualFollowUp: z.array(z.string()),
+      infrastructureAnalysis: z.string().min(1),
+      buyerPersonaAnalysis: z.string().min(1),
+      recommendedOffer: z
+        .object({
+          offerId: z.string().min(1),
+          offerName: z.string().min(1),
+          rationale: z.string().min(1),
+        })
+        .nullable(),
+      proposalDraft: z
+        .object({
+          headline: z.string().min(1),
+          summary: z.string().min(1),
+          whyItSolvesPersonaFears: z.string().min(1),
+          kpiImprovementCase: z.string().min(1),
+          expectedRoi: z.string().min(1),
+          strategicAdvantage: z.string().min(1),
+        })
+        .nullable(),
+      confidenceScore: z.number().min(0).max(100),
     })
     .nullable(),
   createdAt: z.string().min(1),
@@ -660,6 +846,12 @@ export function parseChainTechnicalProfileSeeds(
   return chainTechnicalProfileSeedsSchema.parse(input);
 }
 
+export function parseChainCapabilityProfileSeeds(
+  input: unknown,
+): ChainCapabilityProfileSeed[] {
+  return chainCapabilityProfileSeedsSchema.parse(input);
+}
+
 export function parseExternalMetricsSnapshot(
   input: unknown,
 ): ExternalMetricsSnapshot {
@@ -670,6 +862,14 @@ export function parseChainTechnicalAnalysis(
   input: unknown,
 ): ChainTechnicalAnalysis {
   return chainTechnicalAnalysisSchema.parse(input);
+}
+
+export function parseBuyerPersonaRecord(input: unknown): BuyerPersonaRecord {
+  return buyerPersonaRecordSchema.parse(input);
+}
+
+export function parseProposalDocument(input: unknown): ProposalDocument {
+  return proposalDocumentSchema.parse(input);
 }
 
 export function validateChainRoadmapSeeds(
@@ -717,6 +917,33 @@ export function validateChainTechnicalProfileSeeds(
     if (!parsedChains.some((chain) => chain.slug === profile.chainSlug)) {
       throw new Error(
         `Unknown chain slug "${profile.chainSlug}" in technical profile seed.`,
+      );
+    }
+  });
+
+  return parsedProfiles;
+}
+
+export function validateChainCapabilityProfileSeeds(
+  chains: ChainCatalogSeed[],
+  profiles: ChainCapabilityProfileSeed[],
+) {
+  const parsedChains = parseChainCatalogSeeds(chains);
+  const parsedProfiles = parseChainCapabilityProfileSeeds(profiles);
+  const profileBySlug = new Map(
+    parsedProfiles.map((profile) => [profile.chainSlug, profile] as const),
+  );
+
+  parsedChains.forEach((chain) => {
+    if (!profileBySlug.has(chain.slug)) {
+      throw new Error(`Missing capability profile for ${chain.slug}.`);
+    }
+  });
+
+  parsedProfiles.forEach((profile) => {
+    if (!parsedChains.some((chain) => chain.slug === profile.chainSlug)) {
+      throw new Error(
+        `Unknown chain slug "${profile.chainSlug}" in capability profile seed.`,
       );
     }
   });

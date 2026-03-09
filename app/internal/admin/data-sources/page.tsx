@@ -21,7 +21,7 @@ import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
 import { chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
 import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
-import { chainTechnicalProfileSeeds } from "@/data/seed/chain-technical-profiles";
+import { chainCapabilityProfileSeeds } from "@/data/seed/chain-capability-profiles";
 import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
 
 type AdminDataSourcesPageProps = {
@@ -144,14 +144,14 @@ export default async function AdminDataSourcesPage({
               manualOverrides.readinessRecords?.value ?? chainEconomySeedRecords,
           },
           {
-            key: "technicalProfiles",
-            title: "Chain technical applicability profiles",
+            key: "capabilityProfiles",
+            title: "Chain capability profiles",
             description:
-              "Per-chain technical capability seeds used by the deterministic wedge applicability engine before readiness is considered.",
+              "Per-chain capability baselines used by the deterministic wedge applicability engine before readiness is considered.",
             sourceNote:
-              "Use this when Atlas needs a manual capability judgment because there is no stable automatic source for a chain architecture or primitive support signal.",
+              "Use this when Atlas needs a manual capability judgment because there is no stable automatic source for architecture, primitive support, or deployment feasibility.",
             payload:
-              manualOverrides.technicalProfiles?.value ?? chainTechnicalProfileSeeds,
+              manualOverrides.capabilityProfiles?.value ?? chainCapabilityProfileSeeds,
           },
           {
             key: "roadmaps",

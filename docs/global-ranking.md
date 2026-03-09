@@ -19,8 +19,7 @@ Global ranking combines four signal groups:
 1. Economy composite score
    - AI Agent Economy readiness
    - DeFi Infrastructure readiness
-   - RWA Infrastructure readiness
-   - Prediction Market readiness
+   - inactive wedges remain in config with zero weight until reactivated
 2. Ecosystem activity
    - protocols
    - ecosystem projects
@@ -61,10 +60,10 @@ Global ranking component weights:
 
 Economy composite weights:
 
-- AI Agents: `20`
-- DeFi Infrastructure: `40`
-- RWA Infrastructure: `20`
-- Prediction Markets: `20`
+- AI Agents: `45`
+- DeFi Infrastructure: `55`
+- RWA Infrastructure: `0`
+- Prediction Markets: `0`
 
 ## Editable assumptions
 
@@ -81,3 +80,5 @@ Stored in:
 - engine: [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts)
 - repository integration: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
 - public page: [`app/rankings/global/page.tsx`](/Users/qfedesq/Desktop/Atlas/app/rankings/global/page.tsx)
+
+Public ranking behavior currently reflects only the active wedges. Inactive wedges stay preserved in config and admin state for future reactivation, but do not influence current public scores.

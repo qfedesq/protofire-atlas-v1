@@ -1,9 +1,10 @@
 # Architecture
 
-Protofire Atlas is a deterministic Next.js App Router application built around three layers:
+Protofire Atlas is a deterministic Next.js App Router application built around four layers:
 
 - public readiness intelligence
 - internal GTM intelligence
+- internal buyer and proposal intelligence
 - source-backed data snapshots
 
 The repository stays seed-first, but now supports connector overlays with provenance and fallback behavior.
@@ -85,7 +86,7 @@ The repository stays seed-first, but now supports connector overlays with proven
 
 Applicability is a deterministic layer that sits before readiness:
 
-1. chain capability profiles come from [`data/seed/chain-technical-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-technical-profiles.ts) or admin overrides
+1. chain capability profiles come from [`data/seed/chain-capability-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-capability-profiles.ts) or admin overrides
 2. active applicability rules are resolved from [`lib/assumptions/resolve.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/resolve.ts)
 3. [`lib/applicability/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/engine.ts) computes per-chain, per-wedge applicability
 4. the repository injects:
@@ -100,7 +101,11 @@ This layer stays separate from public readiness scoring.
 Internal GPT-assisted chain analysis works like this:
 
 1. an authenticated internal user triggers the action from a chain page
-2. [`lib/analysis/input.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/input.ts) assembles a structured chain snapshot
+2. [`lib/analysis/input.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/input.ts) assembles a structured chain snapshot including:
+   - active wedge applicability
+   - chain capability profile
+   - stored buyer personas
+   - offer library entries
 3. [`lib/analysis/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/service.ts) stores a queued and then running record
 4. Atlas executes either:
    - live OpenAI analysis through [`lib/analysis/openai.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/openai.ts)
@@ -108,6 +113,19 @@ Internal GPT-assisted chain analysis works like this:
 5. the structured result is stored and rendered on `/internal/analysis/[id]`
 
 The AI-assisted layer is internal only and does not automatically modify public rankings.
+
+## Buyer persona and proposal flow
+
+The buyer/proposal layer stays internal and separate from deterministic ranking logic:
+
+1. [`lib/personas/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/service.ts) creates markdown-backed buyer personas and persists structured records.
+2. [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts) loads the versioned Protofire offer library from [`offers`](/Users/qfedesq/Desktop/Atlas/offers).
+3. [`lib/proposals/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/engine.ts) deterministically matches:
+   - chain profile
+   - active wedge applicability
+   - buyer persona
+   - offer library
+4. Proposal documents are persisted and shown only in internal chain/account analysis surfaces.
 
 ## Internal auth flow
 
@@ -127,6 +145,8 @@ Auth0 middleware is mounted in:
 ## Scoring flow
 
 1. Base economy definitions live in [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts).
+   - active wedges: AI Agents, DeFi
+   - inactive but preserved: RWA, Prediction Markets
 2. Active assumptions are applied by [`lib/assumptions/resolve.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/resolve.ts).
 3. [`lib/scoring/readiness-score.ts`](/Users/qfedesq/Desktop/Atlas/lib/scoring/readiness-score.ts) computes weighted readiness scores.
 4. [`lib/global-ranking/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/global-ranking/engine.ts) combines:

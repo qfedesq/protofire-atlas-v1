@@ -62,7 +62,7 @@ Engine:
 
 Inputs:
 
-- technical capability profiles from [`data/seed/chain-technical-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-technical-profiles.ts) or admin overrides
+- technical capability profiles from [`data/seed/chain-capability-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-capability-profiles.ts) or admin overrides
 - active applicability assumptions from [`data/admin/active-assumptions.json`](/Users/qfedesq/Desktop/Atlas/data/admin/active-assumptions.json)
 
 The engine:

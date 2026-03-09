@@ -1,11 +1,12 @@
 import { getActiveWedgeApplicabilityAssumptions } from "@/lib/assumptions/resolve";
+import { buildDerivedTechnicalProfile } from "@/lib/capabilities/profiles";
 import type {
   ApplicabilityRequirementLevel,
   CapabilitySupportLevel,
   Chain,
+  ChainCapabilityProfile,
   ChainTechnicalCapabilityKey,
   ChainTechnicalProfile,
-  ChainTechnicalProfileSeed,
   DataConfidenceLevel,
   EconomyType,
   WedgeApplicability,
@@ -56,59 +57,6 @@ function describeRequiredPrerequisite(
         : "Optional signal";
 
   return `${lead}: ${capabilityLabels[key]}`;
-}
-
-function buildFallbackTechnicalProfile(chain: Chain): ChainTechnicalProfile {
-  return {
-    chainId: chain.id,
-    architectureKind:
-      chain.category === "L2" ? "general-evm-l2" : "general-evm-l1",
-    capabilities: {
-      smartContracts: "supported",
-      tokenStandards: "supported",
-      paymentRails: "supported",
-      oracleSupport: "supported",
-      indexingSupport: "supported",
-      settlementPrimitives: "supported",
-      liquidityRails: "supported",
-      nativeValidatorStaking:
-        chain.category === "L2" ? "unsupported" : "supported",
-    },
-    dataConfidence: "medium",
-    sourceBasis:
-      "Atlas fallback technical profile derived from chain category when no explicit chain profile is present.",
-    assessedAt: chain.sourceSnapshotDate,
-    notes: [
-      "Fallback technical profile. Add an explicit chain technical profile seed if Atlas needs more nuanced applicability handling.",
-    ],
-  };
-}
-
-export function buildChainTechnicalProfiles(
-  chains: Chain[],
-  profileSeeds: ChainTechnicalProfileSeed[],
-) {
-  const profileBySlug = new Map(
-    profileSeeds.map((profile) => [profile.chainSlug, profile] as const),
-  );
-
-  return new Map(
-    chains.map((chain) => {
-      const seeded = profileBySlug.get(chain.slug);
-
-      if (!seeded) {
-        return [chain.slug, buildFallbackTechnicalProfile(chain)] as const;
-      }
-
-      return [
-        chain.slug,
-        {
-          ...seeded,
-          chainId: chain.id,
-        },
-      ] as const;
-    }),
-  );
 }
 
 function buildApplicabilityStatus(
@@ -172,16 +120,17 @@ function buildApplicabilityRationale(
 export function buildWedgeApplicability(
   chain: Chain,
   economy: EconomyType,
-  profile: ChainTechnicalProfile,
+  profile: ChainCapabilityProfile,
 ): WedgeApplicability {
   const assumptions = getActiveWedgeApplicabilityAssumptions();
   const weights = assumptions.wedgeCapabilityWeights[economy.slug];
   const prerequisites = assumptions.wedgePrerequisites[economy.slug];
+  const technicalProfile = buildDerivedTechnicalProfile(profile);
 
   const applicabilityScore = Object.entries(weights).reduce(
     (sum, [capabilityKey, weight]) => {
       const supportLevel =
-        profile.capabilities[capabilityKey as ChainTechnicalCapabilityKey];
+        technicalProfile.capabilities[capabilityKey as ChainTechnicalCapabilityKey];
       const supportScore = assumptions.signalScores[supportLevel];
 
       return sum + supportScore * (weight / 100);
@@ -197,19 +146,19 @@ export function buildWedgeApplicability(
   ).some(
     ([capabilityKey, requirement]) =>
       requirement === "required" &&
-      profile.capabilities[capabilityKey] === "unknown",
+      technicalProfile.capabilities[capabilityKey] === "unknown",
   );
 
   const applicabilityStatus = buildApplicabilityStatus(
     applicabilityScore,
-    profile.dataConfidence,
+    profile.confidenceLevel,
     requiredUnknown,
     assumptions.thresholds,
     assumptions.confidence,
   );
 
   const technicalConstraints = (
-    Object.entries(profile.capabilities) as [
+    Object.entries(technicalProfile.capabilities) as [
       ChainTechnicalCapabilityKey,
       CapabilitySupportLevel,
     ][]
@@ -227,14 +176,17 @@ export function buildWedgeApplicability(
     ][]
   )
     .filter(([, requirement]) => requirement !== "optional")
-    .filter(([capabilityKey]) => profile.capabilities[capabilityKey] !== "supported")
+    .filter(
+      ([capabilityKey]) =>
+        technicalProfile.capabilities[capabilityKey] !== "supported",
+    )
     .map(([capabilityKey, requirement]) =>
       describeRequiredPrerequisite(capabilityKey, requirement),
     );
 
   const manualReviewRecommended =
     applicabilityStatus === "unknown" ||
-    profile.dataConfidence === "low" ||
+    profile.confidenceLevel === "low" ||
     applicabilityScore < assumptions.confidence.manualReviewBelowScore;
 
   return {
@@ -249,13 +201,14 @@ export function buildWedgeApplicability(
       applicabilityStatus,
       technicalConstraints,
       requiredPrerequisites,
-      profile,
+      technicalProfile,
     ),
     technicalConstraints,
     requiredPrerequisites,
-    assessedAt: profile.assessedAt,
-    sourceBasis: profile.sourceBasis,
-    confidenceLevel: profile.dataConfidence,
+    assessedAt: profile.lastUpdated,
+    sourceBasis:
+      "Atlas deterministic wedge applicability derived from the current chain capability profile and active applicability assumptions.",
+    confidenceLevel: profile.confidenceLevel,
     manualReviewRecommended,
   };
 }
@@ -263,17 +216,20 @@ export function buildWedgeApplicability(
 export function buildWedgeApplicabilityMatrix(
   chains: Chain[],
   economies: EconomyType[],
-  technicalProfilesBySlug?: Map<string, ChainTechnicalProfile>,
+  capabilityProfilesBySlug: Map<string, ChainCapabilityProfile>,
 ) {
   return new Map(
     chains.map((chain) => {
-      const technicalProfile =
-        technicalProfilesBySlug?.get(chain.slug) ?? buildFallbackTechnicalProfile(chain);
+      const capabilityProfile = capabilityProfilesBySlug.get(chain.slug);
+
+      if (!capabilityProfile) {
+        throw new Error(`Missing capability profile for ${chain.slug}`);
+      }
 
       return [
         chain.slug,
         economies.map((economy) =>
-          buildWedgeApplicability(chain, economy, technicalProfile),
+          buildWedgeApplicability(chain, economy, capabilityProfile),
         ),
       ] as const;
     }),
@@ -300,6 +256,28 @@ export function buildWedgeApplicabilitySummaries(
         .length,
       unknown: rows.filter((row) => row.applicabilityStatus === "unknown").length,
       manualReviewCount: rows.filter((row) => row.manualReviewRecommended).length,
+    };
+  });
+}
+
+export function buildApplicabilityMatrixRows(
+  chains: Chain[],
+  capabilityProfilesBySlug: Map<string, ChainCapabilityProfile>,
+  applicabilityMatrixBySlug: Map<string, WedgeApplicability[]>,
+) {
+  return chains.map((chain) => {
+    const capabilityProfile = capabilityProfilesBySlug.get(chain.slug);
+    const wedges = applicabilityMatrixBySlug.get(chain.slug) ?? [];
+
+    if (!capabilityProfile) {
+      throw new Error(`Missing capability profile for ${chain.slug}`);
+    }
+
+    return {
+      chain,
+      technicalProfile: buildDerivedTechnicalProfile(capabilityProfile),
+      capabilityProfile,
+      wedges,
     };
   });
 }

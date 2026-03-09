@@ -6,6 +6,7 @@ import type {
   OpportunityScoringWeights,
   OpportunityPriorityThresholds,
   OpportunityStackFitComponentWeights,
+  ProposalGeneratorSettings,
   WedgeApplicabilityAssumptionSet,
   AnalysisSettings,
 } from "@/lib/domain/types";
@@ -209,6 +210,24 @@ export async function updateAnalysisSettings(
       {
         ...current,
         analysisSettings,
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export async function updateProposalGeneratorSettings(
+  proposalGenerator: ProposalGeneratorSettings,
+  updatedBy: string,
+) {
+  await initializeActiveAssumptionsStore();
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        proposalGenerator,
       },
       updatedBy,
     ),

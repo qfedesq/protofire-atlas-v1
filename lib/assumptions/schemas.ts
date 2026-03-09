@@ -47,6 +47,19 @@ const opportunityPriorityThresholdsSchema = z.object({
   medium: z.number().min(0).max(10),
 });
 
+const proposalScoringWeightsSchema = z.object({
+  applicability: z.number().min(0),
+  gapSeverity: z.number().min(0),
+  personaFit: z.number().min(0),
+  expectedImpact: z.number().min(0),
+  roiPotential: z.number().min(0),
+});
+
+const proposalPriorityThresholdsSchema = z.object({
+  high: z.number().min(0).max(100),
+  medium: z.number().min(0).max(100),
+});
+
 const recommendationConfigSchema = z.object({
   thresholdScore: z.number().min(0).max(1),
   includePartialRecommendations: z.boolean(),
@@ -136,6 +149,10 @@ const activeAssumptionsSchema = z.object({
   }),
   wedgeApplicability: wedgeApplicabilitySchema,
   analysisSettings: analysisSettingsSchema,
+  proposalGenerator: z.object({
+    weights: proposalScoringWeightsSchema,
+    priorityThresholds: proposalPriorityThresholdsSchema,
+  }),
 });
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -159,6 +176,7 @@ function mergeActiveAssumptionsWithDefaults(input: unknown): ActiveAssumptions {
   const inputOpportunity = asObjectRecord(record.opportunityScoring);
   const inputApplicability = asObjectRecord(record.wedgeApplicability);
   const inputAnalysisSettings = asObjectRecord(record.analysisSettings);
+  const inputProposalGenerator = asObjectRecord(record.proposalGenerator);
 
   return {
     ...defaults,
@@ -305,6 +323,22 @@ function mergeActiveAssumptionsWithDefaults(input: unknown): ActiveAssumptions {
       ...defaults.analysisSettings,
       ...inputAnalysisSettings,
     },
+    proposalGenerator: {
+      ...defaults.proposalGenerator,
+      ...inputProposalGenerator,
+      weights: {
+        ...defaults.proposalGenerator.weights,
+        ...(isObject(inputProposalGenerator.weights)
+          ? inputProposalGenerator.weights
+          : {}),
+      },
+      priorityThresholds: {
+        ...defaults.proposalGenerator.priorityThresholds,
+        ...(isObject(inputProposalGenerator.priorityThresholds)
+          ? inputProposalGenerator.priorityThresholds
+          : {}),
+      },
+    },
   };
 }
 
@@ -368,10 +402,23 @@ export function validateActiveAssumptions(
     parsed.opportunityScoring.stackFitComponents,
     "Opportunity stack-fit subweights",
   );
+  assertWeightsSumToHundred(
+    parsed.proposalGenerator.weights,
+    "Proposal generator weights",
+  );
 
   if (parsed.opportunityScoring.priorityThresholds.high <= parsed.opportunityScoring.priorityThresholds.medium) {
     throw new Error(
       "Opportunity priority thresholds must keep high above medium.",
+    );
+  }
+
+  if (
+    parsed.proposalGenerator.priorityThresholds.high <=
+    parsed.proposalGenerator.priorityThresholds.medium
+  ) {
+    throw new Error(
+      "Proposal priority thresholds must keep high above medium.",
     );
   }
 

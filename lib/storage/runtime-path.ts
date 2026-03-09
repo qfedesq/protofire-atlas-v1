@@ -20,3 +20,20 @@ export function getRuntimeManagedFilePath(
 
   return join(process.cwd(), repoRelativePath);
 }
+
+export function getRuntimeManagedDirectoryPath(
+  envVarName: string,
+  repoRelativePath: string,
+) {
+  const envValue = process.env[envVarName]?.trim();
+
+  if (envValue) {
+    return envValue;
+  }
+
+  if (isVercelRuntime()) {
+    return join("/tmp", "protofire-atlas", repoRelativePath);
+  }
+
+  return join(process.cwd(), repoRelativePath);
+}

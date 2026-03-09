@@ -27,6 +27,6 @@ describe("public API", () => {
     expect(response.status).toBe(200);
     expect(payload.chain.slug).toBe("ethereum");
     expect(payload.global_score).toEqual(expect.any(Number));
-    expect(payload.economies).toHaveLength(4);
+    expect(payload.economies).toHaveLength(2);
   });
 });

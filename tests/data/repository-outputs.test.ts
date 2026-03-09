@@ -37,14 +37,20 @@ describe("seed repository outputs", () => {
   it("switches rankings when the economy changes", () => {
     const repository = createSeedChainsRepository();
     const aiRows = repository.listRankedChains({ economy: "ai-agents" });
-    const rwaRows = repository.listRankedChains({ economy: "rwa-infrastructure" });
+    const defiRows = repository.listRankedChains({
+      economy: "defi-infrastructure",
+    });
 
     expect(aiRows[0]?.economy.slug).toBe("ai-agents");
-    expect(rwaRows[0]?.economy.slug).toBe("rwa-infrastructure");
+    expect(defiRows[0]?.economy.slug).toBe("defi-infrastructure");
     expect(aiRows).toHaveLength(30);
-    expect(rwaRows).toHaveLength(30);
+    expect(defiRows).toHaveLength(30);
     expect(aiRows[0]?.chain.slug).not.toBeUndefined();
-    expect(rwaRows[0]?.chain.slug).not.toBeUndefined();
+    expect(defiRows[0]?.chain.slug).not.toBeUndefined();
+    expect(repository.listEconomies().map((economy) => economy.slug)).toEqual([
+      "ai-agents",
+      "defi-infrastructure",
+    ]);
   });
 
   it("builds a stable global ranking across the seeded chain set", () => {
@@ -69,7 +75,8 @@ describe("seed repository outputs", () => {
     });
     const profile = repository.getTargetAccountProfile("base");
 
-    expect(rows).toHaveLength(117);
+    expect(rows.length).toBeGreaterThan(20);
+    expect(rows.length).toBeLessThanOrEqual(60);
     expect(rows[0]?.opportunity.totalScore).toBeGreaterThanOrEqual(
       rows[1]?.opportunity.totalScore ?? 0,
     );

@@ -15,10 +15,13 @@ Atlas stays focused on:
 - deployment planning
 - internal target-account prioritization
 
-Supported readiness wedges:
+Active readiness wedges:
 
 - AI Agent Economy
 - DeFi Infrastructure Economy
+
+Inactive but preserved in code/config:
+
 - RWA Infrastructure Economy
 - Prediction Market Economy
 
@@ -240,9 +243,27 @@ Applicability is deterministic and internal. It is visible on:
 Atlas also supports an internal GPT-assisted technical review per chain. The workflow:
 
 - assembles a structured chain snapshot
-- analyzes all four wedges
+- analyzes the currently active wedges plus internal buyer/proposal context
 - stores a traceable result with timestamps, model label, and structured findings
 - falls back to deterministic mock mode if live OpenAI execution is unavailable and mock fallback is enabled
+
+## Buyer personas, offers, and proposals
+
+Internal-only buyer intelligence now extends Atlas beyond infrastructure scoring.
+
+Atlas supports:
+
+- markdown-backed buyer personas
+- markdown-backed Protofire offer library entries
+- deterministic proposal matching between chains, personas, and offers
+- GPT-assisted strategic analysis that can use those internal inputs without changing public scores
+
+Primary locations:
+
+- personas: [`lib/personas`](/Users/qfedesq/Desktop/Atlas/lib/personas)
+- offers: [`offers`](/Users/qfedesq/Desktop/Atlas/offers)
+- offer library loader: [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts)
+- proposals: [`lib/proposals`](/Users/qfedesq/Desktop/Atlas/lib/proposals)
 
 Live execution still depends on:
 
@@ -281,6 +302,10 @@ npm run version:bump
 - external data: [`lib/external-data`](/Users/qfedesq/Desktop/Atlas/lib/external-data)
 - public data serialization: [`lib/public-data/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/public-data/service.ts)
 - target accounts: [`lib/targets`](/Users/qfedesq/Desktop/Atlas/lib/targets)
+- chain capabilities: [`data/seed/chain-capability-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-capability-profiles.ts)
+- personas: [`lib/personas`](/Users/qfedesq/Desktop/Atlas/lib/personas)
+- offers: [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts)
+- proposals: [`lib/proposals`](/Users/qfedesq/Desktop/Atlas/lib/proposals)
 - repository read model: [`lib/repositories/seed-chains-repository.ts`](/Users/qfedesq/Desktop/Atlas/lib/repositories/seed-chains-repository.ts)
 
 ## Read this first
@@ -291,3 +316,7 @@ npm run version:bump
 4. [`docs/public-data.md`](/Users/qfedesq/Desktop/Atlas/docs/public-data.md)
 5. [`docs/external-data-sources.md`](/Users/qfedesq/Desktop/Atlas/docs/external-data-sources.md)
 6. [`docs/ranking-system.md`](/Users/qfedesq/Desktop/Atlas/docs/ranking-system.md)
+7. [`docs/chain-capabilities.md`](/Users/qfedesq/Desktop/Atlas/docs/chain-capabilities.md)
+8. [`docs/persona-builder.md`](/Users/qfedesq/Desktop/Atlas/docs/persona-builder.md)
+9. [`docs/offer-library.md`](/Users/qfedesq/Desktop/Atlas/docs/offer-library.md)
+10. [`docs/proposal-engine.md`](/Users/qfedesq/Desktop/Atlas/docs/proposal-engine.md)

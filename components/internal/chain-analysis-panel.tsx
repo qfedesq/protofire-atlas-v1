@@ -33,11 +33,11 @@ export function ChainAnalysisPanel({
           Internal analysis
         </p>
         <h2 className="text-foreground text-2xl font-semibold">
-          Deterministic applicability and GPT analysis
+          Deterministic applicability and GPT strategic analysis
         </h2>
         <p className="text-muted max-w-4xl text-sm leading-6">
           This internal section keeps Atlas&apos; deterministic applicability baseline
-          separate from the deeper AI-assisted technical review. Nothing here
+          separate from the deeper AI-assisted strategic review. Nothing here
           changes public readiness scores unless the underlying assumptions or
           source datasets are updated.
         </p>
@@ -65,7 +65,7 @@ export function ChainAnalysisPanel({
                 type="submit"
                 className="border-border text-foreground hover:border-accent hover:text-accent inline-flex border px-4 py-2 text-sm font-medium transition"
               >
-                Run {modelName} Technical Analysis
+                Run {modelName} Strategic Analysis
               </button>
             </form>
           </div>
@@ -79,7 +79,7 @@ export function ChainAnalysisPanel({
                 AI-assisted layer
               </p>
               <h3 className="text-foreground mt-2 text-lg font-semibold">
-                Latest technical analysis
+                Latest strategic analysis
               </h3>
             </div>
             {latestAnalysis ? (
@@ -115,8 +115,8 @@ export function ChainAnalysisPanel({
               <p>No GPT-assisted analysis has been stored for this chain yet.</p>
               <p>
                 Signed in as {internalUser.displayName}. Launching the workflow
-                stores a traceable input snapshot, model label, timestamps, and
-                structured findings.
+                stores a traceable input snapshot, personas, offers, model label,
+                timestamps, and structured findings.
               </p>
             </div>
           )}

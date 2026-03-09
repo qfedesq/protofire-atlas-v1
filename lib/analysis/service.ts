@@ -34,7 +34,7 @@ async function createQueuedAnalysis(
     triggeredBy: input.triggeredBy,
     modelName: settings.modelName,
     executionMode: "mock",
-    analysisType: "gpt-5.4-technical-analysis",
+    analysisType: "gpt-5.4-strategic-analysis",
     status: "queued",
     inputSnapshot,
     outputSummary: null,

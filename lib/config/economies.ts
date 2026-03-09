@@ -61,6 +61,7 @@ export const economyTypes: EconomyType[] = [
     slug: "ai-agents",
     name: "AI Agent Economy",
     shortLabel: "AI Agents",
+    isActive: true,
     description:
       "Infrastructure required for chains to support agent identity, settlement, observability, and trust as a commercial onchain economy.",
     modules: [
@@ -119,6 +120,7 @@ export const economyTypes: EconomyType[] = [
     slug: "defi-infrastructure",
     name: "DeFi Infrastructure Economy",
     shortLabel: "DeFi",
+    isActive: true,
     description:
       "Infrastructure required for chains to support lending, liquidity, composability, and liquid staking as a competitive DeFi economy.",
     modules: [
@@ -189,6 +191,7 @@ export const economyTypes: EconomyType[] = [
     slug: "rwa-infrastructure",
     name: "RWA Infrastructure Economy",
     shortLabel: "RWA",
+    isActive: false,
     description:
       "Infrastructure required for chains to support tokenized asset issuance, compliance, verification, and settlement workflows.",
     modules: [
@@ -252,6 +255,7 @@ export const economyTypes: EconomyType[] = [
     slug: "prediction-markets",
     name: "Prediction Market Economy",
     shortLabel: "Prediction Markets",
+    isActive: false,
     description:
       "Infrastructure required for chains to support market creation, resolution, liquidity, and indexing for outcome-driven products.",
     modules: [
@@ -312,6 +316,10 @@ const economyTypesBySlug = new Map(
 );
 
 export function listEconomyTypes() {
+  return economyTypes.filter((economy) => economy.isActive);
+}
+
+export function listAllEconomyTypes() {
   return [...economyTypes];
 }
 

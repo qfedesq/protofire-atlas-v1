@@ -9,10 +9,18 @@ import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
 import { ScoreCompositionSection } from "@/components/chain/score-composition-section";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
+import { StrategicAppendix } from "@/components/internal/strategic-appendix";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { atlasDatasetLabel } from "@/lib/config/dataset";
-import type { ChainProfile, EconomyType } from "@/lib/domain/types";
+import type { AuthenticatedInternalUser } from "@/lib/admin/auth";
+import type {
+  BuyerPersonaRecord,
+  ChainProfile,
+  ChainTechnicalAnalysis,
+  EconomyType,
+  ProposalDocument,
+} from "@/lib/domain/types";
 import { buildEconomyReadinessSummary } from "@/lib/utils/economy-summary";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
@@ -29,10 +37,18 @@ function getPrimaryInterpretation(profile: ChainProfile) {
 export function ChainProfileView({
   profile,
   economies,
+  internalUser,
+  latestAnalysis,
+  personas,
+  proposals,
   requestState,
 }: {
   profile: ChainProfile;
   economies: EconomyType[];
+  internalUser: AuthenticatedInternalUser | null;
+  latestAnalysis: ChainTechnicalAnalysis | null;
+  personas: BuyerPersonaRecord[];
+  proposals: ProposalDocument[];
   requestState: "idle" | "success" | "error";
 }) {
   const missingModuleCount = profile.gapAnalysis.filter(
@@ -306,6 +322,23 @@ export function ChainProfileView({
           </div>
         </div>
       </ExpandableSection>
+
+      {internalUser ? (
+        <ExpandableSection
+          id="internal-strategic-appendix"
+          title="Internal strategic appendix"
+          defaultOpen={false}
+          tone="dark"
+        >
+          <StrategicAppendix
+            profile={profile}
+            internalUser={internalUser}
+            latestAnalysis={latestAnalysis}
+            personas={personas}
+            proposals={proposals}
+          />
+        </ExpandableSection>
+      ) : null}
     </div>
   );
 }

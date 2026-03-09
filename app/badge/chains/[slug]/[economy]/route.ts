@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { buildBadgeSvg } from "@/lib/badges/svg";
 import { getPublicChainPayload } from "@/lib/public-data/service";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
@@ -11,7 +11,9 @@ export async function GET(
 ) {
   await ensureAtlasPersistence();
   const { slug, economy } = await params;
-  const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
+  const resolvedEconomy = listActiveEconomyTypes().find(
+    (item) => item.slug === economy,
+  );
   const payload = getPublicChainPayload(slug);
 
   if (!resolvedEconomy || !payload) {

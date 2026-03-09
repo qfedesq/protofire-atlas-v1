@@ -124,7 +124,7 @@ export default async function Home({ searchParams }: HomePageProps) {
             Holistic chain leaderboard
           </h2>
           <p className="text-muted mt-3 max-w-4xl text-base leading-7">
-            One global ranking, with the four economy readiness models and
+            One global ranking, with the active economy readiness models and
             their underlying modules available in the same table.
           </p>
         </div>

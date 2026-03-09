@@ -2,6 +2,7 @@ import {
   atlasDatasetLabel,
   atlasDatasetSnapshot,
 } from "@/lib/config/dataset";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 import type {
   EconomyTypeSlug,
@@ -330,12 +331,7 @@ export function buildEconomyRankingExportCsv(economySlug: EconomyTypeSlug) {
 }
 
 export function buildTargetChainsByEconomyReportMarkdown() {
-  const economySlugs: EconomyTypeSlug[] = [
-    "ai-agents",
-    "defi-infrastructure",
-    "rwa-infrastructure",
-    "prediction-markets",
-  ];
+  const economySlugs = listActiveEconomyTypes().map((economy) => economy.slug);
 
   return [
     "# Target chains by economy",
@@ -364,12 +360,7 @@ export function buildTargetChainsByEconomyReportMarkdown() {
 }
 
 export function buildHighTvlLaggingChainsReportMarkdown() {
-  const economySlugs: EconomyTypeSlug[] = [
-    "ai-agents",
-    "defi-infrastructure",
-    "rwa-infrastructure",
-    "prediction-markets",
-  ];
+  const economySlugs = listActiveEconomyTypes().map((economy) => economy.slug);
 
   return [
     "# High-TVL lagging chains",
@@ -474,6 +465,7 @@ export function buildTopEcosystemOpportunitiesReportMarkdown() {
   const globalRows = getGlobalRankedRows();
   const targetRows = getTargetAccountRows();
   const topTargets = targetRows.slice(0, 10);
+  const activeEconomySlugs = listActiveEconomyTypes().map((economy) => economy.slug);
   const byEconomy = new Map<EconomyTypeSlug, TargetAccountRow[]>();
 
   targetRows.forEach((row) => {
@@ -496,7 +488,7 @@ export function buildTopEcosystemOpportunitiesReportMarkdown() {
     "",
     ...topTargets.map(buildTargetSummary),
     "",
-    ...(["ai-agents", "defi-infrastructure", "rwa-infrastructure", "prediction-markets"] as EconomyTypeSlug[]).flatMap(
+    ...activeEconomySlugs.flatMap(
       (economySlug) => {
         const economy = getEconomy(economySlug);
         const rows = (byEconomy.get(economySlug) ?? []).slice(0, 5);

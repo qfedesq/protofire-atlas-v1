@@ -73,7 +73,7 @@ export default async function GlobalRankingsPage({
             Holistic chain leaderboard
           </h1>
           <p className="text-muted mt-3 max-w-4xl text-sm leading-7">
-            This ranking combines infrastructure readiness across four economies
+            This ranking combines infrastructure readiness across the active economies
             with ecosystem adoption and technical performance indicators.
           </p>
         </Panel>

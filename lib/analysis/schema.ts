@@ -23,6 +23,26 @@ export const chainTechnicalAnalysisStructuredOutputSchema = z.object({
   strongestOpportunities: z.array(z.string()),
   confidenceNotes: z.array(z.string()),
   manualFollowUp: z.array(z.string()),
+  infrastructureAnalysis: z.string().min(1),
+  buyerPersonaAnalysis: z.string().min(1),
+  recommendedOffer: z
+    .object({
+      offerId: z.string().min(1),
+      offerName: z.string().min(1),
+      rationale: z.string().min(1),
+    })
+    .nullable(),
+  proposalDraft: z
+    .object({
+      headline: z.string().min(1),
+      summary: z.string().min(1),
+      whyItSolvesPersonaFears: z.string().min(1),
+      kpiImprovementCase: z.string().min(1),
+      expectedRoi: z.string().min(1),
+      strategicAdvantage: z.string().min(1),
+    })
+    .nullable(),
+  confidenceScore: z.number().min(0).max(100),
 });
 
 export type ChainTechnicalAnalysisStructuredOutput = z.infer<

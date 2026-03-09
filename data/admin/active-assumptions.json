@@ -80,10 +80,10 @@
       "performance": 10
     },
     "economyCompositeWeights": {
-      "ai-agents": 20,
-      "defi-infrastructure": 40,
-      "rwa-infrastructure": 20,
-      "prediction-markets": 20
+      "ai-agents": 45,
+      "defi-infrastructure": 55,
+      "rwa-infrastructure": 0,
+      "prediction-markets": 0
     }
   },
   "opportunityScoring": {

@@ -45,6 +45,11 @@ export function buildChainTechnicalAnalysisOutput(
     strongestOpportunities: structured.strongestOpportunities,
     confidenceNotes: structured.confidenceNotes,
     manualFollowUp: structured.manualFollowUp,
+    infrastructureAnalysis: structured.infrastructureAnalysis,
+    buyerPersonaAnalysis: structured.buyerPersonaAnalysis,
+    recommendedOffer: structured.recommendedOffer,
+    proposalDraft: structured.proposalDraft,
+    confidenceScore: structured.confidenceScore,
   };
 }
 
@@ -54,6 +59,11 @@ export function buildChainTechnicalAnalysisSummary(
 ) {
   const strongestOpportunity = output.strongestOpportunities[0];
   const mainBlocker = output.technicalBlockers[0];
+  const recommendedOffer = output.recommendedOffer?.offerName;
+
+  if (recommendedOffer && strongestOpportunity) {
+    return `${snapshot.chain.name} is most actionable around ${strongestOpportunity}, with ${recommendedOffer} as the strongest current Protofire offer.`;
+  }
 
   if (strongestOpportunity && mainBlocker) {
     return `${snapshot.chain.name} is most actionable around ${strongestOpportunity}, while ${mainBlocker.toLowerCase()} remains the main technical blocker.`;

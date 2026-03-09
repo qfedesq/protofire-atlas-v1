@@ -1,23 +1,28 @@
 import { chainCatalogSeeds } from "@/data/seed/catalog";
+import { chainCapabilityProfileSeeds } from "@/data/seed/chain-capability-profiles";
 import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
 import { chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
 import { chainTechnicalProfileSeeds } from "@/data/seed/chain-technical-profiles";
 import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
 import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
+import { listAllEconomyTypes } from "@/lib/config/economies";
 import {
   parseChainEcosystemMetricsSeeds,
   parseChainRoadmapSeeds,
   parseChainEconomySeedRecords,
+  parseChainCapabilityProfileSeeds,
   parseChainTechnicalProfileSeeds,
   parseLiquidStakingMarketSnapshotSeeds,
   validateAtlasSeedDataset,
+  validateChainCapabilityProfileSeeds,
   validateChainEcosystemMetricsSeeds,
   validateChainRoadmapSeeds,
   validateChainTechnicalProfileSeeds,
   validateLiquidStakingMarketSnapshotSeeds,
 } from "@/lib/domain/schemas";
 import type {
+  ChainCapabilityProfileSeed,
   ChainEcosystemMetricsSeed,
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
@@ -29,6 +34,7 @@ import { getRuntimeManagedFilePath } from "@/lib/storage/runtime-path";
 
 export const manualDatasetKeys = [
   "readinessRecords",
+  "capabilityProfiles",
   "technicalProfiles",
   "roadmaps",
   "ecosystemMetricSeeds",
@@ -39,6 +45,7 @@ export type ManualDatasetKey = (typeof manualDatasetKeys)[number];
 
 type ManualDatasetValueMap = {
   readinessRecords: ChainEconomySeedRecord[];
+  capabilityProfiles: ChainCapabilityProfileSeed[];
   technicalProfiles: ChainTechnicalProfileSeed[];
   roadmaps: ChainRoadmapSeed[];
   ecosystemMetricSeeds: ChainEcosystemMetricsSeed[];
@@ -53,6 +60,7 @@ type ManualDatasetOverride<Key extends ManualDatasetKey> = {
 
 export type ManualDataOverrides = {
   readinessRecords?: ManualDatasetOverride<"readinessRecords">;
+  capabilityProfiles?: ManualDatasetOverride<"capabilityProfiles">;
   technicalProfiles?: ManualDatasetOverride<"technicalProfiles">;
   roadmaps?: ManualDatasetOverride<"roadmaps">;
   ecosystemMetricSeeds?: ManualDatasetOverride<"ecosystemMetricSeeds">;
@@ -82,6 +90,15 @@ function parseManualDataOverrides(input: unknown): ManualDataOverrides {
       updatedAt: typeof entry.updatedAt === "string" ? entry.updatedAt : "",
       updatedBy: typeof entry.updatedBy === "string" ? entry.updatedBy : "",
       value: parseChainEconomySeedRecords(entry.value),
+    };
+  }
+
+  if (record.capabilityProfiles && typeof record.capabilityProfiles === "object") {
+    const entry = record.capabilityProfiles as Record<string, unknown>;
+    parsed.capabilityProfiles = {
+      updatedAt: typeof entry.updatedAt === "string" ? entry.updatedAt : "",
+      updatedBy: typeof entry.updatedBy === "string" ? entry.updatedBy : "",
+      value: parseChainCapabilityProfileSeeds(entry.value),
     };
   }
 
@@ -138,13 +155,18 @@ function getValidatedDatasetValue<Key extends ManualDatasetKey>(
     case "readinessRecords":
       return validateAtlasSeedDataset({
         chains: chainCatalogSeeds,
-        economies: listActiveEconomyTypes(),
+        economies: listAllEconomyTypes(),
         records: value as ChainEconomySeedRecord[],
       }).records as ManualDatasetValueMap[Key];
     case "roadmaps":
       return validateChainRoadmapSeeds(
         chainCatalogSeeds,
         value as ChainRoadmapSeed[],
+      ) as ManualDatasetValueMap[Key];
+    case "capabilityProfiles":
+      return validateChainCapabilityProfileSeeds(
+        chainCatalogSeeds,
+        value as ChainCapabilityProfileSeed[],
       ) as ManualDatasetValueMap[Key];
     case "technicalProfiles":
       return validateChainTechnicalProfileSeeds(
@@ -212,7 +234,17 @@ export async function resetManualDatasetOverride(key: ManualDatasetKey) {
 }
 
 export function getResolvedChainEconomySeedRecords() {
-  return getManualDataOverrides().readinessRecords?.value ?? chainEconomySeedRecords;
+  const activeEconomySlugs = new Set(listActiveEconomyTypes().map((economy) => economy.slug));
+
+  return (
+    getManualDataOverrides().readinessRecords?.value ?? chainEconomySeedRecords
+  ).filter((record) => activeEconomySlugs.has(record.economyType));
+}
+
+export function getResolvedChainCapabilityProfileSeeds() {
+  return (
+    getManualDataOverrides().capabilityProfiles?.value ?? chainCapabilityProfileSeeds
+  );
 }
 
 export function getResolvedChainRoadmapSeeds() {

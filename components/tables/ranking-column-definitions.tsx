@@ -116,6 +116,10 @@ function GlobalEconomyScoreCell({
 }) {
   const breakdown = row.economyBreakdown[economy.slug];
 
+  if (!breakdown) {
+    return <span className="text-muted text-sm">N/A</span>;
+  }
+
   return (
     <div className="space-y-1">
       <p className="text-foreground text-xl font-semibold">
@@ -135,8 +139,14 @@ function GlobalEconomyModuleCell({
   economy: EconomyType;
   moduleSlug: string;
 }) {
-  const item = row.economyBreakdown[economy.slug].readinessScore.moduleBreakdown.find(
-    (breakdown) => breakdown.module.slug === moduleSlug,
+  const breakdown = row.economyBreakdown[economy.slug];
+
+  if (!breakdown) {
+    return null;
+  }
+
+  const item = breakdown.readinessScore.moduleBreakdown.find(
+    (breakdownItem) => breakdownItem.module.slug === moduleSlug,
   );
 
   if (!item) {

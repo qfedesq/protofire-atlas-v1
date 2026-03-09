@@ -41,6 +41,33 @@ export const capabilitySupportLevels = [
   "unsupported",
   "unknown",
 ] as const;
+export const chainCapabilityExecutionEnvironments = [
+  "evm-l1",
+  "evm-l2-rollup",
+  "bitcoin-evm",
+  "enterprise-evm",
+  "specialized-evm",
+] as const;
+export const chainCapabilityValidatorModels = [
+  "native-pos",
+  "rollup-sequencer",
+  "hybrid",
+  "bitcoin-anchored",
+  "custom",
+  "unknown",
+] as const;
+export const chainCapabilityGasModels = [
+  "native-evm-gas",
+  "rollup-gas",
+  "bitcoin-anchored-gas",
+  "custom",
+  "unknown",
+] as const;
+export const ecosystemMaturityLevels = [
+  "emerging",
+  "developing",
+  "mature",
+] as const;
 export const dataConfidenceLevels = ["low", "medium", "high"] as const;
 export const wedgeApplicabilityStatuses = [
   "applicable",
@@ -93,6 +120,12 @@ export type LiquidStakingDiagnosticSlug =
   (typeof liquidStakingDiagnosticSlugs)[number];
 export type ExternalMetricKey = (typeof externalMetricKeys)[number];
 export type CapabilitySupportLevel = (typeof capabilitySupportLevels)[number];
+export type ChainCapabilityExecutionEnvironment =
+  (typeof chainCapabilityExecutionEnvironments)[number];
+export type ChainCapabilityValidatorModel =
+  (typeof chainCapabilityValidatorModels)[number];
+export type ChainCapabilityGasModel = (typeof chainCapabilityGasModels)[number];
+export type EcosystemMaturityLevel = (typeof ecosystemMaturityLevels)[number];
 export type DataConfidenceLevel = (typeof dataConfidenceLevels)[number];
 export type WedgeApplicabilityStatus = (typeof wedgeApplicabilityStatuses)[number];
 export type ApplicabilityRequirementLevel =
@@ -368,6 +401,7 @@ export type EconomyType = {
   slug: EconomyTypeSlug;
   name: string;
   shortLabel: string;
+  isActive: boolean;
   description: string;
   modules: EconomyModule[];
   scoringConfig: EconomyScoringConfig;
@@ -425,6 +459,54 @@ export type WedgeApplicability = {
   manualReviewRecommended: boolean;
 };
 
+export type ChainCapabilityProfileSourceReferences = {
+  isEvm: string;
+  smartContractSupport: string;
+  tokenStandardSupport: string;
+  oracleSupport: string;
+  indexingInfrastructure: string;
+  eventDrivenArchitecture: string;
+  crossChainSupport: string;
+  validatorModel: string;
+  stakingSupport: string;
+  liquidStakingSupport: string;
+  lendingProtocolFeasibility: string;
+  liquidityProtocolFeasibility: string;
+  paymentRailsSupport: string;
+  gasModel: string;
+  executionEnvironment: string;
+  ecosystemMaturity: string;
+};
+
+export type ChainCapabilityProfileSeed = {
+  chainSlug: string;
+  isEvm: boolean;
+  smartContractSupport: CapabilitySupportLevel;
+  tokenStandardSupport: CapabilitySupportLevel;
+  oracleSupport: CapabilitySupportLevel;
+  indexingInfrastructure: CapabilitySupportLevel;
+  eventDrivenArchitecture: CapabilitySupportLevel;
+  crossChainSupport: CapabilitySupportLevel;
+  validatorModel: ChainCapabilityValidatorModel;
+  stakingSupport: CapabilitySupportLevel;
+  liquidStakingSupport: CapabilitySupportLevel;
+  lendingProtocolFeasibility: CapabilitySupportLevel;
+  liquidityProtocolFeasibility: CapabilitySupportLevel;
+  paymentRailsSupport: CapabilitySupportLevel;
+  gasModel: ChainCapabilityGasModel;
+  executionEnvironment: ChainCapabilityExecutionEnvironment;
+  ecosystemMaturity: EcosystemMaturityLevel;
+  confidenceLevel: DataConfidenceLevel;
+  notes: string[];
+  sourceReferences: ChainCapabilityProfileSourceReferences;
+  lastUpdated: string;
+};
+
+export type ChainCapabilityProfile = Omit<ChainCapabilityProfileSeed, "chainSlug"> & {
+  chainId: string;
+  chainSlug: string;
+};
+
 export type WedgeApplicabilitySummary = {
   wedge: EconomyType;
   applicable: number;
@@ -437,6 +519,7 @@ export type WedgeApplicabilitySummary = {
 export type ApplicabilityMatrixRow = {
   chain: Chain;
   technicalProfile: ChainTechnicalProfile;
+  capabilityProfile: ChainCapabilityProfile;
   wedges: WedgeApplicability[];
 };
 
@@ -577,13 +660,15 @@ export type GlobalRankedChain = {
   chain: Chain;
   score: GlobalChainScore;
   benchmarkRank: number;
-  economyBreakdown: Record<
+  economyBreakdown: Partial<
+    Record<
     EconomyTypeSlug,
     {
       economy: EconomyType;
       readinessScore: ChainEconomyReadiness;
       benchmarkRank: number;
     }
+    >
   >;
 };
 
@@ -666,6 +751,7 @@ export type ChainProfile = {
   chain: Chain;
   economy: EconomyType;
   technicalProfile: ChainTechnicalProfile;
+  capabilityProfile: ChainCapabilityProfile;
   readinessScore: ChainEconomyReadiness;
   selectedWedgeApplicability: WedgeApplicability;
   wedgeApplicabilityMatrix: WedgeApplicability[];
@@ -759,8 +845,35 @@ export type ChainAnalysisInputGlobalPositionSnapshot = {
 export type ChainAnalysisInputSnapshot = {
   chain: ChainAnalysisInputChainSnapshot;
   technicalProfile: ChainTechnicalProfile;
+  capabilityProfile: ChainCapabilityProfile;
   globalPosition: ChainAnalysisInputGlobalPositionSnapshot;
   economies: ChainAnalysisInputEconomySnapshot[];
+  personas: Array<{
+    id: string;
+    organization: string;
+    personaName: string;
+    personaTitle: string;
+    chainSlug: string;
+    protocolUrl?: string;
+    linkedinProfile?: string;
+    twitterHandle?: string;
+    fears: string[];
+    wants: string[];
+    needs: string[];
+    pains: string[];
+    expectedGains: string[];
+    topKpis: string[];
+  }>;
+  offers: Array<{
+    offerId: string;
+    name: string;
+    problemSolved: string;
+    expectedImpact: string;
+    targetPersonas: string[];
+    roiEstimate: string;
+    technicalRequirements: string[];
+    applicableWedges: EconomyTypeSlug[];
+  }>;
   assumptionsVersion: string;
   sourceSnapshotDate: string;
 };
@@ -772,6 +885,22 @@ export type ChainTechnicalAnalysisOutput = {
   strongestOpportunities: string[];
   confidenceNotes: string[];
   manualFollowUp: string[];
+  infrastructureAnalysis: string;
+  buyerPersonaAnalysis: string;
+  recommendedOffer: {
+    offerId: string;
+    offerName: string;
+    rationale: string;
+  } | null;
+  proposalDraft: {
+    headline: string;
+    summary: string;
+    whyItSolvesPersonaFears: string;
+    kpiImprovementCase: string;
+    expectedRoi: string;
+    strategicAdvantage: string;
+  } | null;
+  confidenceScore: number;
 };
 
 export type ChainTechnicalAnalysis = {
@@ -781,7 +910,7 @@ export type ChainTechnicalAnalysis = {
   triggeredBy: string;
   modelName: string;
   executionMode: AnalysisExecutionMode;
-  analysisType: "gpt-5.4-technical-analysis";
+  analysisType: "gpt-5.4-strategic-analysis";
   status: ChainAnalysisStatus;
   inputSnapshot: ChainAnalysisInputSnapshot;
   outputSummary: string | null;
@@ -789,4 +918,117 @@ export type ChainTechnicalAnalysis = {
   createdAt: string;
   completedAt: string | null;
   errorMessage: string | null;
+};
+
+export type BuyerPersonaInput = {
+  chainSlug: string;
+  chainUrl: string;
+  protocolUrl?: string;
+  personName: string;
+  personTitle: string;
+  linkedinProfile?: string;
+  twitterHandle?: string;
+  githubProfile?: string;
+};
+
+export type BuyerPersonaStructuredOutput = {
+  empathyMap: {
+    hear: string[];
+    fearTop3: string[];
+    wantTop3: string[];
+    needTop3: string[];
+    painsTop3: string[];
+    expectedGainsTop3: string[];
+  };
+  successMetrics: {
+    topKpis: string[];
+    organizationOkrs: string[];
+  };
+  leanCanvas: {
+    problem: string;
+    solution: string;
+    valueProposition: string;
+    competitors: string;
+    strategy: string;
+    growthDrivers: string;
+  };
+  sourceSummary: string[];
+};
+
+export type BuyerPersonaRecord = {
+  id: string;
+  organization: string;
+  chainId: string;
+  chainSlug: string;
+  chainUrl: string;
+  protocolUrl?: string;
+  personName: string;
+  personTitle: string;
+  linkedinProfile?: string;
+  twitterHandle?: string;
+  githubProfile?: string;
+  markdownPath: string;
+  markdownContent: string;
+  structuredData: BuyerPersonaStructuredOutput;
+  modelName: string;
+  executionMode: AnalysisExecutionMode;
+  sourceNotes: string[];
+  createdAt: string;
+  updatedAt: string;
+  generatedBy: string;
+};
+
+export type OfferLibraryItem = {
+  offerId: string;
+  name: string;
+  problemSolved: string;
+  expectedImpact: string;
+  implementationScope: string;
+  targetPersonas: string[];
+  roiEstimate: string;
+  priceRange: string;
+  technicalRequirements: string[];
+  sourceFile: string;
+  applicableWedges: EconomyTypeSlug[];
+  caseStudyReferences: string[];
+  deploymentScope: string;
+  targetCustomer: string;
+};
+
+export type ProposalScoringWeights = {
+  applicability: number;
+  gapSeverity: number;
+  personaFit: number;
+  expectedImpact: number;
+  roiPotential: number;
+};
+
+export type ProposalPriorityThresholds = {
+  high: number;
+  medium: number;
+};
+
+export type ProposalGeneratorSettings = {
+  weights: ProposalScoringWeights;
+  priorityThresholds: ProposalPriorityThresholds;
+};
+
+export type ProposalDocument = {
+  proposalId: string;
+  chainId: string;
+  chainSlug: string;
+  wedgeId: EconomyTypeSlug;
+  personaId: string;
+  personaName: string;
+  offerId: string;
+  offerName: string;
+  conversionProbability: number;
+  strategicFit: number;
+  roiEstimation: string;
+  riskReduction: string;
+  expectedChainOutcome: string;
+  proposalSummary: string;
+  markdownContent: string;
+  createdAt: string;
+  createdBy: string;
 };

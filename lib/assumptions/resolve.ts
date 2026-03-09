@@ -59,3 +59,7 @@ export function getActiveWedgeApplicabilityAssumptions() {
 export function getActiveAnalysisSettings() {
   return getActiveAssumptions().analysisSettings;
 }
+
+export function getActiveProposalGeneratorSettings() {
+  return getActiveAssumptions().proposalGenerator;
+}

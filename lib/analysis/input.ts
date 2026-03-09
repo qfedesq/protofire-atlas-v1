@@ -2,6 +2,8 @@ import { getActiveAnalysisSettings } from "@/lib/assumptions/resolve";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { atlasVersion } from "@/lib/config/version";
 import type { ChainAnalysisInputSnapshot, EconomyTypeSlug } from "@/lib/domain/types";
+import { listOfferLibrary } from "@/lib/offers/library";
+import { listChainBuyerPersonas } from "@/lib/personas/service";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 
 const repository = createSeedChainsRepository();
@@ -17,6 +19,38 @@ export function buildChainAnalysisInputSnapshot(chainSlug: string): ChainAnalysi
   if (!chain || !globalPosition) {
     throw new Error(`Unknown chain analysis target "${chainSlug}".`);
   }
+
+  const capabilityProfile =
+    repository.getChainProfileBySlug(chainSlug)?.capabilityProfile ??
+    (() => {
+      throw new Error(`Missing capability profile for ${chainSlug}.`);
+    })();
+  const personas = listChainBuyerPersonas(chainSlug).map((persona) => ({
+    id: persona.id,
+    organization: persona.organization,
+    personaName: persona.personName,
+    personaTitle: persona.personTitle,
+    chainSlug: persona.chainSlug,
+    protocolUrl: persona.protocolUrl,
+    linkedinProfile: persona.linkedinProfile,
+    twitterHandle: persona.twitterHandle,
+    fears: persona.structuredData.empathyMap.fearTop3,
+    wants: persona.structuredData.empathyMap.wantTop3,
+    needs: persona.structuredData.empathyMap.needTop3,
+    pains: persona.structuredData.empathyMap.painsTop3,
+    expectedGains: persona.structuredData.empathyMap.expectedGainsTop3,
+    topKpis: persona.structuredData.successMetrics.topKpis,
+  }));
+  const offers = listOfferLibrary().map((offer) => ({
+    offerId: offer.offerId,
+    name: offer.name,
+    problemSolved: offer.problemSolved,
+    expectedImpact: offer.expectedImpact,
+    targetPersonas: offer.targetPersonas,
+    roiEstimate: offer.roiEstimate,
+    technicalRequirements: offer.technicalRequirements,
+    applicableWedges: offer.applicableWedges,
+  }));
 
   const profiles = economies.map((economy) => {
     const profile = repository.getChainProfileBySlug(
@@ -68,6 +102,7 @@ export function buildChainAnalysisInputSnapshot(chainSlug: string): ChainAnalysi
       (() => {
         throw new Error(`Missing technical profile for ${chainSlug}.`);
       })(),
+    capabilityProfile,
     globalPosition: {
       benchmarkRank: globalPosition.benchmarkRank,
       score: {
@@ -75,6 +110,8 @@ export function buildChainAnalysisInputSnapshot(chainSlug: string): ChainAnalysi
       },
     },
     economies: profiles,
+    personas,
+    offers,
     assumptionsVersion: `${atlasVersion.semver}@${assumptions.updatedAt}`,
     sourceSnapshotDate: chain.sourceSnapshotDate,
   };

@@ -9,6 +9,7 @@ import type {
   OpportunityPriorityThresholds,
   OpportunityScoringWeights,
   OpportunityStackFitComponentWeights,
+  ProposalGeneratorSettings,
   WedgeApplicabilityAssumptionSet,
 } from "@/lib/domain/types";
 
@@ -53,4 +54,5 @@ export type ActiveAssumptions = {
   opportunityScoring: OpportunityScoringAssumptionSet;
   wedgeApplicability: WedgeApplicabilityAssumptionSet;
   analysisSettings: AnalysisSettings;
+  proposalGenerator: ProposalGeneratorSettings;
 };

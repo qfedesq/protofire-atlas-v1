@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { CitationBlock } from "@/components/public/citation-block";
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 
 export default function DataRankingsPage() {
-  const economies = listEconomyTypes();
+  const economies = listActiveEconomyTypes();
 
   return (
     <div className="space-y-8">

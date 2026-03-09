@@ -93,6 +93,23 @@ Used by:
 
 - internal GPT-assisted chain analysis workflow only
 
+### 6. Proposal engine
+
+Editable:
+
+- applicability contribution
+- gap-severity contribution
+- persona-fit contribution
+- expected-impact contribution
+- ROI-potential contribution
+- high / medium priority thresholds
+
+Used by:
+
+- internal proposal matching
+- internal chain strategic appendix
+- stored proposal documents
+
 ## Validation rules
 
 Atlas blocks invalid saves for:

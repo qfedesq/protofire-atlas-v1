@@ -6,19 +6,19 @@ This workflow is separate from public readiness scoring.
 
 ## Goal
 
-For one selected chain, Atlas can assemble a structured technical snapshot and run a deeper review across all four wedges:
+For one selected chain, Atlas can assemble a structured technical snapshot and run a deeper review across the currently active wedges:
 
 - AI Agents
 - DeFi Infrastructure
-- RWA Infrastructure
-- Prediction Markets
 
 The analysis focuses on:
 
 - applicability by wedge
 - technical blockers
 - prerequisite gaps
+- buyer persona incentives
 - strongest Protofire opportunities
+- proposal draft output
 - manual follow-up areas
 
 ## Deterministic vs AI-assisted
@@ -110,7 +110,10 @@ Structured output includes:
 - per-wedge applicability assessment
 - technical blockers
 - prerequisite summary
+- buyer persona analysis
 - strongest opportunities
+- recommended offer
+- proposal draft
 - confidence notes
 - manual follow-up
 

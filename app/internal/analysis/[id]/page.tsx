@@ -137,12 +137,79 @@ export default async function ChainTechnicalAnalysisPage({
             Structured findings
           </p>
           <h2 className="text-foreground mt-2 text-2xl font-semibold">
-            Blockers, opportunities, and manual follow-up
+            Infrastructure, buyer, and proposal findings
           </h2>
         </div>
 
         {analysis.outputStructuredData ? (
           <div className="space-y-6">
+            <div>
+              <h3 className="text-foreground text-lg font-semibold">
+                Infrastructure analysis
+              </h3>
+              <p className="text-muted mt-3 text-sm leading-6">
+                {analysis.outputStructuredData.infrastructureAnalysis}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-foreground text-lg font-semibold">
+                Buyer persona analysis
+              </h3>
+              <p className="text-muted mt-3 text-sm leading-6">
+                {analysis.outputStructuredData.buyerPersonaAnalysis}
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              <div>
+                <h3 className="text-foreground text-lg font-semibold">
+                  Confidence score
+                </h3>
+                <p className="text-foreground mt-3 text-3xl font-semibold">
+                  {analysis.outputStructuredData.confidenceScore}
+                </p>
+              </div>
+              <div>
+                <h3 className="text-foreground text-lg font-semibold">
+                  Recommended offer
+                </h3>
+                {analysis.outputStructuredData.recommendedOffer ? (
+                  <div className="mt-3 space-y-2 text-sm leading-6">
+                    <p className="text-foreground font-medium">
+                      {analysis.outputStructuredData.recommendedOffer.offerName}
+                    </p>
+                    <p className="text-muted">
+                      {analysis.outputStructuredData.recommendedOffer.rationale}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-muted mt-3 text-sm leading-6">
+                    No single offer was selected in this run.
+                  </p>
+                )}
+              </div>
+              <div>
+                <h3 className="text-foreground text-lg font-semibold">
+                  Proposal draft
+                </h3>
+                {analysis.outputStructuredData.proposalDraft ? (
+                  <div className="mt-3 space-y-2 text-sm leading-6">
+                    <p className="text-foreground font-medium">
+                      {analysis.outputStructuredData.proposalDraft.headline}
+                    </p>
+                    <p className="text-muted">
+                      {analysis.outputStructuredData.proposalDraft.summary}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-muted mt-3 text-sm leading-6">
+                    No proposal draft was generated in this run.
+                  </p>
+                )}
+              </div>
+            </div>
+
             <div>
               <h3 className="text-foreground text-lg font-semibold">
                 Technical blockers
@@ -197,6 +264,50 @@ export default async function ChainTechnicalAnalysisPage({
                 ))}
               </ul>
             </div>
+
+            {analysis.outputStructuredData.proposalDraft ? (
+              <div>
+                <h3 className="text-foreground text-lg font-semibold">
+                  Draft proposal details
+                </h3>
+                <dl className="mt-3 space-y-4 text-sm leading-6">
+                  <div>
+                    <dt className="text-foreground font-medium">
+                      Why it solves persona fears
+                    </dt>
+                    <dd className="text-muted mt-1">
+                      {
+                        analysis.outputStructuredData.proposalDraft
+                          .whyItSolvesPersonaFears
+                      }
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-foreground font-medium">KPI improvement case</dt>
+                    <dd className="text-muted mt-1">
+                      {
+                        analysis.outputStructuredData.proposalDraft
+                          .kpiImprovementCase
+                      }
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-foreground font-medium">Expected ROI</dt>
+                    <dd className="text-muted mt-1">
+                      {analysis.outputStructuredData.proposalDraft.expectedRoi}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-foreground font-medium">
+                      Strategic advantage
+                    </dt>
+                    <dd className="text-muted mt-1">
+                      {analysis.outputStructuredData.proposalDraft.strategicAdvantage}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            ) : null}
           </div>
         ) : (
           <p className="text-muted text-sm leading-6">

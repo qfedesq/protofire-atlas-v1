@@ -21,6 +21,25 @@ const analysisPromptTemplates = {
       ].join(" ");
     },
   },
+  "strategic-proposal-v1": {
+    label: "Strategic proposal and buyer analysis",
+    instructions(
+      snapshot: ChainAnalysisInputSnapshot,
+      settings: AnalysisSettings,
+    ) {
+      return [
+        "You are assisting Protofire Atlas with an internal strategic analysis for one chain.",
+        "Keep deterministic Atlas scores and applicability separate from your AI-assisted reasoning.",
+        "Use the provided capability profile, wedge applicability baseline, buyer personas, and offer library as the only analysis context.",
+        "Do not invent external facts that are not already present in the snapshot.",
+        "Analyze only the active wedges included in the snapshot.",
+        "Prioritize the most conversion-ready Protofire opportunity, explain the buyer incentives, and produce a concise proposal draft.",
+        "If persona coverage is weak, say so and keep confidence lower instead of inventing precision.",
+        "Return a structured response only.",
+        `Sensitivity: ${settings.sensitivity}. Opportunity threshold: ${settings.opportunityThreshold}. Manual review threshold: ${settings.manualReviewThreshold}.`,
+      ].join(" ");
+    },
+  },
 } as const;
 
 export function listAnalysisPromptTemplateKeys() {

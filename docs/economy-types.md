@@ -1,8 +1,13 @@
 # Economy Types
 
-Protofire Atlas currently supports four economy wedges for the same core audience: blockchain chains, L1s, and L2s.
+Protofire Atlas currently keeps four economy wedges in config for the same core audience: blockchain chains, L1s, and L2s.
 
 All wedges run against the same documented benchmark universe: the top 30 EVM chains by TVL from a DeFiLlama snapshot.
+
+Current runtime state:
+
+- active: AI Agent Economy, DeFi Infrastructure Economy
+- inactive but preserved: RWA Infrastructure Economy, Prediction Market Economy
 
 ## AI Agent Economy
 

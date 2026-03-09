@@ -45,7 +45,9 @@ describe("chain technical analysis service", () => {
     expect(analysis.status).toBe("completed");
     expect(analysis.executionMode).toBe("mock");
     expect(analysis.modelName).toBe("gpt-5.4");
-    expect(analysis.outputStructuredData?.wedgeAssessments).toHaveLength(4);
+    expect(analysis.outputStructuredData?.wedgeAssessments).toHaveLength(2);
+    expect(analysis.outputStructuredData?.buyerPersonaAnalysis).toBeTruthy();
+    expect(analysis.outputStructuredData?.confidenceScore).toBeGreaterThan(0);
     expect(analysis.outputSummary).toMatch(/Ethereum/i);
 
     const latest = getLatestChainTechnicalAnalysis("ethereum");

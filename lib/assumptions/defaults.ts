@@ -37,10 +37,10 @@ export function buildDefaultAssumptionsSnapshot(): ActiveAssumptions {
         performance: 10,
       },
       economyCompositeWeights: {
-        "ai-agents": 20,
-        "defi-infrastructure": 40,
-        "rwa-infrastructure": 20,
-        "prediction-markets": 20,
+        "ai-agents": 45,
+        "defi-infrastructure": 55,
+        "rwa-infrastructure": 0,
+        "prediction-markets": 0,
       },
       ecosystemSubweights: {
         protocols: 55,
@@ -175,11 +175,24 @@ export function buildDefaultAssumptionsSnapshot(): ActiveAssumptions {
     },
     analysisSettings: {
       modelName: "gpt-5.4",
-      promptTemplateKey: "technical-applicability-v1",
+      promptTemplateKey: "strategic-proposal-v1",
       sensitivity: 0.6,
       opportunityThreshold: 6,
       manualReviewThreshold: 5,
       useMockWhenUnavailable: true,
+    },
+    proposalGenerator: {
+      weights: {
+        applicability: 30,
+        gapSeverity: 25,
+        personaFit: 20,
+        expectedImpact: 15,
+        roiPotential: 10,
+      },
+      priorityThresholds: {
+        high: 75,
+        medium: 55,
+      },
     },
   };
 }

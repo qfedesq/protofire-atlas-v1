@@ -89,8 +89,6 @@ Global ranking default:
 - Economy Composite
 - AI Agents Readiness
 - DeFi Readiness
-- RWA Readiness
-- Prediction Markets Readiness
 - Ecosystem Score
 - Adoption Score
 - Performance Score

@@ -59,30 +59,12 @@ Reason:
 - liquidity and liquid staking are stronger strategic differentiators for DeFi competitiveness
 - indexing remains important but is less of a gating primitive than liquidity, lending, or liquid staking
 
-RWA Infrastructure Economy:
+Inactive preserved economies:
 
-- Asset Registry `30`
-- Compliance Layer `30`
-- Oracle Feeds `20`
-- Settlement Infrastructure `20`
+- RWA Infrastructure Economy
+- Prediction Market Economy
 
-Reason:
-
-- issuance and compliance are the clearest gating rails for RWA activation
-- oracle and settlement remain critical but usually come after those first two foundations
-
-Prediction Market Economy:
-
-- Oracle Layer `35`
-- Market Contracts `30`
-- Indexing Infrastructure `15`
-- Liquidity Integration `20`
-
-Reason:
-
-- outcome resolution and reusable market contracts are the core primitives
-- liquidity matters materially
-- indexing is important operationally but less foundational than resolution and market creation
+Their module models remain in code and admin assumptions, but Atlas currently runs public scoring and analysis only for the active wedges: AI Agents and DeFi.
 
 Global Chain Ranking:
 
@@ -93,10 +75,10 @@ Global Chain Ranking:
 
 Economy composite split:
 
-- AI Agent Economy `20`
-- DeFi Infrastructure `40`
-- RWA Infrastructure `20`
-- Prediction Market Economy `20`
+- AI Agent Economy `45`
+- DeFi Infrastructure `55`
+- RWA Infrastructure `0`
+- Prediction Market Economy `0`
 
 Reason:
 

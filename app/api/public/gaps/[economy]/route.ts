@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { getPublicGapsPayload } from "@/lib/public-data/service";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
@@ -10,7 +10,9 @@ export async function GET(
 ) {
   await ensureAtlasPersistence();
   const { economy } = await params;
-  const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
+  const resolvedEconomy = listActiveEconomyTypes().find(
+    (item) => item.slug === economy,
+  );
 
   if (!resolvedEconomy) {
     return NextResponse.json({ error: "Unknown economy." }, { status: 404 });

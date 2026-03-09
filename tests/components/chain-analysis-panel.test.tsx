@@ -41,7 +41,7 @@ describe("ChainAnalysisPanel", () => {
           triggeredBy: "vitest@example.com",
           modelName: "gpt-5.4",
           executionMode: "mock",
-          analysisType: "gpt-5.4-technical-analysis",
+          analysisType: "gpt-5.4-strategic-analysis",
           status: "completed",
           inputSnapshot: {
             chain: {
@@ -50,6 +50,7 @@ describe("ChainAnalysisPanel", () => {
               name: profile.chain.name,
             },
             technicalProfile: profile.technicalProfile,
+            capabilityProfile: profile.capabilityProfile,
             globalPosition: {
               benchmarkRank: profile.globalPosition.benchmarkRank,
               score: {
@@ -57,6 +58,8 @@ describe("ChainAnalysisPanel", () => {
               },
             },
             economies: [],
+            personas: [],
+            offers: [],
             assumptionsVersion: "1.24.0@test",
             sourceSnapshotDate: profile.chain.sourceSnapshotDate,
           },
@@ -68,6 +71,11 @@ describe("ChainAnalysisPanel", () => {
             strongestOpportunities: ["AI Agent Economy via Upgrade Agent Indexing Layer"],
             confidenceNotes: ["Mock mode"],
             manualFollowUp: ["Review indexing architecture"],
+            infrastructureAnalysis: "Ethereum remains technically applicable.",
+            buyerPersonaAnalysis: "No persona stored yet.",
+            recommendedOffer: null,
+            proposalDraft: null,
+            confidenceScore: 58,
           },
           createdAt: "2026-03-08T00:00:00.000Z",
           completedAt: "2026-03-08T00:05:00.000Z",
@@ -85,9 +93,9 @@ describe("ChainAnalysisPanel", () => {
     expect(screen.getByText("Deterministic layer")).toBeInTheDocument();
     expect(screen.getByText("AI-assisted layer")).toBeInTheDocument();
     expect(screen.getByText("Wedge applicability baseline")).toBeInTheDocument();
-    expect(screen.getByText("Latest technical analysis")).toBeInTheDocument();
+    expect(screen.getByText("Latest strategic analysis")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Run gpt-5.4 Technical Analysis/i }),
+      screen.getByRole("button", { name: /Run gpt-5.4 Strategic Analysis/i }),
     ).toBeInTheDocument();
     expect(screen.getByText("Ethereum analysis completed.")).toBeInTheDocument();
   });

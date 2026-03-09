@@ -170,10 +170,10 @@ describe("active assumptions", () => {
         performance: 15,
       },
       {
-        "ai-agents": 20,
-        "defi-infrastructure": 40,
-        "rwa-infrastructure": 20,
-        "prediction-markets": 20,
+        "ai-agents": 45,
+        "defi-infrastructure": 55,
+        "rwa-infrastructure": 0,
+        "prediction-markets": 0,
       },
       "test",
     );
@@ -195,7 +195,7 @@ describe("active assumptions", () => {
     expect(active.globalRanking.componentWeights.economyScore).toBe(40);
     expect(
       active.globalRanking.economyCompositeWeights["defi-infrastructure"],
-    ).toBe(40);
+    ).toBe(55);
     expect(active.opportunityScoring.weights.readinessGap).toBe(35);
     expect(globalRows[0]?.score.totalScore).toBeGreaterThan(0);
     expect(targetRows[0]?.opportunity.totalScore).toBeGreaterThan(0);
@@ -213,10 +213,10 @@ describe("active assumptions", () => {
           performance: 20,
         },
         {
-          "ai-agents": 25,
-          "defi-infrastructure": 25,
-          "rwa-infrastructure": 25,
-          "prediction-markets": 25,
+          "ai-agents": 60,
+          "defi-infrastructure": 30,
+          "rwa-infrastructure": 10,
+          "prediction-markets": 10,
         },
         "test",
       ),

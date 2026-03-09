@@ -1,14 +1,18 @@
 import {
   getManualDataOverrides,
+  getResolvedChainCapabilityProfileSeeds,
   getResolvedChainEcosystemMetricsSeeds,
   getResolvedChainRoadmapSeeds,
-  getResolvedChainTechnicalProfileSeeds,
   getResolvedLiquidStakingMarketSnapshotSeeds,
 } from "@/lib/admin/manual-data";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { atlasDatasetSnapshot } from "@/lib/config/dataset";
 import { readExternalMetricsSnapshot } from "@/lib/external-data/service";
 import { externalMetricsSourceNote } from "@/lib/external-data/config";
+import { listOfferLibrary } from "@/lib/offers/library";
+import { listBuyerPersonas } from "@/lib/personas/store";
+import { listProposalDocuments } from "@/lib/proposals/store";
+import { listChainTechnicalAnalyses } from "@/lib/analysis/store";
 
 export type DataSourceOriginType =
   | "external API"
@@ -43,9 +47,13 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
   const manualOverrides = getManualDataOverrides();
   const chainEcosystemMetricsSeeds = getResolvedChainEcosystemMetricsSeeds();
   const chainRoadmapSeeds = getResolvedChainRoadmapSeeds();
-  const chainTechnicalProfiles = getResolvedChainTechnicalProfileSeeds();
+  const chainCapabilityProfiles = getResolvedChainCapabilityProfileSeeds();
   const liquidStakingMarketSnapshotSeeds =
     getResolvedLiquidStakingMarketSnapshotSeeds();
+  const personas = listBuyerPersonas();
+  const offers = listOfferLibrary();
+  const proposals = listProposalDocuments();
+  const analyses = listChainTechnicalAnalyses();
   const externalUpdatedAt = externalMetricsSnapshot.updatedAt;
   const assumptionsUpdatedAt = activeAssumptions.updatedAt;
   const chainSeedUpdatedAt = `${atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
@@ -55,8 +63,8 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
   const roadmapUpdatedAt =
     manualOverrides.roadmaps?.updatedAt ??
     `${chainRoadmapSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
-  const technicalProfilesUpdatedAt =
-    manualOverrides.technicalProfiles?.updatedAt ?? chainSeedUpdatedAt;
+  const capabilityProfilesUpdatedAt =
+    manualOverrides.capabilityProfiles?.updatedAt ?? chainSeedUpdatedAt;
   const liquidStakingUpdatedAt =
     manualOverrides.liquidStakingMarketSnapshots?.updatedAt ??
     (liquidStakingMarketSnapshotSeeds[0]?.sources[0]?.snapshotDate != null
@@ -263,18 +271,18 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
         {
           metricName: "Chain technical capability profiles",
           description:
-            "Per-chain architecture and primitive support baselines used before wedge readiness is interpreted.",
+            "Per-chain architecture, primitive support, and deployment-feasibility baselines used before wedge readiness is interpreted.",
           sourceCategory: "Applicability inputs",
-          sourceName: "Atlas technical profile dataset",
-          sourceReference: "data/seed/chain-technical-profiles.ts",
+          sourceName: "Atlas chain capability dataset",
+          sourceReference: "data/seed/chain-capability-profiles.ts",
           originType: "seed/fallback dataset",
           currentProvenance:
-            "Current Atlas value comes from the manual technical profile dataset, with explicit fallback profiles only if a chain row is missing.",
+            "Current Atlas value comes from the manual chain capability dataset, which Atlas then maps onto the deterministic applicability engine.",
           adminEditScope: "Editable from this page",
           refreshBehavior:
-            "Updated manually and applied immediately to the deterministic applicability engine.",
-          lastUpdated: technicalProfilesUpdatedAt,
-          notes: `Current dataset covers ${chainTechnicalProfiles.length} chain capability profiles.`,
+            "Updated manually and applied immediately to the deterministic applicability engine and analysis snapshot builder.",
+          lastUpdated: capabilityProfilesUpdatedAt,
+          notes: `Current dataset covers ${chainCapabilityProfiles.length} chain capability profiles.`,
         },
         {
           metricName: "Readiness module weights",
@@ -450,6 +458,22 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
             "Updated from the internal admin assumptions editor and used only by internal AI-assisted analysis workflows.",
           lastUpdated: assumptionsUpdatedAt,
         },
+        {
+          metricName: "Proposal generator settings",
+          description:
+            "Weights and priority thresholds used by the deterministic proposal matching engine.",
+          sourceCategory: "Proposal scoring inputs",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> proposalGenerator",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and applied immediately to proposal scoring.",
+          lastUpdated: assumptionsUpdatedAt,
+        },
       ],
     },
     {
@@ -550,6 +574,70 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
             "Updated manually and used automatically whenever external connectors cannot provide a valid row.",
           lastUpdated: ecosystemSeedUpdatedAt,
           notes: "This fallback keeps rankings deterministic even when external APIs fail or credentials are unavailable.",
+        },
+        {
+          metricName: "Buyer persona records",
+          description:
+            "Structured persona records used as internal buyer-intelligence inputs for proposal generation and AI strategic analysis.",
+          sourceCategory: "AI-assisted buyer intelligence",
+          sourceName: "Atlas persona builder",
+          sourceReference: "lib/personas/service.ts -> personas/",
+          originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Current Atlas value comes from stored persona builder runs and their persisted markdown artifacts.",
+          adminEditScope: "Indirect only via internal persona builder flow",
+          refreshBehavior:
+            "Updated when an internal authenticated user creates a new buyer persona for a chain.",
+          lastUpdated: personas[0]?.updatedAt ?? assumptionsUpdatedAt,
+          notes: `${personas.length} stored persona record(s).`,
+        },
+        {
+          metricName: "Offer library",
+          description:
+            "Protofire offer definitions used to match personas and chain gaps into proposal candidates.",
+          sourceCategory: "Proposal engine inputs",
+          sourceName: "Atlas offer markdown library",
+          sourceReference: "offers/*.md",
+          originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from the versioned markdown offer library in the repository.",
+          adminEditScope: "Repo-managed only",
+          refreshBehavior:
+            "Updated when offer markdown files are revised and redeployed.",
+          lastUpdated: assumptionsUpdatedAt,
+          notes: `${offers.length} offer file(s) currently available to the proposal engine.`,
+        },
+        {
+          metricName: "Proposal documents",
+          description:
+            "Stored proposal matches that connect chain gaps, buyer personas, and offers into conversion-oriented proposals.",
+          sourceCategory: "Proposal engine outputs",
+          sourceName: "Atlas proposal generator",
+          sourceReference: "lib/proposals/engine.ts",
+          originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Current Atlas value comes from persisted proposal generator runs triggered by internal users.",
+          adminEditScope: "Indirect only via internal proposal generation flow",
+          refreshBehavior:
+            "Updated whenever Atlas generates a new proposal set for a stored buyer persona.",
+          lastUpdated: proposals[0]?.createdAt ?? assumptionsUpdatedAt,
+          notes: `${proposals.length} stored proposal document(s).`,
+        },
+        {
+          metricName: "GPT-5.4 strategic analyses",
+          description:
+            "Stored internal strategic analyses combining deterministic infrastructure baselines with AI-assisted proposal reasoning.",
+          sourceCategory: "AI-assisted analysis outputs",
+          sourceName: "Atlas chain analysis workflow",
+          sourceReference: "lib/analysis/service.ts",
+          originType: "internal Atlas-derived metric",
+          currentProvenance:
+            "Current Atlas value comes from stored internal analysis runs using the configured model or deterministic mock fallback.",
+          adminEditScope: "Indirect only via internal analysis workflow",
+          refreshBehavior:
+            "Updated whenever an authenticated internal user runs strategic analysis for a chain.",
+          lastUpdated: analyses[0]?.createdAt ?? assumptionsUpdatedAt,
+          notes: `${analyses.length} stored analysis run(s).`,
         },
       ],
     },

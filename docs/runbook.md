@@ -186,8 +186,18 @@ npm run build
     - per-wedge counts render
     - per-chain applicability matrix renders
     - review queues populate
-21. From an authenticated internal chain page, trigger `Run GPT-5.4 Technical Analysis` and confirm:
+21. From an authenticated internal chain page, confirm the internal appendix exposes:
+    - stored buyer personas
+    - proposal generation actions
+    - latest AI strategic analysis
+22. Trigger `Run GPT-5.4 Strategic Analysis` and confirm:
     - a new analysis record is stored
     - `/internal/analysis/[id]` renders
     - execution mode is explicit (`live` or `mock`)
     - deterministic applicability and AI-assisted findings are clearly separated
+23. Create one buyer persona and confirm:
+    - the markdown file is stored under the runtime personas directory
+    - the persona record becomes available from the internal chain appendix
+24. Generate proposals for that persona and confirm:
+    - proposal documents persist
+    - the internal chain appendix lists the generated proposals

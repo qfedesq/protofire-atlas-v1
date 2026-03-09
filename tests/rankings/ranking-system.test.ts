@@ -26,16 +26,12 @@ describe("ranking system", () => {
       "economyCompositeScore",
       "ai-agents-readiness",
       "defi-infrastructure-readiness",
-      "rwa-infrastructure-readiness",
-      "prediction-markets-readiness",
       "ecosystemScore",
       "adoptionScore",
       "performanceScore",
     ]);
     expect(globalDefaults).toContain("ai-agents-readiness");
     expect(globalDefaults).not.toContain("defi-infrastructure:liquid-staking");
-    expect(globalDefaults).not.toContain("rwa-infrastructure:asset-registry");
-    expect(globalDefaults).not.toContain("prediction-markets:oracles");
     expect(globalDefaults).not.toContain("wallets");
     expect(globalDefaults).not.toContain("activeUsers");
     expect(globalDefaults).not.toContain("protocols");
@@ -73,8 +69,6 @@ describe("ranking system", () => {
       "ai-agents:indexing",
       "ai-agents:security",
       "defi-infrastructure-readiness",
-      "rwa-infrastructure-readiness",
-      "prediction-markets-readiness",
       "ecosystemScore",
       "adoptionScore",
       "performanceScore",

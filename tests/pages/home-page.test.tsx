@@ -14,7 +14,7 @@ describe("home page", () => {
       screen.getByText("Holistic chain leaderboard"),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/One global ranking, with the four economy readiness models/i),
+      screen.getByText(/One global ranking, with the active economy readiness models/i),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("columnheader", { name: /AI Agents Readiness/i }),
@@ -23,13 +23,13 @@ describe("home page", () => {
       screen.getByRole("columnheader", { name: /DeFi Readiness/i }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", { name: /RWA Readiness/i }),
-    ).toBeInTheDocument();
+      screen.queryByRole("columnheader", { name: /RWA Readiness/i }),
+    ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("columnheader", {
+      screen.queryByRole("columnheader", {
         name: /Prediction Markets Readiness/i,
       }),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
     expect(
       screen.getByRole("columnheader", { name: /Performance Score/i }),
     ).toBeInTheDocument();

@@ -5,6 +5,7 @@ import {
   updateAnalysisSettingsAction,
   updateOpportunityScoringAssumptionsAction,
   updateOpportunityScoringAdvancedAssumptionsAction,
+  updateProposalGeneratorSettingsAction,
   updateStatusScoresAction,
   updateWedgeApplicabilityAssumptionsAction,
 } from "@/app/internal/admin/actions";
@@ -790,6 +791,84 @@ export function AssumptionsEditor({
               className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
             >
               Save analysis settings
+            </button>
+          </div>
+        </form>
+      </Panel>
+
+      <Panel className="space-y-4">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Proposal engine
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Proposal scoring weights
+          </h2>
+        </div>
+
+        <form action={updateProposalGeneratorSettingsAction} className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+          {(
+            [
+              ["applicability", "Applicability"],
+              ["gapSeverity", "Gap severity"],
+              ["personaFit", "Persona fit"],
+              ["expectedImpact", "Expected impact"],
+              ["roiPotential", "ROI potential"],
+            ] as const
+          ).map(([key, label]) => (
+            <div key={key} className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                {label}
+              </label>
+              <input
+                name={`proposal:${key}`}
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.proposalGenerator.weights[key]}
+                className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+          ))}
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              High threshold
+            </label>
+            <input
+              name="proposal:high"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              defaultValue={assumptions.proposalGenerator.priorityThresholds.high}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Medium threshold
+            </label>
+            <input
+              name="proposal:medium"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              defaultValue={assumptions.proposalGenerator.priorityThresholds.medium}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="xl:col-span-5">
+            <button
+              type="submit"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+            >
+              Save proposal settings
             </button>
           </div>
         </form>

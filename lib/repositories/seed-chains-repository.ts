@@ -1,16 +1,20 @@
 import {
-  buildChainTechnicalProfiles,
+  buildApplicabilityMatrixRows,
   buildWedgeApplicabilityMatrix,
   buildWedgeApplicabilitySummaries,
 } from "@/lib/applicability/engine";
 import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
+import {
+  buildChainCapabilityProfiles,
+  buildDerivedTechnicalProfiles,
+} from "@/lib/capabilities/profiles";
 import { buildPeerComparison, buildScoreDrivers } from "@/lib/comparison/peer-comparison";
 import { chainCatalogSeeds } from "@/data/seed/catalog";
 import {
+  getResolvedChainCapabilityProfileSeeds,
   getResolvedChainEconomySeedRecords,
   getResolvedChainRoadmapSeeds,
   getResolvedChainRoadmapSeedsBySlug,
-  getResolvedChainTechnicalProfileSeeds,
 } from "@/lib/admin/manual-data";
 import { buildGlobalRankedChains } from "@/lib/global-ranking/engine";
 import {
@@ -18,8 +22,8 @@ import {
 } from "@/lib/config/economies";
 import {
   validateAtlasSeedDataset,
+  validateChainCapabilityProfileSeeds,
   validateChainRoadmapSeeds,
-  validateChainTechnicalProfileSeeds,
 } from "@/lib/domain/schemas";
 import { buildLiquidStakingDiagnosis } from "@/lib/liquid-staking/diagnosis";
 import { buildLiquidStakingMarketSnapshot } from "@/lib/liquid-staking/market-snapshot";
@@ -31,6 +35,7 @@ import {
 import type {
   ApplicabilityMatrixRow,
   Chain,
+  ChainCapabilityProfile,
   ChainCatalogSeed,
   ChainEconomySeedRecord,
   ChainTechnicalProfile,
@@ -70,6 +75,7 @@ type EconomyDataset = {
 type SeedRepositoryDataset = {
   chains: Chain[];
   economies: EconomyType[];
+  capabilityProfilesBySlug: Map<string, ChainCapabilityProfile>;
   technicalProfilesBySlug: Map<string, ChainTechnicalProfile>;
   applicabilityMatrixBySlug: Map<string, WedgeApplicability[]>;
   applicabilitySummaries: WedgeApplicabilitySummary[];
@@ -232,7 +238,7 @@ function buildEconomyDataset(
 
 function buildSeedRepositoryDataset(): SeedRepositoryDataset {
   const chainRoadmapSeeds = getResolvedChainRoadmapSeeds();
-  const chainTechnicalProfiles = getResolvedChainTechnicalProfileSeeds();
+  const chainCapabilityProfiles = getResolvedChainCapabilityProfileSeeds();
   const chainEconomySeedRecords = getResolvedChainEconomySeedRecords();
   const chainRoadmapSeedsBySlug = new Map(
     chainRoadmapSeeds.map((seed) => [seed.chainSlug, seed] as const),
@@ -243,18 +249,24 @@ function buildSeedRepositoryDataset(): SeedRepositoryDataset {
     records: chainEconomySeedRecords,
   });
   validateChainRoadmapSeeds(validatedDataset.chains, chainRoadmapSeeds);
-  validateChainTechnicalProfileSeeds(validatedDataset.chains, chainTechnicalProfiles);
+  validateChainCapabilityProfileSeeds(validatedDataset.chains, chainCapabilityProfiles);
   const chains = validatedDataset.chains
     .map((seed) => buildChain(seed, chainRoadmapSeedsBySlug))
     .sort((left, right) => left.name.localeCompare(right.name));
   const recordLookup = getRecordLookup(validatedDataset.records);
 
   const economies = [...validatedDataset.economies];
-  const technicalProfilesBySlug = buildChainTechnicalProfiles(chains, chainTechnicalProfiles);
+  const capabilityProfilesBySlug = buildChainCapabilityProfiles(
+    chains,
+    chainCapabilityProfiles,
+  );
+  const technicalProfilesBySlug = buildDerivedTechnicalProfiles(
+    capabilityProfilesBySlug,
+  );
   const applicabilityMatrixBySlug = buildWedgeApplicabilityMatrix(
     chains,
     economies,
-    technicalProfilesBySlug,
+    capabilityProfilesBySlug,
   );
   const applicabilitySummaries = buildWedgeApplicabilitySummaries(
     economies,
@@ -310,6 +322,7 @@ function buildSeedRepositoryDataset(): SeedRepositoryDataset {
   return {
     chains,
     economies,
+    capabilityProfilesBySlug,
     technicalProfilesBySlug,
     applicabilityMatrixBySlug,
     applicabilitySummaries,
@@ -385,12 +398,14 @@ function buildChainProfileFromDataset(
   const rankedChain = dataset.rankedChainsBySlug.get(slug);
   const globalPosition = datasetBundle.globalRankedChainsBySlug.get(slug);
   const technicalProfile = datasetBundle.technicalProfilesBySlug.get(slug);
+  const capabilityProfile = datasetBundle.capabilityProfilesBySlug.get(slug);
   const wedgeApplicabilityMatrix = datasetBundle.applicabilityMatrixBySlug.get(slug);
 
   if (
     !rankedChain ||
     !globalPosition ||
     !technicalProfile ||
+    !capabilityProfile ||
     !wedgeApplicabilityMatrix
   ) {
     return null;
@@ -429,6 +444,7 @@ function buildChainProfileFromDataset(
     chain: rankedChain.chain,
     economy: rankedChain.economy,
     technicalProfile,
+    capabilityProfile,
     readinessScore: rankedChain.readinessScore,
     selectedWedgeApplicability,
     wedgeApplicabilityMatrix,
@@ -514,21 +530,11 @@ export class SeedChainsRepository implements ChainsRepository {
 
   listApplicabilityMatrixRows(): ApplicabilityMatrixRow[] {
     const dataset = this.getDataset();
-
-    return dataset.chains.map((chain) => {
-      const technicalProfile = dataset.technicalProfilesBySlug.get(chain.slug);
-      const wedges = dataset.applicabilityMatrixBySlug.get(chain.slug);
-
-      if (!technicalProfile || !wedges) {
-        throw new Error(`Missing applicability row for ${chain.slug}.`);
-      }
-
-      return {
-        chain,
-        technicalProfile,
-        wedges,
-      };
-    });
+    return buildApplicabilityMatrixRows(
+      dataset.chains,
+      dataset.capabilityProfilesBySlug,
+      dataset.applicabilityMatrixBySlug,
+    );
   }
 
   listWedgeApplicabilitySummaries(): WedgeApplicabilitySummary[] {

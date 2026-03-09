@@ -2,6 +2,8 @@
 
 import { redirect } from "next/navigation";
 
+import { listAllEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { createAdminSession, clearAdminSession } from "@/lib/admin/auth";
 import {
   manualDatasetKeys,
@@ -16,6 +18,7 @@ import {
   updateAnalysisSettings,
   updateOpportunityScoringAssumptions,
   updateOpportunityScoringAdvancedAssumptions,
+  updateProposalGeneratorSettings,
   updateStatusScores,
   updateWedgeApplicabilityAssumptions,
 } from "@/lib/assumptions/service";
@@ -145,6 +148,18 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
 export async function updateGlobalRankingAssumptionsAction(formData: FormData) {
   const redirectTo = asRedirectPath(formData.get("redirectTo"));
   try {
+    const activeEconomies = new Set(
+      listActiveEconomyTypes().map((economy) => economy.slug),
+    );
+    const economyCompositeWeights = Object.fromEntries(
+      listAllEconomyTypes().map((economy) => [
+        economy.slug,
+        activeEconomies.has(economy.slug)
+          ? asNumber(formData.get(economy.slug))
+          : 0,
+      ]),
+    ) as Record<EconomyTypeSlug, number>;
+
     await updateGlobalRankingAssumptions(
       {
         economyScore: asNumber(formData.get("economyScoreWeight")),
@@ -152,12 +167,7 @@ export async function updateGlobalRankingAssumptionsAction(formData: FormData) {
         adoption: asNumber(formData.get("adoptionWeight")),
         performance: asNumber(formData.get("performanceWeight")),
       },
-      {
-        "ai-agents": asNumber(formData.get("ai-agents")),
-        "defi-infrastructure": asNumber(formData.get("defi-infrastructure")),
-        "rwa-infrastructure": asNumber(formData.get("rwa-infrastructure")),
-        "prediction-markets": asNumber(formData.get("prediction-markets")),
-      },
+      economyCompositeWeights,
       "internal-admin",
     );
 
@@ -308,6 +318,33 @@ export async function updateAnalysisSettingsAction(formData: FormData) {
     redirect(`${redirectTo}?saved=analysis-settings`);
   } catch {
     redirect(`${redirectTo}?error=analysis-settings`);
+  }
+}
+
+export async function updateProposalGeneratorSettingsAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+
+  try {
+    await updateProposalGeneratorSettings(
+      {
+        weights: {
+          applicability: asNumber(formData.get("proposal:applicability")),
+          gapSeverity: asNumber(formData.get("proposal:gapSeverity")),
+          personaFit: asNumber(formData.get("proposal:personaFit")),
+          expectedImpact: asNumber(formData.get("proposal:expectedImpact")),
+          roiPotential: asNumber(formData.get("proposal:roiPotential")),
+        },
+        priorityThresholds: {
+          high: asNumber(formData.get("proposal:high")),
+          medium: asNumber(formData.get("proposal:medium")),
+        },
+      },
+      "internal-admin",
+    );
+
+    redirect(`${redirectTo}?saved=proposal-generator`);
+  } catch {
+    redirect(`${redirectTo}?error=proposal-generator`);
   }
 }
 

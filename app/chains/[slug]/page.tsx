@@ -3,8 +3,12 @@ import { notFound } from "next/navigation";
 
 import { ChainProfileView } from "@/components/chain/chain-profile-view";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
+import { getAuthenticatedInternalUser } from "@/lib/admin/auth";
+import { getLatestChainTechnicalAnalysis } from "@/lib/analysis/service";
 import { siteConfig } from "@/lib/config/site";
 import { parseEconomySelection } from "@/lib/domain/schemas";
+import { listChainBuyerPersonas } from "@/lib/personas/service";
+import { listProposalDocumentsByChainSlug } from "@/lib/proposals/store";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
@@ -72,10 +76,19 @@ export default async function ChainProfilePage({
   const requestState = getSingleSearchParam(resolvedSearchParams?.request);
   const source = getSingleSearchParam(resolvedSearchParams?.from);
   const profile = repository.getChainProfileBySlug(slug, economySlug);
+  const internalUser = await getAuthenticatedInternalUser();
 
   if (!profile) {
     notFound();
   }
+
+  const latestAnalysis = internalUser
+    ? getLatestChainTechnicalAnalysis(profile.chain.slug)
+    : null;
+  const personas = internalUser ? listChainBuyerPersonas(profile.chain.slug) : [];
+  const proposals = internalUser
+    ? listProposalDocumentsByChainSlug(profile.chain.slug)
+    : [];
 
   return (
     <>
@@ -96,6 +109,10 @@ export default async function ChainProfilePage({
       <ChainProfileView
         profile={profile}
         economies={repository.listEconomies()}
+        internalUser={internalUser}
+        latestAnalysis={latestAnalysis}
+        personas={personas}
+        proposals={proposals}
         requestState={
           requestState === "success"
             ? "success"

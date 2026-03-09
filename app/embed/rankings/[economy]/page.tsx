@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { getPublicEconomyRankingPayload } from "@/lib/public-data/service";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
@@ -10,7 +10,9 @@ export default async function EmbedEconomyRankingPage({
 }: PageProps<"/embed/rankings/[economy]">) {
   await ensureAtlasPersistence();
   const { economy } = await params;
-  const resolvedEconomy = listEconomyTypes().find((item) => item.slug === economy);
+  const resolvedEconomy = listActiveEconomyTypes().find(
+    (item) => item.slug === economy,
+  );
 
   if (!resolvedEconomy) {
     notFound();

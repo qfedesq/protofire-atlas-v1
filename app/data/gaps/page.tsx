@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { CitationBlock } from "@/components/public/citation-block";
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 
 export default function DataGapsPage() {
   return (
@@ -17,7 +17,7 @@ export default function DataGapsPage() {
       </section>
 
       <section className="border-border/70 divide-y border-t">
-        {listEconomyTypes().map((economy) => (
+        {listActiveEconomyTypes().map((economy) => (
           <div key={economy.slug} className="py-5">
             <p className="text-foreground text-xl font-semibold">{economy.name}</p>
             <div className="text-accent mt-3 flex flex-wrap gap-4 text-sm">

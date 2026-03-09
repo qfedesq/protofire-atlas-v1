@@ -127,7 +127,7 @@ Backing store:
 Datasets editable there:
 
 - readiness records
-- technical applicability profiles
+- chain capability profiles
 - roadmap stage dataset
 - fallback ecosystem metrics
 - liquid staking market snapshots
@@ -143,7 +143,7 @@ Rules:
 
 Primary files:
 
-- [`data/seed/chain-technical-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-technical-profiles.ts)
+- [`data/seed/chain-capability-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-capability-profiles.ts)
 - [`lib/applicability/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/engine.ts)
 - [`lib/applicability/insights.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/insights.ts)
 
@@ -156,6 +156,49 @@ Rules:
 - applicability is about technical feasibility, not maturity
 - do not encode “has not launched yet” as `not_applicable`
 - prefer `unknown` when the technical profile is incomplete
+- keep public-facing wedges limited to active economies unless the product scope changes intentionally
+
+## Build buyer personas
+
+Primary files:
+
+- [`lib/personas/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/service.ts)
+- [`lib/personas/mock.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/mock.ts)
+- [`lib/personas/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/store.ts)
+
+Rules:
+
+- buyer personas are internal-only
+- the markdown file is the durable artifact
+- structured persona records must stay in sync with the markdown artifact
+
+## Update the offer library
+
+Versioned offer files live in:
+
+- [`offers`](/Users/qfedesq/Desktop/Atlas/offers)
+
+Loader:
+
+- [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts)
+
+Rules:
+
+- keep offer files concise and template-aligned
+- do not store credentials or private customer data in offers
+
+## Update proposal matching
+
+Primary files:
+
+- [`lib/proposals/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/engine.ts)
+- [`lib/proposals/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/store.ts)
+
+Rules:
+
+- proposal scoring is deterministic
+- proposal outputs stay internal
+- AI may draft strategy, but deterministic proposal scores must remain separate
 
 ## Update internal GPT-assisted analysis
 

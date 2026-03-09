@@ -33,6 +33,10 @@ describe("ChainProfileView", () => {
       <ChainProfileView
         profile={profile}
         economies={repository.listEconomies()}
+        internalUser={null}
+        latestAnalysis={null}
+        personas={[]}
+        proposals={[]}
         requestState="idle"
       />,
     );
@@ -97,6 +101,10 @@ describe("ChainProfileView", () => {
       <ChainProfileView
         profile={profile}
         economies={repository.listEconomies()}
+        internalUser={null}
+        latestAnalysis={null}
+        personas={[]}
+        proposals={[]}
         requestState="idle"
       />,
     );

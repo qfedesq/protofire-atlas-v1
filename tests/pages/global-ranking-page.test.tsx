@@ -13,7 +13,7 @@ describe("global ranking page", () => {
     expect(screen.getByText("Holistic chain leaderboard")).toBeInTheDocument();
     expect(
       screen.getByText(
-        /This ranking combines infrastructure readiness across four economies/i,
+        /This ranking combines infrastructure readiness across the active economies/i,
       ),
     ).toBeInTheDocument();
     expect(

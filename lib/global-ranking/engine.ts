@@ -1,4 +1,7 @@
-import { getActiveGlobalRankingAssumptions } from "@/lib/assumptions/resolve";
+import {
+  getActiveGlobalRankingAssumptions,
+  listActiveEconomyTypes,
+} from "@/lib/assumptions/resolve";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { listResolvedChainEcosystemMetrics } from "@/lib/external-data/service";
 import type {
@@ -56,20 +59,23 @@ function buildEconomyCompositeScore(
   rankedRowsByEconomy: RankedRowsByEconomy,
 ) {
   const { economyCompositeWeights } = getActiveGlobalRankingAssumptions();
-
-  return (
-    Object.entries(economyCompositeWeights) as [EconomyTypeSlug, number][]
-  ).reduce((sum, [economySlug, weight]) => {
+  const weightedScores = listActiveEconomyTypes().map((economy) => {
+    const weight = economyCompositeWeights[economy.slug];
     const row = rankedRowsByEconomy
-      .get(economySlug)
+      .get(economy.slug)
       ?.find((item) => item.chain.slug === chainSlug);
 
     if (!row) {
-      throw new Error(`Missing ${economySlug} readiness row for ${chainSlug}.`);
+      throw new Error(`Missing ${economy.slug} readiness row for ${chainSlug}.`);
     }
 
-    return sum + row.readinessScore.totalScore * (weight / 100);
-  }, 0);
+    return {
+      score: row.readinessScore.totalScore,
+      weight,
+    };
+  });
+
+  return weightedAverage(weightedScores);
 }
 
 function buildGlobalScoreDrafts(

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { listEconomyTypes } from "@/lib/config/economies";
+import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 
@@ -12,7 +12,7 @@ export default async function EmbedModuleGapPage({
 }: PageProps<"/embed/gaps/[module]">) {
   await ensureAtlasPersistence();
   const { module } = await params;
-  const matches = listEconomyTypes()
+  const matches = listActiveEconomyTypes()
     .flatMap((economy) =>
       repository
         .listRankedChains({ economy: economy.slug })

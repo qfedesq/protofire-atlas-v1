@@ -123,7 +123,7 @@ export function getPublicGlobalRankingPayload() {
   return {
     title: "Global Chain Ranking",
     description:
-      "This ranking combines infrastructure readiness across four economies with ecosystem adoption and technical performance indicators.",
+      "This ranking combines infrastructure readiness across the active Atlas economies with ecosystem adoption and technical performance indicators.",
     dataset: atlasDatasetLabel,
     ...meta,
     rows: rows.map(serializeGlobalRankingRow),

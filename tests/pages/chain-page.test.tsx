@@ -8,6 +8,10 @@ vi.mock("next/navigation", () => ({
   notFound: mockedNotFound,
 }));
 
+vi.mock("@/lib/admin/auth", () => ({
+  getAuthenticatedInternalUser: vi.fn(async () => null),
+}));
+
 describe("chain profile page", () => {
   it("delegates to Next.js notFound for unknown slugs", async () => {
     const pageModule = await import("@/app/chains/[slug]/page");

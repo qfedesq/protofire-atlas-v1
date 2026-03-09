@@ -105,6 +105,9 @@ This controls:
 - global ranking weights
 - economy composite weights
 - opportunity score weights
+- global ranking subweights
+- wedge applicability rules
+- GPT-assisted analysis settings
 
 Only change base definitions in code when the product model itself changes:
 
@@ -124,6 +127,7 @@ Backing store:
 Datasets editable there:
 
 - readiness records
+- technical applicability profiles
 - roadmap stage dataset
 - fallback ecosystem metrics
 - liquid staking market snapshots
@@ -134,6 +138,57 @@ Rules:
 - keep JSON valid against the existing seed schema
 - prefer official/public sources for roadmap and liquid staking notes
 - use manual overrides instead of editing seed files directly when the goal is runtime admin control
+
+## Update wedge applicability
+
+Primary files:
+
+- [`data/seed/chain-technical-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-technical-profiles.ts)
+- [`lib/applicability/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/engine.ts)
+- [`lib/applicability/insights.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/insights.ts)
+
+Admin path:
+
+- `/internal/admin/data-sources`
+
+Rules:
+
+- applicability is about technical feasibility, not maturity
+- do not encode “has not launched yet” as `not_applicable`
+- prefer `unknown` when the technical profile is incomplete
+
+## Update internal GPT-assisted analysis
+
+Workflow files:
+
+- [`lib/analysis/input.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/input.ts)
+- [`lib/analysis/prompt-templates.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/prompt-templates.ts)
+- [`lib/analysis/openai.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/openai.ts)
+- [`lib/analysis/mock.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/mock.ts)
+- [`lib/analysis/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/service.ts)
+
+Rules:
+
+- keep structured output schema-first
+- keep the deterministic baseline visible next to AI-assisted analysis
+- do not feed AI-generated output back into public ranking formulas automatically
+- if changing model or prompt behavior, update admin defaults and docs together
+
+Live execution requires a valid OpenAI key and actual access to the configured model name.
+
+## Internal route protection
+
+Internal route protection lives in:
+
+- [`lib/admin/auth.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/auth.ts)
+- [`lib/auth0.ts`](/Users/qfedesq/Desktop/Atlas/lib/auth0.ts)
+- [`proxy.ts`](/Users/qfedesq/Desktop/Atlas/proxy.ts)
+
+Use:
+
+- `requireAuthenticatedInternalUser(returnTo)`
+
+Do not create new internal-only pages without going through that helper.
 
 ## Update recommendation logic
 

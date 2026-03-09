@@ -2,22 +2,26 @@ import { chainCatalogSeeds } from "@/data/seed/catalog";
 import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
 import { chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
+import { chainTechnicalProfileSeeds } from "@/data/seed/chain-technical-profiles";
 import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
 import { listActiveEconomyTypes } from "@/lib/assumptions/resolve";
 import {
   parseChainEcosystemMetricsSeeds,
   parseChainRoadmapSeeds,
   parseChainEconomySeedRecords,
+  parseChainTechnicalProfileSeeds,
   parseLiquidStakingMarketSnapshotSeeds,
   validateAtlasSeedDataset,
   validateChainEcosystemMetricsSeeds,
   validateChainRoadmapSeeds,
+  validateChainTechnicalProfileSeeds,
   validateLiquidStakingMarketSnapshotSeeds,
 } from "@/lib/domain/schemas";
 import type {
   ChainEcosystemMetricsSeed,
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
+  ChainTechnicalProfileSeed,
   LiquidStakingMarketSnapshotSeed,
 } from "@/lib/domain/types";
 import { createPersistentJsonStore } from "@/lib/storage/persistent-json-store";
@@ -25,6 +29,7 @@ import { getRuntimeManagedFilePath } from "@/lib/storage/runtime-path";
 
 export const manualDatasetKeys = [
   "readinessRecords",
+  "technicalProfiles",
   "roadmaps",
   "ecosystemMetricSeeds",
   "liquidStakingMarketSnapshots",
@@ -34,6 +39,7 @@ export type ManualDatasetKey = (typeof manualDatasetKeys)[number];
 
 type ManualDatasetValueMap = {
   readinessRecords: ChainEconomySeedRecord[];
+  technicalProfiles: ChainTechnicalProfileSeed[];
   roadmaps: ChainRoadmapSeed[];
   ecosystemMetricSeeds: ChainEcosystemMetricsSeed[];
   liquidStakingMarketSnapshots: LiquidStakingMarketSnapshotSeed[];
@@ -47,6 +53,7 @@ type ManualDatasetOverride<Key extends ManualDatasetKey> = {
 
 export type ManualDataOverrides = {
   readinessRecords?: ManualDatasetOverride<"readinessRecords">;
+  technicalProfiles?: ManualDatasetOverride<"technicalProfiles">;
   roadmaps?: ManualDatasetOverride<"roadmaps">;
   ecosystemMetricSeeds?: ManualDatasetOverride<"ecosystemMetricSeeds">;
   liquidStakingMarketSnapshots?: ManualDatasetOverride<"liquidStakingMarketSnapshots">;
@@ -84,6 +91,15 @@ function parseManualDataOverrides(input: unknown): ManualDataOverrides {
       updatedAt: typeof entry.updatedAt === "string" ? entry.updatedAt : "",
       updatedBy: typeof entry.updatedBy === "string" ? entry.updatedBy : "",
       value: parseChainRoadmapSeeds(entry.value),
+    };
+  }
+
+  if (record.technicalProfiles && typeof record.technicalProfiles === "object") {
+    const entry = record.technicalProfiles as Record<string, unknown>;
+    parsed.technicalProfiles = {
+      updatedAt: typeof entry.updatedAt === "string" ? entry.updatedAt : "",
+      updatedBy: typeof entry.updatedBy === "string" ? entry.updatedBy : "",
+      value: parseChainTechnicalProfileSeeds(entry.value),
     };
   }
 
@@ -129,6 +145,11 @@ function getValidatedDatasetValue<Key extends ManualDatasetKey>(
       return validateChainRoadmapSeeds(
         chainCatalogSeeds,
         value as ChainRoadmapSeed[],
+      ) as ManualDatasetValueMap[Key];
+    case "technicalProfiles":
+      return validateChainTechnicalProfileSeeds(
+        chainCatalogSeeds,
+        value as ChainTechnicalProfileSeed[],
       ) as ManualDatasetValueMap[Key];
     case "ecosystemMetricSeeds":
       return validateChainEcosystemMetricsSeeds(
@@ -201,6 +222,12 @@ export function getResolvedChainRoadmapSeeds() {
 export function getResolvedChainRoadmapSeedsBySlug() {
   return new Map(
     getResolvedChainRoadmapSeeds().map((seed) => [seed.chainSlug, seed] as const),
+  );
+}
+
+export function getResolvedChainTechnicalProfileSeeds() {
+  return (
+    getManualDataOverrides().technicalProfiles?.value ?? chainTechnicalProfileSeeds
   );
 }
 

@@ -22,6 +22,7 @@ function applyAssumptionsToEconomy(
     })),
     scoringConfig: {
       ...economy.scoringConfig,
+      maximumScore: economyAssumptions.maximumScore,
       statusScores: assumptions.statusScores,
     },
     recommendationConfig: economyAssumptions.recommendationConfig,
@@ -49,4 +50,12 @@ export function getActiveGlobalRankingAssumptions() {
 
 export function getActiveOpportunityScoringAssumptions() {
   return getActiveAssumptions().opportunityScoring;
+}
+
+export function getActiveWedgeApplicabilityAssumptions() {
+  return getActiveAssumptions().wedgeApplicability;
+}
+
+export function getActiveAnalysisSettings() {
+  return getActiveAssumptions().analysisSettings;
 }

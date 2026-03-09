@@ -8,8 +8,12 @@ import { buildDefaultAssumptionsSnapshot } from "@/lib/assumptions/defaults";
 import {
   updateEconomyAssumptions,
   updateGlobalRankingAssumptions,
+  updateGlobalRankingSubweights,
+  updateAnalysisSettings,
   updateOpportunityScoringAssumptions,
+  updateOpportunityScoringAdvancedAssumptions,
   updateStatusScores,
+  updateWedgeApplicabilityAssumptions,
 } from "@/lib/assumptions/service";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
@@ -217,5 +221,96 @@ describe("active assumptions", () => {
         "test",
       ),
     ).rejects.toThrow(/Global ranking weights must sum to 100/);
+  });
+
+  it("persists global subweights, advanced opportunity inputs, applicability rules, and analysis settings", async () => {
+    useTempAssumptionsFile();
+
+    await updateGlobalRankingSubweights(
+      {
+        protocols: 60,
+        ecosystemProjects: 40,
+      },
+      {
+        wallets: 55,
+        activeUsers: 45,
+      },
+      {
+        averageTransactionSpeed: 30,
+        blockTime: 30,
+        throughputIndicator: 40,
+      },
+      "test",
+    );
+
+    await updateOpportunityScoringAdvancedAssumptions(
+      {
+        liftRatio: 65,
+        coverageRatio: 35,
+      },
+      {
+        high: 7.2,
+        medium: 4.8,
+      },
+      "test",
+    );
+
+    const defaults = buildDefaultAssumptionsSnapshot();
+    await updateWedgeApplicabilityAssumptions(
+      {
+        ...defaults.wedgeApplicability,
+        thresholds: {
+          applicableMinimum: 80,
+          partialMinimum: 55,
+        },
+        confidence: {
+          minimumConfidenceForDefinitiveStatus: "medium",
+          unknownWhenRequiredCapabilityIsUnknown: true,
+          manualReviewBelowScore: 60,
+        },
+      },
+      "test",
+    );
+
+    await updateAnalysisSettings(
+      {
+        modelName: "gpt-5.4",
+        promptTemplateKey: "technical-applicability-v1",
+        sensitivity: 0.7,
+        opportunityThreshold: 6.4,
+        manualReviewThreshold: 4.2,
+        useMockWhenUnavailable: true,
+      },
+      "test",
+    );
+
+    const active = getActiveAssumptions();
+
+    expect(active.globalRanking.ecosystemSubweights.protocols).toBe(60);
+    expect(active.globalRanking.performanceSubweights.throughputIndicator).toBe(40);
+    expect(active.opportunityScoring.stackFitComponents.liftRatio).toBe(65);
+    expect(active.opportunityScoring.priorityThresholds.high).toBe(7.2);
+    expect(active.wedgeApplicability.thresholds.applicableMinimum).toBe(80);
+    expect(active.analysisSettings.modelName).toBe("gpt-5.4");
+    expect(active.analysisSettings.sensitivity).toBe(0.7);
+  });
+
+  it("rejects invalid applicability thresholds", async () => {
+    useTempAssumptionsFile();
+
+    const defaults = buildDefaultAssumptionsSnapshot();
+
+    await expect(
+      updateWedgeApplicabilityAssumptions(
+        {
+          ...defaults.wedgeApplicability,
+          thresholds: {
+            applicableMinimum: 50,
+            partialMinimum: 55,
+          },
+        },
+        "test",
+      ),
+    ).rejects.toThrow(/Applicability thresholds must keep applicable above partially applicable/);
   });
 });

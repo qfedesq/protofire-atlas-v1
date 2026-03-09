@@ -9,7 +9,10 @@ import { Panel } from "@/components/ui/panel";
 import { getDataSourceRegistry } from "@/lib/admin/data-source-registry";
 import { getManualDataOverrides } from "@/lib/admin/manual-data";
 import { formatErrorMessage, formatSavedMessage, getMessage } from "@/lib/admin/messages";
-import { getAdminAccessState, isAdminAuthenticated } from "@/lib/admin/auth";
+import {
+  getAdminAccessState,
+  requireAuthenticatedInternalUser,
+} from "@/lib/admin/auth";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { readExternalMetricsSnapshot } from "@/lib/external-data/service";
 import { listLiquidStakingDiagnosticDimensions } from "@/lib/liquid-staking/diagnosis";
@@ -18,6 +21,7 @@ import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
 import { chainEconomySeedRecords } from "@/data/seed/economies";
 import { chainRoadmapSeeds } from "@/data/seed/chain-roadmaps";
 import { chainEcosystemMetricsSeeds } from "@/data/seed/chain-ecosystem-metrics";
+import { chainTechnicalProfileSeeds } from "@/data/seed/chain-technical-profiles";
 import { liquidStakingMarketSnapshotSeeds } from "@/data/seed/liquid-staking-market-snapshots";
 
 type AdminDataSourcesPageProps = {
@@ -34,11 +38,7 @@ export default async function AdminDataSourcesPage({
     redirect("/internal/admin");
   }
 
-  const authenticated = await isAdminAuthenticated();
-
-  if (!authenticated) {
-    redirect("/internal/admin");
-  }
+  await requireAuthenticatedInternalUser("/internal/admin/data-sources");
 
   const params = searchParams ? await searchParams : undefined;
   const savedMessage = getMessage(params?.saved);
@@ -142,6 +142,16 @@ export default async function AdminDataSourcesPage({
               "Use this when Atlas does not have an automatic source for module readiness and the value is intentionally curated by Protofire.",
             payload:
               manualOverrides.readinessRecords?.value ?? chainEconomySeedRecords,
+          },
+          {
+            key: "technicalProfiles",
+            title: "Chain technical applicability profiles",
+            description:
+              "Per-chain technical capability seeds used by the deterministic wedge applicability engine before readiness is considered.",
+            sourceNote:
+              "Use this when Atlas needs a manual capability judgment because there is no stable automatic source for a chain architecture or primitive support signal.",
+            payload:
+              manualOverrides.technicalProfiles?.value ?? chainTechnicalProfileSeeds,
           },
           {
             key: "roadmaps",

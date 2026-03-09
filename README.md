@@ -26,7 +26,7 @@ Out of scope:
 
 - wallets
 - billing
-- runtime AI
+- AI-generated public scoring
 - generalized analytics SaaS
 - marketplaces
 - provider networks
@@ -47,6 +47,8 @@ Internal:
 
 - admin assumptions editor at `/internal/admin`
 - data source registry and manual dataset editor at `/internal/admin/data-sources`
+- wedge applicability matrix at `/internal/applicability`
+- GPT-assisted technical analysis results at `/internal/analysis/[id]`
 - target account ranking at `/internal/targets`
 - account intelligence pages at `/internal/account/[chain]`
 
@@ -197,6 +199,9 @@ The admin route controls:
 - global ranking weights
 - economy composite weights
 - opportunity score weights
+- global subweights
+- wedge applicability rules
+- GPT-assisted analysis settings
 
 `/internal/admin/data-sources` now also exposes:
 
@@ -204,6 +209,7 @@ The admin route controls:
 - sync controls for external source-backed metrics
 - manual dataset editors for non-automatic Atlas data
 - the full scoring math editor
+- technical applicability profile overrides
 
 `SYNC NOW` on the admin pages refreshes the external metrics snapshot in-process. The CLI `npm run data:sync` remains the broader local workflow for refresh plus output generation.
 
@@ -217,6 +223,31 @@ Protection:
 
 - production: `ATLAS_ADMIN_PASSWORD`
 - local fallback: `atlas-admin`
+- optional Auth0 session-based internal access for protected analysis/internal routes
+
+## Wedge applicability and chain analysis
+
+Atlas now distinguishes:
+
+- readiness: how mature the chain is for a wedge
+- applicability: whether the wedge is technically feasible on the chain at all
+
+Applicability is deterministic and internal. It is visible on:
+
+- `/internal/applicability`
+- internal chain-page analysis section
+
+Atlas also supports an internal GPT-assisted technical review per chain. The workflow:
+
+- assembles a structured chain snapshot
+- analyzes all four wedges
+- stores a traceable result with timestamps, model label, and structured findings
+- falls back to deterministic mock mode if live OpenAI execution is unavailable and mock fallback is enabled
+
+Live execution still depends on:
+
+- `OPENAI_API_KEY`
+- actual access to the configured model name in the connected OpenAI account
 
 ## Versioning
 

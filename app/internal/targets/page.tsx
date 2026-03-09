@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { createOpportunityRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { TargetsTable } from "@/components/tables/targets-table";
 import { Panel } from "@/components/ui/panel";
-import { isAdminAuthenticated } from "@/lib/admin/auth";
+import { requireAuthenticatedInternalUser } from "@/lib/admin/auth";
 import { parseTargetAccountsQuery } from "@/lib/domain/schemas";
 import type {
   RankingsSortDirection,
@@ -54,11 +53,7 @@ function buildSortHref(
 
 export default async function TargetsPage({ searchParams }: TargetsPageProps) {
   await ensureAtlasPersistence();
-  const authenticated = await isAdminAuthenticated();
-
-  if (!authenticated) {
-    redirect("/internal/admin");
-  }
+  await requireAuthenticatedInternalUser("/internal/targets");
 
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const query = parseTargetAccountsQuery(resolvedSearchParams);

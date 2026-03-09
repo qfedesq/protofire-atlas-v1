@@ -1,6 +1,6 @@
 {
   "name": "protofire-atlas-v1",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -21,10 +21,12 @@
     "check": "npm run validate:data && npm run typecheck && npm run lint && npm run test"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.16.0",
     "@types/pg": "^8.18.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",
+    "openai": "^6.27.0",
     "pg": "^8.20.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",

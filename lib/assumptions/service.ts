@@ -2,7 +2,12 @@ import type {
   EconomyCompositeWeights,
   EconomyTypeSlug,
   GlobalRankingComponentWeights,
+  GlobalRankingSubmetricWeights,
   OpportunityScoringWeights,
+  OpportunityPriorityThresholds,
+  OpportunityStackFitComponentWeights,
+  WedgeApplicabilityAssumptionSet,
+  AnalysisSettings,
 } from "@/lib/domain/types";
 import { validateStatusScoreKey } from "@/lib/assumptions/schemas";
 import {
@@ -52,6 +57,7 @@ export async function updateEconomyAssumptions(
   recommendationConfig: ActiveAssumptions["economies"][EconomyTypeSlug]["recommendationConfig"],
   moduleDiagnosticWeights: ActiveAssumptions["economies"][EconomyTypeSlug]["moduleDiagnosticWeights"] | undefined,
   updatedBy: string,
+  maximumScore?: number,
 ) {
   await initializeActiveAssumptionsStore();
   const current = getActiveAssumptions();
@@ -64,6 +70,8 @@ export async function updateEconomyAssumptions(
         economies: {
           ...current.economies,
           [economySlug]: {
+            ...currentEconomy,
+            maximumScore: maximumScore ?? currentEconomy.maximumScore,
             moduleWeights,
             moduleDiagnosticWeights:
               moduleDiagnosticWeights ?? currentEconomy.moduleDiagnosticWeights ?? {},
@@ -89,6 +97,7 @@ export async function updateGlobalRankingAssumptions(
       {
         ...current,
         globalRanking: {
+          ...current.globalRanking,
           componentWeights,
           economyCompositeWeights,
         },
@@ -110,8 +119,96 @@ export async function updateOpportunityScoringAssumptions(
       {
         ...current,
         opportunityScoring: {
+          ...current.opportunityScoring,
           weights,
         },
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export async function updateGlobalRankingSubweights(
+  ecosystemSubweights: Pick<GlobalRankingSubmetricWeights, "protocols" | "ecosystemProjects">,
+  adoptionSubweights: Pick<GlobalRankingSubmetricWeights, "wallets" | "activeUsers">,
+  performanceSubweights: Pick<
+    GlobalRankingSubmetricWeights,
+    "averageTransactionSpeed" | "blockTime" | "throughputIndicator"
+  >,
+  updatedBy: string,
+) {
+  await initializeActiveAssumptionsStore();
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        globalRanking: {
+          ...current.globalRanking,
+          ecosystemSubweights,
+          adoptionSubweights,
+          performanceSubweights,
+        },
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export async function updateOpportunityScoringAdvancedAssumptions(
+  stackFitComponents: OpportunityStackFitComponentWeights,
+  priorityThresholds: OpportunityPriorityThresholds,
+  updatedBy: string,
+) {
+  await initializeActiveAssumptionsStore();
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        opportunityScoring: {
+          ...current.opportunityScoring,
+          stackFitComponents,
+          priorityThresholds,
+        },
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export async function updateWedgeApplicabilityAssumptions(
+  wedgeApplicability: WedgeApplicabilityAssumptionSet,
+  updatedBy: string,
+) {
+  await initializeActiveAssumptionsStore();
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        wedgeApplicability,
+      },
+      updatedBy,
+    ),
+  );
+}
+
+export async function updateAnalysisSettings(
+  analysisSettings: AnalysisSettings,
+  updatedBy: string,
+) {
+  await initializeActiveAssumptionsStore();
+  const current = getActiveAssumptions();
+
+  return saveActiveAssumptions(
+    withAudit(
+      {
+        ...current,
+        analysisSettings,
       },
       updatedBy,
     ),

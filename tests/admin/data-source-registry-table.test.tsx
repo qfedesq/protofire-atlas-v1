@@ -11,7 +11,10 @@ describe("DataSourceRegistryTable", () => {
     expect(screen.getByText("Benchmark and external ecosystem metrics")).toBeInTheDocument();
     expect(screen.getByText("TVL")).toBeInTheDocument();
     expect(screen.getByText("Readiness module statuses")).toBeInTheDocument();
+    expect(screen.getByText("Chain technical capability profiles")).toBeInTheDocument();
     expect(screen.getByText("Global ranking component weights")).toBeInTheDocument();
+    expect(screen.getByText("Wedge applicability rules")).toBeInTheDocument();
+    expect(screen.getByText("GPT analysis settings")).toBeInTheDocument();
     expect(screen.getByText("Roadmap stage")).toBeInTheDocument();
     expect(screen.getByText("Global LST health score")).toBeInTheDocument();
     expect(screen.getAllByText("seed/fallback dataset").length).toBeGreaterThan(0);

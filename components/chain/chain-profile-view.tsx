@@ -9,10 +9,16 @@ import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
 import { ScoreCompositionSection } from "@/components/chain/score-composition-section";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
+import { ChainAnalysisPanel } from "@/components/internal/chain-analysis-panel";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { atlasDatasetLabel } from "@/lib/config/dataset";
-import type { ChainProfile, EconomyType } from "@/lib/domain/types";
+import type { AuthenticatedInternalUser } from "@/lib/admin/auth";
+import type {
+  ChainProfile,
+  ChainTechnicalAnalysis,
+  EconomyType,
+} from "@/lib/domain/types";
 import { buildEconomyReadinessSummary } from "@/lib/utils/economy-summary";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
@@ -29,10 +35,14 @@ function getPrimaryInterpretation(profile: ChainProfile) {
 export function ChainProfileView({
   profile,
   economies,
+  internalUser = null,
+  latestAnalysis = null,
   requestState,
 }: {
   profile: ChainProfile;
   economies: EconomyType[];
+  internalUser?: AuthenticatedInternalUser | null;
+  latestAnalysis?: ChainTechnicalAnalysis | null;
   requestState: "idle" | "success" | "error";
 }) {
   const missingModuleCount = profile.gapAnalysis.filter(
@@ -212,6 +222,22 @@ export function ChainProfileView({
       >
         <GlobalPositionSection position={profile.globalPosition} />
       </ExpandableSection>
+
+      {internalUser ? (
+        <ExpandableSection
+          id="internal-technical-review"
+          eyebrow="Internal analysis"
+          title="Technical applicability and GPT review"
+        >
+          <ChainAnalysisPanel
+            chainSlug={profile.chain.slug}
+            chainName={profile.chain.name}
+            applicabilityRows={profile.wedgeApplicabilityMatrix}
+            latestAnalysis={latestAnalysis}
+            internalUser={internalUser}
+          />
+        </ExpandableSection>
+      ) : null}
 
       <ExpandableSection
         id="public-scorecard"

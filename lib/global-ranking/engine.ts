@@ -35,8 +35,14 @@ function normalizeLowerBetter(value: number, values: number[]) {
   return ((max - value) / (max - min)) * 10;
 }
 
-function average(values: number[]) {
-  return values.reduce((sum, value) => sum + value, 0) / values.length;
+function weightedAverage(values: Array<{ score: number; weight: number }>) {
+  const totalWeight = values.reduce((sum, value) => sum + value.weight, 0);
+
+  if (totalWeight === 0) {
+    return 0;
+  }
+
+  return values.reduce((sum, value) => sum + value.score * (value.weight / totalWeight), 0);
 }
 
 function buildMetricsByChain(
@@ -72,7 +78,12 @@ function buildGlobalScoreDrafts(
 ): GlobalRankedChainDraft[] {
   const metricsByChain = buildMetricsByChain(chains);
   const assumptions = getActiveAssumptions();
-  const { componentWeights } = assumptions.globalRanking;
+  const {
+    componentWeights,
+    ecosystemSubweights,
+    adoptionSubweights,
+    performanceSubweights,
+  } = assumptions.globalRanking;
   const allMetrics = [...metricsByChain.values()];
 
   const wallets = allMetrics.map((record) => record.wallets);
@@ -96,18 +107,39 @@ function buildGlobalScoreDrafts(
       chain.slug,
       rankedRowsByEconomy,
     );
-    const ecosystemScore = average([
-      normalizeHigherBetter(metrics.protocols, protocols),
-      normalizeHigherBetter(metrics.ecosystemProjects, ecosystemProjects),
+    const ecosystemScore = weightedAverage([
+      {
+        score: normalizeHigherBetter(metrics.protocols, protocols),
+        weight: ecosystemSubweights.protocols,
+      },
+      {
+        score: normalizeHigherBetter(metrics.ecosystemProjects, ecosystemProjects),
+        weight: ecosystemSubweights.ecosystemProjects,
+      },
     ]);
-    const adoptionScore = average([
-      normalizeHigherBetter(metrics.wallets, wallets),
-      normalizeHigherBetter(metrics.activeUsers, activeUsers),
+    const adoptionScore = weightedAverage([
+      {
+        score: normalizeHigherBetter(metrics.wallets, wallets),
+        weight: adoptionSubweights.wallets,
+      },
+      {
+        score: normalizeHigherBetter(metrics.activeUsers, activeUsers),
+        weight: adoptionSubweights.activeUsers,
+      },
     ]);
-    const performanceScore = average([
-      normalizeLowerBetter(metrics.averageTransactionSpeed, transactionSpeed),
-      normalizeLowerBetter(metrics.blockTime, blockTimes),
-      normalizeHigherBetter(metrics.throughputIndicator, throughput),
+    const performanceScore = weightedAverage([
+      {
+        score: normalizeLowerBetter(metrics.averageTransactionSpeed, transactionSpeed),
+        weight: performanceSubweights.averageTransactionSpeed,
+      },
+      {
+        score: normalizeLowerBetter(metrics.blockTime, blockTimes),
+        weight: performanceSubweights.blockTime,
+      },
+      {
+        score: normalizeHigherBetter(metrics.throughputIndicator, throughput),
+        weight: performanceSubweights.throughputIndicator,
+      },
     ]);
     const totalScore =
       economyCompositeScore * (componentWeights.economyScore / 100) +

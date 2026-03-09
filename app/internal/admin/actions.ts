@@ -12,8 +12,12 @@ import { runAtlasSyncNow } from "@/lib/admin/sync";
 import {
   updateEconomyAssumptions,
   updateGlobalRankingAssumptions,
+  updateGlobalRankingSubweights,
+  updateAnalysisSettings,
   updateOpportunityScoringAssumptions,
+  updateOpportunityScoringAdvancedAssumptions,
   updateStatusScores,
+  updateWedgeApplicabilityAssumptions,
 } from "@/lib/assumptions/service";
 import type { EconomyTypeSlug } from "@/lib/domain/types";
 
@@ -129,6 +133,7 @@ export async function updateEconomyAssumptionsAction(formData: FormData) {
       },
       moduleDiagnosticWeights,
       "internal-admin",
+      asNumber(formData.get("maximumScore")),
     );
 
     redirect(`${redirectTo}?saved=${economySlug}`);
@@ -180,6 +185,129 @@ export async function updateOpportunityScoringAssumptionsAction(
     redirect(`${redirectTo}?saved=opportunity-scoring`);
   } catch {
     redirect(`${redirectTo}?error=opportunity-scoring`);
+  }
+}
+
+export async function updateGlobalRankingSubweightsAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+  try {
+    await updateGlobalRankingSubweights(
+      {
+        protocols: asNumber(formData.get("ecosystem:protocols")),
+        ecosystemProjects: asNumber(formData.get("ecosystem:ecosystemProjects")),
+      },
+      {
+        wallets: asNumber(formData.get("adoption:wallets")),
+        activeUsers: asNumber(formData.get("adoption:activeUsers")),
+      },
+      {
+        averageTransactionSpeed: asNumber(
+          formData.get("performance:averageTransactionSpeed"),
+        ),
+        blockTime: asNumber(formData.get("performance:blockTime")),
+        throughputIndicator: asNumber(
+          formData.get("performance:throughputIndicator"),
+        ),
+      },
+      "internal-admin",
+    );
+
+    redirect(`${redirectTo}?saved=global-ranking-subweights`);
+  } catch {
+    redirect(`${redirectTo}?error=global-ranking-subweights`);
+  }
+}
+
+export async function updateOpportunityScoringAdvancedAssumptionsAction(
+  formData: FormData,
+) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+  try {
+    await updateOpportunityScoringAdvancedAssumptions(
+      {
+        liftRatio: asNumber(formData.get("stackFit:liftRatio")),
+        coverageRatio: asNumber(formData.get("stackFit:coverageRatio")),
+      },
+      {
+        high: asNumber(formData.get("priority:high")),
+        medium: asNumber(formData.get("priority:medium")),
+      },
+      "internal-admin",
+    );
+
+    redirect(`${redirectTo}?saved=opportunity-advanced`);
+  } catch {
+    redirect(`${redirectTo}?error=opportunity-advanced`);
+  }
+}
+
+export async function updateWedgeApplicabilityAssumptionsAction(
+  formData: FormData,
+) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+
+  try {
+    const wedgeApplicability = JSON.parse(
+      asString(formData.get("wedgeApplicability")),
+    );
+    wedgeApplicability.signalScores = {
+      supported: asNumber(formData.get("signal:supported")),
+      limited: asNumber(formData.get("signal:limited")),
+      unsupported: asNumber(formData.get("signal:unsupported")),
+      unknown: asNumber(formData.get("signal:unknown")),
+    };
+    wedgeApplicability.thresholds = {
+      applicableMinimum: asNumber(formData.get("threshold:applicableMinimum")),
+      partialMinimum: asNumber(formData.get("threshold:partialMinimum")),
+    };
+    wedgeApplicability.confidence = {
+      minimumConfidenceForDefinitiveStatus: asString(
+        formData.get("confidence:minimumConfidenceForDefinitiveStatus"),
+      ),
+      unknownWhenRequiredCapabilityIsUnknown:
+        formData.get("confidence:unknownWhenRequiredCapabilityIsUnknown") === "on",
+      manualReviewBelowScore: asNumber(
+        formData.get("confidence:manualReviewBelowScore"),
+      ),
+    };
+    wedgeApplicability.wedgeCapabilityWeights = JSON.parse(
+      asString(formData.get("wedgeCapabilityWeights")),
+    );
+    wedgeApplicability.wedgePrerequisites = JSON.parse(
+      asString(formData.get("wedgePrerequisites")),
+    );
+
+    await updateWedgeApplicabilityAssumptions(
+      wedgeApplicability,
+      "internal-admin",
+    );
+
+    redirect(`${redirectTo}?saved=wedge-applicability`);
+  } catch {
+    redirect(`${redirectTo}?error=wedge-applicability`);
+  }
+}
+
+export async function updateAnalysisSettingsAction(formData: FormData) {
+  const redirectTo = asRedirectPath(formData.get("redirectTo"));
+
+  try {
+    await updateAnalysisSettings(
+      {
+        modelName: asString(formData.get("modelName")),
+        promptTemplateKey: asString(formData.get("promptTemplateKey")),
+        sensitivity: asNumber(formData.get("sensitivity")),
+        opportunityThreshold: asNumber(formData.get("opportunityThreshold")),
+        manualReviewThreshold: asNumber(formData.get("manualReviewThreshold")),
+        useMockWhenUnavailable:
+          formData.get("useMockWhenUnavailable") === "on",
+      },
+      "internal-admin",
+    );
+
+    redirect(`${redirectTo}?saved=analysis-settings`);
+  } catch {
+    redirect(`${redirectTo}?error=analysis-settings`);
   }
 }
 

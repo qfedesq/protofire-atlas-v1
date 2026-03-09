@@ -81,6 +81,49 @@ The repository stays seed-first, but now supports connector overlays with proven
    - freshness
 5. Internal admin `SYNC NOW` runs the in-process external snapshot refresh through [`lib/admin/sync.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/sync.ts) instead of shelling out to `npm run data:sync`.
 
+## Wedge applicability flow
+
+Applicability is a deterministic layer that sits before readiness:
+
+1. chain capability profiles come from [`data/seed/chain-technical-profiles.ts`](/Users/qfedesq/Desktop/Atlas/data/seed/chain-technical-profiles.ts) or admin overrides
+2. active applicability rules are resolved from [`lib/assumptions/resolve.ts`](/Users/qfedesq/Desktop/Atlas/lib/assumptions/resolve.ts)
+3. [`lib/applicability/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/applicability/engine.ts) computes per-chain, per-wedge applicability
+4. the repository injects:
+   - `selectedWedgeApplicability`
+   - `wedgeApplicabilityMatrix`
+   - applicability summaries for internal views
+
+This layer stays separate from public readiness scoring.
+
+## Internal analysis flow
+
+Internal GPT-assisted chain analysis works like this:
+
+1. an authenticated internal user triggers the action from a chain page
+2. [`lib/analysis/input.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/input.ts) assembles a structured chain snapshot
+3. [`lib/analysis/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/service.ts) stores a queued and then running record
+4. Atlas executes either:
+   - live OpenAI analysis through [`lib/analysis/openai.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/openai.ts)
+   - deterministic fallback through [`lib/analysis/mock.ts`](/Users/qfedesq/Desktop/Atlas/lib/analysis/mock.ts)
+5. the structured result is stored and rendered on `/internal/analysis/[id]`
+
+The AI-assisted layer is internal only and does not automatically modify public rankings.
+
+## Internal auth flow
+
+Internal route protection is centralized in:
+
+- [`lib/admin/auth.ts`](/Users/qfedesq/Desktop/Atlas/lib/admin/auth.ts)
+
+It supports:
+
+- Auth0 session-based internal access when configured
+- legacy internal password fallback for environments without Auth0
+
+Auth0 middleware is mounted in:
+
+- [`proxy.ts`](/Users/qfedesq/Desktop/Atlas/proxy.ts)
+
 ## Scoring flow
 
 1. Base economy definitions live in [`lib/config/economies.ts`](/Users/qfedesq/Desktop/Atlas/lib/config/economies.ts).
@@ -213,18 +256,24 @@ This registry is the operational map of:
 - admin-managed assumptions
 - seeded fallback datasets
 - supplemental roadmap and liquid-staking inputs
+- applicability inputs and rules
+- GPT-assisted analysis settings and result provenance
 
 The same page also exposes:
 
 - sync controls for source-backed external metrics
 - manual dataset editors for non-automatic Atlas data
 - the full assumptions editor for all score-driving math
+- applicability formula controls
+- GPT-assisted analysis settings
 
 ## Internal-only flows
 
 Internal GTM surfaces remain separate and protected:
 
 - `/internal/admin`
+- `/internal/applicability`
+- `/internal/analysis/[id]`
 - `/internal/targets`
 - `/internal/account/[chain]`
 

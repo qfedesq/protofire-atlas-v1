@@ -6,18 +6,23 @@ import {
   getRankingSortOptions,
 } from "@/lib/config/economies";
 import {
+  capabilitySupportLevels,
+  chainAnalysisStatuses,
   chainCategories,
   chainRecordStatuses,
   chainRoadmapSourceKinds,
   chainSourceCategories,
   chainSourceMetrics,
   chainSourceProviders,
+  chainTechnicalCapabilityKeys,
+  dataConfidenceLevels,
   economyTypeSlugs,
   externalMetricKeys,
   globalRankingsSortKeys,
   moduleAvailabilityStatuses,
   rankingsSortDirections,
   targetAccountSortKeys,
+  wedgeApplicabilityStatuses,
 } from "@/lib/domain/types";
 import type {
   AtlasSeedDataset,
@@ -25,6 +30,8 @@ import type {
   ChainEcosystemMetricsSeed,
   ChainEconomySeedRecord,
   ChainRoadmapSeed,
+  ChainTechnicalAnalysis,
+  ChainTechnicalProfileSeed,
   EconomyType,
   ExternalMetricsSnapshot,
   GlobalRankingsQuery,
@@ -396,6 +403,38 @@ const liquidStakingMarketSnapshotSeedsSchema = z
     );
   });
 
+const chainTechnicalProfileSeedSchema = z.object({
+  chainSlug: z.string().min(1),
+  architectureKind: z.enum([
+    "general-evm-l1",
+    "general-evm-l2",
+    "bitcoin-evm",
+    "enterprise-evm",
+    "specialized-evm",
+  ]),
+  capabilities: z.record(
+    z.enum(chainTechnicalCapabilityKeys),
+    z.enum(capabilitySupportLevels),
+  ),
+  dataConfidence: z.enum(dataConfidenceLevels),
+  sourceBasis: z.string().min(1),
+  assessedAt: z.string().min(1),
+  notes: z.array(z.string().min(1)).min(1),
+});
+
+const chainTechnicalProfileSeedsSchema = z
+  .array(chainTechnicalProfileSeedSchema)
+  .min(1)
+  .superRefine((records, ctx) => {
+    addUniqueFieldIssue(
+      records,
+      (record) => record.chainSlug,
+      "chainSlug",
+      ctx,
+      "Duplicate chain technical profile record",
+    );
+  });
+
 const externalMetricProvenanceSchema = z.object({
   sourceName: z.string().min(1),
   sourceEndpoint: z.string().min(1),
@@ -427,6 +466,107 @@ const externalMetricsSnapshotSchema = z.object({
     }),
   ),
   chains: z.array(externalChainMetricsSnapshotSchema),
+});
+
+const wedgeApplicabilitySchema = z.object({
+  chainId: z.string().min(1),
+  chainSlug: z.string().min(1),
+  wedgeId: z.enum(economyTypeSlugs),
+  applicabilityStatus: z.enum(wedgeApplicabilityStatuses),
+  applicabilityScore: z.number().min(0).max(100),
+  rationale: z.string().min(1),
+  technicalConstraints: z.array(z.string()),
+  requiredPrerequisites: z.array(z.string()),
+  assessedAt: z.string().min(1),
+  sourceBasis: z.string().min(1),
+  confidenceLevel: z.enum(dataConfidenceLevels),
+  manualReviewRecommended: z.boolean(),
+});
+
+const chainTechnicalAnalysisSchema = z.object({
+  id: z.string().min(1),
+  chainId: z.string().min(1),
+  chainSlug: z.string().min(1),
+  triggeredBy: z.string().min(1),
+  modelName: z.string().min(1),
+  executionMode: z.enum(["live", "mock"]),
+  analysisType: z.literal("gpt-5.4-technical-analysis"),
+  status: z.enum(chainAnalysisStatuses),
+  inputSnapshot: z.object({
+    chain: z.object({
+      id: z.string().min(1),
+      slug: z.string().min(1),
+      name: z.string().min(1),
+    }),
+    technicalProfile: z.object({
+      chainId: z.string().min(1),
+      architectureKind: z.enum([
+        "general-evm-l1",
+        "general-evm-l2",
+        "bitcoin-evm",
+        "enterprise-evm",
+        "specialized-evm",
+      ]),
+      capabilities: z.record(
+        z.enum(chainTechnicalCapabilityKeys),
+        z.enum(capabilitySupportLevels),
+      ),
+      dataConfidence: z.enum(dataConfidenceLevels),
+      sourceBasis: z.string().min(1),
+      assessedAt: z.string().min(1),
+      notes: z.array(z.string()),
+    }),
+    globalPosition: z.object({
+      benchmarkRank: z.number().int().positive(),
+      score: z.object({
+        totalScore: z.number(),
+      }),
+    }),
+    economies: z.array(
+      z.object({
+        economy: z.object({
+          slug: z.enum(economyTypeSlugs),
+          name: z.string().min(1),
+        }),
+        readinessScore: z.object({
+          totalScore: z.number(),
+        }),
+        wedgeApplicability: wedgeApplicabilitySchema,
+        gapAnalysis: z.array(
+          z.object({
+            problem: z.string().min(1),
+            impact: z.string().min(1),
+          }),
+        ),
+        recommendedStack: z.object({
+          narrativeSummary: z.string().min(1),
+          items: z.array(
+            z.object({
+              title: z.string().min(1),
+              deploymentPhase: z.string().min(1),
+              potentialScoreLift: z.number(),
+            }),
+          ),
+        }),
+      }),
+    ),
+    assumptionsVersion: z.string().min(1),
+    sourceSnapshotDate: z.string().min(1),
+  }),
+  outputSummary: z.string().nullable(),
+  outputStructuredData: z
+    .object({
+      wedgeAssessments: z.array(wedgeApplicabilitySchema),
+      technicalBlockers: z.array(z.string()),
+      prerequisiteSummary: z.array(z.string()),
+      strongestOpportunities: z.array(z.string()),
+      confidenceNotes: z.array(z.string()),
+      manualFollowUp: z.array(z.string()),
+    })
+    .nullable(),
+  createdAt: z.string().min(1),
+  completedAt: z.string().nullable(),
+  errorMessage: z.string().nullable(),
 });
 
 const chainEconomySeedRecordsSchema = z
@@ -514,10 +654,22 @@ export function parseLiquidStakingMarketSnapshotSeeds(
   return liquidStakingMarketSnapshotSeedsSchema.parse(input);
 }
 
+export function parseChainTechnicalProfileSeeds(
+  input: unknown,
+): ChainTechnicalProfileSeed[] {
+  return chainTechnicalProfileSeedsSchema.parse(input);
+}
+
 export function parseExternalMetricsSnapshot(
   input: unknown,
 ): ExternalMetricsSnapshot {
   return externalMetricsSnapshotSchema.parse(input);
+}
+
+export function parseChainTechnicalAnalysis(
+  input: unknown,
+): ChainTechnicalAnalysis {
+  return chainTechnicalAnalysisSchema.parse(input);
 }
 
 export function validateChainRoadmapSeeds(
@@ -543,6 +695,33 @@ export function validateChainRoadmapSeeds(
   });
 
   return parsedRoadmaps;
+}
+
+export function validateChainTechnicalProfileSeeds(
+  chains: ChainCatalogSeed[],
+  profiles: ChainTechnicalProfileSeed[],
+) {
+  const parsedChains = parseChainCatalogSeeds(chains);
+  const parsedProfiles = parseChainTechnicalProfileSeeds(profiles);
+  const profileBySlug = new Map(
+    parsedProfiles.map((profile) => [profile.chainSlug, profile] as const),
+  );
+
+  parsedChains.forEach((chain) => {
+    if (!profileBySlug.has(chain.slug)) {
+      throw new Error(`Missing technical profile for ${chain.slug}.`);
+    }
+  });
+
+  parsedProfiles.forEach((profile) => {
+    if (!parsedChains.some((chain) => chain.slug === profile.chainSlug)) {
+      throw new Error(
+        `Unknown chain slug "${profile.chainSlug}" in technical profile seed.`,
+      );
+    }
+  });
+
+  return parsedProfiles;
 }
 
 export function validateAtlasSeedDataset(

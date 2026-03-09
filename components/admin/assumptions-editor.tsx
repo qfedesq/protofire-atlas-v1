@@ -1,9 +1,14 @@
 import {
   updateEconomyAssumptionsAction,
   updateGlobalRankingAssumptionsAction,
+  updateGlobalRankingSubweightsAction,
+  updateAnalysisSettingsAction,
   updateOpportunityScoringAssumptionsAction,
+  updateOpportunityScoringAdvancedAssumptionsAction,
   updateStatusScoresAction,
+  updateWedgeApplicabilityAssumptionsAction,
 } from "@/app/internal/admin/actions";
+import { listAnalysisPromptTemplateKeys } from "@/lib/analysis/prompt-templates";
 import type { ActiveAssumptions } from "@/lib/assumptions/types";
 import type {
   EconomyType,
@@ -28,6 +33,8 @@ export function AssumptionsEditor({
   globalPreview,
   redirectTo,
 }: AssumptionsEditorProps) {
+  const promptTemplateKeys = listAnalysisPromptTemplateKeys();
+
   return (
     <>
       <Panel className="space-y-4">
@@ -217,6 +224,158 @@ export function AssumptionsEditor({
         </form>
       </Panel>
 
+      <Panel className="space-y-5">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Global ranking subweights
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Ecosystem, adoption, and performance internals
+          </h2>
+        </div>
+        <form action={updateGlobalRankingSubweightsAction} className="space-y-5">
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-lg font-semibold">Ecosystem</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Protocols
+                </label>
+                <input
+                  name="ecosystem:protocols"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={assumptions.globalRanking.ecosystemSubweights.protocols}
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Ecosystem projects
+                </label>
+                <input
+                  name="ecosystem:ecosystemProjects"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={
+                    assumptions.globalRanking.ecosystemSubweights.ecosystemProjects
+                  }
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-lg font-semibold">Adoption</h3>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Wallets
+                </label>
+                <input
+                  name="adoption:wallets"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={assumptions.globalRanking.adoptionSubweights.wallets}
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Active users
+                </label>
+                <input
+                  name="adoption:activeUsers"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={assumptions.globalRanking.adoptionSubweights.activeUsers}
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-lg font-semibold">Performance</h3>
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Avg tx speed
+                </label>
+                <input
+                  name="performance:averageTransactionSpeed"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={
+                    assumptions.globalRanking.performanceSubweights
+                      .averageTransactionSpeed
+                  }
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Block time
+                </label>
+                <input
+                  name="performance:blockTime"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={assumptions.globalRanking.performanceSubweights.blockTime}
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                  Throughput
+                </label>
+                <input
+                  name="performance:throughputIndicator"
+                  type="number"
+                  min="0"
+                  max="100"
+                  step="1"
+                  defaultValue={
+                    assumptions.globalRanking.performanceSubweights
+                      .throughputIndicator
+                  }
+                  className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+          >
+            Save subweights
+          </button>
+        </form>
+      </Panel>
+
       <Panel className="space-y-4">
         <div>
           <p className="text-muted text-xs tracking-[0.16em] uppercase">
@@ -266,6 +425,376 @@ export function AssumptionsEditor({
         </form>
       </Panel>
 
+      <Panel className="space-y-4">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Opportunity scoring internals
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Stack-fit and priority thresholds
+          </h2>
+        </div>
+
+        <form
+          action={updateOpportunityScoringAdvancedAssumptionsAction}
+          className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+        >
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Stack-fit lift ratio
+            </label>
+            <input
+              name="stackFit:liftRatio"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              defaultValue={assumptions.opportunityScoring.stackFitComponents.liftRatio}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Stack-fit coverage ratio
+            </label>
+            <input
+              name="stackFit:coverageRatio"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              defaultValue={
+                assumptions.opportunityScoring.stackFitComponents.coverageRatio
+              }
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              High priority
+            </label>
+            <input
+              name="priority:high"
+              type="number"
+              min="0"
+              max="10"
+              step="0.1"
+              defaultValue={assumptions.opportunityScoring.priorityThresholds.high}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Medium priority
+            </label>
+            <input
+              name="priority:medium"
+              type="number"
+              min="0"
+              max="10"
+              step="0.1"
+              defaultValue={assumptions.opportunityScoring.priorityThresholds.medium}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="md:col-span-2 xl:col-span-4">
+            <button
+              type="submit"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+            >
+              Save opportunity internals
+            </button>
+          </div>
+        </form>
+      </Panel>
+
+      <Panel className="space-y-5">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Wedge applicability
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            Deterministic applicability rules
+          </h2>
+          <p className="text-muted mt-3 text-sm leading-6">
+            These values drive the technical applicability baseline. Keep the
+            JSON blocks coherent with the chain capability keys already used by
+            Atlas.
+          </p>
+        </div>
+
+        <form action={updateWedgeApplicabilityAssumptionsAction} className="space-y-5">
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <input
+            type="hidden"
+            name="wedgeApplicability"
+            value={JSON.stringify(assumptions.wedgeApplicability)}
+          />
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {Object.entries(assumptions.wedgeApplicability.signalScores).map(
+              ([key, value]) => (
+                <div key={key} className="space-y-2">
+                  <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                    Signal {key}
+                  </label>
+                  <input
+                    name={`signal:${key}`}
+                    type="number"
+                    min="0"
+                    max="100"
+                    step="1"
+                    defaultValue={value}
+                    className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                    required
+                  />
+                </div>
+              ),
+            )}
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Applicable minimum
+              </label>
+              <input
+                name="threshold:applicableMinimum"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={
+                  assumptions.wedgeApplicability.thresholds.applicableMinimum
+                }
+                className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Partial minimum
+              </label>
+              <input
+                name="threshold:partialMinimum"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={assumptions.wedgeApplicability.thresholds.partialMinimum}
+                className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Minimum confidence
+              </label>
+              <select
+                name="confidence:minimumConfidenceForDefinitiveStatus"
+                defaultValue={
+                  assumptions.wedgeApplicability.confidence
+                    .minimumConfidenceForDefinitiveStatus
+                }
+                className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+                Manual review below
+              </label>
+              <input
+                name="confidence:manualReviewBelowScore"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                defaultValue={
+                  assumptions.wedgeApplicability.confidence.manualReviewBelowScore
+                }
+                className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                required
+              />
+            </div>
+          </div>
+
+          <label className="flex items-center gap-3 text-sm text-foreground">
+            <input
+              type="checkbox"
+              name="confidence:unknownWhenRequiredCapabilityIsUnknown"
+              defaultChecked={
+                assumptions.wedgeApplicability.confidence
+                  .unknownWhenRequiredCapabilityIsUnknown
+              }
+            />
+            Force unknown when a required capability is unknown
+          </label>
+
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-foreground text-lg font-semibold">
+                Capability weights by wedge
+              </h3>
+              <p className="text-muted mt-2 text-sm leading-6">
+                JSON object keyed by economy slug, then capability key.
+              </p>
+            </div>
+            <textarea
+              name="wedgeCapabilityWeights"
+              defaultValue={JSON.stringify(
+                assumptions.wedgeApplicability.wedgeCapabilityWeights,
+                null,
+                2,
+              )}
+              rows={18}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 font-mono text-xs outline-none"
+            />
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-foreground text-lg font-semibold">
+                Prerequisites by wedge
+              </h3>
+              <p className="text-muted mt-2 text-sm leading-6">
+                JSON object keyed by economy slug, then capability key, using
+                values like required, optional, or unsupported.
+              </p>
+            </div>
+            <textarea
+              name="wedgePrerequisites"
+              defaultValue={JSON.stringify(
+                assumptions.wedgeApplicability.wedgePrerequisites,
+                null,
+                2,
+              )}
+              rows={18}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 font-mono text-xs outline-none"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+          >
+            Save applicability rules
+          </button>
+        </form>
+      </Panel>
+
+      <Panel className="space-y-4">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Analysis settings
+          </p>
+          <h2 className="text-foreground mt-2 text-2xl font-semibold">
+            GPT-assisted workflow settings
+          </h2>
+        </div>
+
+        <form action={updateAnalysisSettingsAction} className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <input type="hidden" name="redirectTo" value={redirectTo} />
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Model name
+            </label>
+            <input
+              name="modelName"
+              type="text"
+              defaultValue={assumptions.analysisSettings.modelName}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Prompt template
+            </label>
+            <select
+              name="promptTemplateKey"
+              defaultValue={assumptions.analysisSettings.promptTemplateKey}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+            >
+              {promptTemplateKeys.map((key) => (
+                <option key={key} value={key}>
+                  {key}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Sensitivity
+            </label>
+            <input
+              name="sensitivity"
+              type="number"
+              min="0"
+              max="1"
+              step="0.1"
+              defaultValue={assumptions.analysisSettings.sensitivity}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Opportunity threshold
+            </label>
+            <input
+              name="opportunityThreshold"
+              type="number"
+              min="0"
+              max="10"
+              step="0.1"
+              defaultValue={assumptions.analysisSettings.opportunityThreshold}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs font-medium tracking-[0.16em] uppercase">
+              Manual review threshold
+            </label>
+            <input
+              name="manualReviewThreshold"
+              type="number"
+              min="0"
+              max="10"
+              step="0.1"
+              defaultValue={assumptions.analysisSettings.manualReviewThreshold}
+              className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+              required
+            />
+          </div>
+          <label className="flex items-center gap-3 text-sm text-foreground xl:col-span-3">
+            <input
+              type="checkbox"
+              name="useMockWhenUnavailable"
+              defaultChecked={assumptions.analysisSettings.useMockWhenUnavailable}
+            />
+            Use deterministic mock output when live OpenAI execution is unavailable
+          </label>
+          <div className="xl:col-span-3">
+            <button
+              type="submit"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 inline-flex rounded-xl px-5 py-3 text-sm font-semibold transition"
+            >
+              Save analysis settings
+            </button>
+          </div>
+        </form>
+      </Panel>
+
       <div className="grid gap-4">
         {economies.map((economy) => {
           const current = assumptions.economies[economy.slug];
@@ -298,6 +827,27 @@ export function AssumptionsEditor({
                   name="moduleDiagnosticWeights"
                   value={JSON.stringify(current.moduleDiagnosticWeights ?? {})}
                 />
+                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                  <div className="space-y-2">
+                    <label
+                      htmlFor={`${economy.slug}-maximum-score`}
+                      className="text-muted text-xs font-medium tracking-[0.16em] uppercase"
+                    >
+                      Maximum score
+                    </label>
+                    <input
+                      id={`${economy.slug}-maximum-score`}
+                      name="maximumScore"
+                      type="number"
+                      min="1"
+                      max="100"
+                      step="0.1"
+                      defaultValue={current.maximumScore}
+                      className="border-border text-foreground focus:border-accent w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none"
+                      required
+                    />
+                  </div>
+                </div>
 
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                   {economy.modules.map((module) => (

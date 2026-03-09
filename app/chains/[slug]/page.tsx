@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import { ChainProfileView } from "@/components/chain/chain-profile-view";
 import { IntentBeacon } from "@/components/intent/intent-beacon";
+import { getAuthenticatedInternalUser } from "@/lib/admin/auth";
+import { getLatestChainTechnicalAnalysis } from "@/lib/analysis/service";
 import { siteConfig } from "@/lib/config/site";
 import { parseEconomySelection } from "@/lib/domain/schemas";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
@@ -72,6 +74,7 @@ export default async function ChainProfilePage({
   const requestState = getSingleSearchParam(resolvedSearchParams?.request);
   const source = getSingleSearchParam(resolvedSearchParams?.from);
   const profile = repository.getChainProfileBySlug(slug, economySlug);
+  const internalUser = await getAuthenticatedInternalUser();
 
   if (!profile) {
     notFound();
@@ -96,6 +99,10 @@ export default async function ChainProfilePage({
       <ChainProfileView
         profile={profile}
         economies={repository.listEconomies()}
+        internalUser={internalUser}
+        latestAnalysis={
+          internalUser ? getLatestChainTechnicalAnalysis(profile.chain.slug) : null
+        }
         requestState={
           requestState === "success"
             ? "success"

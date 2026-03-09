@@ -60,6 +60,20 @@ Persistence behavior:
 - Vercel persists mutable admin/runtime Atlas documents into Postgres through `DATABASE_URL`
 - the current runtime file path still acts as the fallback cache location
 
+## Auth0 configuration
+
+Set:
+
+```bash
+AUTH0_DOMAIN=...
+AUTH0_CLIENT_ID=...
+AUTH0_CLIENT_SECRET=...
+AUTH0_SECRET=...
+APP_BASE_URL=http://localhost:3000
+```
+
+With Auth0 configured, internal users can authenticate through `/auth/login`.
+
 ## Validate seed data
 
 ```bash
@@ -168,3 +182,12 @@ npm run build
     - activation plan
     - competitive context
     - global context
+20. Open `/internal/applicability` and confirm:
+    - per-wedge counts render
+    - per-chain applicability matrix renders
+    - review queues populate
+21. From an authenticated internal chain page, trigger `Run GPT-5.4 Technical Analysis` and confirm:
+    - a new analysis record is stored
+    - `/internal/analysis/[id]` renders
+    - execution mode is explicit (`live` or `mock`)
+    - deterministic applicability and AI-assisted findings are clearly separated

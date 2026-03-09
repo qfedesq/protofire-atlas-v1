@@ -1,3 +1,4 @@
+import { initializeChainAnalysisSystem } from "@/lib/analysis/service";
 import { initializeManualDataOverridesStore } from "@/lib/admin/manual-data";
 import { initializeActiveAssumptionsStore } from "@/lib/assumptions/store";
 import { initializeExternalMetricsSnapshotStore } from "@/lib/external-data/store";
@@ -17,6 +18,7 @@ export async function ensureAtlasPersistence() {
       await initializeActiveAssumptionsStore();
       await initializeManualDataOverridesStore();
       await initializeExternalMetricsSnapshotStore();
+      await initializeChainAnalysisSystem();
       await initializeRequestsStores();
       await initializeIntentEventsStore();
       initialized = true;

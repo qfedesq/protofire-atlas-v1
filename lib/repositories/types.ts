@@ -1,4 +1,5 @@
 import type {
+  ApplicabilityMatrixRow,
   Chain,
   ChainProfile,
   EconomyType,
@@ -10,6 +11,7 @@ import type {
   TargetAccountsQuery,
   GlobalRankingsQuery,
   RankingsQuery,
+  WedgeApplicabilitySummary,
 } from "@/lib/domain/types";
 
 export interface ChainsRepository {
@@ -18,6 +20,8 @@ export interface ChainsRepository {
   listRankedChains(query?: Partial<RankingsQuery>): RankedChain[];
   listGlobalRankedChains(query?: Partial<GlobalRankingsQuery>): GlobalRankedChain[];
   listTargetAccounts(query?: Partial<TargetAccountsQuery>): TargetAccountRow[];
+  listApplicabilityMatrixRows(): ApplicabilityMatrixRow[];
+  listWedgeApplicabilitySummaries(): WedgeApplicabilitySummary[];
   getChainProfileBySlug(
     slug: string,
     economySlug?: EconomyTypeSlug,

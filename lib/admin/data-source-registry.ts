@@ -2,6 +2,7 @@ import {
   getManualDataOverrides,
   getResolvedChainEcosystemMetricsSeeds,
   getResolvedChainRoadmapSeeds,
+  getResolvedChainTechnicalProfileSeeds,
   getResolvedLiquidStakingMarketSnapshotSeeds,
 } from "@/lib/admin/manual-data";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
@@ -42,6 +43,7 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
   const manualOverrides = getManualDataOverrides();
   const chainEcosystemMetricsSeeds = getResolvedChainEcosystemMetricsSeeds();
   const chainRoadmapSeeds = getResolvedChainRoadmapSeeds();
+  const chainTechnicalProfiles = getResolvedChainTechnicalProfileSeeds();
   const liquidStakingMarketSnapshotSeeds =
     getResolvedLiquidStakingMarketSnapshotSeeds();
   const externalUpdatedAt = externalMetricsSnapshot.updatedAt;
@@ -53,6 +55,8 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
   const roadmapUpdatedAt =
     manualOverrides.roadmaps?.updatedAt ??
     `${chainRoadmapSeeds[0]?.snapshotDate ?? atlasDatasetSnapshot.snapshotDate}T00:00:00.000Z`;
+  const technicalProfilesUpdatedAt =
+    manualOverrides.technicalProfiles?.updatedAt ?? chainSeedUpdatedAt;
   const liquidStakingUpdatedAt =
     manualOverrides.liquidStakingMarketSnapshots?.updatedAt ??
     (liquidStakingMarketSnapshotSeeds[0]?.sources[0]?.snapshotDate != null
@@ -255,6 +259,22 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           notes: "These are the core deterministic readiness inputs per chain, economy, and module.",
         },
         {
+          metricName: "Chain technical capability profiles",
+          description:
+            "Per-chain architecture and primitive support baselines used before wedge readiness is interpreted.",
+          sourceCategory: "Applicability inputs",
+          sourceName: "Atlas technical profile dataset",
+          sourceReference: "data/seed/chain-technical-profiles.ts",
+          originType: "seed/fallback dataset",
+          currentProvenance:
+            "Current Atlas value comes from the manual technical profile dataset, with explicit fallback profiles only if a chain row is missing.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated manually and applied immediately to the deterministic applicability engine.",
+          lastUpdated: technicalProfilesUpdatedAt,
+          notes: `Current dataset covers ${chainTechnicalProfiles.length} chain capability profiles.`,
+        },
+        {
           metricName: "Readiness module weights",
           description:
             "Economy-level module weights used to transform statuses into weighted contributions.",
@@ -301,6 +321,22 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           lastUpdated: assumptionsUpdatedAt,
         },
         {
+          metricName: "Wedge applicability rules",
+          description:
+            "Capability weights, prerequisite requirements, thresholds, and confidence rules that determine whether a wedge is technically applicable.",
+          sourceCategory: "Applicability formula inputs",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> wedgeApplicability",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and applied immediately after save.",
+          lastUpdated: assumptionsUpdatedAt,
+        },
+        {
           metricName: "Economy composite weights",
           description:
             "Weights used to combine the four economy scores into the global economy composite.",
@@ -324,6 +360,22 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           sourceName: "Atlas admin assumptions",
           sourceReference:
             "data/admin/active-assumptions.json -> globalRanking.componentWeights",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and applied immediately after save.",
+          lastUpdated: assumptionsUpdatedAt,
+        },
+        {
+          metricName: "Global ranking subweights",
+          description:
+            "Subweights inside ecosystem, adoption, and performance so Atlas can rebalance the internals of Global Score.",
+          sourceCategory: "Global score inputs",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> globalRanking.*Subweights",
           originType: "internal manual/admin-managed assumption",
           currentProvenance:
             "Current Atlas value comes from the active admin-managed assumptions set.",
@@ -362,6 +414,38 @@ export function getDataSourceRegistry(): DataSourceRegistryGroup[] {
           adminEditScope: "Editable from this page",
           refreshBehavior:
             "Updated from the internal admin assumptions editor and applied immediately after save.",
+          lastUpdated: assumptionsUpdatedAt,
+        },
+        {
+          metricName: "Opportunity stack-fit and priority rules",
+          description:
+            "Advanced opportunity settings used to weight lift versus coverage and to map total score into priority bands.",
+          sourceCategory: "Internal target scoring",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> opportunityScoring.stackFitComponents + priorityThresholds",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and applied immediately after save.",
+          lastUpdated: assumptionsUpdatedAt,
+        },
+        {
+          metricName: "GPT analysis settings",
+          description:
+            "Model label, prompt template reference, sensitivity, and mock fallback settings for internal chain technical analysis.",
+          sourceCategory: "AI-assisted analysis",
+          sourceName: "Atlas admin assumptions",
+          sourceReference:
+            "data/admin/active-assumptions.json -> analysisSettings",
+          originType: "internal manual/admin-managed assumption",
+          currentProvenance:
+            "Current Atlas value comes from the active admin-managed assumptions set.",
+          adminEditScope: "Editable from this page",
+          refreshBehavior:
+            "Updated from the internal admin assumptions editor and used only by internal AI-assisted analysis workflows.",
           lastUpdated: assumptionsUpdatedAt,
         },
       ],

@@ -35,6 +35,31 @@ export const externalMetricKeys = [
   "blockTime",
   "throughputIndicator",
 ] as const;
+export const capabilitySupportLevels = [
+  "supported",
+  "limited",
+  "unsupported",
+  "unknown",
+] as const;
+export const dataConfidenceLevels = ["low", "medium", "high"] as const;
+export const wedgeApplicabilityStatuses = [
+  "applicable",
+  "partially_applicable",
+  "not_applicable",
+  "unknown",
+] as const;
+export const applicabilityRequirementLevels = [
+  "required",
+  "preferred",
+  "optional",
+] as const;
+export const chainAnalysisStatuses = [
+  "queued",
+  "running",
+  "completed",
+  "failed",
+] as const;
+export const analysisExecutionModes = ["live", "mock"] as const;
 export const moduleAvailabilityStatuses = [
   "missing",
   "partial",
@@ -67,6 +92,13 @@ export type EconomyTypeSlug = (typeof economyTypeSlugs)[number];
 export type LiquidStakingDiagnosticSlug =
   (typeof liquidStakingDiagnosticSlugs)[number];
 export type ExternalMetricKey = (typeof externalMetricKeys)[number];
+export type CapabilitySupportLevel = (typeof capabilitySupportLevels)[number];
+export type DataConfidenceLevel = (typeof dataConfidenceLevels)[number];
+export type WedgeApplicabilityStatus = (typeof wedgeApplicabilityStatuses)[number];
+export type ApplicabilityRequirementLevel =
+  (typeof applicabilityRequirementLevels)[number];
+export type ChainAnalysisStatus = (typeof chainAnalysisStatuses)[number];
+export type AnalysisExecutionMode = (typeof analysisExecutionModes)[number];
 export type ModuleAvailabilityStatus =
   (typeof moduleAvailabilityStatuses)[number];
 export type RankingsSortDirection = (typeof rankingsSortDirections)[number];
@@ -212,6 +244,44 @@ export type LiquidStakingMarketSnapshot = {
   sources: LiquidStakingMetricSource[];
 };
 
+export const chainTechnicalCapabilityKeys = [
+  "smartContracts",
+  "tokenStandards",
+  "paymentRails",
+  "oracleSupport",
+  "indexingSupport",
+  "settlementPrimitives",
+  "liquidityRails",
+  "nativeValidatorStaking",
+] as const;
+
+export type ChainTechnicalCapabilityKey =
+  (typeof chainTechnicalCapabilityKeys)[number];
+
+export type ChainTechnicalCapabilities = Record<
+  ChainTechnicalCapabilityKey,
+  CapabilitySupportLevel
+>;
+
+export type ChainTechnicalProfileSeed = {
+  chainSlug: string;
+  architectureKind:
+    | "general-evm-l1"
+    | "general-evm-l2"
+    | "bitcoin-evm"
+    | "enterprise-evm"
+    | "specialized-evm";
+  capabilities: ChainTechnicalCapabilities;
+  dataConfidence: DataConfidenceLevel;
+  sourceBasis: string;
+  assessedAt: string;
+  notes: string[];
+};
+
+export type ChainTechnicalProfile = Omit<ChainTechnicalProfileSeed, "chainSlug"> & {
+  chainId: string;
+};
+
 export type ChainEcosystemMetricsSeed = {
   chainSlug: string;
   tvlUsd?: number;
@@ -340,6 +410,36 @@ export type GapAnalysisItem = {
   impact: string;
 };
 
+export type WedgeApplicability = {
+  chainId: string;
+  chainSlug: string;
+  wedgeId: EconomyTypeSlug;
+  applicabilityStatus: WedgeApplicabilityStatus;
+  applicabilityScore: number;
+  rationale: string;
+  technicalConstraints: string[];
+  requiredPrerequisites: string[];
+  assessedAt: string;
+  sourceBasis: string;
+  confidenceLevel: DataConfidenceLevel;
+  manualReviewRecommended: boolean;
+};
+
+export type WedgeApplicabilitySummary = {
+  wedge: EconomyType;
+  applicable: number;
+  partiallyApplicable: number;
+  notApplicable: number;
+  unknown: number;
+  manualReviewCount: number;
+};
+
+export type ApplicabilityMatrixRow = {
+  chain: Chain;
+  technicalProfile: ChainTechnicalProfile;
+  wedges: WedgeApplicability[];
+};
+
 export type RecommendationItem = {
   module: EconomyModule;
   title: string;
@@ -396,6 +496,16 @@ export type GlobalRankingComponentWeights = {
   performance: number;
 };
 
+export type GlobalRankingSubmetricWeights = {
+  protocols: number;
+  ecosystemProjects: number;
+  wallets: number;
+  activeUsers: number;
+  averageTransactionSpeed: number;
+  blockTime: number;
+  throughputIndicator: number;
+};
+
 export type EconomyCompositeWeights = Record<EconomyTypeSlug, number>;
 
 export type OpportunityScoringWeights = {
@@ -403,6 +513,52 @@ export type OpportunityScoringWeights = {
   readinessGap: number;
   stackFit: number;
   ecosystemSignal: number;
+};
+
+export type OpportunityStackFitComponentWeights = {
+  liftRatio: number;
+  coverageRatio: number;
+};
+
+export type OpportunityPriorityThresholds = {
+  high: number;
+  medium: number;
+};
+
+export type ApplicabilityCapabilityWeights = Record<
+  ChainTechnicalCapabilityKey,
+  number
+>;
+
+export type WedgeApplicabilityThresholds = {
+  applicableMinimum: number;
+  partialMinimum: number;
+};
+
+export type WedgeApplicabilityConfidenceConfig = {
+  minimumConfidenceForDefinitiveStatus: DataConfidenceLevel;
+  unknownWhenRequiredCapabilityIsUnknown: boolean;
+  manualReviewBelowScore: number;
+};
+
+export type WedgeApplicabilityAssumptionSet = {
+  signalScores: Record<CapabilitySupportLevel, number>;
+  wedgeCapabilityWeights: Record<EconomyTypeSlug, ApplicabilityCapabilityWeights>;
+  wedgePrerequisites: Record<
+    EconomyTypeSlug,
+    Record<ChainTechnicalCapabilityKey, ApplicabilityRequirementLevel>
+  >;
+  thresholds: WedgeApplicabilityThresholds;
+  confidence: WedgeApplicabilityConfidenceConfig;
+};
+
+export type AnalysisSettings = {
+  modelName: string;
+  promptTemplateKey: string;
+  sensitivity: number;
+  opportunityThreshold: number;
+  manualReviewThreshold: number;
+  useMockWhenUnavailable: boolean;
 };
 
 export type GlobalChainScore = {
@@ -451,6 +607,7 @@ export type OpportunityPriority = "High" | "Medium" | "Monitor";
 export type TargetAccountRow = {
   chain: Chain;
   economy: EconomyType;
+  applicability: WedgeApplicability;
   readinessRank: number;
   readinessScore: ChainEconomyReadiness;
   readinessGap: number;
@@ -508,7 +665,10 @@ export type RankedChain = {
 export type ChainProfile = {
   chain: Chain;
   economy: EconomyType;
+  technicalProfile: ChainTechnicalProfile;
   readinessScore: ChainEconomyReadiness;
+  selectedWedgeApplicability: WedgeApplicability;
+  wedgeApplicabilityMatrix: WedgeApplicability[];
   globalPosition: GlobalRankedChain;
   gapAnalysis: GapAnalysisItem[];
   rank: number;
@@ -558,4 +718,75 @@ export type TargetAccountProfile = {
   opportunity: TargetAccountRow;
   recommendedEconomy: EconomyType;
   outreachBrief: OutreachBrief;
+};
+
+export type ChainAnalysisInputEconomySnapshot = {
+  economy: {
+    slug: EconomyTypeSlug;
+    name: string;
+  };
+  readinessScore: {
+    totalScore: number;
+  };
+  wedgeApplicability: WedgeApplicability;
+  gapAnalysis: Array<{
+    problem: string;
+    impact: string;
+  }>;
+  recommendedStack: {
+    narrativeSummary: string;
+    items: Array<{
+      title: string;
+      deploymentPhase: string;
+      potentialScoreLift: number;
+    }>;
+  };
+};
+
+export type ChainAnalysisInputChainSnapshot = {
+  id: string;
+  slug: string;
+  name: string;
+};
+
+export type ChainAnalysisInputGlobalPositionSnapshot = {
+  benchmarkRank: number;
+  score: {
+    totalScore: number;
+  };
+};
+
+export type ChainAnalysisInputSnapshot = {
+  chain: ChainAnalysisInputChainSnapshot;
+  technicalProfile: ChainTechnicalProfile;
+  globalPosition: ChainAnalysisInputGlobalPositionSnapshot;
+  economies: ChainAnalysisInputEconomySnapshot[];
+  assumptionsVersion: string;
+  sourceSnapshotDate: string;
+};
+
+export type ChainTechnicalAnalysisOutput = {
+  wedgeAssessments: WedgeApplicability[];
+  technicalBlockers: string[];
+  prerequisiteSummary: string[];
+  strongestOpportunities: string[];
+  confidenceNotes: string[];
+  manualFollowUp: string[];
+};
+
+export type ChainTechnicalAnalysis = {
+  id: string;
+  chainId: string;
+  chainSlug: string;
+  triggeredBy: string;
+  modelName: string;
+  executionMode: AnalysisExecutionMode;
+  analysisType: "gpt-5.4-technical-analysis";
+  status: ChainAnalysisStatus;
+  inputSnapshot: ChainAnalysisInputSnapshot;
+  outputSummary: string | null;
+  outputStructuredData: ChainTechnicalAnalysisOutput | null;
+  createdAt: string;
+  completedAt: string | null;
+  errorMessage: string | null;
 };

@@ -3,7 +3,11 @@ import Link from "next/link";
 import { AssumptionsEditor } from "@/components/admin/assumptions-editor";
 import { SyncPanel } from "@/components/admin/sync-panel";
 import { Panel } from "@/components/ui/panel";
-import { getAdminAccessState, isAdminAuthenticated } from "@/lib/admin/auth";
+import {
+  buildInternalLoginHref,
+  getAdminAccessState,
+  isAdminAuthenticated,
+} from "@/lib/admin/auth";
 import { formatErrorMessage, formatSavedMessage, getMessage } from "@/lib/admin/messages";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { readExternalMetricsSnapshot } from "@/lib/external-data/service";
@@ -95,6 +99,19 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
             Open admin
           </button>
         </form>
+
+        {access.auth0Enabled ? (
+          <p className="text-muted text-sm leading-6">
+            Auth0 is configured for internal access. You can also{" "}
+            <a
+              href={buildInternalLoginHref("/internal/admin")}
+              className="text-accent font-medium hover:underline"
+            >
+              sign in with Auth0
+            </a>
+            .
+          </p>
+        ) : null}
       </Panel>
     );
   }
@@ -138,6 +155,12 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                 className="text-accent font-medium hover:underline"
               >
                 Open data source registry
+              </Link>
+              <Link
+                href="/internal/applicability"
+                className="text-accent font-medium hover:underline"
+              >
+                Open applicability matrix
               </Link>
             </div>
           </div>

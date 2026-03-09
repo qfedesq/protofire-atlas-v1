@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { GapAnalysis } from "@/components/chain/gap-analysis";
 import { PeerComparisonSection } from "@/components/chain/peer-comparison";
@@ -6,7 +6,7 @@ import { RecommendedStackSection } from "@/components/stack/recommended-stack";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { OutreachBriefSection } from "@/components/internal/outreach-brief";
 import { Panel } from "@/components/ui/panel";
-import { isAdminAuthenticated } from "@/lib/admin/auth";
+import { requireAuthenticatedInternalUser } from "@/lib/admin/auth";
 import { parseEconomySelection } from "@/lib/domain/schemas";
 import { formatScore } from "@/lib/utils/format";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
@@ -24,11 +24,7 @@ export default async function AccountIntelligencePage({
   searchParams,
 }: AccountPageProps) {
   await ensureAtlasPersistence();
-  const authenticated = await isAdminAuthenticated();
-
-  if (!authenticated) {
-    redirect("/internal/admin");
-  }
+  await requireAuthenticatedInternalUser(`/internal/account/${(await params).chain}`);
 
   const { chain } = await params;
   const parsedSearchParams = searchParams ? await searchParams : undefined;

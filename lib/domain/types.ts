@@ -997,6 +997,7 @@ export type OfferLibraryItem = {
   caseStudyReferences: string[];
   deploymentScope: string;
   targetCustomer: string;
+  targetModules: string[];
 };
 
 export type ProposalScoringWeights = {
@@ -1026,7 +1027,7 @@ export type ProposalDocument = {
   personaName: string;
   offerId: string;
   offerName: string;
-  conversionProbability: number;
+  opportunityFitScore: number;
   strategicFit: number;
   roiEstimation: string;
   riskReduction: string;

@@ -277,8 +277,8 @@ export function StrategicAppendix({
                       {proposal.offerName} · {proposal.personaName}
                     </p>
                     <p className="text-muted mt-1 text-sm">
-                      {proposal.wedgeId} · conversion {proposal.conversionProbability}% ·
-                      fit {proposal.strategicFit}%
+                      {proposal.wedgeId} · fit {proposal.opportunityFitScore}% ·
+                      strategic {proposal.strategicFit}%
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-4 text-sm">

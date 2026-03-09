@@ -73,7 +73,7 @@ describe("proposal engine", () => {
     expect(
       new Set(proposals.map((proposal) => proposal.wedgeId)),
     ).toEqual(new Set(["ai-agents", "defi-infrastructure"]));
-    expect(proposals[0]?.conversionProbability).toBeGreaterThan(0);
+    expect(proposals[0]?.opportunityFitScore).toBeGreaterThan(0);
     expect(proposals[0]?.markdownContent).toContain("# ");
     expect(listProposalDocuments().length).toBeGreaterThan(0);
 

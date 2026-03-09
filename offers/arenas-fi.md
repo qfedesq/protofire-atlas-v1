@@ -6,6 +6,7 @@ Applicable Wedges: defi-infrastructure
 Target Personas: Ecosystem Lead, DeFi BD Lead, Growth Lead
 Typical Price Range: $140k-$320k
 ROI Potential: Better liquidity formation, faster protocol launch readiness, and stronger ecosystem utilization.
+Target Modules: lending, liquidity, oracles, indexing
 Case Study References: Liquidity programs, lending rails, indexable DeFi state.
 
 ## Problem Solved

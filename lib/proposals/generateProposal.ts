@@ -55,7 +55,7 @@ export async function generateProposalsForPersona(
         personaName: persona.personName,
         offerId: offer.offerId,
         offerName: offer.name,
-        conversionProbability: fit.conversionProbability,
+        opportunityFitScore: fit.opportunityFitScore,
         strategicFit: fit.strategicFit,
         roiEstimation: roi.label,
         riskReduction:
@@ -81,8 +81,8 @@ export async function generateProposalsForPersona(
   }
 
   const sorted = proposals.sort((left, right) => {
-    if (right.conversionProbability !== left.conversionProbability) {
-      return right.conversionProbability - left.conversionProbability;
+    if (right.opportunityFitScore !== left.opportunityFitScore) {
+      return right.opportunityFitScore - left.opportunityFitScore;
     }
 
     return right.strategicFit - left.strategicFit;

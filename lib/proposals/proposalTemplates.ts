@@ -20,7 +20,7 @@ export function buildProposalMarkdown(proposal: ProposalDocument) {
     "",
     `Persona: ${proposal.personaName}`,
     `Wedge: ${proposal.wedgeId}`,
-    `Conversion probability: ${proposal.conversionProbability}%`,
+    `Opportunity fit score: ${proposal.opportunityFitScore}%`,
     `Strategic fit: ${proposal.strategicFit}%`,
     "",
     "## Summary",

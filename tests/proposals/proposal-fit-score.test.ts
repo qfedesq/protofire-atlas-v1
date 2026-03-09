@@ -72,7 +72,7 @@ describe("proposal fit score", () => {
       offer: offer!,
     });
 
-    expect(result.conversionProbability).toBeGreaterThan(0);
+    expect(result.opportunityFitScore).toBeGreaterThan(0);
     expect(result.strategicFit).toBeGreaterThan(0);
     expect(result.breakdown.applicability).toBeGreaterThan(0);
     expect(result.breakdown.personaFit).toBeGreaterThan(0);

@@ -41,8 +41,8 @@ export default async function InternalProposalsPage() {
                       {proposal.offerName} · {proposal.personaName}
                     </p>
                     <p className="text-muted text-sm">
-                      {proposal.chainSlug} · {proposal.wedgeId} · conversion{" "}
-                      {proposal.conversionProbability}% · fit {proposal.strategicFit}%
+                      {proposal.chainSlug} · {proposal.wedgeId} · fit{" "}
+                      {proposal.opportunityFitScore}% · strategic {proposal.strategicFit}%
                     </p>
                     <p className="text-muted text-sm">{proposal.proposalSummary}</p>
                   </div>

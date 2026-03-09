@@ -608,7 +608,7 @@ const proposalDocumentSchema = z.object({
   personaName: z.string().min(1),
   offerId: z.string().min(1),
   offerName: z.string().min(1),
-  conversionProbability: z.number().min(0).max(100),
+  opportunityFitScore: z.number().min(0).max(100),
   strategicFit: z.number().min(0).max(100),
   roiEstimation: z.string().min(1),
   riskReduction: z.string().min(1),

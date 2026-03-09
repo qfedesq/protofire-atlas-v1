@@ -6,6 +6,7 @@ Applicable Wedges: ai-agents
 Target Personas: Ecosystem Lead, Developer Relations Lead, Product Lead
 Typical Price Range: $80k-$180k
 ROI Potential: Faster partner trust, lower perceived agent risk, and stronger launch confidence.
+Target Modules: security
 Case Study References: Monitoring controls, policy enforcement rails, runtime trust tooling.
 
 ## Problem Solved

@@ -203,22 +203,18 @@ export function createPersistentJsonStore<T>(
       return initialize();
     },
     getSnapshot() {
-      if (!shouldUsePostgresStorage()) {
-        const currentSignature = getStorageSignature();
+      const currentSignature = getStorageSignature();
 
-        if (currentSignature !== storageSignature) {
-          snapshot = options.validate(
-            readJsonFile(options.getFilePath(), getFallbackValue(options.fallback)),
-          );
-          initialized = true;
-          storageSignature = currentSignature;
-        }
-      }
-
-      if (!initialized || snapshot === undefined) {
-        throw new Error(
-          `Atlas persistent store "${options.key}" was used before initialization.`,
+      if (
+        !initialized ||
+        snapshot === undefined ||
+        currentSignature !== storageSignature
+      ) {
+        snapshot = options.validate(
+          readJsonFile(options.getFilePath(), getFallbackValue(options.fallback)),
         );
+        initialized = true;
+        storageSignature = currentSignature;
       }
 
       return snapshot;

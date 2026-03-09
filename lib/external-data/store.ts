@@ -1,6 +1,7 @@
 import { parseExternalMetricsSnapshot } from "@/lib/domain/schemas";
 import type { ExternalMetricsSnapshot } from "@/lib/domain/types";
 import { createPersistentJsonStore } from "@/lib/storage/persistent-json-store";
+import { readJsonFile } from "@/lib/storage/json-file";
 
 import { buildFallbackExternalMetricsSnapshot } from "./baseline";
 import { externalMetricsSnapshotPath } from "./config";
@@ -18,7 +19,16 @@ export async function initializeExternalMetricsSnapshotStore() {
 }
 
 export function getExternalMetricsSnapshot(): ExternalMetricsSnapshot {
-  return externalMetricsSnapshotStore.getSnapshot();
+  try {
+    return externalMetricsSnapshotStore.getSnapshot();
+  } catch {
+    return parseExternalMetricsSnapshot(
+      readJsonFile(
+        externalMetricsSnapshotPath,
+        buildFallbackExternalMetricsSnapshot(),
+      ),
+    );
+  }
 }
 
 export async function saveExternalMetricsSnapshot(

@@ -41,16 +41,18 @@ export function buildChainAnalysisInputSnapshot(chainSlug: string): ChainAnalysi
     expectedGains: persona.structuredData.empathyMap.expectedGainsTop3,
     topKpis: persona.structuredData.successMetrics.topKpis,
   }));
-  const offers = listOfferLibrary().map((offer) => ({
-    offerId: offer.offerId,
-    name: offer.name,
-    problemSolved: offer.problemSolved,
-    expectedImpact: offer.expectedImpact,
-    targetPersonas: offer.targetPersonas,
-    roiEstimate: offer.roiEstimate,
-    technicalRequirements: offer.technicalRequirements,
-    applicableWedges: offer.applicableWedges,
-  }));
+  const offers = listOfferLibrary()
+    .filter((offer) => offer.isActive)
+    .map((offer) => ({
+      offerId: offer.offerId,
+      name: offer.name,
+      problemSolved: offer.problemSolved,
+      expectedImpact: offer.expectedImpact,
+      targetPersonas: offer.targetPersonas,
+      roiEstimate: offer.roiEstimate,
+      technicalRequirements: offer.technicalRequirements,
+      applicableWedges: offer.applicableWedges,
+    }));
 
   const profiles = economies.map((economy) => {
     const profile = repository.getChainProfileBySlug(

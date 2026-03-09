@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { InternalNav } from "@/components/internal/internal-nav";
 import { WedgeApplicabilityTable } from "@/components/internal/wedge-applicability-table";
 import { requireAuthenticatedInternalUser } from "@/lib/admin/auth";
 import { buildApplicabilityInsights } from "@/lib/applicability/insights";
@@ -18,6 +19,8 @@ export default async function InternalApplicabilityPage() {
 
   return (
     <div className="space-y-8">
+      <InternalNav currentHref="/internal/applicability" />
+
       <section className="space-y-3">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

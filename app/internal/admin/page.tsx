@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AssumptionsEditor } from "@/components/admin/assumptions-editor";
 import { SyncPanel } from "@/components/admin/sync-panel";
 import { ChainAnalysisPanel } from "@/components/internal/chain-analysis-panel";
+import { InternalNav } from "@/components/internal/internal-nav";
 import { Panel } from "@/components/ui/panel";
 import {
   buildInternalLoginHref,
@@ -142,6 +143,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
 
   return (
     <div className="space-y-6">
+      <InternalNav currentHref="/internal/admin" />
+
       <Panel className="space-y-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
@@ -166,6 +169,30 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
                 className="text-accent font-medium hover:underline"
               >
                 Open target accounts
+              </Link>
+              <Link
+                href="/internal/opportunities"
+                className="text-accent font-medium hover:underline"
+              >
+                Open opportunity radar
+              </Link>
+              <Link
+                href="/internal/personas"
+                className="text-accent font-medium hover:underline"
+              >
+                Open personas
+              </Link>
+              <Link
+                href="/internal/offers"
+                className="text-accent font-medium hover:underline"
+              >
+                Open offers
+              </Link>
+              <Link
+                href="/internal/proposals"
+                className="text-accent font-medium hover:underline"
+              >
+                Open proposals
               </Link>
               <Link
                 href="/internal/admin/data-sources"

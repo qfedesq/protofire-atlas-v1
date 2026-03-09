@@ -25,6 +25,7 @@
 *.pem
 tmp/
 data/runtime/*.json
+personas/**/*.md
 
 # debug
 npm-debug.log*

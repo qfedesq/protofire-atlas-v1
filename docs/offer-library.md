@@ -8,9 +8,14 @@ Offer files live in:
 
 - [`offers`](/Users/qfedesq/Desktop/Atlas/offers)
 
-Loader:
+Loader/indexing layer:
 
 - [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts)
+- [`lib/offers/loadOffers.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/loadOffers.ts)
+- [`lib/offers/parseOfferMarkdown.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/parseOfferMarkdown.ts)
+- [`lib/offers/offerIndex.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/offerIndex.ts)
+- [`lib/offers/offerMatching.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/offerMatching.ts)
+- [`lib/offers/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/store.ts)
 
 ## Required fields
 
@@ -34,6 +39,19 @@ Atlas uses these offers in:
 - deterministic proposal matching
 - GPT-assisted strategic analysis context
 - internal chain strategic appendix
+- internal offers page at `/internal/offers`
+
+## Runtime metadata
+
+Offer content stays in git under `/offers`.
+
+Runtime metadata such as:
+
+- active / inactive state
+- wedge tags
+- persona tags
+
+is stored separately so internal teams can tune matching behavior without editing markdown content in production.
 
 ## Rules
 

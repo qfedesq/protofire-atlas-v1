@@ -5,6 +5,7 @@ import { AssumptionsEditor } from "@/components/admin/assumptions-editor";
 import { DataSourceRegistryTable } from "@/components/admin/data-source-registry-table";
 import { ManualDatasetEditors } from "@/components/admin/manual-dataset-editors";
 import { SyncPanel } from "@/components/admin/sync-panel";
+import { InternalNav } from "@/components/internal/internal-nav";
 import { Panel } from "@/components/ui/panel";
 import { getDataSourceRegistry } from "@/lib/admin/data-source-registry";
 import { getManualDataOverrides } from "@/lib/admin/manual-data";
@@ -54,6 +55,8 @@ export default async function AdminDataSourcesPage({
 
   return (
     <div className="space-y-6">
+      <InternalNav currentHref="/internal/admin" />
+
       <Panel className="space-y-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

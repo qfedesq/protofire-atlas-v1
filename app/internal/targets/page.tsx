@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { createOpportunityRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { TargetsTable } from "@/components/tables/targets-table";
+import { InternalNav } from "@/components/internal/internal-nav";
 import { Panel } from "@/components/ui/panel";
 import { requireAuthenticatedInternalUser } from "@/lib/admin/auth";
 import { parseTargetAccountsQuery } from "@/lib/domain/schemas";
@@ -66,6 +67,8 @@ export default async function TargetsPage({ searchParams }: TargetsPageProps) {
 
   return (
     <div className="space-y-6">
+      <InternalNav currentHref="/internal/targets" />
+
       <Panel>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

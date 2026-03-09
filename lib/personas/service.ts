@@ -3,11 +3,10 @@ import { dirname, join } from "node:path";
 import { randomUUID } from "node:crypto";
 
 import type { BuyerPersonaInput, BuyerPersonaRecord } from "@/lib/domain/types";
-import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
 import { getRuntimeManagedDirectoryPath } from "@/lib/storage/runtime-path";
 
+import { buildPersonaProfile } from "./buildPersonaProfile";
 import { buildPersonaMarkdown, buildPersonaMarkdownPath } from "./markdown";
-import { buildMockBuyerPersona } from "./mock";
 import {
   initializeBuyerPersonaStore,
   listBuyerPersonasByChainSlug,
@@ -18,8 +17,6 @@ const personasDirectory = getRuntimeManagedDirectoryPath(
   "ATLAS_PERSONAS_DIR",
   "personas",
 );
-
-const repository = createSeedChainsRepository();
 
 function writePersonaMarkdown(relativePath: string, content: string) {
   const fullPath = join(personasDirectory, relativePath);
@@ -34,24 +31,12 @@ export async function createBuyerPersona(
   generatedBy: string,
 ) {
   await initializeBuyerPersonaStore();
-  const profile = repository.getChainProfileBySlug(input.chainSlug);
-
-  if (!profile) {
-    throw new Error(`Unknown chain "${input.chainSlug}" for persona builder.`);
-  }
-
-  const { organization, relativePath } = buildPersonaMarkdownPath(input);
-  const structuredData = buildMockBuyerPersona(input, profile);
-  const sourceNotes = [
-    input.chainUrl,
-    profile.chain.roadmap.sourceUrl ?? profile.chain.roadmap.sourceLabel,
-    input.linkedinProfile ?? "Manual persona input",
-    input.twitterHandle ? `https://x.com/${input.twitterHandle.replace(/^@/, "")}` : "No Twitter handle provided",
-    input.githubProfile ?? "No GitHub profile provided",
-  ];
+  const { profile, organization, structuredData, sourceNotes } =
+    buildPersonaProfile(input);
+  const { relativePath } = buildPersonaMarkdownPath(input);
   const baseRecord: BuyerPersonaRecord = {
     id: randomUUID(),
-    organization,
+    organization: organization || profile.chain.name,
     chainId: profile.chain.id,
     chainSlug: profile.chain.slug,
     chainUrl: input.chainUrl,
@@ -61,6 +46,7 @@ export async function createBuyerPersona(
     linkedinProfile: input.linkedinProfile,
     twitterHandle: input.twitterHandle,
     githubProfile: input.githubProfile,
+    notes: input.notes,
     markdownPath: "",
     markdownContent: "",
     structuredData,

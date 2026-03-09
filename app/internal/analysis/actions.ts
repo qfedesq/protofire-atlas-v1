@@ -63,11 +63,13 @@ export async function createBuyerPersonaAction(formData: FormData) {
       chainSlug,
       chainUrl,
       protocolUrl: asString(formData.get("protocolUrl")) || undefined,
+      organizationName: asString(formData.get("organizationName")) || undefined,
       personName,
       personTitle,
       linkedinProfile: asString(formData.get("linkedinProfile")) || undefined,
       twitterHandle: asString(formData.get("twitterHandle")) || undefined,
       githubProfile: asString(formData.get("githubProfile")) || undefined,
+      notes: asString(formData.get("notes")) || undefined,
     },
     internalUser.email ?? internalUser.subject,
   );

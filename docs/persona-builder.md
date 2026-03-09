@@ -1,6 +1,6 @@
 # Persona Builder
 
-Atlas now supports internal buyer persona generation as a separate AI-assisted layer.
+Atlas now supports internal buyer persona generation as a structured internal layer with deterministic templates first and optional AI enrichment later.
 
 ## Purpose
 
@@ -16,10 +16,13 @@ The persona builder accepts:
 
 - chain URL
 - protocol URL
+- organization name
 - person name
 - person title
 - LinkedIn profile
 - Twitter handle
+- GitHub profile
+- internal notes
 
 ## Output
 
@@ -33,12 +36,16 @@ The markdown file contains:
 - empathy map
 - success metrics
 - lean canvas
+- source basis
+- generated timestamp
 
 ## Core files
 
+- [`lib/personas/buildPersonaProfile.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/buildPersonaProfile.ts)
+- [`lib/personas/personaSources.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaSources.ts)
+- [`lib/personas/personaTemplates.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaTemplates.ts)
+- [`lib/personas/personaStorage.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaStorage.ts)
 - [`lib/personas/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/service.ts)
-- [`lib/personas/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/store.ts)
-- [`lib/personas/markdown.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/markdown.ts)
 
 ## Important boundary
 

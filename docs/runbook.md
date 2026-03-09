@@ -190,14 +190,20 @@ npm run build
     - stored buyer personas
     - proposal generation actions
     - latest AI strategic analysis
-22. Trigger `Run GPT-5.4 Strategic Analysis` and confirm:
+22. Open `/internal/personas`, `/internal/offers`, `/internal/proposals`, and `/internal/opportunities`.
+23. Confirm:
+    - personas render stored KPI and source context
+    - offers show markdown-backed content plus runtime activation metadata
+    - proposals show conversion probability and ROI
+    - opportunities show current recommended offer and rationale
+24. Trigger `Run GPT-5.4 Strategic Analysis` and confirm:
     - a new analysis record is stored
     - `/internal/analysis/[id]` renders
     - execution mode is explicit (`live` or `mock`)
     - deterministic applicability and AI-assisted findings are clearly separated
-23. Create one buyer persona and confirm:
+25. Create one buyer persona and confirm:
     - the markdown file is stored under the runtime personas directory
     - the persona record becomes available from the internal chain appendix
-24. Generate proposals for that persona and confirm:
+26. Generate proposals for that persona and confirm:
     - proposal documents persist
     - the internal chain appendix lists the generated proposals

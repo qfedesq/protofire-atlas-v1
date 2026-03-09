@@ -45,7 +45,9 @@ This updates:
 
 Key files:
 
-- connectors: [`lib/external-data/connectors`](/Users/qfedesq/Desktop/Atlas/lib/external-data/connectors)
+- current production snapshot layer: [`lib/external-data/connectors`](/Users/qfedesq/Desktop/Atlas/lib/external-data/connectors)
+- connector wrappers and source-health contracts: [`lib/connectors`](/Users/qfedesq/Desktop/Atlas/lib/connectors)
+- sync orchestration: [`lib/data-sync`](/Users/qfedesq/Desktop/Atlas/lib/data-sync)
 - normalization: [`lib/external-data/utils.ts`](/Users/qfedesq/Desktop/Atlas/lib/external-data/utils.ts)
 - service: [`lib/external-data/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/external-data/service.ts)
 
@@ -162,15 +164,18 @@ Rules:
 
 Primary files:
 
+- [`lib/personas/buildPersonaProfile.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/buildPersonaProfile.ts)
+- [`lib/personas/personaSources.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaSources.ts)
+- [`lib/personas/personaTemplates.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaTemplates.ts)
 - [`lib/personas/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/service.ts)
-- [`lib/personas/mock.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/mock.ts)
-- [`lib/personas/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/store.ts)
+- [`lib/personas/personaStorage.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/personaStorage.ts)
 
 Rules:
 
 - buyer personas are internal-only
 - the markdown file is the durable artifact
 - structured persona records must stay in sync with the markdown artifact
+- prefer deterministic template enrichment before adding more AI dependence
 
 ## Update the offer library
 
@@ -181,24 +186,44 @@ Versioned offer files live in:
 Loader:
 
 - [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts)
+- [`lib/offers/loadOffers.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/loadOffers.ts)
+- [`lib/offers/parseOfferMarkdown.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/parseOfferMarkdown.ts)
+- [`lib/offers/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/store.ts)
 
 Rules:
 
 - keep offer files concise and template-aligned
 - do not store credentials or private customer data in offers
+- use runtime offer overrides for activation and tag changes instead of mutating markdown in production
 
 ## Update proposal matching
 
 Primary files:
 
-- [`lib/proposals/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/engine.ts)
-- [`lib/proposals/store.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/store.ts)
+- [`lib/proposals/generateProposal.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/generateProposal.ts)
+- [`lib/proposals/scoreProposalFit.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/scoreProposalFit.ts)
+- [`lib/proposals/estimateProposalROI.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/estimateProposalROI.ts)
+- [`lib/proposals/proposalStorage.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/proposalStorage.ts)
 
 Rules:
 
 - proposal scoring is deterministic
 - proposal outputs stay internal
 - AI may draft strategy, but deterministic proposal scores must remain separate
+
+## Update opportunity radar
+
+Primary files:
+
+- [`lib/opportunities/computeOpportunityRadar.ts`](/Users/qfedesq/Desktop/Atlas/lib/opportunities/computeOpportunityRadar.ts)
+- [`lib/opportunities/rankOpportunityTargets.ts`](/Users/qfedesq/Desktop/Atlas/lib/opportunities/rankOpportunityTargets.ts)
+- [`lib/opportunities/explainOpportunity.ts`](/Users/qfedesq/Desktop/Atlas/lib/opportunities/explainOpportunity.ts)
+
+Rules:
+
+- opportunity radar is internal-only
+- it must stay deterministic
+- it may use persona/proposal presence as context, but not as an opaque AI score
 
 ## Update internal GPT-assisted analysis
 

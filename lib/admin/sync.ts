@@ -1,12 +1,13 @@
 import { ensureAtlasPersistence } from "@/lib/storage/atlas-persistence";
-import { syncExternalMetricsSnapshot } from "@/lib/external-data/service";
+import { syncAllDataSources } from "@/lib/data-sync/syncAll";
 
 export async function runAtlasSyncNow() {
   await ensureAtlasPersistence();
-  const snapshot = await syncExternalMetricsSnapshot();
+  const { snapshot, syncResults } = await syncAllDataSources();
 
   return {
     completedAt: snapshot.updatedAt,
     connectors: snapshot.connectors,
+    syncResults,
   };
 }

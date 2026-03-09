@@ -587,6 +587,7 @@ const buyerPersonaRecordSchema = z.object({
   linkedinProfile: z.string().url().optional(),
   twitterHandle: z.string().min(1).optional(),
   githubProfile: z.string().url().optional(),
+  notes: z.string().min(1).optional(),
   markdownPath: z.string().min(1),
   markdownContent: z.string().min(1),
   structuredData: buyerPersonaStructuredOutputSchema,

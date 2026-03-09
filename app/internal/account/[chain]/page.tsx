@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import { GapAnalysis } from "@/components/chain/gap-analysis";
+import { InternalNav } from "@/components/internal/internal-nav";
 import { PeerComparisonSection } from "@/components/chain/peer-comparison";
 import { RecommendedStackSection } from "@/components/stack/recommended-stack";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
@@ -41,6 +42,8 @@ export default async function AccountIntelligencePage({
 
   return (
     <div className="space-y-6">
+      <InternalNav currentHref="/internal/opportunities" />
+
       <Panel className="space-y-4">
         <p className="text-accent text-xs tracking-[0.16em] uppercase">
           Account intelligence

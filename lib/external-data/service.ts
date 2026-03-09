@@ -1,4 +1,6 @@
 import { chainCatalogSeeds } from "@/data/seed/catalog";
+import { syncWithCoinGecko } from "@/lib/connectors/coingecko";
+import { syncWithL2Beat } from "@/lib/connectors/l2beat";
 import type {
   Chain,
   ChainEcosystemMetrics,
@@ -17,6 +19,34 @@ import {
   initializeExternalMetricsSnapshotStore,
 } from "./store";
 import { mergeSnapshotRows } from "./utils";
+
+function toExternalConnectorStatus(
+  status: "healthy" | "degraded" | "failed" | "skipped",
+) {
+  if (status === "failed") {
+    return "failed" as const;
+  }
+
+  if (status === "skipped") {
+    return "skipped" as const;
+  }
+
+  return "success" as const;
+}
+
+function toConnectorSnapshotStatus(
+  result: {
+    sourceName: string;
+    status: "healthy" | "degraded" | "failed" | "skipped";
+    message: string;
+  },
+) {
+  return {
+    connector: result.sourceName,
+    status: toExternalConnectorStatus(result.status),
+    message: result.message,
+  } as const;
+}
 
 function buildChainMetrics(
   chain: Chain,
@@ -106,6 +136,16 @@ export async function syncExternalMetricsSnapshot() {
       );
     }
   }
+
+  const [coinGecko, l2beat] = await Promise.all([
+    syncWithCoinGecko(),
+    syncWithL2Beat(),
+  ]);
+
+  connectorStatuses.push(
+    toConnectorSnapshotStatus(coinGecko.result),
+    toConnectorSnapshotStatus(l2beat.result),
+  );
 
   nextSnapshot = {
     ...nextSnapshot,

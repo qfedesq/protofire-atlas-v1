@@ -924,11 +924,13 @@ export type BuyerPersonaInput = {
   chainSlug: string;
   chainUrl: string;
   protocolUrl?: string;
+  organizationName?: string;
   personName: string;
   personTitle: string;
   linkedinProfile?: string;
   twitterHandle?: string;
   githubProfile?: string;
+  notes?: string;
 };
 
 export type BuyerPersonaStructuredOutput = {
@@ -967,6 +969,7 @@ export type BuyerPersonaRecord = {
   linkedinProfile?: string;
   twitterHandle?: string;
   githubProfile?: string;
+  notes?: string;
   markdownPath: string;
   markdownContent: string;
   structuredData: BuyerPersonaStructuredOutput;
@@ -981,6 +984,7 @@ export type BuyerPersonaRecord = {
 export type OfferLibraryItem = {
   offerId: string;
   name: string;
+  isActive: boolean;
   problemSolved: string;
   expectedImpact: string;
   implementationScope: string;

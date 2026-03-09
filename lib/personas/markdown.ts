@@ -9,7 +9,7 @@ function slugify(input: string) {
 }
 
 export function buildPersonaMarkdownPath(input: BuyerPersonaInput) {
-  const organization = slugify(input.chainSlug);
+  const organization = slugify(input.organizationName ?? input.chainSlug);
   const persona = slugify(`${input.personName}-${input.personTitle}`);
 
   return {
@@ -32,6 +32,7 @@ export function buildPersonaMarkdown(record: BuyerPersonaRecord) {
     record.linkedinProfile ? `LinkedIn: ${record.linkedinProfile}` : null,
     record.twitterHandle ? `Twitter: ${record.twitterHandle}` : null,
     record.githubProfile ? `GitHub: ${record.githubProfile}` : null,
+    record.notes ? `Notes: ${record.notes}` : null,
     "",
     "## EMPATHY MAP",
     "",

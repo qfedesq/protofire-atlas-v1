@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { runChainTechnicalAnalysisAction } from "@/app/internal/analysis/actions";
+import { InternalNav } from "@/components/internal/internal-nav";
 import { requireAuthenticatedInternalUser } from "@/lib/admin/auth";
 import {
   getChainTechnicalAnalysisById,
@@ -33,6 +34,8 @@ export default async function ChainTechnicalAnalysisPage({
 
   return (
     <div className="space-y-8">
+      <InternalNav currentHref="/internal/admin" />
+
       <section className="space-y-3">
         <p className="text-accent text-xs tracking-[0.16em] uppercase">
           Internal technical analysis

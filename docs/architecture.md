@@ -120,12 +120,29 @@ The buyer/proposal layer stays internal and separate from deterministic ranking 
 
 1. [`lib/personas/service.ts`](/Users/qfedesq/Desktop/Atlas/lib/personas/service.ts) creates markdown-backed buyer personas and persists structured records.
 2. [`lib/offers/library.ts`](/Users/qfedesq/Desktop/Atlas/lib/offers/library.ts) loads the versioned Protofire offer library from [`offers`](/Users/qfedesq/Desktop/Atlas/offers).
-3. [`lib/proposals/engine.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/engine.ts) deterministically matches:
+3. [`lib/proposals/generateProposal.ts`](/Users/qfedesq/Desktop/Atlas/lib/proposals/generateProposal.ts) deterministically matches:
    - chain profile
    - active wedge applicability
    - buyer persona
    - offer library
-4. Proposal documents are persisted and shown only in internal chain/account analysis surfaces.
+4. [`lib/opportunities/computeOpportunityRadar.ts`](/Users/qfedesq/Desktop/Atlas/lib/opportunities/computeOpportunityRadar.ts) derives current commercial targets from that same internal context.
+5. Proposal documents and opportunity radar rows are persisted or derived only for internal chain/account analysis surfaces.
+
+## Commercial intelligence flow
+
+The commercial-intelligence layer now has four pieces:
+
+1. real connector-backed ecosystem context with snapshot fallback
+2. markdown-backed buyer personas
+3. markdown-backed offer indexing plus runtime metadata overrides
+4. deterministic proposal and opportunity scoring
+
+Internal UI surfaces:
+
+- `/internal/personas`
+- `/internal/offers`
+- `/internal/proposals`
+- `/internal/opportunities`
 
 ## Internal auth flow
 

@@ -3,6 +3,7 @@ import { initializeManualDataOverridesStore } from "@/lib/admin/manual-data";
 import { initializeActiveAssumptionsStore } from "@/lib/assumptions/store";
 import { initializeExternalMetricsSnapshotStore } from "@/lib/external-data/store";
 import { initializeIntentEventsStore } from "@/lib/intent/store";
+import { initializeOfferOverridesStore } from "@/lib/offers/store";
 import { initializeBuyerPersonaStore } from "@/lib/personas/store";
 import { initializeProposalDocumentsStore } from "@/lib/proposals/store";
 import { initializeRequestsStores } from "@/lib/requests/store";
@@ -22,6 +23,7 @@ export async function ensureAtlasPersistence() {
       await initializeExternalMetricsSnapshotStore();
       await initializeChainAnalysisSystem();
       await initializeBuyerPersonaStore();
+      await initializeOfferOverridesStore();
       await initializeProposalDocumentsStore();
       await initializeRequestsStores();
       await initializeIntentEventsStore();

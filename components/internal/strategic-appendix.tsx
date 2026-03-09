@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { createBuyerPersonaAction, generateChainProposalsAction } from "@/app/internal/analysis/actions";
 import type { AuthenticatedInternalUser } from "@/lib/admin/auth";
 import type {
@@ -6,6 +8,8 @@ import type {
   ChainTechnicalAnalysis,
   ProposalDocument,
 } from "@/lib/domain/types";
+import { computeOpportunityRadar } from "@/lib/opportunities/computeOpportunityRadar";
+import { rankOpportunityTargets } from "@/lib/opportunities/rankOpportunityTargets";
 
 import { ChainAnalysisPanel } from "./chain-analysis-panel";
 
@@ -23,6 +27,10 @@ export function StrategicAppendix({
   proposals: ProposalDocument[];
 }) {
   const returnTo = `/chains/${profile.chain.slug}?economy=${profile.economy.slug}`;
+  const opportunityContext = rankOpportunityTargets(computeOpportunityRadar()).find(
+    (row) =>
+      row.chainSlug === profile.chain.slug && row.wedge === profile.economy.name,
+  );
 
   return (
     <section
@@ -51,6 +59,46 @@ export function StrategicAppendix({
         internalUser={internalUser}
         returnTo={returnTo}
       />
+
+      <section className="border-border/60 space-y-4 border-t pt-6">
+        <div>
+          <p className="text-muted text-xs tracking-[0.16em] uppercase">
+            Opportunity context
+          </p>
+          <h3 className="text-foreground mt-2 text-xl font-semibold">
+            Current commercial read
+          </h3>
+        </div>
+        {opportunityContext ? (
+          <div className="space-y-2 text-sm leading-6">
+            <p className="text-foreground font-medium">
+              Opportunity {opportunityContext.opportunityScore} · {opportunityContext.recommendedOffer}
+              {opportunityContext.personaName
+                ? ` · persona ${opportunityContext.personaName}`
+                : ""}
+            </p>
+            <p className="text-muted">{opportunityContext.rationale}</p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/internal/opportunities"
+                className="text-accent font-medium hover:underline"
+              >
+                View opportunity radar
+              </Link>
+              <Link
+                href={`/internal/account/${profile.chain.slug}?economy=${profile.economy.slug}`}
+                className="text-accent font-medium hover:underline"
+              >
+                Open account context
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <p className="text-muted text-sm leading-6">
+            No opportunity radar row is available for this chain yet.
+          </p>
+        )}
+      </section>
 
       <section className="border-border/60 space-y-5 border-t pt-6">
         <div>
@@ -94,6 +142,16 @@ export function StrategicAppendix({
           </div>
           <div className="space-y-2">
             <label className="text-muted text-xs tracking-[0.16em] uppercase">
+              Organization
+            </label>
+            <input
+              name="organizationName"
+              className="border-border text-foreground focus:border-accent w-full border bg-white px-3 py-2 text-sm outline-none"
+              placeholder={profile.chain.name}
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-muted text-xs tracking-[0.16em] uppercase">
               Protocol URL
             </label>
             <input
@@ -132,6 +190,16 @@ export function StrategicAppendix({
               placeholder="https://github.com/..."
             />
           </div>
+          <div className="space-y-2 md:col-span-2">
+            <label className="text-muted text-xs tracking-[0.16em] uppercase">
+              Notes
+            </label>
+            <textarea
+              name="notes"
+              className="border-border text-foreground focus:border-accent min-h-24 w-full border bg-white px-3 py-2 text-sm outline-none"
+              placeholder="Internal notes, context from calls, or additional hypotheses to preserve in the persona artifact."
+            />
+          </div>
           <div className="md:col-span-2">
             <button
               type="submit"
@@ -159,17 +227,25 @@ export function StrategicAppendix({
                         {persona.structuredData.successMetrics.topKpis.join(" · ")}
                       </p>
                     </div>
-                    <form action={generateChainProposalsAction}>
-                      <input type="hidden" name="chainSlug" value={profile.chain.slug} />
-                      <input type="hidden" name="personaId" value={persona.id} />
-                      <input type="hidden" name="returnTo" value={returnTo} />
-                      <button
-                        type="submit"
+                    <div className="flex flex-wrap items-center gap-4">
+                      <Link
+                        href={`/internal/personas/${persona.id}`}
                         className="text-accent text-sm font-medium hover:underline"
                       >
-                        Generate proposals
-                      </button>
-                    </form>
+                        Open persona
+                      </Link>
+                      <form action={generateChainProposalsAction}>
+                        <input type="hidden" name="chainSlug" value={profile.chain.slug} />
+                        <input type="hidden" name="personaId" value={persona.id} />
+                        <input type="hidden" name="returnTo" value={returnTo} />
+                        <button
+                          type="submit"
+                          className="text-accent text-sm font-medium hover:underline"
+                        >
+                          Generate proposals
+                        </button>
+                      </form>
+                    </div>
                   </div>
                 </li>
               ))}
@@ -205,7 +281,15 @@ export function StrategicAppendix({
                       fit {proposal.strategicFit}%
                     </p>
                   </div>
-                  <p className="text-muted text-sm">{proposal.createdAt}</p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm">
+                    <p className="text-muted">{proposal.createdAt}</p>
+                    <Link
+                      href={`/internal/proposals/${proposal.proposalId}`}
+                      className="text-accent font-medium hover:underline"
+                    >
+                      Open proposal
+                    </Link>
+                  </div>
                 </div>
                 <p className="text-foreground mt-3 text-sm leading-6">
                   {proposal.proposalSummary}

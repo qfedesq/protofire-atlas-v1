@@ -2,10 +2,13 @@ import type { RecommendedStack } from "@/lib/domain/types";
 
 export function RecommendedStackSection({
   stack,
+  layout,
 }: {
   stack: RecommendedStack;
   layout?: "stacked" | "grid";
 }) {
+  void layout;
+
   const phaseByKey = new Map(
     stack.deploymentPhases.map((phase) => [phase.key, phase] as const),
   );
@@ -62,12 +65,12 @@ export function RecommendedStackSection({
               <div className="space-y-4 text-sm">
                 <div>
                   <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Current gap
+                    What Protofire deploys
                   </p>
                   <p className="text-foreground mt-2 leading-6">
-                    {recommendation.module.name} is currently{" "}
-                    {recommendation.currentStatus}. Protofire treats that gap as
-                    directly actionable under the active Atlas model.
+                    {recommendation.title} closes the current{" "}
+                    {recommendation.module.name.toLowerCase()} gap with a targeted
+                    deployment path under the active Atlas assumptions.
                   </p>
                 </div>
 
@@ -82,10 +85,30 @@ export function RecommendedStackSection({
 
                 <div>
                   <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Expected result
+                    Stack summary
                   </p>
                   <p className="text-foreground mt-2 leading-6">
-                    {recommendation.expectedResult}
+                    {recommendation.narrativeSummary}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                    Current gap
+                  </p>
+                  <p className="text-foreground mt-2 leading-6">
+                    {recommendation.module.name} is currently{" "}
+                    {recommendation.currentStatus}. Protofire treats that blocker as
+                    directly actionable in the current model.
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                    Why it matters
+                  </p>
+                  <p className="text-foreground mt-2 leading-6">
+                    {recommendation.whyItMatters}
                   </p>
                 </div>
 
@@ -104,19 +127,19 @@ export function RecommendedStackSection({
 
                 <div>
                   <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Direct chain impact
+                    Expected result
                   </p>
                   <p className="text-foreground mt-2 leading-6">
-                    {recommendation.directChainImpact}
+                    {recommendation.expectedResult}
                   </p>
                 </div>
 
                 <div>
                   <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Stack summary
+                    Direct chain impact
                   </p>
                   <p className="text-foreground mt-2 leading-6">
-                    {recommendation.narrativeSummary}
+                    {recommendation.directChainImpact}
                   </p>
                 </div>
               </div>

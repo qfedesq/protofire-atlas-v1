@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 
 type ExpandableSectionProps = {
   id?: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description?: string;
   children: ReactNode;
@@ -24,9 +24,11 @@ export function ExpandableSection({
         <summary className="list-none cursor-pointer">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-accent text-xs tracking-[0.16em] uppercase">
-                {eyebrow}
-              </p>
+              {eyebrow ? (
+                <p className="text-accent text-xs tracking-[0.16em] uppercase">
+                  {eyebrow}
+                </p>
+              ) : null}
               <h2 className="text-foreground mt-2 text-2xl font-semibold">
                 {title}
               </h2>

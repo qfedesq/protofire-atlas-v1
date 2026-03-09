@@ -1,5 +1,3 @@
-import { ChevronDown } from "lucide-react";
-
 import type {
   LiquidStakingDiagnosis,
   LiquidStakingMarketSnapshot,
@@ -85,127 +83,110 @@ export function LiquidStakingDiagnosisSection({
       </div>
 
       {marketSnapshot ? (
-        <details className="group border-border/70 border-t pt-4">
-          <summary className="list-none cursor-pointer">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-accent text-xs tracking-[0.16em] uppercase">
-                  LST market snapshot
-                </p>
-                <h3 className="text-foreground mt-2 text-xl font-semibold">
-                  Current source-backed fields
-                </h3>
-              </div>
-              <ChevronDown className="text-muted mt-1 h-5 w-5 shrink-0 transition group-open:rotate-180" />
-            </div>
-          </summary>
-          <div className="mt-4 space-y-4">
-            <p className="text-muted max-w-3xl text-sm leading-6">
-              Snapshot date {marketSnapshot.snapshotDate}. Captured fields are
-              shown directly; pending and non-applicable fields stay explicit
-              until a verified source snapshot is added.
+        <div className="space-y-4 border-border/70 border-t pt-4">
+          <div>
+            <p className="text-accent text-xs tracking-[0.16em] uppercase">
+              LST market snapshot
             </p>
-
-            <div className="border-border/70 divide-y border-t">
-              <MetricRow
-                label="Native Token"
-                value={
-                  marketSnapshot.nativeTokenSymbol ??
-                  getMetricPlaceholder("nativeTokenSymbol", marketSnapshot.sources)
-                }
-              />
-              <MetricRow
-                label="Market Cap"
-                value={
-                  marketSnapshot.marketCapUsd == null
-                    ? getMetricPlaceholder("marketCapUsd", marketSnapshot.sources)
-                    : formatCurrencyCompact(marketSnapshot.marketCapUsd)
-                }
-              />
-              <MetricRow
-                label="% Staked"
-                value={
-                  marketSnapshot.percentStaked == null
-                    ? getMetricPlaceholder("percentStaked", marketSnapshot.sources)
-                    : `${marketSnapshot.percentStaked}%`
-                }
-              />
-              <MetricRow
-                label="Staking APY"
-                value={
-                  marketSnapshot.stakingApyPercent == null
-                    ? getMetricPlaceholder(
-                        "stakingApyPercent",
-                        marketSnapshot.sources,
-                      )
-                    : `${marketSnapshot.stakingApyPercent}%`
-                }
-              />
-              <MetricRow
-                label="# Stakers"
-                value={
-                  marketSnapshot.stakersCount == null
-                    ? getMetricPlaceholder("stakersCount", marketSnapshot.sources)
-                    : Intl.NumberFormat("en-US").format(
-                        marketSnapshot.stakersCount,
-                      )
-                }
-              />
-              <MetricRow
-                label="Global LST Health"
-                value={`${marketSnapshot.globalLstHealthScore}`}
-              />
-              <MetricRow
-                label="# of LSTs"
-                value={
-                  marketSnapshot.lstProtocolCount == null
-                    ? getMetricPlaceholder(
-                        "lstProtocolCount",
-                        marketSnapshot.sources,
-                      )
-                    : `${marketSnapshot.lstProtocolCount}`
-                }
-              />
-              <MetricRow
-                label="LST / Staked %"
-                value={
-                  marketSnapshot.lstToStakedPercent == null
-                    ? getMetricPlaceholder(
-                        "lstToStakedPercent",
-                        marketSnapshot.sources,
-                      )
-                    : `${marketSnapshot.lstToStakedPercent}%`
-                }
-              />
-              <MetricRow
-                label="DeFi TVL"
-                value={formatCurrencyCompact(marketSnapshot.defiTvlUsd)}
-              />
-            </div>
-
-            <div className="border-border/70 divide-y border-t">
-              {marketSnapshot.sources.map((source) => (
-                <div key={`${source.metric}:${source.provider}`} className="py-4 text-sm">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-foreground font-medium">{source.metric}</p>
-                    <p className="text-muted text-xs uppercase">
-                      {source.provider} · {source.status}
-                    </p>
-                  </div>
-                  <p className="text-muted mt-2 leading-6">{source.note}</p>
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-accent mt-2 inline-flex hover:underline"
-                  >
-                    Open source
-                  </a>
-                </div>
-              ))}
-            </div>
+            <h3 className="text-foreground mt-2 text-xl font-semibold">
+              Current source-backed fields
+            </h3>
           </div>
-        </details>
+
+          <p className="text-muted max-w-3xl text-sm leading-6">
+            Snapshot date {marketSnapshot.snapshotDate}. Captured fields are shown
+            directly; pending and non-applicable fields stay explicit until a
+            verified source snapshot is added.
+          </p>
+
+          <div className="border-border/70 divide-y border-t">
+            <MetricRow
+              label="Native Token"
+              value={
+                marketSnapshot.nativeTokenSymbol ??
+                getMetricPlaceholder("nativeTokenSymbol", marketSnapshot.sources)
+              }
+            />
+            <MetricRow
+              label="Market Cap"
+              value={
+                marketSnapshot.marketCapUsd == null
+                  ? getMetricPlaceholder("marketCapUsd", marketSnapshot.sources)
+                  : formatCurrencyCompact(marketSnapshot.marketCapUsd)
+              }
+            />
+            <MetricRow
+              label="% Staked"
+              value={
+                marketSnapshot.percentStaked == null
+                  ? getMetricPlaceholder("percentStaked", marketSnapshot.sources)
+                  : `${marketSnapshot.percentStaked}%`
+              }
+            />
+            <MetricRow
+              label="Staking APY"
+              value={
+                marketSnapshot.stakingApyPercent == null
+                  ? getMetricPlaceholder("stakingApyPercent", marketSnapshot.sources)
+                  : `${marketSnapshot.stakingApyPercent}%`
+              }
+            />
+            <MetricRow
+              label="# Stakers"
+              value={
+                marketSnapshot.stakersCount == null
+                  ? getMetricPlaceholder("stakersCount", marketSnapshot.sources)
+                  : Intl.NumberFormat("en-US").format(marketSnapshot.stakersCount)
+              }
+            />
+            <MetricRow
+              label="Global LST Health"
+              value={`${marketSnapshot.globalLstHealthScore}`}
+            />
+            <MetricRow
+              label="# of LSTs"
+              value={
+                marketSnapshot.lstProtocolCount == null
+                  ? getMetricPlaceholder("lstProtocolCount", marketSnapshot.sources)
+                  : `${marketSnapshot.lstProtocolCount}`
+              }
+            />
+            <MetricRow
+              label="LST / Staked %"
+              value={
+                marketSnapshot.lstToStakedPercent == null
+                  ? getMetricPlaceholder("lstToStakedPercent", marketSnapshot.sources)
+                  : `${marketSnapshot.lstToStakedPercent}%`
+              }
+            />
+            <MetricRow
+              label="DeFi TVL"
+              value={formatCurrencyCompact(marketSnapshot.defiTvlUsd)}
+            />
+          </div>
+
+          <div className="border-border/70 divide-y border-t">
+            {marketSnapshot.sources.map((source) => (
+              <div key={`${source.metric}:${source.provider}`} className="py-4 text-sm">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="text-foreground font-medium">{source.metric}</p>
+                  <p className="text-muted text-xs uppercase">
+                    {source.provider} · {source.status}
+                  </p>
+                </div>
+                <p className="text-muted mt-2 leading-6">{source.note}</p>
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-accent mt-2 inline-flex hover:underline"
+                >
+                  Open source
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : null}
     </div>
   );

@@ -50,6 +50,17 @@ export function GapAnalysis({
               </p>
               <p className="text-foreground mt-2 leading-6">{gap.impact}</p>
             </div>
+
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Evidence / rationale
+              </p>
+              <p className="text-foreground mt-2 leading-6">
+                Atlas treats this blocker as a direct limit on deployable{" "}
+                {economyLabel.toLowerCase()} readiness under the current module
+                assumptions.
+              </p>
+            </div>
           </div>
         </div>
       ))}

@@ -1,12 +1,8 @@
 import { buildRoadmapFitInsight } from "@/lib/roadmaps/roadmap-analysis";
 
-import { GapAnalysis } from "@/components/chain/gap-analysis";
-import { ScoreDriversSection } from "@/components/chain/score-drivers";
 import { DeploymentPlanSection } from "@/components/stack/deployment-plan";
 import { RecommendedStackSection } from "@/components/stack/recommended-stack";
-import { ExpandableSection } from "@/components/ui/expandable-section";
 import type { ChainProfile } from "@/lib/domain/types";
-import { formatScore } from "@/lib/utils/format";
 
 export function ImprovementPathSection({
   profile,
@@ -14,30 +10,16 @@ export function ImprovementPathSection({
   profile: ChainProfile;
 }) {
   const roadmapFit = buildRoadmapFitInsight(profile);
-  const totalPotentialLift = profile.recommendedStack.recommendedModules.reduce(
-    (sum, recommendation) => sum + recommendation.potentialScoreLift,
-    0,
-  );
-  const missingModuleCount = profile.gapAnalysis.filter(
-    (gap) => gap.status === "missing",
-  ).length;
-  const partialModuleCount = profile.gapAnalysis.filter(
-    (gap) => gap.status === "partial",
-  ).length;
+  const recommendationCount = profile.recommendedStack.recommendedModules.length;
+  const firstRecommendation = profile.recommendedStack.recommendedModules[0];
 
   return (
-    <section className="space-y-6 border-t border-[var(--border)] pt-6" id="suggested-activations">
+    <section className="space-y-8" id="suggested-activations">
       <div>
-        <p className="text-accent text-xs tracking-[0.16em] uppercase">
-          Improvement path
-        </p>
-        <h2 className="text-foreground mt-2 text-2xl font-semibold">
-          What to activate next
-        </h2>
         <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
-          Atlas translates the current score blockers into a deterministic Protofire
-          activation path. First understand the blockers, then the stack, then the
-          rollout sequence.
+          Protofire should lead with the deployable wedge that can move this chain
+          fastest. This section turns the current blocker set into an execution
+          sequence instead of another diagnostic readout.
         </p>
       </div>
 
@@ -53,64 +35,53 @@ export function ImprovementPathSection({
         </div>
         <div>
           <dt className="text-muted text-xs tracking-[0.16em] uppercase">
-            Potential Atlas lift
+            Recommended modules
           </dt>
-          <dd className="text-foreground mt-2 text-4xl font-semibold tracking-tight">
-            +{formatScore(totalPotentialLift)}
+          <dd className="text-foreground mt-2 text-2xl font-semibold">
+            {recommendationCount}
           </dd>
           <p className="text-muted mt-2 text-sm leading-6">
-            Score upside available from the currently recommended Protofire modules.
+            Protofire activations currently prioritized under the Atlas model.
           </p>
         </div>
         <div>
           <dt className="text-muted text-xs tracking-[0.16em] uppercase">
-            Score blockers
+            First delivery window
           </dt>
-          <dd className="text-foreground mt-2 text-lg font-semibold">
-            {missingModuleCount} missing · {partialModuleCount} partial
+          <dd className="text-foreground mt-2 text-2xl font-semibold">
+            {profile.deploymentPlan.phases[0]?.timelineLabel ?? "No rollout required"}
           </dd>
           <p className="text-muted mt-2 text-sm leading-6">
-            These are the blockers keeping the current score below its reachable
-            ceiling in this wedge.
+            {firstRecommendation
+              ? `${firstRecommendation.title} is the first execution move under the current sequence.`
+              : "Protofire can focus on positioning and optimization instead of a foundational rollout."}
           </p>
         </div>
       </dl>
 
-      <ExpandableSection
-        id="diagnosis-and-blockers"
-        eyebrow="Missing and weak modules"
-        title="Diagnosis and score blockers"
-        defaultOpen
-      >
-        <GapAnalysis gaps={profile.gapAnalysis} economyLabel={profile.economy.name} />
-      </ExpandableSection>
+      <div>
+        <p className="text-muted text-xs tracking-[0.16em] uppercase">
+          What Protofire can deploy
+        </p>
+        <h3 className="text-foreground mt-2 text-xl font-semibold">
+          Recommended stack
+        </h3>
+        <div className="mt-4">
+          <RecommendedStackSection stack={profile.recommendedStack} />
+        </div>
+      </div>
 
-      <ExpandableSection
-        id="activation-plan"
-        eyebrow="Protofire recommended stack"
-        title="Activation plan"
-        defaultOpen
-      >
-        <RecommendedStackSection stack={profile.recommendedStack} />
-      </ExpandableSection>
-
-      <ExpandableSection
-        id="score-drivers"
-        eyebrow="Highest-upside improvements"
-        title="Score drivers"
-        defaultOpen
-      >
-        <ScoreDriversSection drivers={profile.scoreDrivers} />
-      </ExpandableSection>
-
-      <ExpandableSection
-        id="deployment-plan"
-        eyebrow="Sequenced rollout"
-        title="Deployment plan"
-        defaultOpen
-      >
-        <DeploymentPlanSection plan={profile.deploymentPlan} />
-      </ExpandableSection>
+      <div>
+        <p className="text-muted text-xs tracking-[0.16em] uppercase">
+          Sequenced rollout
+        </p>
+        <h3 className="text-foreground mt-2 text-xl font-semibold">
+          Deployment plan
+        </h3>
+        <div className="mt-4">
+          <DeploymentPlanSection plan={profile.deploymentPlan} />
+        </div>
+      </div>
     </section>
   );
 }

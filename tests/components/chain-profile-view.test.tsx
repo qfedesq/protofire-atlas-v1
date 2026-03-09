@@ -21,7 +21,7 @@ vi.mock("next/link", () => ({
 }));
 
 describe("ChainProfileView", () => {
-  it("renders the refactored score hierarchy, improvement path, and global context", () => {
+  it("renders the chain page as four public decision blocks", () => {
     const repository = createSeedChainsRepository();
     const profile = repository.getChainProfileBySlug("base", "ai-agents");
 
@@ -37,29 +37,31 @@ describe("ChainProfileView", () => {
       />,
     );
 
-    expect(screen.getByText("AI Agents score")).toBeInTheDocument();
-    expect(screen.getByText("Score composition")).toBeInTheDocument();
-    expect(screen.getByText("Improvement path")).toBeInTheDocument();
-    expect(screen.getByText("Competitive context")).toBeInTheDocument();
-    expect(screen.getByText("Global position")).toBeInTheDocument();
+    expect(screen.getByText("Ranking")).toBeInTheDocument();
+    expect(screen.getByText("What’s missing")).toBeInTheDocument();
+    expect(screen.getAllByText("What Protofire can deploy").length).toBeGreaterThan(0);
+    expect(screen.getByText("Expected impact")).toBeInTheDocument();
     expect(
       screen.getByText("AI Agents Readiness: Registry, Payments, Indexing, Security"),
     ).toBeInTheDocument();
+    expect(screen.getByText("Rank #3 for AI Agents")).toBeInTheDocument();
     expect(
       screen.getAllByText("Upgrade Agent Indexing Layer").length,
     ).toBeGreaterThan(0);
-    expect(screen.getByText("AI Agents module notes")).toBeInTheDocument();
-    expect(screen.getByText("What to activate next")).toBeInTheDocument();
-    expect(
-      screen.getByText("How this chain compares to nearby peers"),
-    ).toBeInTheDocument();
+    expect(screen.getByText("How the score is built")).toBeInTheDocument();
+    expect(screen.getByText("Current module notes")).toBeInTheDocument();
+    expect(screen.getByText("What is still limiting the score")).toBeInTheDocument();
+    expect(screen.getByText("Recommended stack")).toBeInTheDocument();
+    expect(screen.getByText("Deployment plan")).toBeInTheDocument();
+    expect(screen.getByText("How this chain compares")).toBeInTheDocument();
+    expect(screen.getByText("Broader ecosystem position")).toBeInTheDocument();
     expect(
       screen.getByText("Request infrastructure assessment"),
     ).toBeInTheDocument();
     expect(screen.getAllByText("Direct chain impact").length).toBeGreaterThan(
       0,
     );
-    expect(screen.getByText(/Source TVL rank: #3/i)).toBeInTheDocument();
+    expect(screen.getByText(/Source TVL rank/i)).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Open suggested activations" }),
     ).toHaveAttribute("href", "#suggested-activations");
@@ -68,23 +70,17 @@ describe("ChainProfileView", () => {
     expect(screen.getAllByText("Diagnostic gap").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Activation plan").length).toBeGreaterThan(0);
     expect(
-      screen.getByText("Public summary snapshot").closest("details"),
-    ).not.toHaveAttribute("open");
-    expect(
-      screen.getByText("AI Agents module notes").closest("details"),
-    ).not.toHaveAttribute("open");
-    expect(
-      screen.getByText("How the AI Agents score is built").closest("details"),
+      screen.getByText("Ranking").closest("details"),
     ).toHaveAttribute("open");
     expect(
-      screen.getByText("Diagnosis and score blockers").closest("details"),
+      screen.getByText("What’s missing").closest("details"),
     ).toHaveAttribute("open");
     expect(
-      screen.getAllByText("Activation plan")[0]?.closest("details"),
+      screen.getAllByText("What Protofire can deploy")[0]?.closest("details"),
     ).toHaveAttribute("open");
     expect(
-      screen.getByText("How this chain compares to nearby peers").closest("details"),
-    ).not.toHaveAttribute("open");
+      screen.getByText("Expected impact").closest("details"),
+      ).toHaveAttribute("open");
   });
 
   it("renders the liquid staking diagnosis inside DeFi chain profiles", () => {
@@ -104,16 +100,10 @@ describe("ChainProfileView", () => {
     );
 
     expect(screen.getAllByText("Liquid Staking Infrastructure").length).toBeGreaterThan(0);
-    expect(screen.getAllByText("7-module diagnosis").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("DeFi liquid staking blockers").length).toBeGreaterThan(0);
     expect(
       screen.getByRole("link", { name: "Open diagnosis" }),
     ).toHaveAttribute("href", "#liquid-staking-diagnosis");
-    expect(
-      screen.getAllByText("7-module diagnosis")[0]?.closest("details"),
-    ).not.toHaveAttribute("open");
-    expect(screen.getByText("LST market snapshot").closest("details")).not.toHaveAttribute(
-      "open",
-    );
     expect(
       screen.getByText(
         "DeFi Infrastructure Readiness: Liquid Staking Infrastructure, Lending Infrastructure, Liquidity Layer, Oracle Infrastructure, Indexing Layer",

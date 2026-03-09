@@ -9,11 +9,6 @@ export function CompetitiveAnalysisSection({
 }) {
   return (
     <div className="space-y-4">
-      <p className="text-muted mt-1 max-w-4xl text-sm leading-6">
-        Atlas compares nearby ranks in the same wedge so a chain can see who is
-        ahead, how wide the gap is, and which module differences still explain
-        position.
-      </p>
       <BenchmarkStrip
         rank={profile.rank}
         leader={profile.leader}

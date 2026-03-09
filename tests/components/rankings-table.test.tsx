@@ -1,10 +1,32 @@
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { createEconomyRankingColumns } from "@/components/tables/ranking-column-definitions";
 import { RankingsTable } from "@/components/tables/rankings-table";
 import { getDefaultVisibleColumnIds } from "@/lib/rankings/table";
 import { createSeedChainsRepository } from "@/lib/repositories/seed-chains-repository";
+
+vi.mock("next/link", () => ({
+  default: ({
+    href,
+    children,
+    scroll,
+    ...props
+  }: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    href: string;
+    children: ReactNode;
+    scroll?: boolean;
+  }) => {
+    void scroll;
+
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  },
+}));
 
 describe("RankingsTable", () => {
   it("renders ranked chains with module status columns", () => {

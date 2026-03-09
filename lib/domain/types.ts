@@ -963,13 +963,13 @@ export type BuyerPersonaRecord = {
   chainId: string;
   chainSlug: string;
   chainUrl: string;
-  protocolUrl?: string;
+  protocolUrl?: string | null;
   personName: string;
   personTitle: string;
-  linkedinProfile?: string;
-  twitterHandle?: string;
-  githubProfile?: string;
-  notes?: string;
+  linkedinProfile?: string | null;
+  twitterHandle?: string | null;
+  githubProfile?: string | null;
+  notes?: string | null;
   markdownPath: string;
   markdownContent: string;
   structuredData: BuyerPersonaStructuredOutput;

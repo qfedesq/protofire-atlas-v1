@@ -22,6 +22,11 @@ export type EconomyAssumptionSet = {
   recommendationConfig: EconomyRecommendationConfig;
 };
 
+export type MetricReferenceBounds = {
+  min: number;
+  max: number;
+};
+
 export type GlobalRankingAssumptionSet = {
   componentWeights: GlobalRankingComponentWeights;
   economyCompositeWeights: EconomyCompositeWeights;
@@ -37,6 +42,15 @@ export type GlobalRankingAssumptionSet = {
     GlobalRankingSubmetricWeights,
     "averageTransactionSpeed" | "blockTime" | "throughputIndicator"
   >;
+  referenceBounds?: {
+    protocols?: MetricReferenceBounds;
+    ecosystemProjects?: MetricReferenceBounds;
+    wallets?: MetricReferenceBounds;
+    activeUsers?: MetricReferenceBounds;
+    averageTransactionSpeed?: MetricReferenceBounds;
+    blockTime?: MetricReferenceBounds;
+    throughputIndicator?: MetricReferenceBounds;
+  };
 };
 
 export type OpportunityScoringAssumptionSet = {

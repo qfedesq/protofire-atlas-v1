@@ -6,6 +6,7 @@ Applicable Wedges: defi-infrastructure
 Target Personas: Ecosystem Lead, DeFi BD Lead, Product Lead
 Typical Price Range: $120k-$280k
 ROI Potential: Higher capital efficiency, more sticky TVL, and stronger DeFi reuse of staked assets.
+Target Modules: liquid-staking, liquidity
 Case Study References: Liquid staking integrations, validator reward routing, staking token standardization.
 
 ## Problem Solved

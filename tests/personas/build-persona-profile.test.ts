@@ -17,7 +17,7 @@ describe("persona profile builder", () => {
     expect(persona.organization).toBe("Ethereum Foundation");
     expect(persona.structuredData.empathyMap.fearTop3).toHaveLength(3);
     expect(persona.structuredData.successMetrics.topKpis).toHaveLength(3);
-    expect(persona.structuredData.leanCanvas.problem).toMatch(/growth ambition/i);
+    expect(persona.structuredData.leanCanvas.problem).toMatch(/infrastructure gap/i);
     expect(persona.sourceNotes).toContain("https://ethereum.org");
     expect(persona.sourceNotes.some((note) => note.includes("EthCC"))).toBe(true);
   });

@@ -45,10 +45,10 @@ export default async function ProposalDetailPage({
         <dl className="grid gap-4 md:grid-cols-2">
           <div>
             <dt className="text-muted text-xs tracking-[0.16em] uppercase">
-              Conversion probability
+              Opportunity fit score
             </dt>
             <dd className="text-foreground mt-2 text-3xl font-semibold">
-              {proposal.conversionProbability}%
+              {proposal.opportunityFitScore}%
             </dd>
           </div>
           <div>

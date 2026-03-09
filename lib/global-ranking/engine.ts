@@ -16,26 +16,28 @@ import type {
 type RankedRowsByEconomy = Map<EconomyTypeSlug, RankedChain[]>;
 type GlobalRankedChainDraft = Omit<GlobalRankedChain, "economyBreakdown">;
 
-function normalizeHigherBetter(value: number, values: number[]) {
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+type ReferenceBounds = { min: number; max: number } | undefined;
+
+function normalizeHigherBetter(value: number, values: number[], bounds?: ReferenceBounds) {
+  const min = bounds?.min ?? Math.min(...values);
+  const max = bounds?.max ?? Math.max(...values);
 
   if (max === min) {
     return 10;
   }
 
-  return ((value - min) / (max - min)) * 10;
+  return Math.max(0, Math.min(10, ((value - min) / (max - min)) * 10));
 }
 
-function normalizeLowerBetter(value: number, values: number[]) {
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+function normalizeLowerBetter(value: number, values: number[], bounds?: ReferenceBounds) {
+  const min = bounds?.min ?? Math.min(...values);
+  const max = bounds?.max ?? Math.max(...values);
 
   if (max === min) {
     return 10;
   }
 
-  return ((max - value) / (max - min)) * 10;
+  return Math.max(0, Math.min(10, ((max - value) / (max - min)) * 10));
 }
 
 function weightedAverage(values: Array<{ score: number; weight: number }>) {
@@ -91,6 +93,7 @@ function buildGlobalScoreDrafts(
     performanceSubweights,
   } = assumptions.globalRanking;
   const allMetrics = [...metricsByChain.values()];
+  const ref = assumptions.globalRanking.referenceBounds;
 
   const wallets = allMetrics.map((record) => record.wallets);
   const activeUsers = allMetrics.map((record) => record.activeUsers);
@@ -115,35 +118,35 @@ function buildGlobalScoreDrafts(
     );
     const ecosystemScore = weightedAverage([
       {
-        score: normalizeHigherBetter(metrics.protocols, protocols),
+        score: normalizeHigherBetter(metrics.protocols, protocols, ref?.protocols),
         weight: ecosystemSubweights.protocols,
       },
       {
-        score: normalizeHigherBetter(metrics.ecosystemProjects, ecosystemProjects),
+        score: normalizeHigherBetter(metrics.ecosystemProjects, ecosystemProjects, ref?.ecosystemProjects),
         weight: ecosystemSubweights.ecosystemProjects,
       },
     ]);
     const adoptionScore = weightedAverage([
       {
-        score: normalizeHigherBetter(metrics.wallets, wallets),
+        score: normalizeHigherBetter(metrics.wallets, wallets, ref?.wallets),
         weight: adoptionSubweights.wallets,
       },
       {
-        score: normalizeHigherBetter(metrics.activeUsers, activeUsers),
+        score: normalizeHigherBetter(metrics.activeUsers, activeUsers, ref?.activeUsers),
         weight: adoptionSubweights.activeUsers,
       },
     ]);
     const performanceScore = weightedAverage([
       {
-        score: normalizeLowerBetter(metrics.averageTransactionSpeed, transactionSpeed),
+        score: normalizeLowerBetter(metrics.averageTransactionSpeed, transactionSpeed, ref?.averageTransactionSpeed),
         weight: performanceSubweights.averageTransactionSpeed,
       },
       {
-        score: normalizeLowerBetter(metrics.blockTime, blockTimes),
+        score: normalizeLowerBetter(metrics.blockTime, blockTimes, ref?.blockTime),
         weight: performanceSubweights.blockTime,
       },
       {
-        score: normalizeHigherBetter(metrics.throughputIndicator, throughput),
+        score: normalizeHigherBetter(metrics.throughputIndicator, throughput, ref?.throughputIndicator),
         weight: performanceSubweights.throughputIndicator,
       },
     ]);

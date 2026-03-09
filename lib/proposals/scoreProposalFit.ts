@@ -48,15 +48,13 @@ export function buildPersonaFit(persona: BuyerPersonaRecord, offer: OfferLibrary
   return Math.round(titleFit * 0.6 + empathyFit * 0.4);
 }
 
-export function buildExpectedImpact(profile: ChainProfile, offer: OfferLibraryItem) {
+export function buildExpectedImpact(profile: ChainProfile) {
   const lift = profile.recommendedStack.recommendedModules.reduce(
     (sum, item) => sum + item.potentialScoreLift,
     0,
   );
-  const offerBoost =
-    offer.offerId === "liquid-staking" || offer.offerId === "arenas-fi" ? 10 : 0;
 
-  return clampScore((lift / 3) * 100 + offerBoost);
+  return clampScore((lift / 3) * 100);
 }
 
 export function buildProposalFitScore(params: {
@@ -69,7 +67,7 @@ export function buildProposalFitScore(params: {
   const applicability = profile.selectedWedgeApplicability.applicabilityScore;
   const gapSeverity = buildGapSeverity(profile);
   const personaFit = buildPersonaFit(persona, offer);
-  const expectedImpact = buildExpectedImpact(profile, offer);
+  const expectedImpact = buildExpectedImpact(profile);
   const roiPotential = offer.roiEstimate.toLowerCase().includes("higher")
     ? 85
     : offer.roiEstimate.toLowerCase().includes("lower")
@@ -84,7 +82,7 @@ export function buildProposalFitScore(params: {
     roiPotential * (weights.roiPotential / 100);
 
   return {
-    conversionProbability: clampScore(Math.round(weightedTotal)),
+    opportunityFitScore: clampScore(Math.round(weightedTotal)),
     strategicFit: clampScore(
       Math.round(applicability * 0.5 + expectedImpact * 0.3 + personaFit * 0.2),
     ),

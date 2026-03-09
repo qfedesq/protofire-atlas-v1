@@ -86,5 +86,9 @@ export function parseOfferMarkdown(params: {
     implementationScope: sections.get("Implementation Scope") ?? "",
     expectedImpact: sections.get("Expected Impact") ?? "",
     sourceFile,
+    targetModules: (metadata.get("Target Modules") ?? "")
+      .split(",")
+      .map((value) => value.trim())
+      .filter(Boolean),
   };
 }

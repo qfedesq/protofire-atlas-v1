@@ -14,9 +14,23 @@ export function ModuleStatusGrid({
   readinessScore: ChainEconomyReadiness;
   liquidStakingDiagnosis?: LiquidStakingDiagnosis;
 }) {
+  const visibleModules = readinessScore.moduleBreakdown.filter(
+    (module) => module.status !== "available",
+  );
+
+  if (visibleModules.length === 0) {
+    return (
+      <div className="border-border/70 border-t py-5">
+        <p className="text-muted text-sm leading-6">
+          No missing or partial modules remain in the current Atlas model.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="border-border/70 divide-y border-t">
-      {readinessScore.moduleBreakdown.map((module) => (
+      {visibleModules.map((module) => (
         <div key={module.module.id} className="space-y-4 py-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="space-y-1">

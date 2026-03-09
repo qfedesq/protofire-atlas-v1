@@ -15,12 +15,14 @@ export function ChainAnalysisPanel({
   applicabilityRows,
   latestAnalysis,
   internalUser,
+  returnTo,
 }: {
   chainSlug: string;
   chainName: string;
   applicabilityRows: WedgeApplicability[];
   latestAnalysis: ChainTechnicalAnalysis | null;
   internalUser: AuthenticatedInternalUser;
+  returnTo?: string;
 }) {
   const modelName = getCurrentAnalysisModelName();
 
@@ -57,7 +59,7 @@ export function ChainAnalysisPanel({
               <input
                 type="hidden"
                 name="returnTo"
-                value={`/chains/${chainSlug}`}
+                value={returnTo ?? `/chains/${chainSlug}`}
               />
               <button
                 type="submit"

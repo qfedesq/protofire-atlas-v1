@@ -9,12 +9,35 @@ export function ScoreCompositionSection({
 }: {
   profile: ChainProfile;
 }) {
+  const visibleModules = profile.readinessScore.moduleBreakdown.filter(
+    (module) => module.status !== "available",
+  );
+
+  if (visibleModules.length === 0) {
+    return (
+      <div className="space-y-4">
+        <p className="text-muted max-w-4xl text-sm leading-6">
+          Atlas converts module status into weighted contribution. No missing or
+          partial modules remain in the current model for this economy.
+        </p>
+        <div className="border-border/70 border-t py-4">
+          <p className="text-foreground text-sm leading-6">
+            Current total score:{" "}
+            <span className="font-semibold">
+              {formatScore(profile.readinessScore.totalScore)} / 10
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <p className="text-muted max-w-4xl text-sm leading-6">
-        Atlas converts module status into weighted contribution. This is the
-        fastest way to see why the score lands here and which module is still
-        holding it down.
+        Atlas converts module status into weighted contribution. Only missing
+        and partial modules are shown here so the remaining blockers are visible
+        at a glance.
       </p>
       <div className="overflow-x-auto">
         <table className="min-w-full border-collapse text-left text-sm">
@@ -38,7 +61,7 @@ export function ScoreCompositionSection({
             </tr>
           </thead>
           <tbody>
-            {profile.readinessScore.moduleBreakdown.map((module) => {
+            {visibleModules.map((module) => {
               const maxContribution =
                 (module.module.weight * profile.economy.scoringConfig.maximumScore) /
                 100;

@@ -165,27 +165,6 @@ export function LiquidStakingDiagnosisSection({
             />
           </div>
 
-          <div className="border-border/70 divide-y border-t">
-            {marketSnapshot.sources.map((source) => (
-              <div key={`${source.metric}:${source.provider}`} className="py-4 text-sm">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <p className="text-foreground font-medium">{source.metric}</p>
-                  <p className="text-muted text-xs uppercase">
-                    {source.provider} · {source.status}
-                  </p>
-                </div>
-                <p className="text-muted mt-2 leading-6">{source.note}</p>
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-accent mt-2 inline-flex hover:underline"
-                >
-                  Open source
-                </a>
-              </div>
-            ))}
-          </div>
         </div>
       ) : null}
     </div>

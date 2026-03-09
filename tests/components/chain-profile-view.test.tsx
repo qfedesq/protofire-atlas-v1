@@ -21,7 +21,7 @@ vi.mock("next/link", () => ({
 }));
 
 describe("ChainProfileView", () => {
-  it("renders the chain page as four public decision blocks", () => {
+  it("renders the public chain page as a condensed decision flow", () => {
     const repository = createSeedChainsRepository();
     const profile = repository.getChainProfileBySlug("base", "ai-agents");
 
@@ -40,7 +40,7 @@ describe("ChainProfileView", () => {
     expect(screen.getByText("Ranking")).toBeInTheDocument();
     expect(screen.getByText("What’s missing")).toBeInTheDocument();
     expect(screen.getAllByText("What Protofire can deploy").length).toBeGreaterThan(0);
-    expect(screen.getByText("Expected impact")).toBeInTheDocument();
+    expect(screen.queryByText("Expected impact")).not.toBeInTheDocument();
     expect(
       screen.getByText("AI Agents Readiness: Registry, Payments, Indexing, Security"),
     ).toBeInTheDocument();
@@ -50,7 +50,9 @@ describe("ChainProfileView", () => {
     ).toBeGreaterThan(0);
     expect(screen.getByText("How the score is built")).toBeInTheDocument();
     expect(screen.getByText("Current module notes")).toBeInTheDocument();
-    expect(screen.getByText("What is still limiting the score")).toBeInTheDocument();
+    expect(
+      screen.queryByText("What is still limiting the score"),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Recommended stack")).toBeInTheDocument();
     expect(screen.getByText("Deployment plan")).toBeInTheDocument();
     expect(screen.getByText("How this chain compares")).toBeInTheDocument();
@@ -63,6 +65,9 @@ describe("ChainProfileView", () => {
     );
     expect(screen.getByText(/Source TVL rank/i)).toBeInTheDocument();
     expect(
+      screen.queryByRole("button", { name: /Run gpt-5.4 Technical Analysis/i }),
+    ).not.toBeInTheDocument();
+    expect(
       screen.getByRole("link", { name: "Open suggested activations" }),
     ).toHaveAttribute("href", "#suggested-activations");
     expect(screen.getAllByText("Atlas score lift").length).toBeGreaterThan(0);
@@ -72,15 +77,12 @@ describe("ChainProfileView", () => {
     expect(
       screen.getByText("Ranking").closest("details"),
     ).toHaveAttribute("open");
-    expect(
-      screen.getByText("What’s missing").closest("details"),
-    ).toHaveAttribute("open");
+    expect(screen.getByText("What’s missing").closest("details")).toHaveAttribute(
+      "open",
+    );
     expect(
       screen.getAllByText("What Protofire can deploy")[0]?.closest("details"),
     ).toHaveAttribute("open");
-    expect(
-      screen.getByText("Expected impact").closest("details"),
-      ).toHaveAttribute("open");
   });
 
   it("renders the liquid staking diagnosis inside DeFi chain profiles", () => {

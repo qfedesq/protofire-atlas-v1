@@ -2,8 +2,6 @@ import { submitAssessmentRequestAction } from "@/app/actions/assessment-request"
 import { ArrowUpRight } from "lucide-react";
 
 import { CompetitiveAnalysisSection } from "@/components/chain/competitive-analysis";
-import { ExpectedImpactSection } from "@/components/chain/expected-impact-section";
-import { GapAnalysis } from "@/components/chain/gap-analysis";
 import { GlobalPositionSection } from "@/components/chain/global-position-section";
 import { ImprovementPathSection } from "@/components/chain/improvement-path-section";
 import { LiquidStakingDiagnosisSection } from "@/components/chain/liquid-staking-diagnosis";
@@ -11,16 +9,10 @@ import { ModuleStatusGrid } from "@/components/chain/module-status-grid";
 import { ScoreCompositionSection } from "@/components/chain/score-composition-section";
 import { ShareableScorecard } from "@/components/chain/shareable-scorecard";
 import { EconomySwitcher } from "@/components/economy/economy-switcher";
-import { ChainAnalysisPanel } from "@/components/internal/chain-analysis-panel";
 import { AssessmentRequestForm } from "@/components/requests/assessment-request-form";
 import { ExpandableSection } from "@/components/ui/expandable-section";
 import { atlasDatasetLabel } from "@/lib/config/dataset";
-import type { AuthenticatedInternalUser } from "@/lib/admin/auth";
-import type {
-  ChainProfile,
-  ChainTechnicalAnalysis,
-  EconomyType,
-} from "@/lib/domain/types";
+import type { ChainProfile, EconomyType } from "@/lib/domain/types";
 import { buildEconomyReadinessSummary } from "@/lib/utils/economy-summary";
 import { formatCurrencyCompact, formatScore } from "@/lib/utils/format";
 
@@ -37,14 +29,10 @@ function getPrimaryInterpretation(profile: ChainProfile) {
 export function ChainProfileView({
   profile,
   economies,
-  internalUser = null,
-  latestAnalysis = null,
   requestState,
 }: {
   profile: ChainProfile;
   economies: EconomyType[];
-  internalUser?: AuthenticatedInternalUser | null;
-  latestAnalysis?: ChainTechnicalAnalysis | null;
   requestState: "idle" | "success" | "error";
 }) {
   const missingModuleCount = profile.gapAnalysis.filter(
@@ -262,20 +250,6 @@ export function ChainProfileView({
             </div>
           ) : null}
 
-          <div className="border-border/70 border-t pt-4">
-            <p className="text-muted text-xs tracking-[0.16em] uppercase">
-              Diagnosis and blockers
-            </p>
-            <h3 className="text-foreground mt-2 text-xl font-semibold">
-              What is still limiting the score
-            </h3>
-            <div className="mt-4">
-              <GapAnalysis
-                gaps={profile.gapAnalysis}
-                economyLabel={profile.economy.name}
-              />
-            </div>
-          </div>
         </div>
       </ExpandableSection>
 
@@ -284,16 +258,8 @@ export function ChainProfileView({
         title="What Protofire can deploy"
         defaultOpen
       >
-        <ImprovementPathSection profile={profile} />
-      </ExpandableSection>
-
-      <ExpandableSection
-        id="expected-impact"
-        title="Expected impact"
-        defaultOpen
-      >
         <div className="space-y-8">
-          <ExpectedImpactSection profile={profile} />
+          <ImprovementPathSection profile={profile} />
 
           <div className="border-border/70 border-t pt-4">
             <p className="text-muted text-xs tracking-[0.16em] uppercase">
@@ -333,21 +299,6 @@ export function ChainProfileView({
           </div>
         </div>
       </ExpandableSection>
-
-      {internalUser ? (
-        <ExpandableSection
-          id="internal-appendix"
-          title="Internal appendix"
-        >
-          <ChainAnalysisPanel
-            chainSlug={profile.chain.slug}
-            chainName={profile.chain.name}
-            applicabilityRows={profile.wedgeApplicabilityMatrix}
-            latestAnalysis={latestAnalysis}
-            internalUser={internalUser}
-          />
-        </ExpandableSection>
-      ) : null}
     </div>
   );
 }

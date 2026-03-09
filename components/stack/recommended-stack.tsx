@@ -91,57 +91,6 @@ export function RecommendedStackSection({
                     {recommendation.narrativeSummary}
                   </p>
                 </div>
-
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Current gap
-                  </p>
-                  <p className="text-foreground mt-2 leading-6">
-                    {recommendation.module.name} is currently{" "}
-                    {recommendation.currentStatus}. Protofire treats that blocker as
-                    directly actionable in the current model.
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Why it matters
-                  </p>
-                  <p className="text-foreground mt-2 leading-6">
-                    {recommendation.whyItMatters}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Delivery window
-                  </p>
-                  <p className="text-foreground mt-2 leading-6">
-                    {phaseByKey.get(recommendation.deploymentPhaseKey)?.label ??
-                      recommendation.deploymentPhaseKey}
-                    {" · "}
-                    {phaseByKey.get(recommendation.deploymentPhaseKey)?.timelineLabel ??
-                      "Atlas sequencing"}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Expected result
-                  </p>
-                  <p className="text-foreground mt-2 leading-6">
-                    {recommendation.expectedResult}
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-muted text-xs tracking-[0.16em] uppercase">
-                    Direct chain impact
-                  </p>
-                  <p className="text-foreground mt-2 leading-6">
-                    {recommendation.directChainImpact}
-                  </p>
-                </div>
               </div>
             </div>
           ))}

@@ -2,13 +2,16 @@ import Link from "next/link";
 
 import { AssumptionsEditor } from "@/components/admin/assumptions-editor";
 import { SyncPanel } from "@/components/admin/sync-panel";
+import { ChainAnalysisPanel } from "@/components/internal/chain-analysis-panel";
 import { Panel } from "@/components/ui/panel";
 import {
   buildInternalLoginHref,
+  getAuthenticatedInternalUser,
   getAdminAccessState,
   isAdminAuthenticated,
 } from "@/lib/admin/auth";
 import { formatErrorMessage, formatSavedMessage, getMessage } from "@/lib/admin/messages";
+import { getLatestChainTechnicalAnalysis } from "@/lib/analysis/service";
 import { getActiveAssumptions } from "@/lib/assumptions/store";
 import { readExternalMetricsSnapshot } from "@/lib/external-data/service";
 import { listLiquidStakingDiagnosticDimensions } from "@/lib/liquid-staking/diagnosis";
@@ -20,6 +23,10 @@ import { loginAdminAction, logoutAdminAction } from "./actions";
 type AdminPageProps = {
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
+
+function getSingleSearchParam(value: string | string[] | undefined) {
+  return Array.isArray(value) ? value[0] : value;
+}
 
 export default async function AdminPage({ searchParams }: AdminPageProps) {
   await ensureAtlasPersistence();
@@ -122,6 +129,16 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
   const liquidStakingDimensions = listLiquidStakingDiagnosticDimensions();
   const globalPreview = repository.listGlobalRankedChains().slice(0, 5);
   const externalSnapshot = readExternalMetricsSnapshot();
+  const chains = repository.listChains();
+  const selectedChainSlug = getSingleSearchParam(params?.chain) ?? chains[0]?.slug;
+  const selectedProfile = selectedChainSlug
+    ? repository.getChainProfileBySlug(selectedChainSlug)
+    : null;
+  const internalUser = await getAuthenticatedInternalUser();
+  const latestAnalysis =
+    selectedProfile && internalUser
+      ? getLatestChainTechnicalAnalysis(selectedProfile.chain.slug)
+      : null;
 
   return (
     <div className="space-y-6">
@@ -194,6 +211,64 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
         snapshotUpdatedAt={externalSnapshot.updatedAt}
         connectorStatuses={externalSnapshot.connectors}
       />
+
+      {selectedProfile && internalUser ? (
+        <Panel className="space-y-4">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-muted text-xs tracking-[0.16em] uppercase">
+                Chain analysis
+              </p>
+              <h2 className="text-foreground mt-2 text-2xl font-semibold">
+                Run GPT technical analysis from admin
+              </h2>
+              <p className="text-muted mt-3 max-w-4xl text-sm leading-6">
+                The GPT-assisted technical analysis workflow now runs only from
+                admin. Select a chain, review its deterministic applicability
+                baseline, and launch the stored analysis from here.
+              </p>
+            </div>
+
+            <form className="flex flex-wrap items-end gap-3" method="get">
+              <div className="space-y-2">
+                <label
+                  htmlFor="chain"
+                  className="text-muted text-xs font-medium tracking-[0.16em] uppercase"
+                >
+                  Chain
+                </label>
+                <select
+                  id="chain"
+                  name="chain"
+                  defaultValue={selectedProfile.chain.slug}
+                  className="border-border text-foreground focus:border-accent min-w-[15rem] border bg-white px-3 py-2 text-sm outline-none"
+                >
+                  {chains.map((chain) => (
+                    <option key={chain.id} value={chain.slug}>
+                      {chain.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="border-border text-foreground hover:border-accent hover:text-accent inline-flex border px-4 py-2 text-sm font-medium transition"
+              >
+                Load chain
+              </button>
+            </form>
+          </div>
+
+          <ChainAnalysisPanel
+            chainSlug={selectedProfile.chain.slug}
+            chainName={selectedProfile.chain.name}
+            applicabilityRows={selectedProfile.wedgeApplicabilityMatrix}
+            latestAnalysis={latestAnalysis}
+            internalUser={internalUser}
+            returnTo={`/internal/admin?chain=${selectedProfile.chain.slug}`}
+          />
+        </Panel>
+      ) : null}
 
       <AssumptionsEditor
         assumptions={assumptions}

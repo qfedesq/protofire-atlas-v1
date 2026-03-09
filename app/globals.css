@@ -127,6 +127,22 @@ body {
   backdrop-filter: blur(10px);
 }
 
+.atlas-memo-block-light {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.42) 100%
+  );
+}
+
+.atlas-memo-block-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(19, 31, 62, 0.05) 0%,
+    rgba(19, 31, 62, 0.035) 100%
+  );
+}
+
 a,
 button,
 input,

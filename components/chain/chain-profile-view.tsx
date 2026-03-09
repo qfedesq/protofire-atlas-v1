@@ -47,7 +47,7 @@ export function ChainProfileView({
   );
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       <section className="space-y-4">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -70,7 +70,12 @@ export function ChainProfileView({
         </div>
       </section>
 
-      <ExpandableSection id="ranking" title="Ranking" defaultOpen>
+      <ExpandableSection
+        id="ranking"
+        title="Ranking"
+        defaultOpen
+        tone="light"
+      >
         <div className="space-y-8">
           <div className="space-y-3">
             <p className="text-muted text-xs tracking-[0.16em] uppercase">
@@ -199,6 +204,7 @@ export function ChainProfileView({
         id="what-is-missing"
         title="What’s missing"
         defaultOpen
+        tone="dark"
       >
         <div className="space-y-8">
           <div>
@@ -257,6 +263,7 @@ export function ChainProfileView({
         id="what-protofire-can-deploy"
         title="What Protofire can deploy"
         defaultOpen
+        tone="light"
       >
         <div className="space-y-8">
           <ImprovementPathSection profile={profile} />
